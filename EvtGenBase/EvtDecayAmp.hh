@@ -28,7 +28,7 @@ class EvtDecayAmp : public EvtDecayBase{
 
 public:
 
-  void makeDecay(EvtParticle* p, bool recursive=true);
+  void makeDecay(EvtParticle* p, bool recursive=true) override;
   inline void setWeight(double weight) {_weight=weight;}
 
   /**
@@ -63,7 +63,7 @@ public:
   /**
    *  Provide access to the amplitude
    */
-  const EvtAmp & amplitude() const 
+  const EvtAmp & amplitude() const
   { return _amp2;}
 
 

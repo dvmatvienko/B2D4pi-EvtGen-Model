@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtPto3PAmpFactory.cpp,v 1.3 2009-03-16 15:44:04 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -22,6 +22,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
 
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtPDL.hh"
@@ -46,15 +47,15 @@ using namespace EvtCyclic3;
 void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, bool conj)
 {
   if(_verbose) {
-    
+
     printf("Make %samplitude\n",conj ? "CP conjugate" : "");
     unsigned i;
     for(i=0;i<vv.size();i++) printf("%s\n",vv[i].c_str());
     printf("\n");
   }
-  
-  EvtAmplitude<EvtDalitzPoint>* amp = 0;
-  EvtPdf<EvtDalitzPoint>* pdf = 0;
+
+  std::unique_ptr<EvtAmplitude<EvtDalitzPoint>> amp;
+  std::unique_ptr<EvtPdf<EvtDalitzPoint>> pdf;
   std::string name;
   Pair pairRes=AB;
 
@@ -63,9 +64,9 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
          Experimental amplitudes
   */
   if(vv[0] == "PHASESPACE") {
-    
-    pdf = new EvtDalitzFlatPdf(_dp);
-    amp = new EvtFlatAmp<EvtDalitzPoint>();
+
+    pdf = std::make_unique< EvtDalitzFlatPdf> (_dp);
+    amp = std::make_unique< EvtFlatAmp<EvtDalitzPoint>>();
     name = "NR";
   }
   else if (!vv[0].find("NONRES")) {
@@ -81,8 +82,8 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
       alpha   = strtod(vv[2].c_str(),0);
     }
     else assert(0);
-    pdf = new EvtDalitzFlatPdf(_dp);
-    amp = new EvtNonresonantAmp( &_dp, typeNRes, pairRes, alpha);  
+    pdf = std::make_unique< EvtDalitzFlatPdf>(_dp);
+    amp = std::make_unique< EvtNonresonantAmp>( &_dp, typeNRes, pairRes, alpha);
   }
   else if (vv[0]=="LASS" || vv[0]=="LASS_ELASTIC" || vv[0]=="LASS_RESONANT") {
     pairRes = strToPair(vv[1].c_str());
@@ -91,33 +92,33 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
     double a  = strtod(vv[4].c_str(),0);
     double r  = strtod(vv[5].c_str(),0);
     double cutoff  = strtod(vv[6].c_str(),0);
-    pdf = new EvtDalitzResPdf(_dp,m0,g0,pairRes);
-    amp = new EvtLASSAmp( &_dp, pairRes, m0, g0, a, r, cutoff, vv[0]);
+    pdf = std::make_unique<EvtDalitzResPdf>(_dp,m0,g0,pairRes);
+    amp = std::make_unique<EvtLASSAmp>( &_dp, pairRes, m0, g0, a, r, cutoff, vv[0]);
   }
 
   /*
       Resonant amplitudes
   */
   else if(vv[0] == "RESONANCE") {
-    EvtPto3PAmp* partAmp = 0;
-      
+    std::unique_ptr<EvtPto3PAmp> partAmp;
+
     // RESONANCE stanza
-    
+
     pairRes = strToPair(vv[1].c_str());
     EvtSpinType::spintype spinR = EvtSpinType::SCALAR;
-    double mR, gR;      
+    double mR, gR;
     name = vv[2];
     EvtId resId = EvtPDL::getId(vv[2]);
     if(_verbose) printf("Particles %s form %sresonance %s\n",
 			vv[1].c_str(),vv[2].c_str(), conj ? "(conj) " : "");
 
-    // If no valid particle name is given, assume that 
+    // If no valid particle name is given, assume that
     // it is the spin, the mass and the width of the particle.
-      
+
     if(resId.getId() == -1) {
-	
+
       switch(atoi(vv[2].c_str())) {
-	
+
       case 0: { spinR = EvtSpinType::SCALAR; break; }
       case 1: { spinR = EvtSpinType::VECTOR; break; }
       case 2: { spinR = EvtSpinType::TENSOR; break; }
@@ -125,26 +126,26 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
       case 4: { spinR = EvtSpinType::SPIN4; break; }
       default: { assert(0); break; }
       }
-	
+
       mR = strtod(vv[3].c_str(),0);
       gR = strtod(vv[4].c_str(),0);
       i = 4;
     }
     else {
-      
+
       // For a valid particle get spin, mass and width
-      
+
       spinR = EvtPDL::getSpinType(resId);
       mR = EvtPDL::getMeanMass(resId);
       gR = EvtPDL::getWidth(resId);
       i = 2;
-      
-      // It's possible to specify mass and width of a particle 
+
+      // It's possible to specify mass and width of a particle
       // explicitly
-      
+
       if(vv[3] != "ANGULAR") {
-	
-	if(_verbose) 
+
+	if(_verbose)
 	  printf("Setting m(%s)=%s g(%s)=%s\n",
 		 vv[2].c_str(),vv[3].c_str(),vv[2].c_str(),vv[4].c_str());
 
@@ -153,9 +154,9 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
 	i = 4;
       }
     }
-    
+
     // ANGULAR stanza
-    
+
     if(vv[++i] != "ANGULAR") {
 
       printf("%s instead of ANGULAR\n",vv[i].c_str());
@@ -163,63 +164,63 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
     }
     Pair pairAng = strToPair(vv[++i].c_str());
     if(_verbose) printf("Angle is measured between particles %s\n",vv[i].c_str());
-      
+
     // TYPE stanza
-    
+
     std::string typeName = vv[++i];
     assert(typeName == "TYPE");
     std::string type = vv[++i];
     if(_verbose) printf("Propagator type %s\n",vv[i].c_str());
-    
-    if(type == "NBW") {      
+
+    if(type == "NBW") {
 
       EvtPropBreitWigner prop(mR,gR);
-      partAmp = new EvtPto3PAmp(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::NBW);
+      partAmp = std::make_unique<EvtPto3PAmp>(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::NBW);
     }
     else if(type == "RBW_ZEMACH") {
-      
+
       EvtPropBreitWignerRel prop(mR,gR);
-      partAmp = new EvtPto3PAmp(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_ZEMACH);
+      partAmp = std::make_unique<EvtPto3PAmp>(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_ZEMACH);
     }
     else if(type == "RBW_KUEHN") {
-      
+
       EvtPropBreitWignerRel prop(mR,gR);
-      partAmp = new EvtPto3PAmp(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_KUEHN);
+      partAmp = std::make_unique<EvtPto3PAmp>(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_KUEHN);
     }
     else if(type == "RBW_CLEO") {
-      
+
       EvtPropBreitWignerRel prop(mR,gR);
-      partAmp = new EvtPto3PAmp(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_CLEO);
-    }     
+      partAmp = std::make_unique<EvtPto3PAmp>(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::RBW_CLEO);
+    }
     else if(type == "FLATTE") {
-      
+
       double m1a = _dp.m( first(pairRes) );
-      double m1b = _dp.m( second(pairRes) );    
+      double m1b = _dp.m( second(pairRes) );
       // 2nd channel
       double g2  = strtod(vv[++i].c_str(),0);
       double m2a = strtod(vv[++i].c_str(),0);
       double m2b = strtod(vv[++i].c_str(),0);
       EvtPropFlatte  prop( mR, gR, m1a, m1b, g2, m2a, m2b );
-      partAmp = new EvtPto3PAmp(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::FLATTE);
+      partAmp = std::make_unique<EvtPto3PAmp>(_dp,pairAng,pairRes,spinR,prop,EvtPto3PAmp::FLATTE);
     }
     else assert(0);
-      
+
     // Optional DVFF, BVFF stanzas
-    
+
     if(i < vv.size() - 1) {
-      if(vv[i+1] == "DVFF") {	
+      if(vv[i+1] == "DVFF") {
 	i++;
 	if(vv[++i] == "BLATTWEISSKOPF") {
-	  
+
 	  double R = strtod(vv[++i].c_str(),0);
 	  partAmp->set_fd(R);
 	}
 	else assert(0);
       }
     }
-      
+
     if(i < vv.size() - 1) {
-      if(vv[i+1] == "BVFF") {	
+      if(vv[i+1] == "BVFF") {
 	i++;
 	if(vv[++i] == "BLATTWEISSKOPF") {
 
@@ -234,7 +235,7 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
     const int minwidths=5;
     //Optional resonance minimum and maximum
     if(i < vv.size() - 1) {
-      if(vv[i+1] == "CUTOFF") {	
+      if(vv[i+1] == "CUTOFF") {
 	i++;
 	if(vv[i+1] == "MIN") {
 	  i++;
@@ -258,7 +259,7 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
 
     //2nd iteration in case min and max are both specified
     if(i < vv.size() - 1) {
-      if(vv[i+1] == "CUTOFF") {	
+      if(vv[i+1] == "CUTOFF") {
 	i++;
 	if(vv[i+1] == "MIN") {
 	  i++;
@@ -282,36 +283,35 @@ void EvtPto3PAmpFactory::processAmp(EvtComplex c, std::vector<std::string> vv, b
 
 
     i++;
-    
-    pdf = new EvtDalitzResPdf(_dp,mR,gR,pairRes);
-    amp = partAmp;
+
+    pdf = std::make_unique<EvtDalitzResPdf>(_dp,mR,gR,pairRes);
+    amp = std::move(partAmp);
   }
 
   assert(amp);
   assert(pdf);
 
-  if(!conj) {
-    _amp->addOwnedTerm(c,amp);
-  }
-  else {
-    _ampConj->addOwnedTerm(c,amp);
-  }
+  double scale = matchIsobarCoef(*_amp, *pdf, pairRes);
 
-  double scale = matchIsobarCoef(_amp, pdf, pairRes);
-  _pc->addOwnedTerm(abs2(c)*scale,pdf);
+  if(!conj) {
+    _amp->addOwnedTerm(c,std::move(amp));
+  } else {
+    _ampConj->addOwnedTerm(c,std::move(amp));
+  }
+  _pc->addOwnedTerm(abs2(c)*scale,std::move(pdf));
 
   _names.push_back(name);
 }
-  
-double EvtPto3PAmpFactory::matchIsobarCoef(EvtAmplitude<EvtDalitzPoint>* amp,
-					   EvtPdf<EvtDalitzPoint>* pdf, 
+
+double EvtPto3PAmpFactory::matchIsobarCoef(EvtAmplitude<EvtDalitzPoint>& amp,
+					   EvtPdf<EvtDalitzPoint>& pdf,
 					   EvtCyclic3::Pair ipair) {
 
-  // account for differences in the definition of amplitudes by matching 
-  //        Integral( c'*pdf ) = Integral( c*|A|^2 ) 
+  // account for differences in the definition of amplitudes by matching
+  //        Integral( c'*pdf ) = Integral( c*|A|^2 )
   // to improve generation efficiency ...
 
-  double Ipdf  = pdf->compute_integral(10000).value();
+  double Ipdf  = pdf.compute_integral(10000).value();
   double Iamp2 = 0;
 
 
@@ -320,34 +320,34 @@ double EvtPto3PAmpFactory::matchIsobarCoef(EvtAmplitude<EvtDalitzPoint>* amp,
 
   // Trapezoidal integral
   int N=10000;
-  
+
   double di = (_dp.qAbsMax(ipair) - _dp.qAbsMin(ipair))/((double) N);
-  
+
   double siMin = _dp.qAbsMin(ipair);
-  
+
   double s[3]; // playing with fire
   for(int i=1; i<N; i++) {
-    
+
     s[ipair] = siMin + di*i;
-    s[jpair] = _dp.q(jpair, 0.9999, ipair, s[ipair]);    
+    s[jpair] = _dp.q(jpair, 0.9999, ipair, s[ipair]);
     s[kpair] = _dp.bigM()*_dp.bigM() - s[ipair] - s[jpair]
       + _dp.mA()*_dp.mA() + _dp.mB()*_dp.mB() + _dp.mC()*_dp.mC();
-    
-    EvtDalitzPoint point( _dp.mA(), _dp.mB(), _dp.mC(), 
+
+    EvtDalitzPoint point( _dp.mA(), _dp.mB(), _dp.mC(),
 			  s[EvtCyclic3::AB], s[EvtCyclic3::BC], s[EvtCyclic3::CA]);
-    
+
     if (!point.isValid()) continue;
-    
+
     double p = point.p(other(ipair), ipair);
     double q = point.p(first(ipair), ipair);
-    
-    double itg = abs2( amp->evaluate(point) )*di*4*q*p;
+
+    double itg = abs2( amp.evaluate(point) )*di*4*q*p;
     Iamp2 += itg;
-    
+
   }
   if (_verbose) std::cout << "integral = " << Iamp2 << "  pdf="<<Ipdf << std::endl;
-  
+
   assert(Ipdf>0 && Iamp2>0);
-  
+
   return Iamp2/Ipdf;
 }

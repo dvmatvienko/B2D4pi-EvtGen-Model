@@ -21,8 +21,7 @@
 #ifndef EVTMELIKHOV_HH
 #define EVTMELIKHOV_HH
 
-#include <fstream>
-#include <stdio.h>
+#include <memory>
 
 
 #include "EvtGenBase/EvtDecayAmp.hh"
@@ -35,18 +34,15 @@ class EvtMelikhov:public  EvtDecayAmp  {
 
 public:
 
-  EvtMelikhov() {}
-  virtual ~EvtMelikhov();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void init();
+  void decay(EvtParticle *p) override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF *Melikhovffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> Melikhovffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif

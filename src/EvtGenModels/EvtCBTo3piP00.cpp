@@ -29,16 +29,14 @@
 #include "EvtGenModels/EvtCBTo3piP00.hh"
 #include <string>
 
-EvtCBTo3piP00::~EvtCBTo3piP00() {}
-
 std::string EvtCBTo3piP00::getName(){
 
-  return "CB3PI-P00";     
+  return "CB3PI-P00";
 
 }
 
 
-EvtDecayBase* EvtCBTo3piP00::clone(){
+EvtCBTo3piP00* EvtCBTo3piP00::clone(){
 
   return new EvtCBTo3piP00;
 
@@ -51,7 +49,7 @@ void EvtCBTo3piP00::init(){
   checkNDaug(3);
 
   checkSpinParent(EvtSpinType::SCALAR);
-  
+
   checkSpinDaughter(0,EvtSpinType::SCALAR);
   checkSpinDaughter(1,EvtSpinType::SCALAR);
   checkSpinDaughter(2,EvtSpinType::SCALAR);
@@ -110,7 +108,7 @@ void EvtCBTo3piP00::decay( EvtParticle *p ){
 
   EvtComplex A(realA,imgA);
   EvtComplex Abar(realbarA, imgbarA);
-   
+
   EvtComplex  amp;
   if(p->getId()==BP)
     {

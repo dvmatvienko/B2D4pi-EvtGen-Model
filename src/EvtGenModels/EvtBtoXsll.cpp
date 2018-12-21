@@ -34,13 +34,9 @@
 #include "EvtGenBase/EvtId.hh"
 using std::endl;
 
-EvtBtoXsll::~EvtBtoXsll() {
-  delete _calcprob;
-}
-
 std::string EvtBtoXsll::getName(){
 
-  return "BTOXSLL";     
+  return "BTOXSLL";
 
 }
 
@@ -104,13 +100,13 @@ void EvtBtoXsll::init(){
      ::abort();
   }
 
- 
+
   _mb=4.8;
   _ms=0.2;
   _mq=0.;
   _pf=0.41;
   _mxmin=1.1;
-  if ( getNArg()==4) 
+  if ( getNArg()==4)
   {
     // b-quark mass
     _mb = getArg(0);
@@ -121,12 +117,12 @@ void EvtBtoXsll::init(){
     // Fermi motion parameter
     _pf = getArg(3);
   }
-  if ( getNArg()==5) 
+  if ( getNArg()==5)
   {
     _mxmin = getArg(4);
   }
 
-  _calcprob = new EvtBtoXsllUtil;
+  _calcprob = std::make_unique<EvtBtoXsllUtil>();
 
   double ml = EvtPDL::getMeanMass(getDaug(1));
 
@@ -204,7 +200,7 @@ void EvtBtoXsll::decay( EvtParticle *p ){
   EvtParticle* leptonn = p->getDaug(2);
 
   double mass[3];
- 
+
   findMasses( p, getNDaug(), getDaugs(), mass );
 
   double mB = p->mass();
@@ -250,7 +246,7 @@ void EvtBtoXsll::decay( EvtParticle *p ){
       if ( mb>0. && sqrt(mb)-_ms  < 2.0*ml ) mb= -10.;
     }
     mb = sqrt(mb);
-  
+
     //    cout << "b-quark momentum = " << pb << " mass = " <<  mb << endl;
 
     // generate a dilepton invariant mass

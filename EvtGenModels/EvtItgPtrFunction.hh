@@ -11,12 +11,12 @@
 // Module: EvtItgPtrFunction.hh
 //
 // Description:
-//      Class describing a function with one vector of coefficients. (Stolen and 
+//      Class describing a function with one vector of coefficients. (Stolen and
 //      modified from the BaBar IntegrationUtils package - author: Phil Strother).
 //
 // Modification history:
 //
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
+//    Jane Tinslay                March 21, 2001       Module adapted for use in
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
@@ -33,22 +33,20 @@ public:
 
   EvtItgPtrFunction( double (*theFunction)(double, const std::vector<double> &),
 		     double lowerRange, double upperRange, const std::vector<double> &coeffs1);
- 
-  virtual ~EvtItgPtrFunction( );
 
-  virtual void setCoeff(int, int, double);
-  virtual double getCoeff(int, int);
+  void setCoeff(int, int, double) override;
+  double getCoeff(int, int) override;
 
 protected:
-  
-  virtual double myFunction(double x) const;
- 
+
+  double myFunction(double x) const override;
+
 private:
- 
+
   // Data members
   double (*_myFunction)(double x, const std::vector<double> & coeffs1);
 
-  // Note: if your class needs a copy constructor or an assignment operator, 
+  // Note: if your class needs a copy constructor or an assignment operator,
   //  make one of the following public and implement it.
   EvtItgPtrFunction( const EvtItgPtrFunction& );                //// Copy Constructor
   EvtItgPtrFunction& operator= ( const EvtItgPtrFunction& );    // Assignment op

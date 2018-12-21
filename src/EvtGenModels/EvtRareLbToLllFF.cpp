@@ -1,11 +1,11 @@
-// Include files 
+// Include files
 
 
 
 // local
 
 #include "EvtGenModels/EvtRareLbToLllFF.hh"
-#include "EvtGenBase/EvtVector4R.hh" 
+#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtIdSet.hh"
 
@@ -20,22 +20,22 @@
 // Standard constructor, initializes variables
 //=============================================================================
 
-EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence()  : 
-  a0_( 0 ) , a2_( 0 ), a4_( 0 ), al_( 0 ), ap_( 0 ) {} 
+EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence()  :
+  a0_( 0 ) , a2_( 0 ), a4_( 0 ), al_( 0 ), ap_( 0 ) {}
 
-EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const double al, 
+EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const double al,
                                                              const double ap ) :
-  a0_( 0 ) , a2_( 0 ), a4_( 0 ), al_( al ), ap_( ap ) {} 
+  a0_( 0 ) , a2_( 0 ), a4_( 0 ), al_( al ), ap_( ap ) {}
 
-EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const double a0, 
-                                                             const double a2, 
-                                                             const double a4, 
-                                                             const double al, 
-                                                             const double ap ) : 
-  a0_( a0 ) , a2_( a2 ), a4_( a4 ), al_( al ), ap_( ap ) {} 
+EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const double a0,
+                                                             const double a2,
+                                                             const double a4,
+                                                             const double al,
+                                                             const double ap ) :
+  a0_( a0 ) , a2_( a2 ), a4_( a4 ), al_( al ), ap_( ap ) {}
 
- EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const  EvtRareLbToLllFF::FormFactorDependence& other ) : 
-   a0_( other.a0_ ), a2_( other.a2_ ), a4_( other.a4_ ), al_( other.al_ ), ap_( other.ap_ ){} 
+ EvtRareLbToLllFF::FormFactorDependence::FormFactorDependence( const  EvtRareLbToLllFF::FormFactorDependence& other ) :
+   a0_( other.a0_ ), a2_( other.a2_ ), a4_( other.a4_ ), al_( other.al_ ), ap_( other.ap_ ){}
 
 
 EvtRareLbToLllFF::FormFactorDependence* EvtRareLbToLllFF::FormFactorDependence::clone() const {
@@ -44,28 +44,26 @@ EvtRareLbToLllFF::FormFactorDependence* EvtRareLbToLllFF::FormFactorDependence::
 
 EvtRareLbToLllFF::FormFactorSet::FormFactorSet(){}
 
-EvtRareLbToLllFF::FormFactorSet::~FormFactorSet(){}
-
-EvtRareLbToLllFF::FormFactorSet::FormFactorSet( const EvtRareLbToLllFF::FormFactorSet& other ) : 
-  F1( other.F1 ), F2( other.F2 ), 
-  F3( other.F3 ), F4( other.F4 ), 
-  G1( other.G1 ), G2( other.G2 ), 
+EvtRareLbToLllFF::FormFactorSet::FormFactorSet( const EvtRareLbToLllFF::FormFactorSet& other ) :
+  F1( other.F1 ), F2( other.F2 ),
+  F3( other.F3 ), F4( other.F4 ),
+  G1( other.G1 ), G2( other.G2 ),
   G3( other.G3 ), G4( other.G4 ),
-  H1( other.H1 ), H2( other.H2 ), 
-  H3( other.H3 ), H4( other.H4 ), 
+  H1( other.H1 ), H2( other.H2 ),
+  H3( other.H3 ), H4( other.H4 ),
   H5( other.H5 ), H6( other.H6 ) {}
 
-void EvtRareLbToLllFF::FormFactorDependence::param( const double al, 
+void EvtRareLbToLllFF::FormFactorDependence::param( const double al,
                                                    const double ap )
 {
   al_ = al;
   ap_ = ap;
 }
 
-void EvtRareLbToLllFF::FormFactorDependence::param( const double a0, 
-                                                   const double a2, 
-                                                   const double a4, 
-                                                   const double al, 
+void EvtRareLbToLllFF::FormFactorDependence::param( const double a0,
+                                                   const double a2,
+                                                   const double a4,
+                                                   const double al,
                                                    const double ap )
 {
   a0_ = a0;
@@ -75,14 +73,10 @@ void EvtRareLbToLllFF::FormFactorDependence::param( const double a0,
   ap_ = ap;
 }
 
-EvtRareLbToLllFF::EvtRareLbToLllFF() : EvtRareLbToLllFFBase()  
-  {}
-
-
 void EvtRareLbToLllFF::init()
 {
   // Parameters for Lambda0
-  EvtRareLbToLllFF::FormFactorSet* L1115 = new EvtRareLbToLllFF::FormFactorSet();  
+  auto L1115 = std::make_unique<EvtRareLbToLllFF::FormFactorSet>();
   L1115->F1.param( 1.21, 0.319, -0.0177, 0.387, 0.372 );
   L1115->F2.param( -0.202, -0.219, 0.0103, 0.387, 0.372 );
   L1115->F3.param( -0.0615, 0.00102, -0.00139, 0.387, 0.372 );
@@ -97,9 +91,9 @@ void EvtRareLbToLllFF::init()
   L1115->H4.param( -0.0174, -0.00986, -0.000524, 0.387, 0.372 );
   L1115->H5.param( 0.387, 0.372 );
   L1115->H6.param( 0.387, 0.372 );
-  
-  // Parameters for Lambda(Lambda(1520)0) 
-  EvtRareLbToLllFF::FormFactorSet* L1520 = new EvtRareLbToLllFF::FormFactorSet();
+
+  // Parameters for Lambda(Lambda(1520)0)
+  auto L1520 = std::make_unique<EvtRareLbToLllFF::FormFactorSet>();
   L1520->F1.param( -1.66, -0.295, 0.00924, 0.333, 0.308 );
   L1520->F2.param( 0.544, 0.194, -0.00420, 0.333, 0.308 );
   L1520->F3.param( 0.126, 0.00799, -0.000635, 0.333, 0.308 );
@@ -115,29 +109,16 @@ void EvtRareLbToLllFF::init()
   L1520->H5.param( -0.0517, -0.0173, 0.00259, 0.333, 0.308 );
   L1520->H6.param( 0.0206, 0.00679, -0.000220, 0.333, 0.308 );
 
-  FFMap_[ EvtPDL::getId("Lambda0").getId() ]            = L1115;
-  FFMap_[ EvtPDL::getId("anti-Lambda0").getId() ]       = L1115;
-  FFMap_[ EvtPDL::getId("Lambda(1520)0").getId() ]      = L1520;
-  FFMap_[ EvtPDL::getId("anti-Lambda(1520)0").getId() ] = L1520;
+  FFMap_[ EvtPDL::getId("Lambda0").getId() ]            = L1115.get();
+  FFMap_[ EvtPDL::getId("anti-Lambda0").getId() ]       = L1115.get();
+  FFMap_[ EvtPDL::getId("Lambda(1520)0").getId() ]      = L1520.get();
+  FFMap_[ EvtPDL::getId("anti-Lambda(1520)0").getId() ] = L1520.get();
+
+  FF_ = { std::move(L1115), std::move(L1520) };
 
   EvtGenReport(EVTGEN_INFO,"EvtGen") << " EvtRareLbToLll is using form factors from arXiv:1108.6129 " << std::endl;
 }
 
-//=============================================================================
-// Destructor
-//=============================================================================
-
-EvtRareLbToLllFF::~EvtRareLbToLllFF() {
-  
-  std::map< int, FormFactorSet* >::iterator it;
-  
-  for ( it = FFMap_.begin(); it != FFMap_.end(); ++it )
-  {
-    if ( it->second ) delete (it->second);
-  }
-  
-  FFMap_.clear();
-}
 
 //=============================================================================
 
@@ -148,7 +129,7 @@ double EvtRareLbToLllFF::func( const double p, EvtRareLbToLllFF::FormFactorDepen
 {
   static const double mq     = 0.2848;
   static const double mtilde = 1.122;
-  
+
   const double asq = 0.5*(  dep.al_*dep.al_ + dep.ap_*dep.ap_ );
   const double psq = p*p;
 
@@ -157,21 +138,21 @@ double EvtRareLbToLllFF::func( const double p, EvtRareLbToLllFF::FormFactorDepen
 
 
 
-void EvtRareLbToLllFF::DiracFF( EvtParticle* parent, 
+void EvtRareLbToLllFF::DiracFF( EvtParticle* parent,
                                EvtParticle* lambda,
                                EvtRareLbToLllFF::FormFactorSet& dep,
                                EvtRareLbToLllFF::FormFactors& FF )
 {
   const double M  = lambda->mass();
   const double MB = parent->mass();
-  
+
   const double vdotv = calculateVdotV( parent, lambda );
   const double p     = lambda->getP4().d3mag();
 
   FF.F_[0] = func( p, dep.F1 );
   FF.F_[1] = func( p, dep.F2 );
   FF.F_[2] = func( p, dep.F3 );
-  
+
   FF.G_[0] = func( p, dep.G1 );
   FF.G_[1] = func( p, dep.G2 );
   FF.G_[2] = func( p, dep.G3 );
@@ -186,31 +167,31 @@ void EvtRareLbToLllFF::DiracFF( EvtParticle* parent,
     FF.FT_[0] = -( MB + M )*H1 - ( MB - M*vdotv )*H2 - ( MB*vdotv - M )*H3;
     FF.FT_[1] = MB*H1 + ( MB - M )*H2 + ( MB*vdotv - M )*H4;
     FF.FT_[2] = M*H1 + ( MB - M )*H3 - ( MB - M*vdotv )*H4;
-    
+
     FF.GT_[0] = ( MB - M )*H1 - M*( 1. - vdotv )*H2 - MB*(1. - vdotv )*H3;
     FF.GT_[1] = MB*H1 - M*H2 -MB*H3;
     FF.GT_[2] = M*H1 + M*H2 + MB*H3;
   }
-  else 
-  { 
+  else
+  {
     FF.FT_[0] = ( MB - M )*H1 - ( MB - M*vdotv )*H2 - ( MB*vdotv - M )*H3;
     FF.FT_[1] = MB*H1 - ( MB + M )*H2 + ( MB*vdotv - M )*H4;
     FF.FT_[2] = M*H1 - ( MB + M )*H3 - ( MB - M*vdotv )*H4;
-    
+
     FF.GT_[0] = -( MB + M )*H1 + M*( 1. + vdotv )*H2 + MB*(1. + vdotv )*H3;
     FF.GT_[1] = MB*H1 - M*H2 -MB*H3;
     FF.GT_[2] = M*H1 - M*H2 - MB*H3;
   }
 }
 
-void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent, 
+void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
                                          EvtParticle* lambda,
                                          EvtRareLbToLllFF::FormFactorSet& FFset,
                                          EvtRareLbToLllFF::FormFactors&   FF )
-{ 
+{
   const double M  = lambda->mass();
   const double MB = parent->mass();
-  
+
   const double vdotv = calculateVdotV( parent, lambda );
   const double p     = lambda->getP4().d3mag();
 
@@ -218,7 +199,7 @@ void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
   FF.F_[1] = func( p, FFset.F2 );
   FF.F_[2] = func( p, FFset.F3 );
   FF.F_[3] = func( p, FFset.F4 );
-  
+
   FF.G_[0] = func( p, FFset.G1 );
   FF.G_[1] = func( p, FFset.G2 );
   FF.G_[2] = func( p, FFset.G3 );
@@ -230,26 +211,26 @@ void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
   const double H4 = func( p, FFset.H4 );
   const double H5 = func( p, FFset.H5 );
   const double H6 = func( p, FFset.H6 );
-  
+
   if ( isNatural( lambda ) )
   {
     FF.FT_[0] = -( MB + M )*H1 - ( MB - M*vdotv )*H2 - ( MB*vdotv - M )*H3 - MB*H5;
     FF.FT_[1] = MB*H1 + ( MB - M )*H2 + ( MB*vdotv - M )*H4 - MB*H6;
     FF.FT_[2] = M*H1 + ( MB - M )*H3 - ( MB - M*vdotv )*H4;
     FF.FT_[3] = (MB - M)*H5 + (MB - M*vdotv)*H6;
-    
+
     FF.GT_[0] = ( MB - M )*H1 - M*( 1. - vdotv )*H2 - MB*(1. - vdotv )*H3 + MB*H5 + M*H6;
     FF.GT_[1] = MB*H1 - M*H2 - MB*H3;
     FF.GT_[2] = M*H1 + M*H2 + MB*H3 - M*H6;
     FF.GT_[3] = (MB + M)*H5 + M*(1. + vdotv)*H6;
   }
-  else 
+  else
   {
     FF.FT_[0] = ( MB - M )*H1 - ( MB - M*vdotv )*H2 - ( MB*vdotv - M )*H3 - MB*H5;
     FF.FT_[1] = MB*H1 - ( MB + M )*H2 + ( MB*vdotv - M )*H4 - MB*H6;
     FF.FT_[2] = M*H1 - ( MB + M )*H3 - ( MB - M*vdotv )*H4;
     FF.FT_[3] = -(MB + M)*H5 + (MB - M*vdotv)*H6;
-    
+
     FF.GT_[0] = -( MB + M )*H1 + M*( 1. + vdotv )*H2 + MB*(1. + vdotv )*H3 + MB*H5 + M*H6;
     FF.GT_[1] = MB*H1 - M*H2 - MB*H3;
     FF.GT_[2] = M*H1 - M*H2 - MB*H3 - M*H6;
@@ -257,39 +238,38 @@ void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
   }
 }
 
-void EvtRareLbToLllFF::getFF( EvtParticle* parent, 
+void EvtRareLbToLllFF::getFF( EvtParticle* parent,
                              EvtParticle* lambda,
                              EvtRareLbToLllFF::FormFactors& FF )
 {
   // Find the FF information for this particle, start by setting all to zero
   FF.areZero();
-  
-  // Are the FF's for the particle known? 
-  std::map< int, EvtRareLbToLllFF::FormFactorSet* >::iterator it 
-    = FFMap_.find( lambda->getId().getId() );
-  
+
+  // Are the FF's for the particle known?
+  auto it = FFMap_.find( lambda->getId().getId() );
+
   if ( it == FFMap_.end() ) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtRareLbToLll does not contain FF for " 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtRareLbToLll does not contain FF for "
                             << lambda->getId() << std::endl;
     return ;
   }
-  
+
   // Split by spin 1/2, spin 3/2
   const int spin = EvtPDL::getSpinType(lambda->getId());
-  
+
   if ( EvtSpinType::DIRAC == spin ) {
     DiracFF(parent, lambda, *(it->second), FF );
-  } 
+  }
   else if ( spin == EvtSpinType::RARITASCHWINGER ) {
     RaritaSchwingerFF(parent, lambda, *(it->second), FF );
   }
-  else 
-  { 
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtRareLbToLll expects DIRAC or RARITASWINGER daughter " << std::endl;// should add a warning here 
+  else
+  {
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtRareLbToLll expects DIRAC or RARITASWINGER daughter " << std::endl;// should add a warning here
     return ;
   }
-  
-  
+
+
   return ;
 }
 

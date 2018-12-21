@@ -11,7 +11,7 @@
 // Module: EvtBtoXsgammaFermiUtil.cc
 //
 // Description:
-//      Class to hold various fermi functions and their helper functions. The 
+//      Class to hold various fermi functions and their helper functions. The
 //      fermi functions are used in EvtBtoXsgammaKagan.
 //
 // Modification history:
@@ -53,35 +53,22 @@ double EvtBtoXsgammaFermiUtil::FermiGaussFunc(double y, const std::vector<double
 }
 
 double EvtBtoXsgammaFermiUtil::FermiGaussFuncRoot(double lambdabar, double lam1, double mb, std::vector<double> &gammaCoeffs) {
- 
-  std::vector<double> coeffs1(3);
-  std::vector<double> coeffs2(3);
 
-  coeffs1[0]=0.2;
-  coeffs1[1]=lambdabar;
-  coeffs1[2]=0.0;
-  
-  coeffs2[0]=0.2;
-  coeffs2[1]=lambdabar;
-  coeffs2[2]=-lam1/3.;
 
-  EvtItgTwoCoeffFcn *lhFunc = new EvtItgTwoCoeffFcn(&FermiGaussRootFcnA, -mb, lambdabar, coeffs1, gammaCoeffs);
-  EvtItgTwoCoeffFcn *rhFunc = new EvtItgTwoCoeffFcn(&FermiGaussRootFcnB, -mb, lambdabar, coeffs2, gammaCoeffs);
+  std::vector<double> coeffs1 = { 0.2,lambdabar,0.0 };
+  std::vector<double> coeffs2 = { 0.2, lambdabar, -lam1/3. };
 
-  EvtBtoXsgammaRootFinder *rootFinder = new EvtBtoXsgammaRootFinder();
-  
-  double root = rootFinder->GetGaussIntegFcnRoot(lhFunc, rhFunc, 1.0e-4, 1.0e-4, 40, 40, -mb, lambdabar, 0.2, 0.4, 1.0e-6);
+  auto lhFunc = EvtItgTwoCoeffFcn{&FermiGaussRootFcnA, -mb, lambdabar, coeffs1, gammaCoeffs};
+  auto rhFunc = EvtItgTwoCoeffFcn{&FermiGaussRootFcnB, -mb, lambdabar, coeffs2, gammaCoeffs};
+  auto rootFinder = EvtBtoXsgammaRootFinder{};
 
-  delete rootFinder; rootFinder=0;
-  delete lhFunc; lhFunc=0;
-  delete rhFunc; rhFunc=0;
-  return root;
+  return rootFinder.GetGaussIntegFcnRoot(&lhFunc, &rhFunc, 1.0e-4, 1.0e-4, 40, 40, -mb, lambdabar, 0.2, 0.4, 1.0e-6);
 
 }
 
 double EvtBtoXsgammaFermiUtil::FermiGaussRootFcnA(double y, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2) {
 
-  
+
   //coeffs1: 0=ap, 1=lambdabar, coeffs2=gamma function coeffs
   double cp = Gamma((2.0 + coeffs1[0])/2., coeffs2)/Gamma((1.0 + coeffs1[0])/2., coeffs2);
 
@@ -101,11 +88,11 @@ double EvtBtoXsgammaFermiUtil::Gamma(double z, const std::vector<double> &coeffs
 
   //Lifted from Numerical Recipies in C
   double x, y, tmp, ser;
- 
+
   int j;
   y = z;
   x = z;
-  
+
   tmp = x + 5.5;
   tmp = tmp - (x+0.5)*log(tmp);
   ser=1.000000000190015;
@@ -124,7 +111,7 @@ double EvtBtoXsgammaFermiUtil::BesselK1(double x) {
   //Lifted from Numerical Recipies in C : Returns the modified Bessel
   //function K_1(x) for positive real x
   if (x<0.0) EvtGenReport(EVTGEN_INFO,"EvtGen") <<"x is negative !"<<endl;
-  
+
   double y, ans;
 
   if (x <= 2.0) {
@@ -162,22 +149,19 @@ double EvtBtoXsgammaFermiUtil::BesselI1(double x) {
 }
 
 double EvtBtoXsgammaFermiUtil::FermiRomanFuncRoot(double lambdabar, double lam1) {
- 
-  EvtItgFunction *lhFunc = new EvtItgFunction(&FermiRomanRootFcnA, -1.e-6, 1.e6);
-  
-  EvtBtoXsgammaRootFinder *rootFinder = new EvtBtoXsgammaRootFinder();
+
+  auto lhFunc = EvtItgFunction{&FermiRomanRootFcnA, -1.e-6, 1.e6};
+
+  auto rootFinder = EvtBtoXsgammaRootFinder{};
   double rhSide = 1.0 - (lam1/(3.0*lambdabar*lambdabar));
 
-  double rho = rootFinder->GetRootSingleFunc(lhFunc, rhSide, 0.1, 0.4, 1.0e-6);
+  double rho = rootFinder.GetRootSingleFunc(&lhFunc, rhSide, 0.1, 0.4, 1.0e-6);
   //rho=0.250353;
   EvtGenReport(EVTGEN_INFO,"EvtGen")<<"rho/2 "<<rho/2.<<" bessel "<<BesselK1(rho/2.)<<endl;
   double pF = lambdabar*sqrt(EvtConst::pi)/(rho*exp(rho/2.)*BesselK1(rho/2.));
   EvtGenReport(EVTGEN_INFO,"EvtGen")<<"rho "<<rho<<" pf "<<pF<<endl;
-  
-  delete lhFunc; lhFunc=0;
-  delete rootFinder; rootFinder=0;
-  return rho;
 
+  return rho;
 }
 
 double EvtBtoXsgammaFermiUtil::FermiRomanRootFcnA(double y) {
@@ -205,6 +189,6 @@ double EvtBtoXsgammaFermiUtil::FermiRomanFunc(double y, const std::vector<double
 
   //EvtGenReport(EVTGEN_INFO,"EvtGen")<<"leaving"<<endl;
   return (coeffs[1]-coeffs[2])*(1./(sqrt(EvtConst::pi)*pF))*exp(-(1./4.)*pow(pF*(coeffs[3]/((coeffs[1]-coeffs[2])*(1.-y/(coeffs[1]-coeffs[2])))) - ((coeffs[1]-coeffs[2])/pF)*(1. -y/(coeffs[1]-coeffs[2])),2.))/coeffs[5];
- 
+
 
 }

@@ -45,12 +45,12 @@ Evtbs2llGammaFFMNT::Evtbs2llGammaFFMNT(){}
  *  lambda_qu = V^*_{uq}*V_{ub}/V^*_{tq}*V_{tb}, where q={d,s}; *
  *  lambda_qc = V^*_{cq}*V_{cb}/V^*_{tq}*V_{tb}, where q={d,s}. *
  *                                                              */
-void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb, 
+void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
                                  EvtId parent,
                                  double q2, double M1,
                                  double mb, double mq,
-                                 EvtComplex c7gam, EvtComplex a1,  
-                                 EvtComplex lambda_qu, EvtComplex lambda_qc, 
+                                 EvtComplex c7gam, EvtComplex a1,
+                                 EvtComplex lambda_qu, EvtComplex lambda_qc,
                                  EvtComplex& Fv,  EvtComplex& Fa,
                                  EvtComplex& Ftv, EvtComplex& Fta){
 
@@ -64,15 +64,14 @@ void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
 
   double f_lept[]  = {5.04,  17.1, -13.2};	 // decay constants f_i
   double g_plus[]  = {0.27, -0.27, -0.38};	 // and form-factors g+(0)
-	 g_plus[0] = g_plus[0]/sqrt(2.0);	 // by D.Melikhov, N.Nikitin, K.Toms, 
-	 g_plus[1] = g_plus[1]/sqrt(2.0);	 // Phys.At.Nucl. 68, p.1842 (2005)  
+	 g_plus[0] = g_plus[0]/sqrt(2.0);	 // by D.Melikhov, N.Nikitin, K.Toms,
+	 g_plus[1] = g_plus[1]/sqrt(2.0);	 // Phys.At.Nucl. 68, p.1842 (2005)
 
   double hatq2 = q2/pow(M1,2);
-  // E - photon energy in the B-meson rest frame 
+  // E - photon energy in the B-meson rest frame
   double E = 0.5*M1*(1-hatq2);
 
   // parametrs for form-factors Fv, Ftv, Fa, Fta
-
   //(by D.Melikhov, N.Nikitin, K.Toms, Yad. Fiz. 62, No 11)
   double beta[]  = {0.28, 0.30, 0.26, 0.33};  // beta, Gev^(-1)
   double Delta[] = {0.04, 0.04, 0.30, 0.30};  // Delta, Gev
@@ -93,15 +92,13 @@ void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
   if(parent == EvtPDL::getId(std::string("B_s0"))||
      parent == EvtPDL::getId(std::string("anti-B_s0"))){
      // only \phi-resonant contribution to the Bs-decays
-     ResSum = 
-       2.0*g_plus[2]*q2/(f_lept[2]*(unit1*(q2-pow(M_res[2],2))+uniti*M_res[2]*Gamma[2]));
+     ResSum = 2.0*g_plus[2]*q2/(f_lept[2]*(unit1*(q2-pow(M_res[2],2))+uniti*M_res[2]*Gamma[2]));
   }
   if(parent == EvtPDL::getId(std::string("B_d0"))||
      parent == EvtPDL::getId(std::string("anti-B_d0"))){
      // \rho- and \omega-resonant contribution to the Bd-decays
      for (int i=0; i<2; i++){
-       ResSum = ResSum + 
-         2.0*g_plus[i]*q2/(f_lept[i]*(unit1*(q2-pow(M_res[i],2))+uniti*M_res[i]*Gamma[i]));
+       ResSum = ResSum + 2.0*g_plus[i]*q2/(f_lept[i]*(unit1*(q2-pow(M_res[i],2))+uniti*M_res[i]*Gamma[i]));
     }
   }
 
@@ -124,9 +121,9 @@ void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "\n\n The function Evtbs2llGammaFFMNT::getPhotonFF"
                             << " mb = " << mb << " << 5 GeV!" << std::endl;
      ::abort();
-  } 
+  }
   
-  switch(decay_id){ 
+  switch(decay_id){
     /* b \bar q -> l^+ l^- \gamma transitions */
     case 0:
       Ftv_WA =(16.0/3.0)*(lambda_qu + lambda_qc)*(a1/c7gam)*(fb/mb);
@@ -139,11 +136,11 @@ void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
     case 1:
       Ftv_WA =(16.0/3.0)*conj(lambda_qu+lambda_qc)*(a1/c7gam)*(fb/mb);
       Ftv = (1.0 + mq/mb)*Ftv + Ftv_WA;
-      Fta = (1.0 - mq/mb)*Fta;          // The change of the sign 
+      Fta = (1.0 - mq/mb)*Fta;          // The change of the sign
       Fv  = Fv;                         // is included in the
       Fa  = Fa;                         // amplitudes definition!
 
-    break; 
+    break;
   };
 
 }
@@ -179,7 +176,7 @@ double Evtbs2llGammaFFMNT::getQuarkMass(int i){
         qm=4.85; // m_b
         break;
       default:
-        EvtGenReport(EVTGEN_ERROR,"EvtGen") << 
+        EvtGenReport(EVTGEN_ERROR,"EvtGen") <<
           "In the function EvtbTosllMSFF::getQuarkMass   \n" <<
           "the parametr i not equal 1, 2,  3, 4 or 5! \n" <<
           "i =" << i <<std::endl;

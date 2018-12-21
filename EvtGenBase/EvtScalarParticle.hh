@@ -30,16 +30,15 @@ class EvtScalarParticle: public EvtParticle {
 public:
 
   EvtScalarParticle() {}
-  virtual ~EvtScalarParticle();
 
   void init(EvtId part_n,double e,double px,double py,double pz);
-  void init(EvtId part_n,const EvtVector4R& p);
+  void init(EvtId part_n,const EvtVector4R& p) override;
 
-  EvtSpinDensity rotateToHelicityBasis() const;
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
-   
+				       double gamma) const override;
+
 private:
 
   EvtScalarParticle(const EvtScalarParticle& scalar);

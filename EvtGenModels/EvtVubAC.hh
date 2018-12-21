@@ -15,36 +15,34 @@ class EvtParticle;
 class EvtVubAC:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVubAC() {}
-  virtual ~EvtVubAC();
 
-  std::string getName();
 
-  EvtDecayBase* clone();
+  std::string getName() override;
 
-  void initProbMax();
+  EvtDecayBase* clone() override;
 
-  void init();
+  void initProbMax() override;
 
-  void decay(EvtParticle *Bmeson); 
+  void init() override;
+
+  void decay(EvtParticle *Bmeson) override;
 
 private:
   // Input parameters
   double mB;
-  double lambda2; 
-  
+  double lambda2;
+
   double alphaSmZ;
   double alphaSmB;
   double c;
   double q;
   double k;
-  
+
   double CF;
   double CA;
 
   double beta0;
-  
+
   std::vector<double> gvars;
 
   double rate(double u, double w, double xb);

@@ -17,7 +17,7 @@
 //
 // Modification history:
 //
-//    F. Sandrelli, Fernando M-V March 03, 2002 
+//    F. Sandrelli, Fernando M-V March 03, 2002
 //
 //------------------------------------------------------------------------
 
@@ -30,34 +30,33 @@
 
 class EvtVSSBMixCPT : public EvtDecayAmp  {
 public:
-  EvtVSSBMixCPT() {}
-  virtual ~EvtVSSBMixCPT();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
 
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
+  int nRealDaughters() override {return 2;}
 
-  int nRealDaughters() {return 2;}
+  std::string getParamName(int i) override;
+  std::string getParamDefault(int i) override;
+
 private:
   double _freq;   // mixing frequency in hbar/mm
   double _dGamma;
   EvtComplex _qoverp;
   EvtComplex _poverq;
-  EvtComplex _z; 
+  EvtComplex _z;
   double _chib0_b0bar;
   double _chib0bar_b0;
 
   EvtComplex _A_f;
   EvtComplex _Abar_f;
-  
+
   EvtComplex _A_fbar;
   EvtComplex _Abar_fbar;
 
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
 };
 
 #endif

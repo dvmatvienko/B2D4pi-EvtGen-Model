@@ -17,7 +17,7 @@
 //    DJL/RYD   September 25, 1996           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include <iostream>
@@ -27,11 +27,6 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtReport.hh"
 using std::endl;
-
-EvtPhotonParticle::EvtPhotonParticle() {
-}
-
-EvtPhotonParticle::~EvtPhotonParticle(){}
 
 void EvtPhotonParticle::init(EvtId part_n,const EvtVector4R& p4){
 
@@ -46,7 +41,7 @@ void EvtPhotonParticle::init(EvtId part_n,double e,double px,double py,double pz
   setpart_num(part_n);
 
   setLifetime();
-  
+
   //defere calculation of basis vectors untill they are needed!
   _evalBasis=0;
 
@@ -62,10 +57,10 @@ EvtVector4C EvtPhotonParticle::epsParentPhoton(int i){
 	     EvtComplex(0.0,-1.0/sqrt(2.0)), EvtComplex(0.0,0.0));
     eps2.set(EvtComplex(0.0,0.0), EvtComplex(1.0/sqrt(2.0),0.0),
 	     EvtComplex(0.0,-1.0/sqrt(2.0)), EvtComplex(0.0,0.0));
-    
-    // These are for photon along z axis.  Rotate to get 
+
+    // These are for photon along z axis.  Rotate to get
     // correct direction...
-    
+
     double phi,theta;
 
     EvtVector4R p=this->getP4();
@@ -78,12 +73,12 @@ EvtVector4C EvtPhotonParticle::epsParentPhoton(int i){
     theta = acos(pz/sqrt(px*px+py*py+pz*pz));
     eps1.applyRotateEuler(phi,theta,-phi);
     eps2.applyRotateEuler(phi,theta,-phi);
-    
+
   }
 
 
   EvtVector4C temp;
-  
+
   switch(i) {
 
   case 0:
@@ -130,12 +125,12 @@ EvtSpinDensity EvtPhotonParticle::rotateToHelicityBasis() const {
 
   R.set(0,0,(eplus.conj())*e1);
   R.set(0,1,(eplus.conj())*e2);
-  
+
   R.set(1,0,(eminus.conj())*e1);
   R.set(1,1,(eminus.conj())*e2);
-  
+
   return R;
-	
+
 }
 
 
@@ -147,25 +142,25 @@ EvtSpinDensity EvtPhotonParticle::rotateToHelicityBasis(double alpha,
 		    EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
   EvtVector4C eminus(0.0,1.0/sqrt(2.0),
 		     EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
-  
+
   eplus.applyRotateEuler(alpha,beta,gamma);
   eminus.applyRotateEuler(alpha,beta,gamma);
-  
-  
+
+
   //Really uggly have to cast away constness because the
   //function epsParentPhoton caches the state vectors...
   EvtVector4C e1=((EvtParticle*)this)->epsParentPhoton(0);
   EvtVector4C e2=((EvtParticle*)this)->epsParentPhoton(1);
-  
+
   EvtSpinDensity R;
   R.setDim(2);
-  
+
   R.set(0,0,(eplus.conj())*e1);
   R.set(0,1,(eplus.conj())*e2);
-  
+
   R.set(1,0,(eminus.conj())*e1);
   R.set(1,1,(eminus.conj())*e2);
-  
+
   return R;
 
 }

@@ -16,27 +16,24 @@
 class EvtComplex;
 
 class EvtPto3PAmpSmpResolution : public EvtPto3PAmp {
-  
+
 
 public:
 
 
-  EvtPto3PAmpSmpResolution(EvtDalitzPlot dp, 
-			   EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes,  
-			   EvtSpinType::spintype spin, 
+  EvtPto3PAmpSmpResolution(EvtDalitzPlot dp,
+			   EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes,
+			   EvtSpinType::spintype spin,
 			   const EvtPropagator& prop, NumType typeN);
-  
 
-  EvtPto3PAmpSmpResolution(const EvtPto3PAmp& other);
 
-  ~EvtPto3PAmpSmpResolution();
 
-  virtual EvtAmplitude<EvtDalitzPoint>* clone() const
+  EvtAmplitude<EvtDalitzPoint>* clone() const override
   { return new EvtPto3PAmpSmpResolution(*this); }
 
 
-  virtual EvtComplex evalPropagator(double m) const;
-  
+  EvtComplex evalPropagator(double m) const override;
+
   void setResolution(double bias, double sigma) {
     _bias=bias; _sigma=sigma;
   }

@@ -28,11 +28,7 @@ EvtBcPsiNPi::EvtBcPsiNPi() {
   FA0_N=5.9; FA0_c1= 0.049; FA0_c2= 0.0015;
   FAm_N=0.0; FAm_c1=0.0; FAm_c2=0.0;
   FAp_N=-0.074; FAp_c1= 0.049; FAp_c2= 0.0015;
-  FV_N=0.11; FV_c1= 0.049; FV_c2= 0.0015; 
-
-}
-
-EvtBcPsiNPi::~EvtBcPsiNPi() {
+  FV_N=0.11; FV_c1= 0.049; FV_c2= 0.0015;
 
 }
 
@@ -42,7 +38,7 @@ std::string EvtBcPsiNPi::getName() {
 
 }
 
-EvtDecayBase* EvtBcPsiNPi::clone() {
+EvtBcPsiNPi* EvtBcPsiNPi::clone() {
 
   return new EvtBcPsiNPi;
 

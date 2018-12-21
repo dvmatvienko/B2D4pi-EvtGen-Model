@@ -17,7 +17,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -29,11 +29,9 @@
 #include <string>
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtVSPPwave::~EvtVSPPwave() {}
-
 std::string EvtVSPPwave::getName(){
 
-  return "VSP_PWAVE";     
+  return "VSP_PWAVE";
 
 }
 
@@ -51,7 +49,7 @@ void EvtVSPPwave::init(){
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::VECTOR);
-  
+
   checkSpinDaughter(0,EvtSpinType::SCALAR);
   checkSpinDaughter(1,EvtSpinType::PHOTON);
 
@@ -77,7 +75,7 @@ void EvtVSPPwave::decay( EvtParticle *p){
   p4_p.set(m_p, 0.0, 0.0, 0.0 );
 
   //  Put phase space results into the daughters.
- 
+
   EvtTensor4C tds;
 
   double norm=1/(m_p*momgamma.d3mag());

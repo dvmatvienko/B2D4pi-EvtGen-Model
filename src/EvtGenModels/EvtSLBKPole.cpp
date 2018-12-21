@@ -18,7 +18,7 @@
 //    liheng       October 20, 2005       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
@@ -30,8 +30,6 @@
 #include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicTensorAmp.hh"
 #include <string>
-
-EvtSLBKPole::~EvtSLBKPole() {}
 
 std::string EvtSLBKPole::getName(){
 
@@ -50,7 +48,7 @@ void EvtSLBKPole::decay( EvtParticle *p ){//modified
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
-  calcamp->CalcAmp(p,_amp2,SLBKPoleffmodel);//modified
+  calcamp->CalcAmp(p,_amp2,SLBKPoleffmodel.get());//modified
   return;
 }
 
@@ -64,7 +62,7 @@ lnum = getDaug(1);
 nunum = getDaug(2);
 
 double mymaxprob = calcamp->CalcMaxProb(parnum,mesnum,
-			lnum,nunum,SLBKPoleffmodel);//modified
+			lnum,nunum,SLBKPoleffmodel.get());//modified
 
 setProbMax(mymaxprob);
 
@@ -72,10 +70,10 @@ setProbMax(mymaxprob);
 
 
 void EvtSLBKPole::init(){//modified
-  
+
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -84,17 +82,21 @@ void EvtSLBKPole::init(){//modified
 
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
 
-  SLBKPoleffmodel = new EvtSLBKPoleFF(getNArg(),getArgs());//modified
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
+  SLBKPoleffmodel = std::make_unique<EvtSLBKPoleFF>(getNArg(),getArgs());//modified
+
+  switch(mesontype) {
+  case EvtSpinType::SCALAR:
+    calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
+    break;
+  case EvtSpinType::VECTOR:
+    calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+    break;
+  case EvtSpinType::TENSOR:
+    calcamp = std::make_unique<EvtSemiLeptonicTensorAmp>();
+    break;
+  default:
+    ;
   }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
-  }
-  
+
 }
 

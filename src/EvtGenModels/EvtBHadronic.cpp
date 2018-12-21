@@ -10,7 +10,7 @@
 //
 // Module: EvtBHadronic.cc
 //
-// Description: Model for hadronic B decays. Uses naive factorization. 
+// Description: Model for hadronic B decays. Uses naive factorization.
 //
 // Modification history:
 //
@@ -33,16 +33,14 @@
 #include <string>
 using std::endl;
 
-EvtBHadronic::~EvtBHadronic() {}
-
 std::string EvtBHadronic::getName(){
 
-  return "BHADRONIC";    
+  return "BHADRONIC";
 
 }
 
 
-EvtDecayBase* EvtBHadronic::clone(){
+EvtBHadronic* EvtBHadronic::clone(){
 
   return new EvtBHadronic;
 
@@ -106,7 +104,7 @@ void EvtBHadronic::decay( EvtParticle *p){
   EvtVector4C ep_meson_b[5];
 
   switch (bcurrent) {
-  
+
   // D0
   case 1:
     q=p4b-p4[0];
@@ -124,7 +122,7 @@ void EvtBHadronic::decay( EvtParticle *p){
     ffmodel.getvectorff(B0,DST0,EvtPDL::getMeanMass(DST0),q2,&f,&gf,&ap,&am);
 
     g.setdiag(1.0,-1.0,-1.0,-1.0);
-    tds = -f*g 
+    tds = -f*g
       -ap*(EvtGenFunctions::directProd(p4b,p4b)+EvtGenFunctions::directProd(p4b,p4[0]))
       -gf*EvtComplex(0.0,1.0)*dual(EvtGenFunctions::directProd(p4[0]+p4b,p4b-p4[0]))
       -am*((EvtGenFunctions::directProd(p4b,p4b)-
@@ -141,7 +139,7 @@ void EvtBHadronic::decay( EvtParticle *p){
     ffmodel.getvectorff(B0,D3P10,EvtPDL::getMeanMass(D3P10),q2,&f,&gf,&ap,&am);
 
     g.setdiag(1.0,-1.0,-1.0,-1.0);
-    tds = -f*g 
+    tds = -f*g
       -ap*(EvtGenFunctions::directProd(p4b,p4b)+
            EvtGenFunctions::directProd(p4b,p4[0]))
       -gf*EvtComplex(0.0,1.0)*dual(EvtGenFunctions::directProd(p4[0]+p4b,p4b-p4[0]))
@@ -159,38 +157,38 @@ void EvtBHadronic::decay( EvtParticle *p){
     nbcurrent=5;
     ffmodel.gettensorff(B0,D3P20,EvtPDL::getMeanMass(D3P20),q2,&hf,&kf,&bp,&bm);
     g.setdiag(1.0,-1.0,-1.0,-1.0);
-    
+
     ep_meson_b[0] = ((p->getDaug(0)->epsTensorParent(0)).cont2(p4b)).conj();
     ep_meson_b[1] = ((p->getDaug(0)->epsTensorParent(1)).cont2(p4b)).conj();
     ep_meson_b[2] = ((p->getDaug(0)->epsTensorParent(2)).cont2(p4b)).conj();
     ep_meson_b[3] = ((p->getDaug(0)->epsTensorParent(3)).cont2(p4b)).conj();
     ep_meson_b[4] = ((p->getDaug(0)->epsTensorParent(4)).cont2(p4b)).conj();
-  
+
     pp=p4b+p4[0];
     pm=p4b-p4[0];
-    
+
     ep_meson_bb[0]=ep_meson_b[0]*(p4b);
     ep_meson_bb[1]=ep_meson_b[1]*(p4b);
     ep_meson_bb[2]=ep_meson_b[2]*(p4b);
     ep_meson_bb[3]=ep_meson_b[3]*(p4b);
     ep_meson_bb[4]=ep_meson_b[4]*(p4b);
-    
+
     jb[0]=EvtComplex(0.0,(1.0)*hf)*dual(EvtGenFunctions::directProd(pp,pm)).cont2(ep_meson_b[0])
        -kf*ep_meson_b[0]
        -bp*ep_meson_bb[0]*pp-bm*ep_meson_bb[0]*pm;
-     
+
     jb[1]=EvtComplex(0.0,(1.0)*hf)*dual(EvtGenFunctions::directProd(pp,pm)).cont2(ep_meson_b[1])
        -kf*ep_meson_b[1]
        -bp*ep_meson_bb[1]*pp-bm*ep_meson_bb[1]*pm;
-    
+
     jb[2]=EvtComplex(0.0,(1.0)*hf)*dual(EvtGenFunctions::directProd(pp,pm)).cont2(ep_meson_b[2])
        -kf*ep_meson_b[2]
        -bp*ep_meson_bb[2]*pp-bm*ep_meson_bb[2]*pm;
-    
+
     jb[3]=EvtComplex(0.0,(1.0)*hf)*dual(EvtGenFunctions::directProd(pp,pm)).cont2(ep_meson_b[3])
        -kf*ep_meson_b[3]
        -bp*ep_meson_bb[3]*pp-bm*ep_meson_bb[3]*pm;
-    
+
     jb[4]=EvtComplex(0.0,(1.0)*hf)*dual(EvtGenFunctions::directProd(pp,pm)).cont2(ep_meson_b[4])
        -kf*ep_meson_b[4]
        -bp*ep_meson_bb[4]*pp-bm*ep_meson_bb[4]*pm;
@@ -203,7 +201,7 @@ void EvtBHadronic::decay( EvtParticle *p){
     nbcurrent=3;
     ffmodel.getvectorff(B0,D1P10,EvtPDL::getMeanMass(D1P10),q2,&f,&gf,&ap,&am);
     g.setdiag(1.0,-1.0,-1.0,-1.0);
-    tds = -f*g 
+    tds = -f*g
       -ap*(EvtGenFunctions::directProd(p4b,p4b)+
            EvtGenFunctions::directProd(p4b,p4[0]))
       +gf*EvtComplex(0.0,1.0)*dual(EvtGenFunctions::directProd(p4[0]+p4b,p4b-p4[0]))
@@ -223,8 +221,8 @@ void EvtBHadronic::decay( EvtParticle *p){
     break;
   default:
     EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"In EvtBHadronic, unknown hadronic current."<<endl;
-    
-  }  
+
+  }
 
   double norm;
 
@@ -248,7 +246,7 @@ void EvtBHadronic::decay( EvtParticle *p){
   default:
     EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"In EvtBHadronic, unknown W current."<<endl;
 
-  }  
+  }
 
   if (nbcurrent==1&&nwcurrent==1){
     vertex(jb[0]*jw[0]);

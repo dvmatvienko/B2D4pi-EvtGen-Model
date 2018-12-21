@@ -30,16 +30,13 @@ class EvtSingleParticle:public  EvtDecayIncoherent  {
 
 public:
 
-  EvtSingleParticle() {}
-  virtual ~EvtSingleParticle();
+  std::string getName() override;
 
-  std::string getName();
-  
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
-  void init();
+  void init() override;
 
 private:
 

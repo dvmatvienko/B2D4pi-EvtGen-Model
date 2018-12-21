@@ -11,7 +11,7 @@
 // Module: EvtItgTwoCoeffFcn.cc
 //
 // Description:
-//      Class describing a function with two vectors of coefficients. 
+//      Class describing a function with two vectors of coefficients.
 //
 // Modification history:
 //
@@ -33,9 +33,6 @@ EvtItgTwoCoeffFcn::EvtItgTwoCoeffFcn( double (*theFunction)(double, const std::v
   _myFunction(theFunction),
   _coeffs1(coeffs1),
   _coeffs2(coeffs2)
-{}
-
-EvtItgTwoCoeffFcn::~EvtItgTwoCoeffFcn( )
 {}
 
 double

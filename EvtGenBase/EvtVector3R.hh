@@ -23,23 +23,22 @@
 
 #include <iosfwd>
 
-class EvtVector3R {
+class EvtVector3R final {
 
   friend EvtVector3R rotateEuler(const EvtVector3R& v,
 				 double phi,double theta,double ksi);
 
-  inline friend EvtVector3R operator*(double c,const EvtVector3R& v2); 
-  inline friend double operator*(const EvtVector3R& v1,const EvtVector3R& v2); 
+  inline friend EvtVector3R operator*(double c,const EvtVector3R& v2);
+  inline friend double operator*(const EvtVector3R& v1,const EvtVector3R& v2);
   inline friend EvtVector3R operator+(const EvtVector3R& v1,const EvtVector3R& v2);
   inline friend EvtVector3R operator-(const EvtVector3R& v1,const EvtVector3R& v2);
   inline friend EvtVector3R operator*(const EvtVector3R& v1,double c);
   inline friend EvtVector3R operator/(const EvtVector3R& v1,double c);
   friend EvtVector3R cross(const EvtVector3R& v1,const EvtVector3R& v2);
-  
+
 public:
   EvtVector3R();
   EvtVector3R(double x,double y ,double z);
-  virtual ~EvtVector3R(); 
   inline EvtVector3R& operator*=(const double c);
   inline EvtVector3R& operator/=(const double c);
   inline EvtVector3R& operator+=(const EvtVector3R& v2);
@@ -91,18 +90,18 @@ inline EvtVector3R& EvtVector3R::operator-=(const EvtVector3R& v2){
 }
 
 inline EvtVector3R operator*(double c,const EvtVector3R& v2){
-  
+
   return EvtVector3R(v2)*=c;
 }
 
 inline EvtVector3R operator*(const EvtVector3R& v1,double c){
-  
+
   return EvtVector3R(v1)*=c;
 }
 
 inline EvtVector3R operator/(const EvtVector3R& v1,double c){
 
-  return EvtVector3R(v1)/=c; 
+  return EvtVector3R(v1)/=c;
 }
 
 inline double operator*(const EvtVector3R& v1,const EvtVector3R& v2){
@@ -111,13 +110,13 @@ inline double operator*(const EvtVector3R& v1,const EvtVector3R& v2){
 }
 
 inline EvtVector3R operator+(const EvtVector3R& v1,const EvtVector3R& v2) {
-  
-  return EvtVector3R(v1)+=v2; 
+
+  return EvtVector3R(v1)+=v2;
 }
 
 inline EvtVector3R operator-(const EvtVector3R& v1,const EvtVector3R& v2) {
-  
-  return EvtVector3R(v1)-=v2; 
+
+  return EvtVector3R(v1)-=v2;
 
 }
 
@@ -126,7 +125,7 @@ inline double EvtVector3R::get(int i) const {
 }
 
 inline void EvtVector3R::set(int i,double d){
-  
+
   v[i]=d;
 }
 

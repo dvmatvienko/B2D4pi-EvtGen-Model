@@ -17,7 +17,7 @@
 //    RYD     November 24, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include <string>
 
-EvtOmegaDalitz::~EvtOmegaDalitz() {}
-
 std::string EvtOmegaDalitz::getName(){
 
-  return "OMEGA_DALITZ";     
+  return "OMEGA_DALITZ";
 
 }
 
@@ -63,7 +61,7 @@ void EvtOmegaDalitz::initProbMax() {
 
    setProbMax( 1.0);
 
-}      
+}
 
 void EvtOmegaDalitz::decay( EvtParticle *p ){
 
@@ -89,12 +87,12 @@ void EvtOmegaDalitz::decay( EvtParticle *p ){
   //This is an approximate formula of the maximum value that
   //|q| can have.
   double norm=1.14/(p->mass()*p->mass()/9.0-mompi1.mass2());
-  
+
   vertex(0,norm*e1*q);
   vertex(1,norm*e2*q);
   vertex(2,norm*e3*q);
 
   return ;
-   
+
 }
 

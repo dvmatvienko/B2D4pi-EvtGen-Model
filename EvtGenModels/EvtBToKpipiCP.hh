@@ -32,13 +32,12 @@ class EvtBToKpipiCP:public  EvtDecayAmp  {
 public:
 
   EvtBToKpipiCP() {}
-  virtual ~EvtBToKpipiCP();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtBToKpipiCP* clone() override;
 
-  void init();
-  void decay(EvtParticle *p); 
+  void init() override;
+  void decay(EvtParticle *p) override;
 
 private:
 

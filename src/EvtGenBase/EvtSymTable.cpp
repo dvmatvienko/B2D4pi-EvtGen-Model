@@ -32,8 +32,6 @@ using std::fstream;
 std::map<std::string,std::string> EvtSymTable::_symMap;
 
 
-EvtSymTable::~EvtSymTable(){}
-
 EvtSymTable::EvtSymTable() {
 
 }

@@ -17,7 +17,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <math.h>
@@ -78,7 +78,7 @@ void EvtParticle::resetFirstOrNot() {
   _first=1;
 }
 
-void EvtParticle::setChannel( int i ) { 
+void EvtParticle::setChannel( int i ) {
   _channel=i;
 }
 
@@ -104,7 +104,7 @@ double EvtParticle::getLifetime(){
 void EvtParticle::addDaug(EvtParticle *node) {
   node->_daug[node->_ndaug++]=this;
   _ndaug=0;
-  _parent=node; 
+  _parent=node;
 }
 
 
@@ -114,10 +114,10 @@ EvtId EvtParticle::getId() const { return _id;}
 
 int EvtParticle::getPDGId() const {return EvtPDL::getStdHep(_id);}
 
-EvtSpinType::spintype EvtParticle::getSpinType() const 
+EvtSpinType::spintype EvtParticle::getSpinType() const
       { return EvtPDL::getSpinType(_id);}
 
-int EvtParticle::getSpinStates() const 
+int EvtParticle::getSpinStates() const
   { return EvtSpinType::getSpinStates(EvtPDL::getSpinType(_id));}
 
 const EvtVector4R& EvtParticle::getP4() const { return _p;}
@@ -226,7 +226,7 @@ void EvtParticle::initDecay(bool useMinMass) {
         parMass-=EvtPDL::getMinMass(tDaug->getId());
     }
   }
-  
+
   if ( _isInit ) {
     //we have already been here - just reroll the masses!
     if ( _ndaug>0) {
@@ -236,13 +236,13 @@ void EvtParticle::initDecay(bool useMinMass) {
         else p->getDaug(ii)->setMass(EvtPDL::getMeanMass(p->getDaug(ii)->getId()));
       }
     }
-    
+
     EvtId *dauId=0;
     double *dauMasses=0;
     if ( _ndaug > 0) {
       dauId=new EvtId[_ndaug];
       dauMasses=new double[_ndaug];
-      for (size_t j=0;j<_ndaug;j++) { 
+      for (size_t j=0;j<_ndaug;j++) {
         dauId[j]=p->getDaug(j)->getId();
         dauMasses[j]=p->getDaug(j)->mass();
       }
@@ -269,8 +269,8 @@ void EvtParticle::initDecay(bool useMinMass) {
     if ( dauMasses) delete [] dauMasses;
     return;
   }
-  
-  
+
+
   //Will include effects of mixing here
   //added by Lange Jan4,2000
   static EvtId BS0=EvtPDL::getId("B_s0");
@@ -281,7 +281,7 @@ void EvtParticle::initDecay(bool useMinMass) {
   static EvtId D0B=EvtPDL::getId("anti-D0");
   static EvtId U4S=EvtPDL::getId("Upsilon(4S)");
   static EvtIdSet borUps(BS0,BSB,BD0,BDB,U4S);
-  
+
   //only makes sense if there is no parent particle which is a B or an Upsilon
   bool hasBorUps=false;
   if ( getParent() && borUps.contains(getParent()->getId()) ) hasBorUps=true;
@@ -294,11 +294,11 @@ void EvtParticle::initDecay(bool useMinMass) {
     int mix;
     EvtCPUtil::getInstance()->incoherentMix(getId(), t, mix);
     setLifetime(t);
-    
+
     if (mix) {
 
       EvtScalarParticle* scalar_part;
-    
+
       scalar_part=new EvtScalarParticle;
       if (getId()==BS0) {
         EvtVector4R p_init(EvtPDL::getMass(BSB),0.0,0.0,0.0);
@@ -324,10 +324,10 @@ void EvtParticle::initDecay(bool useMinMass) {
         EvtVector4R p_init(EvtPDL::getMass(D0),0.0,0.0,0.0);
         scalar_part->init(EvtPDL::chargeConj(getId()),p_init);
       }
-      
+
       scalar_part->setLifetime(0);
-      scalar_part->setDiagonalSpinDensity();      
-      
+      scalar_part->setDiagonalSpinDensity();
+
       insertDaugPtr(0,scalar_part);
 
       _ndaug=1;
@@ -353,7 +353,7 @@ void EvtParticle::initDecay(bool useMinMass) {
       else p->getDaug(i)->setMass(EvtPDL::getMeanMass(p->getDaug(i)->getId()));
     }
   }
-  
+
   int j;
   EvtId *dauId=0;
   double *dauMasses=0;
@@ -361,7 +361,7 @@ void EvtParticle::initDecay(bool useMinMass) {
   if ( nDaugT > 0) {
     dauId=new EvtId[nDaugT];
     dauMasses=new double[nDaugT];
-    for (j=0;j<nDaugT;j++) { 
+    for (j=0;j<nDaugT;j++) {
       dauId[j]=p->getDaug(j)->getId();
       dauMasses[j]=p->getDaug(j)->mass();
     }
@@ -395,7 +395,7 @@ void EvtParticle::initDecay(bool useMinMass) {
 
 void EvtParticle::decay(){
   //P is particle to decay, typically 'this' but sometime
-  //modified by mixing 
+  //modified by mixing
   EvtParticle* p=this;
   //Did it mix?
   //if ( p->getMixed() ) {
@@ -412,7 +412,7 @@ void EvtParticle::decay(){
   //    EvtGenReport(EVTGEN_INFO,"EvtGen") << "calling decay for " << EvtPDL::name(p->getId()) << " " << p->mass() << " " << p->getP4() << " " << p->getNDaug() << " " << p << endl;
   //    EvtGenReport(EVTGEN_INFO,"EvtGen") << "NDaug= " << decayer->getNDaug() << endl;
   //    int ti;
-  //    for ( ti=0; ti<decayer->getNDaug(); ti++) 
+  //    for ( ti=0; ti<decayer->getNDaug(); ti++)
   //      EvtGenReport(EVTGEN_INFO,"EvtGen") << "Daug " << ti << " " << EvtPDL::name(decayer->getDaug(ti)) << endl;
   //  }
   //if (p->_ndaug>0) {
@@ -436,11 +436,11 @@ void EvtParticle::decay(){
     _isDecayed = false;
     return;
   }
-  
+
   static EvtId BS0=EvtPDL::getId("B_s0");
   static EvtId BSB=EvtPDL::getId("anti-B_s0");
   static EvtId BD0=EvtPDL::getId("B0");
-  static EvtId BDB=EvtPDL::getId("anti-B0"); 
+  static EvtId BDB=EvtPDL::getId("anti-B0");
   // static EvtId D0=EvtPDL::getId("D0");
   // static EvtId D0B=EvtPDL::getId("anti-D0");
 
@@ -460,7 +460,7 @@ void EvtParticle::decay(){
   }
 
   _isDecayed=true;
-  return;  
+  return;
 }
 
 bool EvtParticle::generateMassTree() {
@@ -482,7 +482,7 @@ bool EvtParticle::generateMassTree() {
       if ( counter == 10001 ) {
 	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Too many iterations to determine the mass tree. Parent mass= "<< p->mass() << " " << massProb <<endl;
 	p->printTree();
-	EvtGenReport(EVTGEN_INFO,"EvtGen") << "will take next combo with non-zero likelihood\n"; 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "will take next combo with non-zero likelihood\n";
       }
       if ( massProb>0. ) massProb=2.0;
       if ( counter > 20000 ) {
@@ -512,7 +512,7 @@ double EvtParticle::compMassProb() {
   EvtParticle *p=this;
   double mass=p->mass();
   double parMass=0.;
-  if ( p->getParent()) { 
+  if ( p->getParent()) {
     parMass=p->getParent()->mass();
   }
 
@@ -530,7 +530,7 @@ double EvtParticle::compMassProb() {
 
   //If the particle already has a mass, we dont need to include
   //it in the probability calculation
-  if ( (!p->getParent() || _validP4 ) && temp>0.0 ) temp=1.; 
+  if ( (!p->getParent() || _validP4 ) && temp>0.0 ) temp=1.;
 
   delete [] dMasses;
   for (i=0; i<nDaug; i++) {
@@ -544,7 +544,7 @@ void EvtParticle::deleteDaughters(bool keepChannel){
   for(size_t i=0;i<_ndaug;i++){
     _daug[i]->deleteTree();
   }
-  
+
   _ndaug=0;
   if ( !keepChannel) _channel=-10;
   _first=1;
@@ -554,9 +554,9 @@ void EvtParticle::deleteDaughters(bool keepChannel){
 void EvtParticle::deleteTree(){
 
   this->deleteDaughters();
-  
+
   delete this;
-  
+
 }
 
 EvtVector4C EvtParticle::epsParent(int i) const {
@@ -648,7 +648,7 @@ EvtDiracSpinor EvtParticle::spNeutrino() const {
 }
 
 EvtTensor4C EvtParticle::epsTensorParent(int i) const {
-  EvtTensor4C tempC; 
+  EvtTensor4C tempC;
   printParticle();
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "and you have asked for the:"<<i
 			 <<"th tensor."
@@ -659,7 +659,7 @@ EvtTensor4C EvtParticle::epsTensorParent(int i) const {
 }
 
 EvtTensor4C EvtParticle::epsTensor(int i) const {
-  EvtTensor4C tempC; 
+  EvtTensor4C tempC;
   printParticle();
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "and you have asked for the:"<<i
 			 <<"th tensor."
@@ -697,15 +697,15 @@ EvtRaritaSchwinger EvtParticle::spRS(int i) const {
 EvtVector4R EvtParticle::getP4Lab() const {
   EvtVector4R temp,mom;
   const EvtParticle *ptemp;
-  
+
   temp=this->getP4();
   ptemp=this;
-  
+
   while (ptemp->getParent()!=0) {
     ptemp=ptemp->getParent();
     mom=ptemp->getP4();
-    temp=boostTo(temp,mom);   
-  } 
+    temp=boostTo(temp,mom);
+  }
   return temp;
 }
 
@@ -736,7 +736,7 @@ EvtVector4R EvtParticle::get4Pos() const {
 
   EvtVector4R temp,mom;
   EvtParticle *ptemp;
-  
+
   temp.set(0.0,0.0,0.0,0.0);
   ptemp=getParent();
 
@@ -749,8 +749,8 @@ EvtVector4R EvtParticle::get4Pos() const {
     mom=ptemp->getP4();
     temp=boostTo(temp,mom);
     temp=temp+(ptemp->_t/ptemp->mass())*(ptemp->getP4());
-  } 
-  
+  }
+
   return temp;
 }
 
@@ -794,9 +794,9 @@ void EvtParticle::makeStdHep(EvtStdHep& stdhep,EvtSecondary& secondary,
 
   int ii=0;
 
-  //lets see if this is a longlived particle and terminate the 
+  //lets see if this is a longlived particle and terminate the
   //list building!
-  
+
   while (list_of_stable[ii]!=EvtId(-1,-1)) {
     if (getId()==list_of_stable[ii]){
       secondary.createSecondary(0,this);
@@ -846,9 +846,9 @@ void EvtParticle::makeStdHepRec(int firstparent,int lastparent,
 
   int ii=0;
 
-  //lets see if this is a longlived particle and terminate the 
+  //lets see if this is a longlived particle and terminate the
   //list building!
-  
+
   while (list_of_stable[ii]!=EvtId(-1,-1)) {
     if (getId()==list_of_stable[ii]){
       secondary.createSecondary(firstparent,this);
@@ -896,14 +896,14 @@ void EvtParticle::printTreeRec(unsigned int level) const {
   size_t newlevel,i;
   newlevel = level +1;
 
-  
+
   if (_ndaug!=0) {
     if ( level > 0 ) {
       for (i=0;i<(5*level);i++) {
 	EvtGenReport(EVTGEN_INFO,"") <<" ";
       }
     }
-    EvtGenReport(EVTGEN_INFO,"") << EvtPDL::name(_id).c_str();  
+    EvtGenReport(EVTGEN_INFO,"") << EvtPDL::name(_id).c_str();
     EvtGenReport(EVTGEN_INFO,"") << " -> ";
     for(i=0;i<_ndaug;i++){
       EvtGenReport(EVTGEN_INFO,"") << EvtPDL::name(_daug[i]->getId()).c_str()<<" ";
@@ -919,11 +919,11 @@ void EvtParticle::printTreeRec(unsigned int level) const {
 }
 
 void EvtParticle::printTree() const {
-  
+
   EvtGenReport(EVTGEN_INFO,"EvtGen") << "This is the current decay chain"<<endl;
   EvtGenReport(EVTGEN_INFO,"") << "This top particle is "<<
-    EvtPDL::name(_id).c_str()<<" " << this->mass() << " " << this->getP4() << endl;  
-  
+    EvtPDL::name(_id).c_str()<<" " << this->mass() << " " << this->getP4() << endl;
+
   this->printTreeRec(0);
   EvtGenReport(EVTGEN_INFO,"EvtGen") << "End of decay chain."<<endl;
 
@@ -964,13 +964,13 @@ std::string EvtParticle::treeStr() const {
 
 void EvtParticle::printParticle() const {
 
-  switch (EvtPDL::getSpinType(_id)){ 
+  switch (EvtPDL::getSpinType(_id)){
   case EvtSpinType::SCALAR:
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "This is a scalar particle:"<<EvtPDL::name(_id).c_str()<<"\n";
-    break;     
+    break;
   case EvtSpinType::VECTOR:
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "This is a vector particle:"<<EvtPDL::name(_id).c_str()<<"\n";
-    break;     
+    break;
   case EvtSpinType::TENSOR:
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "This is a tensor particle:"<<EvtPDL::name(_id).c_str()<<"\n";
     break;
@@ -998,36 +998,36 @@ void EvtParticle::printParticle() const {
 
 
 void init_vector( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtVectorParticle;
-} 
+  *part = new EvtVectorParticle;
+}
 
 
 void init_scalar( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtScalarParticle;
-} 
+  *part = new EvtScalarParticle;
+}
 
 void init_tensor( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtTensorParticle;
-} 
+  *part = new EvtTensorParticle;
+}
 
 void init_dirac( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtDiracParticle;
-} 
+  *part = new EvtDiracParticle;
+}
 
 void init_photon( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtPhotonParticle;
-} 
+  *part = new EvtPhotonParticle;
+}
 
 void init_neutrino( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtNeutrinoParticle;
-} 
+  *part = new EvtNeutrinoParticle;
+}
 
 void init_string( EvtParticle **part ){
-  *part = (EvtParticle *) new EvtStringParticle;
-} 
+  *part = new EvtStringParticle;
+}
 
 double EvtParticle::initializePhaseSpace(
-                   unsigned int numdaughter,EvtId *daughters, 
+                   unsigned int numdaughter,EvtId *daughters,
 		   bool forceDaugMassReset, double poleSize,
 		   int whichTwo1, int whichTwo2) {
 
@@ -1051,12 +1051,12 @@ double EvtParticle::initializePhaseSpace(
   //EvtGenReport(EVTGEN_INFO,"EvtGen") << "and this is\n";
   //if ( this) this->printTree();
   bool resetDaughters=false;
-  
+
   if ( numdaughter != this->getNDaug() && this->getNDaug() > 0 ) resetDaughters=true;
-  if ( numdaughter == this->getNDaug() ) 
+  if ( numdaughter == this->getNDaug() )
     for (i=0; i<numdaughter;i++) {
       if ( this->getDaug(i)->getId() != daughters[i] ) resetDaughters=true;
-      //EvtGenReport(EVTGEN_INFO,"EvtGen") << EvtPDL::name(this->getDaug(i)->getId()) 
+      //EvtGenReport(EVTGEN_INFO,"EvtGen") << EvtPDL::name(this->getDaug(i)->getId())
       //		    << " " << EvtPDL::name(daughters[i]) << endl;
     }
 
@@ -1096,7 +1096,7 @@ double EvtParticle::initializePhaseSpace(
     bool ok=false;
     if ( (whichTwo1 == 1 && whichTwo2 == 0 ) ||
 	 (whichTwo1 == 0 && whichTwo2 == 1 ) ) {
-      weight=EvtGenKine::PhaseSpacePole( m_b, mass[0], mass[1], mass[2], 
+      weight=EvtGenKine::PhaseSpacePole( m_b, mass[0], mass[1], mass[2],
 					  poleSize, p4);
       this->getDaug(0)->init(daughters[0],p4[0]);
       this->getDaug(1)->init(daughters[1],p4[1]);
@@ -1105,7 +1105,7 @@ double EvtParticle::initializePhaseSpace(
     }
     if ( (whichTwo1 == 1 && whichTwo2 == 2 ) ||
 	 (whichTwo1 == 2 && whichTwo2 == 1 ) ) {
-      weight=EvtGenKine::PhaseSpacePole( m_b, mass[2], mass[1], mass[0], 
+      weight=EvtGenKine::PhaseSpacePole( m_b, mass[2], mass[1], mass[0],
 					  poleSize, p4);
       this->getDaug(0)->init(daughters[0],p4[2]);
       this->getDaug(1)->init(daughters[1],p4[1]);
@@ -1114,7 +1114,7 @@ double EvtParticle::initializePhaseSpace(
     }
     if ( (whichTwo1 == 0 && whichTwo2 == 2 ) ||
 	 (whichTwo1 == 2 && whichTwo2 == 0 ) ) {
-      weight=EvtGenKine::PhaseSpacePole( m_b, mass[1], mass[0], mass[2], 
+      weight=EvtGenKine::PhaseSpacePole( m_b, mass[1], mass[0], mass[2],
 					  poleSize, p4);
       this->getDaug(0)->init(daughters[0],p4[1]);
       this->getDaug(1)->init(daughters[1],p4[0]);
@@ -1161,7 +1161,7 @@ void EvtParticle::makeDaughters( unsigned int ndaugstore, EvtId *id){
   if ( _channel < 0 ) {
     setChannel(0);
   }
-  EvtParticle* pdaug;  
+  EvtParticle* pdaug;
   if (_ndaug!=0 ){
     if (_ndaug!=ndaugstore){
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Asking to make a different number of "
@@ -1176,12 +1176,12 @@ void EvtParticle::makeDaughters( unsigned int ndaugstore, EvtId *id){
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate."<<endl;
       ::abort();
     }
-  } 
+  }
   else{
     for(i=0;i<ndaugstore;i++){
       pdaug=EvtParticleFactory::particleFactory(EvtPDL::getSpinType(id[i]));
       pdaug->setId(id[i]);
-      pdaug->addDaug(this);	
+      pdaug->addDaug(this);
     }
 
   } //else
@@ -1195,7 +1195,7 @@ void EvtParticle::setDecayProb(double prob) {
 }
 
 std::string EvtParticle::getName() {
-  
+
   std::string theName = _id.getName();
   return theName;
 

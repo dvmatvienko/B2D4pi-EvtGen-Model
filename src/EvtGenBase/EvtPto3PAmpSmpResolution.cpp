@@ -23,28 +23,19 @@ using EvtCyclic3::Pair;
 
 
 
-EvtPto3PAmpSmpResolution::EvtPto3PAmpSmpResolution(EvtDalitzPlot dp, Pair pairAng, Pair pairRes, 
-						   EvtSpinType::spintype spin, 
-						   const EvtPropagator& prop, NumType typeN) 
+EvtPto3PAmpSmpResolution::EvtPto3PAmpSmpResolution(EvtDalitzPlot dp, Pair pairAng, Pair pairRes,
+						   EvtSpinType::spintype spin,
+						   const EvtPropagator& prop, NumType typeN)
   : EvtPto3PAmp(dp, pairAng, pairRes, spin, prop, typeN)
 {}
 
 
 
-EvtPto3PAmpSmpResolution::EvtPto3PAmpSmpResolution(const EvtPto3PAmp& other) 
-  : EvtPto3PAmp(other)
-{}
-
-
-EvtPto3PAmpSmpResolution::~EvtPto3PAmpSmpResolution()
-{}
-
-
-EvtComplex 
+EvtComplex
 EvtPto3PAmpSmpResolution::evalPropagator(double m) const
 {
   EvtComplex prop(0,0);
-  
+
   if (_sigma>0) { // convolved
     int nconv=20;
     double min=m+_bias-_sigma*2.5;

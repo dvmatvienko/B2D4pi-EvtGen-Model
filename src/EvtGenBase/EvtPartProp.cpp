@@ -38,7 +38,6 @@ EvtPartProp::EvtPartProp():
   ,_stdhep(0)
   ,_lundkc(0)
 {
-  _lineShape=0;
   _ctau=0.0;
   _name="*******";
   _spintype=EvtSpinType::SCALAR;
@@ -46,12 +45,7 @@ EvtPartProp::EvtPartProp():
 
 EvtPartProp::EvtPartProp(const EvtPartProp& x){
 
-  if (0!=x._lineShape){
-    _lineShape=x._lineShape->clone();
-  }
-  else{
-    _lineShape=0;
-  }
+  _lineShape.reset(x._lineShape? x._lineShape->clone(): nullptr);
   _ctau=x._ctau;
   _name=x._name;
   _spintype=x._spintype;
@@ -61,11 +55,6 @@ EvtPartProp::EvtPartProp(const EvtPartProp& x){
   _stdhep=x._stdhep;
   _lundkc=x._lundkc;
 
-}
-
-EvtPartProp::~EvtPartProp() {
-  if ( _lineShape ) delete _lineShape;
-  _lineShape=0;
 }
 
 
@@ -78,7 +67,7 @@ void EvtPartProp::setName(std::string pname) {
 
 EvtPartProp& EvtPartProp::operator=(const EvtPartProp& x){
 
-  _lineShape=x._lineShape->clone();
+  _lineShape.reset(x._lineShape? x._lineShape->clone(): nullptr);
 
   _ctau=x._ctau;
   _name=x._name;
@@ -89,7 +78,7 @@ EvtPartProp& EvtPartProp::operator=(const EvtPartProp& x){
 
 void EvtPartProp::initLineShape(double mass, double width, double maxRange){
 
-  _lineShape=new EvtRelBreitWignerBarrierFact(mass,width,maxRange,_spintype);
+  _lineShape=std::make_unique<EvtRelBreitWignerBarrierFact>(mass,width,maxRange,_spintype);
 
 }
 
@@ -99,18 +88,16 @@ void EvtPartProp::newLineShape(std::string type){
   double w=_lineShape->getWidth();
   double mR=_lineShape->getMaxRange();
   EvtSpinType::spintype  st=_lineShape->getSpinType();
-  delete _lineShape;
   if ( type == "RELBW" ) {
-    _lineShape=new EvtRelBreitWignerBarrierFact(m,w,mR,st);
-  }
-  if ( type == "NONRELBW" ) {
-    _lineShape = new EvtAbsLineShape(m,w,mR,st);
-  }
-  if ( type == "FLAT" ) {
-    _lineShape = new EvtFlatLineShape(m,w,mR,st);
-  }
-  if ( type == "MANYDELTAFUNC" ) {
-    _lineShape = new EvtManyDeltaFuncLineShape(m,w,mR,st);
+    _lineShape=std::make_unique<EvtRelBreitWignerBarrierFact>(m,w,mR,st);
+  } else if ( type == "NONRELBW" ) {
+    _lineShape = std::make_unique<EvtAbsLineShape>(m,w,mR,st);
+  } else if ( type == "FLAT" ) {
+    _lineShape = std::make_unique<EvtFlatLineShape>(m,w,mR,st);
+  } else if ( type == "MANYDELTAFUNC" ) {
+    _lineShape = std::make_unique<EvtManyDeltaFuncLineShape>(m,w,mR,st);
+  } else {
+    _lineShape.reset();
   }
 }
 
@@ -124,12 +111,12 @@ void EvtPartProp::reSetWidth(double width){
   _lineShape->reSetWidth(width);
 }
 
-void EvtPartProp::setPWForDecay( int spin, EvtId d1, EvtId d2) { 
+void EvtPartProp::setPWForDecay( int spin, EvtId d1, EvtId d2) {
   if (!_lineShape) ::abort();
   _lineShape->setPWForDecay(spin,d1,d2);
 }
 
-void EvtPartProp::setPWForBirthL( int spin, EvtId par, EvtId othD) { 
+void EvtPartProp::setPWForBirthL( int spin, EvtId par, EvtId othD) {
   if (!_lineShape) ::abort();
   _lineShape->setPWForBirthL(spin,par,othD);
 }

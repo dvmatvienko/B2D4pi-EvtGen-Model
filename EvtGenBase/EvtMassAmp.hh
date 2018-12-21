@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtMassAmp.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -14,7 +14,7 @@
 //      Alexei Dvoretskii, Caltech, 2001-2002.
 //-----------------------------------------------------------------------
 
-// Relativistic lineshape for a two-body decay of a resonance to two 
+// Relativistic lineshape for a two-body decay of a resonance to two
 // pseudoscalars. The mass dependence of the width and the vertex factors
 // are included in the calculation.
 
@@ -30,17 +30,17 @@ class EvtMassAmp : public EvtAmplitude<EvtPoint1D> {
 public:
 
   EvtMassAmp(const EvtPropBreitWignerRel& prop, const EvtTwoBodyVertex& vd);
-  EvtMassAmp(const EvtMassAmp& other); 
-  virtual ~EvtMassAmp(); 
+  EvtMassAmp(const EvtMassAmp& other);
+  EvtMassAmp& operator=(const EvtMassAmp& other);
 
-  virtual EvtComplex amplitude(const EvtPoint1D& p) const;
+  EvtComplex amplitude(const EvtPoint1D& p) const override;
 
-  virtual EvtAmplitude<EvtPoint1D>* clone() const
+  EvtAmplitude<EvtPoint1D>* clone() const override
   { return new EvtMassAmp(*this); }
-  
+
   void setBirthVtx(const EvtTwoBodyVertex& vb)
   {
-    _vb = new EvtTwoBodyVertex(vb);
+    _vb = std::make_unique<EvtTwoBodyVertex>(vb);
   }
 
   void addBirthFact() { _useBirthFact = true; }
@@ -49,10 +49,10 @@ public:
   void addDeathFactFF() { _useDeathFactFF = true; }
 
 private:
-  
+
   EvtPropBreitWignerRel _prop;
   EvtTwoBodyVertex  _vd;
-  EvtTwoBodyVertex* _vb;
+  std::unique_ptr<EvtTwoBodyVertex> _vb;
 
   bool _useBirthFact;
   bool _useDeathFact;

@@ -10,7 +10,7 @@
 //
 // Module: EvtXPsiGamma.cc
 //
-// Description: Routine to implement radiative decay X3872(2-+) -> J/psi gamma 
+// Description: Routine to implement radiative decay X3872(2-+) -> J/psi gamma
 //      according to [F. Brazzi et al, arXiv:1103.3155
 //
 // Modification history:
@@ -18,7 +18,7 @@
 //    May, 7, 2012        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -29,20 +29,19 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtTensor4C.hh"
 
+
 #include "EvtGenModels/EvtXPsiGamma.hh"
+
 
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-EvtXPsiGamma::~EvtXPsiGamma() {
-/*  cout<<"(* AVL EvtXPsiGamma::destructor getProbMax(-1) = "<<getProbMax(-1)<<" *)"<<endl;
-  cout<<"(* AVL EvtXPsiGamma::destructor "<<ncall<<" calls *)"<<endl;*/
-}
+
 
 std::string EvtXPsiGamma::getName(){
-  return "X38722-+_PSI_GAMMA";     
+  return "X38722-+_PSI_GAMMA";
 }
 
 
@@ -56,15 +55,15 @@ EvtComplex EvtXPsiGamma::fT2(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, E
 // T2 term from [Bazi](10)
   EvtTensor4C epsPQ = EvtGenFunctions::directProd(q,p); // e_{mu nu a b} p^a q^b;
   epsPQ = dual(epsPQ);
-  
+
   EvtVector4C tmp1 = epsPI.cont1(epsEps);
   EvtVector4C tmp2=epsPQ.cont1(tmp1);
   EvtComplex T2 = tmp2*epsEta; // epa^a pi_{a mu} e_{mu nu rho si} p_nu q_rho eta_si
-  
+
   tmp1 = epsPI.cont1(epsEta);
   tmp2=epsPQ.cont1(tmp1);
   T2+=tmp2*epsEps;   // T2 - eta^a pi_{a mu} e_{mu nu rho si} q_nu p_rhi eps_si
-  
+
   return T2;
 }
 
@@ -88,7 +87,7 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
   double fRho=0.121, mRho2 = 0.770*0.770, fOmega=0.036, mOmega2 = 0.782*0.782;
 
   EvtComplex amp;
-  
+
   if(_ID0 == EvtPDL::getId("gamma") ) {
     for(int iPsi = 0; iPsi < 4; iPsi++) {
       for(int iGamma = 0; iGamma < 1; iGamma++) {
@@ -108,13 +107,12 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
                               root->getDaug(1)->epsParent(iPsi).conj(),
                               root->getDaug(0)->epsParentPhoton(iGamma).conj()
                               );
-          amp = (fOmega/mOmega2*gOmega+fRho/mRho2*gRho)*T2 
+          amp = (fOmega/mOmega2*gOmega+fRho/mRho2*gRho)*T2
             + (fOmega/mOmega2*gPOmega+fRho/mRho2*gPRho)*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        }
-      }
-    }
-  } else if(_ID0 == EvtPDL::getId("omega") ) {
+        };};};
+  }
+  else if(_ID0 == EvtPDL::getId("omega") ) {
     for(int iPsi = 0; iPsi < 4; iPsi++) {
       for(int iGamma = 0; iGamma < 4; iGamma++) {
         for(int iChi = 0; iChi<4; iChi++) {
@@ -136,14 +134,13 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
           //	  cout << "AVL:: omega"<<endl;
           amp = gOmega*T2 + gPOmega*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        }
-      }
-    } 
-  } else if(_ID0 == EvtPDL::getId("rho0") ) {
+        };};};
+  }
+  else if(_ID0 == EvtPDL::getId("rho0") ) {
     for(int iPsi = 0; iPsi < 4; iPsi++) {
       for(int iGamma = 0; iGamma < 4; iGamma++) {
         for(int iChi = 0; iChi<4; iChi++) {
-          
+
           EvtComplex T2 = fT2(
                               root->getDaug(1)->getP4(),
                               root->getDaug(0)->getP4(),
@@ -161,13 +158,12 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
           //	  cout << "AVL:: rho"<<endl;
           amp = gRho*T2 + gPRho*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        }
-      }
-    }
-  } else {
-    cout<<"AVL:: Not realized yet"<<endl;
+        };};};
   }
-  
+  else {
+    cout<<"AVL:: Not realized yet"<<endl;
+  };
+
 }
 
 
@@ -175,7 +171,7 @@ void EvtXPsiGamma::init(){
 //  cout<<" (* AVL: ==== EvtXPsiGamma::init() ============ *)"<<endl;
 
   ncall = 0;
-  
+
   checkNArg(0);
   checkNDaug(2);
 
@@ -184,7 +180,7 @@ void EvtXPsiGamma::init(){
 
 //  checkSpinDaughter(0,EvtSpinType::PHOTON);
   checkSpinDaughter(1,EvtSpinType::VECTOR);
-  
+
   _ID0 = getDaug(0);
 /*  if(_ID0 == EvtPDL::getId("gamma") ) {
     cout << "AVL:: gamma"<<endl;
@@ -194,9 +190,9 @@ void EvtXPsiGamma::init(){
   }
   else if(_ID0 == EvtPDL::getId("rho0") ) {
     cout << "AVL:: rho"<<endl;
-  }
+  };
 */
-  
+
 }
 
 void EvtXPsiGamma::initProbMax() {
@@ -204,3 +200,5 @@ void EvtXPsiGamma::initProbMax() {
   else if(_ID0 == EvtPDL::getId("omega") )  setProbMax(16.);
   else if(_ID0 == EvtPDL::getId("rho0") )  setProbMax(70.);
 }
+
+

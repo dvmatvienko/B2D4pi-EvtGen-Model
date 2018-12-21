@@ -11,7 +11,7 @@
 // Module: EvtGen/EvtBtoXsgammaFermiUtil.hh
 //
 // Description:
-//       Class to hold various fermi functions and their helper functions. The 
+//       Class to hold various fermi functions and their helper functions. The
 //       fermi functions are used in EvtBtoXsgammaKagan.
 //
 // Modification history:
@@ -25,17 +25,13 @@
 
 #include <vector>
 
-class EvtBtoXsgammaFermiUtil {
+class EvtBtoXsgammaFermiUtil final {
 
 //--------------------
 // Instance Members --
 //--------------------
 
 public:
-
-  // Constructors
-  EvtBtoXsgammaFermiUtil() { };
-  virtual ~EvtBtoXsgammaFermiUtil() { };
 
   //Exponential function
   static double FermiExpFunc(double var, const std::vector<double> &coeffs);

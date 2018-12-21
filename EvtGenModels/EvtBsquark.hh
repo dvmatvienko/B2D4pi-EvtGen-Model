@@ -28,16 +28,13 @@ class EvtParticle;
 class EvtBsquark:public  EvtDecayProb  {
 
 public:
-  
-  EvtBsquark() {}
-  virtual ~EvtBsquark();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
-  void init();
-  void decay(EvtParticle *p); 
+  void initProbMax() override;
+  void init() override;
+  void decay(EvtParticle *p) override;
 
 };
 

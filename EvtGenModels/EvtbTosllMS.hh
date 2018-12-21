@@ -13,8 +13,8 @@
 // Description: Implementation of the B -> K* ell^+ ell^- decay according
 //              to the paper: D.Melikhov, B.Stech, PRD62, 014006 (2000).
 //
-//              This is the derived class of the base class "EvtDecayAmp", 
-//              but the decay amplitude will be calculated in the class 
+//              This is the derived class of the base class "EvtDecayAmp",
+//              but the decay amplitude will be calculated in the class
 //              "EvtbTosllAmpNew" (see file EvtbTosllAmpNew.hh).
 //
 // Modification history:
@@ -40,12 +40,12 @@ public:
   EvtbTosllMS() {} ;
   virtual ~EvtbTosllMS();
 
-  virtual std::string getName() ;
-  virtual EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual void init();
-  virtual void initProbMax();
-  virtual void decay(EvtParticle *p);
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *p) override;
 
 private:
   EvtbTosllFFNew *_msffmodel;

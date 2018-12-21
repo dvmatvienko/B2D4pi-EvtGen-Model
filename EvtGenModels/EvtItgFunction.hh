@@ -16,16 +16,16 @@
 
 /**
  *  Copyright (C) 1998 LBNL
- *  
+ *
  *  Generic function where the pointer to the function is available.
  *
- *  The function is taken as type pointer to function returning double and 
+ *  The function is taken as type pointer to function returning double and
  *  taking a double (the abscissa) and a const RWTValVector<double> reference
  *  (the parameter values of the function) as arguments.
  *
  *  @see EvtItgFunctionEvtItgFunction
  *
- *  @version $Id: EvtItgFunction.hh,v 1.2 2009-03-16 16:34:00 robbep Exp $ 
+ *  @version $Id: EvtItgFunction.hh,v 1.2 2009-03-16 16:34:00 robbep Exp $
  *
  *  @author Phil Strother       Originator
  */
@@ -37,26 +37,23 @@ public:
   // Constructors
   EvtItgFunction( double (*theFunction)(double),
 		     double lowerRange, double upperRange);
- 
- 
-  // Destructor
-  virtual ~EvtItgFunction( );
 
-  virtual void setCoeff(int, int, double) {};
-  virtual double getCoeff(int, int) {return 0.0;};
- 
+
+  void setCoeff(int, int, double) override {};
+  double getCoeff(int, int) override {return 0.0;};
+
 protected:
-  
+
   // Helper functions
 
-  virtual double myFunction(double x) const;
+  double myFunction(double x) const override;
 
 private:
- 
+
   // Data members
   double (*_myFunction)(double x);
 
-  // Note: if your class needs a copy constructor or an assignment operator, 
+  // Note: if your class needs a copy constructor or an assignment operator,
   //  make one of the following public and implement it.
    EvtItgFunction( const EvtItgFunction& );                // Copy Constructor
   EvtItgFunction& operator= ( const EvtItgFunction& );    // Assignment op

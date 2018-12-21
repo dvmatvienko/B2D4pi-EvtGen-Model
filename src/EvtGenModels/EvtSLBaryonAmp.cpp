@@ -338,10 +338,10 @@ double EvtSLBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
 
       }
 
-      //report(DEBUG,"EvtGen") << "prob,probctl:"<<prob<<" "
-      //			    << probctl[0]<<" "
-      //			    << probctl[1]<<" "
-      //			    << probctl[2]<<std::endl;
+      //EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "prob,probctl:"<<prob<<" "
+      //			            << probctl[0]<<" "
+      //			            << probctl[1]<<" "
+      //			            << probctl[2]<<std::endl;
 
       if ( prob > maxfoundprob ) {
 	maxfoundprob = prob; 

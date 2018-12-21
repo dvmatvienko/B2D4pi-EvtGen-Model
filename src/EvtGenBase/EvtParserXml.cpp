@@ -17,7 +17,7 @@
 //    DCC     24 October, 2011        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
@@ -29,21 +29,8 @@
 #include "EvtGenBase/EvtReport.hh"
 using namespace std;
 
-EvtParserXml::EvtParserXml(){
-  _line = "";
-  _lineNo=0;
-  _tag = "";
-  _tagTitle = "";
-}
-
-EvtParserXml::~EvtParserXml(){
-
-
-}
-
-
 bool EvtParserXml::open(std::string filename){
-  
+
   if(!expandEnvVars(filename)) {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Error while expanding environment variables in file name '"<<filename.c_str()<<"'"<<endl;
     return false;
@@ -56,7 +43,7 @@ bool EvtParserXml::open(std::string filename){
   }
 
   return true;
-  
+
 }
 
 bool EvtParserXml::close() {
@@ -209,18 +196,18 @@ bool EvtParserXml::expandEnvVars(std::string& str) {
     size_t varStart = str.find('$');
     size_t varNameLength;
     std::string varName;
-    
+
     //if this is the last character then just remove the $
     if(varStart == str.length()-1) {
       str.erase(varStart);
       return true;
     }
-    
+
     if(str[varStart+1] == '{') {
       //deal with environment variables in {}s
       size_t braceStart = varStart+1;
       size_t braceEnd = str.find('}',braceStart);
-      
+
       if(braceEnd == std::string::npos) {
         EvtGenReport(EVTGEN_ERROR,"EvtGen")
           << "Incomplete environment variable found in text: "<<str<<endl;

@@ -60,8 +60,8 @@ void EvtD0mixDalitz::init()
       _isRBWmodel = ! getArg( 4 ); // RBW by default. If arg4 is set, do K-matrix.
     } else {
       EvtGenReport(EVTGEN_ERROR, "EvtD0mixDalitz" ) << "Number of arguments for this model must be 0, 2, 4 or 5:" << std::endl
-						    << "[ x y ][ qp.re qp.im ][ doK-matrix ]" << std::endl
-						    << "Check your dec file." << std::endl;
+                                        << "[ x y ][ qp.re qp.im ][ doK-matrix ]" << std::endl
+                                        << "Check your dec file." << std::endl;
       exit( 1 );
     }
   }

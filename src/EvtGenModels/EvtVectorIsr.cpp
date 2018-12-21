@@ -10,7 +10,7 @@
 //
 // Module: EvtVectorIsr.cc
 //
-// Description: 
+// Description:
 //   This is a special decay model to generate e+e- -> phi gamma + soft gammas
 //   using soft collinear ISR calculation from AfkQed
 //   This is implemented as a decay of the VPHO.
@@ -18,7 +18,7 @@
 // Modification history:
 //
 //    Joe Izen        Oct, 2005             Soft Colinear Photons (secondary ISR) ported from AfkQed
-//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1 
+//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1
 //    RYD/Adriano     June 16, 1998         Module created
 //
 //------------------------------------------------------------------------
@@ -44,11 +44,10 @@
 #include <string>
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtVectorIsr::~EvtVectorIsr() {}
 
 std::string EvtVectorIsr::getName(){
 
-  return "VECTORISR";     
+  return "VECTORISR";
 }
 
 EvtDecayBase* EvtVectorIsr::clone(){
@@ -59,9 +58,9 @@ EvtDecayBase* EvtVectorIsr::clone(){
 void EvtVectorIsr::init(){
 
   // check that there are 2 arguments
-  
+
   checkNDaug(2);
-  
+
   checkSpinParent(EvtSpinType::VECTOR);
   checkSpinDaughter(0,EvtSpinType::VECTOR);
   checkSpinDaughter(1,EvtSpinType::PHOTON);
@@ -135,11 +134,11 @@ void EvtVectorIsr::decay( EvtParticle *p ){
   double f = 0;
   int m = 0;
   double largest_f=0;//only used when determining max weight for this vector particle mass
-    
+
   if (!firstorder){
     while (fran > f){
-      m++;    
-    
+      m++;
+
       int n=0;
       while (f_col == 0.){
 	n++;
@@ -149,35 +148,35 @@ void EvtVectorIsr::decay( EvtParticle *p ){
 	  assert(0);
 	}
       }
-    
+
       //Effective beam energy after soft photon emission (neglecting electron mass)
       ebeam = sqrt(e01*e02);
       wcm_new = 2*ebeam;
       s_new = wcm_new*wcm_new;
-    
+
       //The Vector mass should never be greater than wcm_new
       if (phi->mass() > wcm_new){
 	EvtGenReport(EVTGEN_INFO,"EvtGen") << "EvtVectorIsr finds Vector mass="<<phi->mass()<<" > Weff=" << wcm_new<<".  Should not happen\n";
 	assert(0);
       }
- 
+
       //Determine Born cross section @ wcm_new for e+e- -> gamma V.  We aren't interested in the absolute normalization
       //Just the functional dependence. Assuming a narrow resonance when determining cs_Born
       double cs_Born = 1.;
       if (EvtPDL::getMaxRange(phi->getId()) > 0.) {
 	double x0 = 1 - EvtPDL::getMeanMass(phi->getId())*EvtPDL::getMeanMass(phi->getId())/s_new;
-      
-	//L = log(s/(electMass*electMass)  
+
+	//L = log(s/(electMass*electMass)
 	double L = 2.*log(wcm_new/electMass);
-      
+
 	// W(x0) is actually 2*alpha/pi times the following
 	double W = (L-1.)*(1. - x0 +0.5*x0*x0);
-      
+
 	//Born cross section is actually 12*pi*pi*Gammaee/EvtPDL::getMeanMass(phi->getId()) times the following
 	//(we'd need the full W(x0) as well)
 	cs_Born = W/s_new;
       }
-    
+
       f = cs_Born*f_col;
 
       //if fmax was set properly, f should NEVER be larger than fmax
@@ -193,37 +192,37 @@ void EvtVectorIsr::decay( EvtParticle *p ){
 	     << "Will now assert\n";
 	assert(0);
       }
- 
+
 
       if (fmax > 0.) {
 	fran = fmax*EvtRandom::Flat(0.0,1.0);
       }
-    
+
       else {
 	//determine max weight for this vector particle mass
 	if (f>largest_f) {
 	  largest_f = f;
 	  EvtGenReport(EVTGEN_INFO,"EvtGen")  << m << " " <<  EvtPDL::name(phi->getId()) << " "
-	       << "vector_mass " 
-	       << " " << EvtPDL::getMeanMass(phi->getId()) << "  fmax should be at least " << largest_f 
-	       << ".        f_col cs_B = " << f_col << " " << cs_Born 
+	       << "vector_mass "
+	       << " " << EvtPDL::getMeanMass(phi->getId()) << "  fmax should be at least " << largest_f
+	       << ".        f_col cs_B = " << f_col << " " << cs_Born
 	       << std::endl;
 	}
-	if (m%10000 == 0) {  
+	if (m%10000 == 0) {
 	  EvtGenReport(EVTGEN_INFO,"EvtGen") << m << " " <<  EvtPDL::name(phi->getId()) << " "
-	       << "vector_mass " 
-	       << " " << EvtPDL::getMeanMass(phi->getId()) << "  fmax should be at least " << largest_f 
-	       << ".        f_col cs_B = " << f_col << " " << cs_Born 
+	       << "vector_mass "
+	       << " " << EvtPDL::getMeanMass(phi->getId()) << "  fmax should be at least " << largest_f
+	       << ".        f_col cs_B = " << f_col << " " << cs_Born
 	       << std::endl;
 	}
-      
+
 	f_col = 0.;
 	f = 0.;
 	//determine max weight for this vector particle mass
       }
-    
+
       if (m > 100000){
-      
+
 	if (fmax > 0.) EvtGenReport(EVTGEN_INFO,"EvtGen") << "EvtVectorIsr is having problems. Check the fmax value - the 3rd argument in the .dec file\n"
 					     << "Recommended values for various vector particles: "
 					     << "phi->1.15   J/psi-psi(4415)->0.105   "
@@ -231,15 +230,15 @@ void EvtVectorIsr::decay( EvtParticle *p ){
 	assert(0);
       }
     }//while (fran > f)
-  
+
   }//if (firstorder)
-  
+
   //Compute parameters for boost to/from the system after colinear radiation
 
   double bet_l;
   double gam_l;
   double betgam_l;
-  
+
   double csfrmn_new;
   double csbkmn_new;
 
@@ -249,18 +248,18 @@ void EvtVectorIsr::decay( EvtParticle *p ){
     betgam_l = 0.;
     csfrmn_new = csfrmn;
     csbkmn_new = csbkmn;
-  } else {  
+  } else {
     double xx       = e02/e01;
     double sq_xx    = sqrt(xx);
     bet_l    = (1.-xx)/(1.+xx);
     gam_l    = (1.+xx)/(2.*sq_xx);
     betgam_l = (1.-xx)/(2.*sq_xx);
-  
+
     //Boost photon cos_theta limits in lab to limits in the system after colinear rad
     csfrmn_new=(csfrmn - bet_l)/(1. - bet_l*csfrmn);
     csbkmn_new=(csbkmn - bet_l)/(1. - bet_l*csbkmn);
   }
- 
+
 //    //generate kinematics according to Bonneau-Martin article
 //    //Nucl. Phys. B27 (1971) 381-397
 
@@ -305,13 +304,13 @@ void EvtVectorIsr::decay( EvtParticle *p ){
 		      -p4phi.get(2),
 		      betgam_l*isr_p0 + gam_l*isr_p3);
 
-  
+
   //four-vectors of the collinear photons
   if (!firstorder) {
     p4softg1.set(0, eb-e02);    p4softg1.set(3, e02-eb);
     p4softg2.set(0, eb-e01);    p4softg2.set(3, eb-e01);
   }
-  
+
   //save momenta for particles
   phi->init( getDaug(0),p4phi);
   gamma->init( getDaug(1),p4gamma);
@@ -378,8 +377,8 @@ void EvtVectorIsr::decay( EvtParticle *p ){
 
 double EvtVectorIsr::ckhrad1(double xx, double a, double b){
   //port of AfkQed/ckhrad.F function ckhrad1
-  double yy = xx*xx; 
-  double zz = 1. - 2*xx + yy; 
+  double yy = xx*xx;
+  double zz = 1. - 2*xx + yy;
   return  0.5* (1. + yy + zz/(a-1.) + 0.25*b*( -0.5*(1. + 3*yy)*log(xx)) - zz  );
 }
 
@@ -402,20 +401,20 @@ void EvtVectorIsr::ckhrad(const double& e_beam,const double& q2_min,double& e01,
   double coefener =  1. + 0.75*betae_lab + p3;
   double coef1 = coefener + 0.125*pi2*beta*beta;
   double coef2 = p12* biglog*biglog;
-  double facts  = coef1 + coef2; 
-  
+  double facts  = coef1 + coef2;
+
   double y1_min = 0;
-  double e1min  = 0.25 * q2_min/e_beam; 
+  double e1min  = 0.25 * q2_min/e_beam;
   double y1_max = pow( 1. - e1min/e_beam, 0.5*beta );
   double y1     = y1_min +r1 *(y1_max - y1_min);
   e01           = e_beam *(1. - pow(y1, 2./beta) );
-  
+
   double y2_min = 0.;
-  double e2min  = 0.25 * q2_min/e01; 
+  double e2min  = 0.25 * q2_min/e01;
   double y2_max = pow( 1. - e2min/e_beam, 0.5*beta);
   double y2     = y2_min +r2 *(y2_max - y2_min);
   e02           = e_beam *(1. - pow(y2, 2./beta) );
-  
+
 
   double xx1 = e01/e_beam;
   double xx2 = e02/e_beam;

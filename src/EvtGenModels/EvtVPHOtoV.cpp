@@ -17,7 +17,7 @@
 //    Ryd       March 9, 2004       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
@@ -28,12 +28,10 @@
 #include "EvtGenModels/EvtVPHOtoV.hh"
 #include <string>
 
-EvtVPHOtoV::~EvtVPHOtoV() {}
-
 std::string EvtVPHOtoV::getName(){
 
-  return "VPHOTOV"; 
-    
+  return "VPHOTOV";
+
 }
 
 
@@ -60,7 +58,7 @@ void EvtVPHOtoV::initProbMax() {
 
    setProbMax(1.0);
 
-}      
+}
 
 void EvtVPHOtoV::decay( EvtParticle *p){
 
@@ -68,7 +66,7 @@ void EvtVPHOtoV::decay( EvtParticle *p){
 
   EvtParticle* d=p->getDaug(0);
 
-  d->setP4(p->getP4Restframe());  
+  d->setP4(p->getP4Restframe());
 
   vertex(0,0,p->eps(0)*p->epsParent(0).conj());
   vertex(1,0,p->eps(1)*p->epsParent(0).conj());

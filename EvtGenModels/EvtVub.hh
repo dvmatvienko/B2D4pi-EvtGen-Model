@@ -24,28 +24,26 @@
 #define EVTVUB_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+#include "EvtGenModels/EvtVubdGamma.hh"
 
 #include <vector>
+#include <memory>
 
 class EvtParticle;
-class EvtVubdGamma;
 
 class EvtVub:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVub() : _masses(0) , _weights(0) , _dGamma(0) {}
-  virtual ~EvtVub();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 private:
 
@@ -55,10 +53,10 @@ private:
   double _dGMax;  // max dGamma*p2 value;
   int    _nbins;
   int    _storeQplus;
-  double * _masses;
-  double * _weights;
+  std::vector<double>  _masses;
+  std::vector<double>  _weights;
 
-  EvtVubdGamma *_dGamma; // calculates the decay rate
+  std::unique_ptr<EvtVubdGamma> _dGamma; // calculates the decay rate
   double findPFermi();
   std::vector<double> _pf;
 };

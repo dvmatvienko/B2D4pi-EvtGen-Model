@@ -11,12 +11,12 @@
 //
 // Description:
 //      Abstraction of a generic function for use in integration methods elsewhere
-//      in this package. (Stolen and modified from the BaBar IntegrationUtils package 
+//      in this package. (Stolen and modified from the BaBar IntegrationUtils package
 //      - author: Phil Strother).
 //
 // Modification history:
 //
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
+//    Jane Tinslay                March 21, 2001       Module adapted for use in
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
@@ -37,10 +37,6 @@ EvtItgAbsFunction::EvtItgAbsFunction(double lowerRange, double upperRange):
   _upperRange(upperRange),
   _lowerRange(lowerRange){}
 
-EvtItgAbsFunction::~EvtItgAbsFunction( )
-{}
-
-
 double
 EvtItgAbsFunction::value( double x) const{
   if (x >= _lowerRange && x <= _upperRange) return myFunction(x);
@@ -49,8 +45,8 @@ EvtItgAbsFunction::value( double x) const{
                 << _upperRange << "].  Returning 0.0" << endl;
   return 0.0;  // Never get here
 }
-   
-double 
+
+double
 EvtItgAbsFunction::operator()(double x) const{
   return myFunction(x);
 }

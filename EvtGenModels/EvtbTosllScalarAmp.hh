@@ -35,7 +35,7 @@ public:
   //Daughters are initialized and have been added to the parent.
   //No need to carry around the daughters seperately!
   void CalcAmp( EvtParticle *parent, EvtAmp& amp,
-		EvtbTosllFF *formFactors );
+		EvtbTosllFF *formFactors ) override;
 
 private:
   double _c7,_c9,_c10;

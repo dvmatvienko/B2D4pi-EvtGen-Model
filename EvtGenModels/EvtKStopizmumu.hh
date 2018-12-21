@@ -10,32 +10,32 @@ class EvtParticle;
 class EvtKStopizmumu : public EvtDecayAmp
 {
  public:
-  virtual std::string getName()
+  std::string getName() override
   { return "KS_PI0MUMU"; }
 
-  virtual EvtDecayBase* clone()
+  EvtDecayBase* clone() override
   { return new EvtKStopizmumu; }
 
-  virtual void init();
+  void init() override;
 
-  virtual void initProbMax()
+  void initProbMax() override
   { setProbMax(1.0e-10); }
 
-  virtual void decay( EvtParticle *p );
-  
-  double F_z( const double& z, 
+  void decay( EvtParticle *p ) override;
+
+  double F_z( const double& z,
               const double& rvsq );
   EvtComplex G_z( const double& z );
-  double Wpol_z( const double& z, 
-                 const double& as, 
+  double Wpol_z( const double& z,
+                 const double& as,
                  const double& bs );
-  EvtComplex chi_z( const double& z, 
+  EvtComplex chi_z( const double& z,
                     const double& rpisq );
-  EvtComplex Wpipi_z( const double& z, 
-                      const double& alpha_s, 
-                      const double& beta_s, 
-                      const double& rvsq, 
-                      const double& rpisq, 
+  EvtComplex Wpipi_z( const double& z,
+                      const double& alpha_s,
+                      const double& beta_s,
+                      const double& rvsq,
+                      const double& rpisq,
                       const double& z0 );
 
 };

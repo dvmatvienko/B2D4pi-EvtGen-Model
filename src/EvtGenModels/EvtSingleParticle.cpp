@@ -29,11 +29,9 @@
 #include "EvtGenBase/EvtConst.hh"
 using std::endl;
 
-EvtSingleParticle::~EvtSingleParticle() {}
-
 std::string EvtSingleParticle::getName(){
 
-  return "SINGLE";     
+  return "SINGLE";
 
 }
 
@@ -50,16 +48,16 @@ void EvtSingleParticle::init(){
   disableCheckQ();
 
   if ((getNArg()==6)||(getNArg()==4)||(getNArg()==2)) {
-    
+
     if (getNArg()==6){
       //copy the arguments into eaiser to remember names!
 
       pmin=getArg(0);
       pmax=getArg(1);
-      
+
       cthetamin=getArg(2);
       cthetamax=getArg(3);
-      
+
       phimin=getArg(4);
       phimax=getArg(5);
 
@@ -70,10 +68,10 @@ void EvtSingleParticle::init(){
 
       pmin=getArg(0);
       pmax=getArg(1);
-      
+
       cthetamin=getArg(2);
       cthetamax=getArg(3);
-      
+
       phimin=0.0;
       phimax=EvtConst::twoPi;
 
@@ -84,10 +82,10 @@ void EvtSingleParticle::init(){
 
       pmin=getArg(0);
       pmax=getArg(1);
-      
+
       cthetamin=-1.0;
       cthetamax=1.0;
-      
+
       phimin=0.0;
       phimax=EvtConst::twoPi;
 
@@ -95,7 +93,7 @@ void EvtSingleParticle::init(){
 
 
   }else{
-    
+
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtSingleParticle generator expected "
                            << " 6, 4, or 2 arguments but found:"<<getNArg()<<endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
@@ -122,13 +120,13 @@ void EvtSingleParticle::decay( EvtParticle *p ){
   p->makeDaughters(getNDaug(),getDaugs());
   d=p->getDaug(0);
 
-  //generate flat distribution in p 
-  //we are now in the parents restframe! This means the 
+  //generate flat distribution in p
+  //we are now in the parents restframe! This means the
   //restframe of the e+e- collison.
   double pcm=EvtRandom::Flat(pmin,pmax);
   //generate flat distribution in phi.
   double phi=EvtRandom::Flat(phimin,phimax);
-  
+
   double cthetalab;
 
   do{

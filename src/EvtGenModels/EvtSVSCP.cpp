@@ -18,7 +18,7 @@
 //    RYD       Febuary 10, 1997       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -31,11 +31,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVSCP::~EvtSVSCP() {}
-
 std::string EvtSVSCP::getName(){
 
-  return "SVS_CP";     
+  return "SVS_CP";
 
 }
 
@@ -94,7 +92,7 @@ void EvtSVSCP::decay( EvtParticle *p ){
 
   A=EvtComplex(getArg(3)*cos(getArg(4)),getArg(3)*sin(getArg(4)));
   Abar=EvtComplex(getArg(5)*cos(getArg(6)),getArg(5)*sin(getArg(6)));
-   
+
   if (other_b==B0B){
     amp=A*cos(getArg(1)*t/(2*EvtConst::c))+
       EvtComplex(cos(-2.0*getArg(0)),sin(-2.0*getArg(0)))*
@@ -102,20 +100,20 @@ void EvtSVSCP::decay( EvtParticle *p ){
   }
   if (other_b==B0){
     amp=A*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-      EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+      EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
       getArg(2)*Abar*cos(getArg(1)*t/(2*EvtConst::c));
   }
-  
+
   EvtVector4R p4_parent;
-  
+
   p4_parent=momv+moms;
-  
+
   double norm=massv/(momv.d3mag()*p4_parent.mass());
-  
+
   vertex(0,amp*norm*p4_parent*(v->epsParent(0)));
   vertex(1,amp*norm*p4_parent*(v->epsParent(1)));
   vertex(2,amp*norm*p4_parent*(v->epsParent(2)));
-  
+
   return ;
 }
 

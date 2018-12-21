@@ -32,20 +32,19 @@ class RandGeneral;
 class EvtVubNLO:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVubNLO() {}
-  virtual ~EvtVubNLO();
 
-  std::string getName();
+  EvtVubNLO() = default;
+  ~EvtVubNLO();
 
-  EvtDecayBase* clone();
+  std::string getName() override;
 
-  void initProbMax();
+  EvtDecayBase* clone() override;
 
-  void init();
+  void initProbMax() override;
 
-  void decay(EvtParticle *p); 
+  void init() override;
 
+  void decay(EvtParticle *p) override;
 
 private:
 
@@ -53,18 +52,17 @@ private:
   double _lbar;
   double _mupi2;
 
-  double _mb;     // the b-quark pole mass in GeV 
+  double _mb;     // the b-quark pole mass in GeV
   double _mB;
   double _lambdaSF;
-  double _b;      // Parameter for the Fermi Motion 
-  double _kpar;  
+  double _b;      // Parameter for the Fermi Motion
+  double _kpar;
   double _mui; // renormalization scale (preferred value=1.5 GeV)
-  double _SFNorm; // SF normalization 
+  double _SFNorm; // SF normalization
   double _dGMax;  // max dGamma*p2 value;
-  int    _nbins;
   int    _idSF;// which shape function?
-  double * _masses;
-  double * _weights;
+  std::vector<double> _masses;
+  std::vector<double> _weights;
 
   double _gmax;
   int _ngood,_ntot;
@@ -89,10 +87,10 @@ private:
 
   // theory parameters
   inline double mu_i(){return _mui;} // intermediate scale
-  inline double mu_bar(){return _mui;} 
+  inline double mu_bar(){return _mui;}
   inline double mu_h(){return _mb/sqrt(2.0);} // high scale
   inline double lambda1(){return -_mupi2;}
-  
+
   // expansion coefficients for RGE
   static double beta0(int nf=4){return 11.-2./3.*nf;}
   static double beta1(int nf=4){return 34.*3.-38./3.*nf;}
@@ -106,7 +104,7 @@ private:
 
   // running constants
 
-  static double alphas(double mu) ; 
+  static double alphas(double mu) ;
   static double C_F(double mu){return (4.0/3.0)*alphas(mu)/4./EvtConst::pi;}
 
   // Shape Functions
@@ -147,7 +145,7 @@ private:
   inline double dSudakovdepsi(double mu1, double mu2){return S2(alphas(mu1)/(4*EvtConst::pi),alphas(mu2)/alphas(mu1));}
   inline double Sudakov(double mu1, double mu2, double epsi=0){double fp(4*EvtConst::pi);return S0(alphas(mu1)/fp,alphas(mu2)/alphas(mu1))+S1(alphas(mu1)/fp,alphas(mu2)/alphas(mu1))+epsi*dSudakovdepsi(mu1,mu2);}
 
-  // RG 
+  // RG
   inline double dGdepsi(double mu1, double mu2){return 1./8./EvtConst::pi*(alphas(mu2)-alphas(mu1))*(gamma1()/beta0()-beta1()*gamma0()/pow(beta0(),2));}
   inline double aGamma(double mu1, double mu2, double epsi=0){return gamma0()/2/beta0()*log(alphas(mu2)/alphas(mu1))+epsi*dGdepsi( mu1, mu2);}
   inline double dgpdepsi(double mu1, double mu2){return 1./8./EvtConst::pi*(alphas(mu2)-alphas(mu1))*(gammap1()/beta0()-beta1()*gammap0()/pow(beta0(),2));}

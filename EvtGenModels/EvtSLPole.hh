@@ -24,6 +24,7 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <memory>
 
 class Evtparticle;
 
@@ -31,19 +32,16 @@ class EvtSLPole:public  EvtDecayAmp  {
 
 public:
 
-  EvtSLPole() {}
-  virtual ~EvtSLPole();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF *SLPoleffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> SLPoleffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
   //special case - reset the daughter masses
   bool _resetDaughterTree;
 

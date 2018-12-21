@@ -17,7 +17,7 @@
 //    DJL/RYD     July 23, 1997        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -27,11 +27,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include <string>
 
-EvtEtaDalitz::~EvtEtaDalitz() {}
-
 std::string EvtEtaDalitz::getName(){
 
-  return "ETA_DALITZ";     
+  return "ETA_DALITZ";
 
 }
 
@@ -83,7 +81,7 @@ void EvtEtaDalitz::decay( EvtParticle *p){
   vertex(amp);
 
   return ;
-   
+
 }
 
 

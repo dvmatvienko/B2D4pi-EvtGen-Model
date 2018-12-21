@@ -30,17 +30,14 @@ EvtBlattWeisskopf::EvtBlattWeisskopf(int LL, double R, double p0)
 
   _F0 = compute(_p0);
   if(_F0 <= 0) {
-    
+
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "Invalid nominal form factor computed " << _F0 << endl;
     assert(0);
-  } 
+  }
 }
 
 EvtBlattWeisskopf::EvtBlattWeisskopf(const EvtBlattWeisskopf& other)
   : _LL(other._LL), _radial(other._radial), _p0(other._p0), _F0(other._F0)
-{}
-
-EvtBlattWeisskopf::~EvtBlattWeisskopf()
 {}
 
 double EvtBlattWeisskopf::operator()(double p) const
@@ -59,7 +56,7 @@ double EvtBlattWeisskopf::operator()(double p) const
 // pAB - momentum of either daughter in the candidate rest frame
 //       the mass of the candidate is used
 // R - meson radial parameter
-// 
+//
 // In the CLEO paper R=5 GeV-1 for D0, R=1.5 for intermediate resonances
 
 double EvtBlattWeisskopf::compute(double p) const

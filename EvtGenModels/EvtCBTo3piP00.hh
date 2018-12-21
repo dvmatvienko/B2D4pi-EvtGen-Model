@@ -32,15 +32,14 @@ class EvtCBTo3piP00:public  EvtDecayAmp  {
 public:
 
   EvtCBTo3piP00() {}
-  virtual ~EvtCBTo3piP00();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtCBTo3piP00* clone() override;
 
-  void init();
-  void initProbMax();
-  
-  void decay(EvtParticle *p); 
+  void init() override;
+  void initProbMax() override;
+
+  void decay(EvtParticle *p) override;
 
 private:
 

@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtVectorIsr2.hh
 //
-// Description: 
+// Description:
 //   This is a special decay model to generate e+e- -> phi gamma + soft gammas
 //   using soft collinear ISR calculation from AfkQed
 //   This is implemented as a decay of the VPHO.
@@ -18,7 +18,7 @@
 // Modification history:
 //
 //    Joe Izen        Oct, 2005             Soft Colinear Photons (secondary ISR) ported from AfkQed
-//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1 
+//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1
 //    RYD/Adriano     June 16, 1998         Module created
 //
 //------------------------------------------------------------------------
@@ -35,22 +35,18 @@ class EvtVectorIsr:public  EvtDecayIncoherent  {
 
 public:
 
-  EvtVectorIsr() {}
-  virtual ~EvtVectorIsr();
+  std::string getName() override;
 
+  EvtDecayBase* clone() override;
 
-  std::string getName();
+  void decay(EvtParticle *p) override;
 
-  EvtDecayBase* clone();
+  void init() override;
 
-  void decay(EvtParticle *p); 
-
-  void init();
-
-  void initProbMax();
+  void initProbMax() override;
 
   double ckhrad1(double xx, double a, double b);
-  
+
   void ckhrad(const double& e_beam,const double& q2_min,double& e01,double& e02,double& f);
 
 

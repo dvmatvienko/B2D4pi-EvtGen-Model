@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtPHOTOS.hh
 //
-// Description: EvtGen's interface to PHOTOS for generation of 
+// Description: EvtGen's interface to PHOTOS for generation of
 //              QED final state radiation.
 //
 // Modification history:
@@ -32,15 +32,12 @@ class EvtAbsExternalGen;
 class EvtPHOTOS : public EvtAbsRadCorr {
 
 public:
-    
-  EvtPHOTOS();
-  virtual ~EvtPHOTOS();
 
-  virtual void doRadCorr(EvtParticle *p);
+  void doRadCorr(EvtParticle *p) override;
 
 private:
 
-  EvtAbsExternalGen* _photosEngine;
+  EvtAbsExternalGen* _photosEngine = nullptr;
 
 };
 

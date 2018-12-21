@@ -15,7 +15,7 @@
 //
 // Modification history:
 //
-//    Riccardo Faccini       Feb. 11, 2004       
+//    Riccardo Faccini       Feb. 11, 2004
 //
 //------------------------------------------------------------------------
 //
@@ -39,8 +39,6 @@ using std::cout;
 using std::endl;
 
 EvtVubNLO::~EvtVubNLO() {
-  delete [] _masses;
-  delete [] _weights;
   cout <<" max pdf : "<<_gmax<<endl;
   cout <<" efficiency : "<<(float)_ngood/(float)_ntot<<endl;
 
@@ -49,7 +47,7 @@ EvtVubNLO::~EvtVubNLO() {
 
 std::string EvtVubNLO::getName(){
 
-  return "VUB_NLO";     
+  return "VUB_NLO";
 
 }
 
@@ -87,9 +85,9 @@ void EvtVubNLO::init(){
   _mui  	= 1.5;// GeV (scale)
   _kpar         = getArg(3);// 0
   _idSF         = abs((int)getArg(4));// type of shape function 1: exponential (from Neubert)
-  _nbins        = abs((int)getArg(5));
-  _masses       = new double[_nbins];
-  _weights      = new double[_nbins];
+  int nbins        = abs((int)getArg(5));
+  _masses.resize(nbins);
+  _weights.resize(nbins);
 
   // Shape function normalization
   _mB=5.28;// temporary B meson mass for normalization
@@ -112,28 +110,28 @@ void EvtVubNLO::init(){
   cout << " pdf 0.52,1.02,2.01 "<<tripleDiff(0.52,1.02,2.01)<<endl;
   cout << " pdf 1.35,1.39,2.73 "<<tripleDiff(1.35,1.39,2.73)<<endl;
 
-  
-  if (getNArg()-npar+2 != 2*_nbins) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected " 
-                           << _nbins << " masses and weights but found: "
+
+  if (getNArg()-npar+2 != int(2*_weights.size())) {
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected "
+                           << _weights.size() << " masses and weights but found: "
 			   <<(getNArg()-npar)/2 <<endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
   }
-  int i,j = npar-2;
+  int j = npar-2;
   double maxw = 0.;
-  for (i=0;i<_nbins;i++) {
+  for (unsigned i=0;i<_masses.size();i++) {
     _masses[i] = getArg(j++);
     if (i>0 && _masses[i] <= _masses[i-1]) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected " 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected "
 			     << " mass bins in ascending order!"
 			     << "Will terminate execution!"<<endl;
       ::abort();
     }
     _weights[i] = getArg(j++);
     if (_weights[i] < 0) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected " 
-			     << " weights >= 0, but found: " 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected "
+			     << " weights >= 0, but found: "
 			     <<_weights[i] <<endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
       ::abort();
@@ -141,12 +139,12 @@ void EvtVubNLO::init(){
     if ( _weights[i] > maxw ) maxw = _weights[i];
   }
   if (maxw == 0) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected at least one " 
-			   << " weight > 0, but found none! " 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO generator expected at least one "
+			   << " weight > 0, but found none! "
 			   << "Will terminate execution!"<<endl;
     ::abort();
   }
-  for (i=0;i<_nbins;i++) _weights[i]/=maxw;
+  for (auto& w : _weights) w /= maxw;
 
   // the maximum dGamma*p2 value depends on alpha_s only:
 
@@ -158,40 +156,39 @@ void EvtVubNLO::init(){
   // to get an exact value; in order to stay in the phase space for
   // B+- and B0 use the smaller mass
 
-  
+
   // check that there are 3 daughters
   checkNDaug(3);
 }
 
 void EvtVubNLO::initProbMax(){
-  
+
   noProbMax();
-  
+
 }
 
 void EvtVubNLO::decay( EvtParticle *p ){
-  
-  int j;
+
   // B+ -> u-bar specflav l+ nu
-  
+
   EvtParticle *xuhad, *lepton, *neutrino;
   EvtVector4R p4;
-  
+
   double pp,pm,pl,ml,El(0.0),Eh(0.0),sh(0.0);
-  
-  
-  
+
+
+
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  
+
   xuhad=p->getDaug(0);
   lepton=p->getDaug(1);
   neutrino=p->getDaug(2);
-  
+
   _mB = p->mass();
   ml = lepton->mass();
-  
+
   bool tryit = true;
-  
+
   while (tryit) {
     // pm=(E_H+P_H)
     pm= EvtRandom::Flat(0.,1);
@@ -199,15 +196,15 @@ void EvtVubNLO::decay( EvtParticle *p ){
     // pl=mB-2*El
     pl = EvtRandom::Flat(0.,1);
     pl=sqrt(pl)*pm;
-    // pp=(E_H-P_H)    
+    // pp=(E_H-P_H)
     pp = EvtRandom::Flat(0.,pl);
 
     _ntot++;
-    
-    El = (_mB-pl)/2.;      
+
+    El = (_mB-pl)/2.;
     Eh = (pp+pm)/2;
     sh = pp*pm;
-     
+
     double pdf(0.);
     if (pp<pl && El>ml&& sh > _masses[0]*_masses[0]&& _mB*_mB + sh - 2*_mB*Eh > ml*ml) {
       double xran = EvtRandom::Flat(0,_dGMax);
@@ -217,46 +214,47 @@ void EvtVubNLO::decay( EvtParticle *p ){
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtVubNLO pdf above maximum: " <<pdf
 			       <<" P+,P-,Pl,Pdf= "<<pp <<" "<<pm<<" "<<pl<<" "<<pdf<<endl;
 	//::abort();
-	
+
       }
       if ( pdf >= xran ) tryit = false;
-	
+
       if(pdf>_gmax)_gmax=pdf;
     } else {
       //      cout <<" EvtVubNLO incorrect kinematics  sh= "<<sh<<"EH "<<Eh<<endl;
-    }	
-      
-    
+    }
+
+
     // reweight the Mx distribution
-    if(!tryit && _nbins>0){
+    if(!tryit && !_weights.empty()){
       _ngood++;
       double xran1 = EvtRandom::Flat();
-      double m = sqrt(sh);j=0;
-      while ( j < _nbins && m > _masses[j] ) j++; 
-      double w = _weights[j-1]; 
+      double m = sqrt(sh);
+      unsigned j=0;
+      while ( j < _masses.size() && m > _masses[j] ) j++;
+      double w = _weights[j-1];
       if ( w < xran1 ) tryit = true;// through away this candidate
     }
   }
 
   //  cout <<" max prob "<<gmax<<" " << pp<<" "<<y<<" "<<x<<endl;
-  
-  // o.k. we have the three kineamtic variables 
-  // now calculate a flat cos Theta_H [-1,1] distribution of the 
-  // hadron flight direction w.r.t the B flight direction 
+
+  // o.k. we have the three kineamtic variables
+  // now calculate a flat cos Theta_H [-1,1] distribution of the
+  // hadron flight direction w.r.t the B flight direction
   // because the B is a scalar and should decay isotropic.
-  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction 
-  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the 
+  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction
+  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the
   // W flight direction.
-  
+
   double ctH = EvtRandom::Flat(-1,1);
   double phH = EvtRandom::Flat(0,2*M_PI);
   double phL = EvtRandom::Flat(0,2*M_PI);
 
   // now compute the four vectors in the B Meson restframe
-    
+
   double ptmp,sttmp;
   // calculate the hadron 4 vector in the B Meson restframe
-  
+
   sttmp = sqrt(1-ctH*ctH);
   ptmp = sqrt(Eh*Eh-sh);
   double pHB[4] = {Eh,ptmp*sttmp*cos(phH),ptmp*sttmp*sin(phH),ptmp*ctH};
@@ -280,7 +278,7 @@ void EvtVubNLO::decay( EvtParticle *p ){
   double gamma = pWB[0]/sqrt(mW2);
 
   double pLW[4];
-    
+
   ptmp = (mW2-ml*ml)/2/sqrt(mW2);
   pLW[0] = sqrt(ml*ml + ptmp*ptmp);
 
@@ -293,41 +291,39 @@ void EvtVubNLO::decay( EvtParticle *p ){
   double xW[3] = {-pWB[2],pWB[1],0};
   // eZ' = eW
   double zW[3] = {pWB[1]/apWB,pWB[2]/apWB,pWB[3]/apWB};
-  
+
   double lx = sqrt(xW[0]*xW[0]+xW[1]*xW[1]);
-  for (j=0;j<2;j++) 
-    xW[j] /= lx;
+  for (int j=0;j<2;j++) xW[j] /= lx;
 
   // eY' = eZ' x eX'
   double yW[3] = {-pWB[1]*pWB[3],-pWB[2]*pWB[3],pWB[1]*pWB[1]+pWB[2]*pWB[2]};
   double ly = sqrt(yW[0]*yW[0]+yW[1]*yW[1]+yW[2]*yW[2]);
-  for (j=0;j<3;j++) 
-    yW[j] /= ly;
+  for (int j=0;j<3;j++) yW[j] /= ly;
 
   // p_lep = |p_lep| * (  sin(Theta) * cos(Phi) * eX'
   //                    + sin(Theta) * sin(Phi) * eY'
   //                    + cos(Theta) *            eZ')
-  for (j=0;j<3;j++)
-    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j] 
+  for (int j=0;j<3;j++)
+    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j]
       +        sttmp*sin(phL)*ptmp*yW[j]
       +          ctL         *ptmp*zW[j];
 
   double apLW = ptmp;
-    
+
   // boost them back in the B Meson restframe
-  
+
   double appLB = beta*gamma*pLW[0] + gamma*ctL*apLW;
- 
+
   ptmp = sqrt(El*El-ml*ml);
   double ctLL = appLB/ptmp;
 
   if ( ctLL >  1 ) ctLL =  1;
   if ( ctLL < -1 ) ctLL = -1;
-    
+
   double pLB[4] = {El,0,0,0};
   double pNB[8] = {pWB[0]-El,0,0,0};
 
-  for (j=1;j<4;j++) {
+  for (int j=1;j<4;j++) {
     pLB[j] = pLW[j] + (ctLL*ptmp - ctL*apLW)/apWB*pWB[j];
     pNB[j] = pWB[j] - pLB[j];
   }
@@ -356,7 +352,7 @@ EvtVubNLO::tripleDiff (  double pp, double pl, double pm){
   sCoeffs[8] =  mu_h();
   sCoeffs[9] =  mu_i();
   sCoeffs[10] =  _SFNorm; // SF normalization;
-  
+
 
   double c1=(_mB+pl-pp-pm)*(pm-pl);
   double c2=2*(pl-pp)*(pm-pl);
@@ -367,12 +363,11 @@ EvtVubNLO::tripleDiff (  double pp, double pl, double pm){
   double td0=c1*aF1+c2*aF2+c3*aF3;
 
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&integrand, 0., _mB, sCoeffs);
-  EvtItgAbsIntegrator *jetSF = new EvtItgSimpsonIntegrator(*func,0.01,25);
+  auto func = EvtItgPtrFunction{&integrand, 0., _mB, sCoeffs};
+  auto jetSF = EvtItgSimpsonIntegrator{func,0.01,25};
   double smallfrac=0.000001;// stop a bit before the end to avoid problems with numerical integration
-  double tdInt = jetSF->evaluate(0,pp*(1-smallfrac));
-  delete jetSF;
-  
+  double tdInt = jetSF.evaluate(0,pp*(1-smallfrac));
+
   double SU=U1lo(mu_h(),mu_i())*pow((pm-pp)/(_mB-pp),alo(mu_h(),mu_i()));
   double TD=(_mB-pp)*SU*(td0+tdInt);
 
@@ -387,10 +382,10 @@ EvtVubNLO::integrand(double omega, const std::vector<double> &coeffs){
   double c2=2*(coeffs[1]-coeffs[0])*(coeffs[2]-coeffs[1]);
   double c3=(coeffs[5]-coeffs[2])*(coeffs[2]-coeffs[0]);
 
-  return  c1*F1Int(omega,coeffs)+c2*F2Int(omega,coeffs)+c3*F3Int(omega,coeffs);  
+  return  c1*F1Int(omega,coeffs)+c2*F2Int(omega,coeffs)+c3*F3Int(omega,coeffs);
 }
 
-double 
+double
 EvtVubNLO::F10(const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
@@ -405,17 +400,17 @@ EvtVubNLO::F10(const std::vector<double> &coeffs){
 
   result += C_F(mui)*(2*pow(log(y*coeffs[4]*pp/pow(mui,2)),2)-3*log(y*coeffs[4]*pp/pow(mui,2))+7-pow(EvtConst::pi,2) );
   result *=shapeFunction(pp,coeffs);
-  // changes due to SSF 
+  // changes due to SSF
   result +=  (-subS(coeffs)+2*subT(coeffs)+(subU(coeffs)-subV(coeffs))*(1/y-1.))/(coeffs[5]-pp);
   result += shapeFunction(pp,coeffs)/pow((coeffs[5]-coeffs[0]),2)*(-5*(lambda1()+3*lambda2())/6+2*(2*lambda1()/3-lambda2())/pow(y,2));
   //  result +=  (subS(coeffs)+subT(coeffs)+(subU(coeffs)-subV(coeffs))/y)/(coeffs[5]-pp);
   // this part has been added after Feb '05
-  
+
   //result += shapeFunction(pp,coeffs)/pow((coeffs[5]-coeffs[0]),2)*((lambda1()+3*lambda2())/6+2*(2*lambda1()/3-lambda2())/pow(y,2));
   return result;
 }
 
-double 
+double
 EvtVubNLO::F1Int(double omega,const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
@@ -423,10 +418,10 @@ EvtVubNLO::F1Int(double omega,const std::vector<double> &coeffs){
   return C_F(coeffs[9])*(
 			 (shapeFunction(omega,coeffs)-shapeFunction(pp,coeffs))*(4*log(y*coeffs[4]*(pp-omega)/pow(coeffs[9],2))-3)/(pp-omega)+
 			 (g1(y,(pp-omega)/(coeffs[5]-coeffs[0]))/(coeffs[5]-pp)*shapeFunction(omega,coeffs))
-			 );  
+			 );
 }
 
-double 
+double
 EvtVubNLO::F20(const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
@@ -437,27 +432,27 @@ EvtVubNLO::F20(const std::vector<double> &coeffs){
   return result;
 }
 
-double 
+double
 EvtVubNLO::F2Int(double omega,const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
   return C_F(coeffs[9])*g3(y,(pp-omega)/(coeffs[5]-coeffs[0]))*shapeFunction(omega,coeffs)/(coeffs[5]-pp);
 }
 
-double 
+double
 EvtVubNLO::F30(const std::vector<double> &coeffs){
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
   return shapeFunction(coeffs[0],coeffs)/pow((coeffs[5]-coeffs[0])*y,2)*(-2*lambda1()/3+lambda2());
 }
 
-double 
+double
 EvtVubNLO::F3Int(double omega,const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
   return C_F(coeffs[9])*g3(y,(pp-omega)/(coeffs[5]-coeffs[0]))/2*shapeFunction(omega,coeffs)/(coeffs[2]-coeffs[0]);
 }
 
-double 
+double
 EvtVubNLO::g1(double y, double x){
   double result=(y*(-9+10*y)+x*x*(-12+13*y)+2*x*(-8+6*y+3*y*y))/y/pow(1+x,2)/(x+y);
   result -= 4*log((1+1/x)*y)/x;
@@ -465,7 +460,7 @@ EvtVubNLO::g1(double y, double x){
   return result;
 }
 
-double 
+double
 EvtVubNLO::g2(double y, double x){
   double result=y*(10*pow(x,4)+y*y+3*x*x*y*(10+y)+pow(x,3)*(12+19*y)+x*y*(8+4*y+y*y));
   result -= 2*x*log(1+y/x)*(5*pow(x,4)+2*y*y+6*pow(x,3)*(1+2*y)+4*y*x*(1+2*y)+x*x*y*(18+5*y));
@@ -473,7 +468,7 @@ EvtVubNLO::g2(double y, double x){
   return result;
 }
 
-double 
+double
 EvtVubNLO::g3(double y, double x){
   double result=(2*pow(y,3)*(-11+2*y)-10*pow(x,4)*(6-6*y+y*y)+x*y*y*(-94+29*y+2*y*y)+2*x*x*y*(-72+18*y+13*y*y)-pow(x,3)*(72+42*y-70*y*y+3*pow(y,3)))/(pow(y*(1+x),2)*y*(x+y));
   result += 2*log(1+y/x)*(-6*x*pow(y,3)*(-5+y)+4*pow(y,4)+5*pow(x,5)*(6-6*y+y*y)-4*pow(x*y,2)*(-20+6*y+y*y)+pow(x,3)*y*(90-10*y-28*y*y+pow(y,3))+pow(x,4)*(36+36*y-50*y*y+4*pow(y,3)))/(pow((1+x)*y*y,2)*(x+y));
@@ -482,7 +477,7 @@ EvtVubNLO::g3(double y, double x){
 
 /* old version (before Feb 05 notebook from NNeubert
 
-double 
+double
 EvtVubNLO::F1Int(double omega,const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
@@ -490,25 +485,25 @@ EvtVubNLO::F1Int(double omega,const std::vector<double> &coeffs){
   return C_F(coeffs[9])*(
 			 (shapeFunction(omega,coeffs)-shapeFunction(pp,coeffs))*(4*log(y*coeffs[4]*(pp-omega)/pow(coeffs[9],2))-3)/(pp-omega)-
 			 (1./y/(coeffs[5]-pp)*shapeFunction(omega,coeffs)*(5-6*y+4*(3-y)*log((pp-omega)/y/coeffs[4])))
-			 );  
+			 );
 }
 
 
-double 
+double
 EvtVubNLO::F2Int(double omega,const std::vector<double> &coeffs){
   double pp=coeffs[0];
   double y=(coeffs[2]-coeffs[0])/(coeffs[5]-coeffs[0]);
   return C_F(coeffs[9])*shapeFunction(omega,coeffs)*(2-11/y-4/y*log((pp-omega)/y/coeffs[4]))/(coeffs[5]-pp);
 }
 
-double 
+double
 EvtVubNLO::F3(const std::vector<double> &coeffs){
   return C_F(coeffs[9])*shapeFunction(omega,coeffs)/(coeffs[2]-coeffs[0]);
 }
 */
 
 double EvtVubNLO::SFNorm(  const std::vector<double> &/*coeffs*/){
-  
+
   double omega0=1.68;//normalization scale (mB-2*1.8)
   if(_idSF==1){ // exponential SF
     double omega0=1.68;//normalization scale (mB-2*1.8)
@@ -538,17 +533,17 @@ EvtVubNLO::shapeFunction ( double omega, const std::vector<double> &sCoeffs){
 
 
 // SSF
-double 
+double
 EvtVubNLO::subS(const std::vector<double> &c){ return (lambda_bar(1.68)-c[0])*shapeFunction(c[0],c);}
-double 
+double
 EvtVubNLO::subT(const std::vector<double> &c){  return -3*lambda2()*subS(c)/mu_pi2(1.68);}
-double 
+double
 EvtVubNLO::subU(const std::vector<double> &c){ return -2*subS(c);}
-double 
+double
 EvtVubNLO::subV(const std::vector<double> &c){ return -subT(c);}
 
 
-double 
+double
 EvtVubNLO::lambda_bar(double omega0){
   if(_lbar<0){
     if(_idSF==1){ // exponential SF
@@ -563,7 +558,7 @@ EvtVubNLO::lambda_bar(double omega0){
 }
 
 
-double 
+double
 EvtVubNLO::mu_pi2(double omega0){
   if(_mupi2<0){
     if(_idSF==1){ // exponential SF
@@ -580,13 +575,13 @@ EvtVubNLO::mu_pi2(double omega0){
   return _mupi2;
 }
 
-double 
+double
 EvtVubNLO::M0(double mui,double omega0){
   double mf=omega0-lambda_bar(omega0);
   return 1+4*C_F(mui)*(-pow(log(mf/mui),2)-log(mf/mui)-pow(EvtConst::pi/2,2)/6.+mu_pi2(omega0)/3/pow(mf,2)*(log(mf/mui)-0.5));
 }
 
-double 
+double
 EvtVubNLO::alphas(double mu){
   double Lambda4=0.302932;
   double lg=2*log(mu/Lambda4);
@@ -611,31 +606,24 @@ EvtVubNLO::expShapeFunction ( double omega, const std::vector<double> &sCoeffs){
   return pow(wL,b-1)*exp(-b*wL);
 }
 
-double 
+double
 EvtVubNLO::Gamma(double z) {
 
-  std::vector<double> gammaCoeffs(6);
-  gammaCoeffs[0]=76.18009172947146;
-  gammaCoeffs[1]=-86.50532032941677;
-  gammaCoeffs[2]=24.01409824083091;
-  gammaCoeffs[3]=-1.231739572450155;
-  gammaCoeffs[4]=0.1208650973866179e-2;
-  gammaCoeffs[5]=-0.5395239384953e-5;
-  
-  //Lifted from Numerical Recipies in C
-  double x, y, tmp, ser;
- 
-  int j;
-  y = z;
-  x = z;
-  
-  tmp = x + 5.5;
-  tmp = tmp - (x+0.5)*log(tmp);
-  ser=1.000000000190015;
+  auto gammaCoeffs = std::array{ 76.18009172947146, -86.50532032941677,
+                                 24.01409824083091, -1.231739572450155,
+                                 0.1208650973866179e-2, -0.5395239384953e-5 };
 
-  for (j=0;j<6;j++) {
-    y = y +1.0;
-    ser = ser + gammaCoeffs[j]/y;
+  //Lifted from Numerical Recipies in C
+  double y = z;
+  double x = z;
+
+  double tmp = x + 5.5;
+  tmp = tmp - (x+0.5)*log(tmp);
+  double ser=1.000000000190015;
+
+  for (const auto& gammaCoeff : gammaCoeffs) {
+    y += 1.0;
+    ser += gammaCoeff/y;
   }
 
   return exp(-tmp+log(2.5066282746310005*ser/x));
@@ -644,11 +632,11 @@ EvtVubNLO::Gamma(double z) {
 
 
 
-double 
+double
 EvtVubNLO::Gamma(double z, double tmin) {
   std::vector<double> c(1);
   c[0]=z;
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&dgamma, tmin, 100., c);
-  EvtItgAbsIntegrator *jetSF = new EvtItgSimpsonIntegrator(*func,0.001);
-  return jetSF->evaluate(tmin,100.);
+  auto func = EvtItgPtrFunction{&dgamma, tmin, 100., c};
+  auto jetSF = EvtItgSimpsonIntegrator{func,0.001};
+  return jetSF.evaluate(tmin,100.);
 }

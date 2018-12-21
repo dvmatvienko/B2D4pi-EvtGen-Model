@@ -13,9 +13,9 @@
 // Description: the B -> Gamma ell^+ ell^- decay channel description
 //		based on the papers:
 //		D.Melikhov, N.Nikitin, K.Toms, Yad. Fiz. 62, No 11
-//              and 
-//              I.Balakireva, D.Melikhov, N.Nikitin, D.Tlisov, 
-//                                           e-Print: arXiv:0911.0605 [hep-ph]. 
+//              and
+//              I.Balakireva, D.Melikhov, N.Nikitin, D.Tlisov,
+//                                           e-Print: arXiv:0911.0605 [hep-ph].
 //
 // Modification history:
 //
@@ -41,12 +41,12 @@ public:
   Evtbs2llGammaMNT() {}
   virtual ~Evtbs2llGammaMNT();
 
-  virtual std::string getName();
-  virtual EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual void init();
-  virtual void initProbMax();
-  virtual void decay(EvtParticle *p);
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *p) override;
 
 private:
   Evtbs2llGammaFF *_mntffmodel;

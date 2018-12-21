@@ -151,7 +151,7 @@ void EvtbsToLLLL::decay( EvtParticle *p ){
   _calcamp->CalcAmp(p,_amp2, _mntffmodel, _wilscoeff, mu, Nf, res_swch, ias, 
                     CKM_A,CKM_lambda,CKM_barrho,CKM_bareta);
 
-//  EvtGenReport(NOTICE,"EvtGen") << "\n The function EvtbTosllMSExt::decay(...) passed with arguments:"
+//  EvtGenReport(EVTGEN_NOTICE,"EvtGen") << "\n The function EvtbTosllMSExt::decay(...) passed with arguments:"
 //                        << "\n mu = " << mu << " Nf =" << Nf 
 //                        << " res_swch = " << res_swch 
 //                        << " ias = " << ias 

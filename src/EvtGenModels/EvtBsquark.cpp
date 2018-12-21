@@ -33,11 +33,9 @@
 #include "EvtGenBase/EvtGammaMatrix.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-EvtBsquark::~EvtBsquark() {}
-
 std::string EvtBsquark::getName(){
 
-  return "BSQUARK";     
+  return "BSQUARK";
 
 }
 
@@ -80,7 +78,7 @@ void EvtBsquark::decay(EvtParticle *p){
     charge=-1;
   }
 
-  
+
   EvtDiracParticle charmquark;
 
   //this is a very crude approximation...
@@ -90,7 +88,7 @@ void EvtBsquark::decay(EvtParticle *p){
   else{
     charmquark.init(anticquark,p->getDaug(0)->getP4());
   }
-    
+
   EvtVector4R p4c = p->getDaug(0)->getP4();
 
   EvtVector4R p4sn = p->getDaug(2)->getP4();
@@ -121,7 +119,7 @@ void EvtBsquark::decay(EvtParticle *p){
     (Mass*Mass-mu*mu+2*mw*mw*cos(2*atan(tanbeta)));
 
   double phim=0.5*atan(tan2phim);
-  
+
   EvtComplex U11=cos(phim);
   EvtComplex U12=sin(phim);
   EvtComplex U21=-sin(phim);
@@ -143,7 +141,7 @@ void EvtBsquark::decay(EvtParticle *p){
   double stheta=sin(theta);
 
   double vcsb=0.08;
-  double mchi1=mchargino;  
+  double mchi1=mchargino;
   double mchi2=mchargino;
 
   //overall scale factor
@@ -151,7 +149,7 @@ void EvtBsquark::decay(EvtParticle *p){
 
   EvtComplex a1=mchi1*(U11*ctheta-mb*U12*stheta/(sqrt(2.0)*mw*cosbeta));
   EvtComplex a2=mchi2*(U21*ctheta-mb*U22*stheta/(sqrt(2.0)*mw*cosbeta));
-  
+
   EvtComplex b1=mc*conj(V12)*ctheta/(sqrt(2.0)*mw*sinbeta);
   EvtComplex b2=mc*conj(V22)*ctheta/(sqrt(2.0)*mw*sinbeta);
 
@@ -202,7 +200,7 @@ void EvtBsquark::decay(EvtParticle *p){
 
     }
   }
- 
+
   double prob=real(M[0][0]*conj(M[0][0])+
 		   M[1][0]*conj(M[1][0])+
 		   M[0][1]*conj(M[0][1])+

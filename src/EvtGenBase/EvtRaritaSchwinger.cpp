@@ -24,9 +24,6 @@
 using std::endl;
 using std::ostream;
 
-EvtRaritaSchwinger::~EvtRaritaSchwinger(){}
-
-
 EvtRaritaSchwinger rotateEuler(const EvtRaritaSchwinger& rs,
 			       double alpha,double beta,double gamma){
 
@@ -57,7 +54,7 @@ EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
 
 void EvtRaritaSchwinger::set(int i,int j,const EvtComplex& sp){_rs[i][j]=sp;}
 
-EvtComplex EvtRaritaSchwinger::get(int i,int j) const {return _rs[i][j];} 
+EvtComplex EvtRaritaSchwinger::get(int i,int j) const {return _rs[i][j];}
 
 void EvtRaritaSchwinger::applyRotateEuler(double alpha,double beta,
 					  double gamma){
@@ -89,7 +86,7 @@ void EvtRaritaSchwinger::applyRotateEuler(double alpha,double beta,
   setSpinor(3,sp3);
 
 }
-  
+
 
 void EvtRaritaSchwinger::applyBoostTo(const EvtVector4R p4){
 
@@ -98,11 +95,11 @@ void EvtRaritaSchwinger::applyBoostTo(const EvtVector4R p4){
   EvtVector3R boost(p4.get(1)/e,p4.get(2)/e,p4.get(3)/e);
 
   applyBoostTo(boost);
-  
+
   return;
 
 }
-  
+
 
 void EvtRaritaSchwinger::applyBoostTo(const EvtVector3R boost){
 
@@ -147,7 +144,7 @@ ostream& operator<<(ostream& s, const EvtRaritaSchwinger& rs){
     s << endl;
   }
   return s;
-  
+
 }
 
 
@@ -158,7 +155,7 @@ EvtVector4C EvtRaritaSchwinger::getVector(int i) const{
   return tmp;
 
 }
- 
+
 EvtDiracSpinor EvtRaritaSchwinger::getSpinor(int i) const{
 
   EvtDiracSpinor tmp;
@@ -168,7 +165,7 @@ EvtDiracSpinor EvtRaritaSchwinger::getSpinor(int i) const{
 }
 
 void EvtRaritaSchwinger::setVector(int i,const EvtVector4C& v){
-  
+
   _rs[i][0]=v.get(0);
   _rs[i][1]=v.get(1);
   _rs[i][2]=v.get(2);
@@ -247,13 +244,13 @@ EvtRaritaSchwinger& EvtRaritaSchwinger::operator+=(const EvtRaritaSchwinger& u2)
       _rs[i][j]+=u2._rs[i][j];
     }
   }
-  
-  return *this; 
+
+  return *this;
 }
 
 EvtRaritaSchwinger operator+(const EvtRaritaSchwinger& u1,
 				const EvtRaritaSchwinger& u2){
-  
+
   return EvtRaritaSchwinger(u1)+=u2;
 
 }
@@ -267,13 +264,13 @@ EvtRaritaSchwinger& EvtRaritaSchwinger::operator-=(const EvtRaritaSchwinger& u2)
       _rs[i][j]+=u2._rs[i][j];
     }
   }
-  
-  return *this; 
+
+  return *this;
 }
 
 EvtRaritaSchwinger operator-(const EvtRaritaSchwinger& u1,
 				const EvtRaritaSchwinger& u2){
-  
+
   return EvtRaritaSchwinger(u1)-=u2;
 
 }

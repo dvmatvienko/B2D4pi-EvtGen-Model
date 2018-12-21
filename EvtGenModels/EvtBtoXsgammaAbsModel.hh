@@ -17,7 +17,7 @@
 // Modification history:
 //
 //    Jane Tinslay            March 21, 2000      Module Created
-//                        
+//
 //------------------------------------------------------------------------
 
 #ifndef EVTBTOXSGAMMAABSMODEL_HH
@@ -26,18 +26,14 @@
 class EvtBtoXsgammaAbsModel {
 
 public:
-  
-  EvtBtoXsgammaAbsModel() {}
 
-  virtual ~EvtBtoXsgammaAbsModel();
+  virtual ~EvtBtoXsgammaAbsModel() = default;
 
   virtual void init(int, double*);
 
   virtual double GetMass(int code)=0;
 
-private:
 
 };
 
 #endif
-

@@ -1,12 +1,11 @@
-// $Id: EvtBToDDalitzCPK.hh,v 1.2 2009-03-16 16:37:55 robbep Exp $
-#ifndef EVTGENMODELS_EVTBTODDALITZCPK_HH 
+#ifndef EVTGENMODELS_EVTBTODDALITZCPK_HH
 #define EVTGENMODELS_EVTBTODDALITZCPK_HH 1
 
 // Include files
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 /** @class EvtBToDDalitzCPK EvtBToDDalitzCPK.hh EvtGenModels/EvtBToDDalitzCPK.hh
- *  Decay Model for B->DK, (adds the possibility to use D0->Ks pi pi to 
+ *  Decay Model for B->DK, (adds the possibility to use D0->Ks pi pi to
  *  find gamma with a Dalitz analysis
  *
  *  @author Patrick Robbe
@@ -15,20 +14,14 @@
 
 class EvtBToDDalitzCPK : public EvtDecayAmp {
 public:
-  /// Standard constructor
-  EvtBToDDalitzCPK( ) { }
 
-  virtual ~EvtBToDDalitzCPK( ); ///< Destructor
+  std::string getName ( ) override;
+  EvtBToDDalitzCPK* clone ( ) override;
 
-  virtual std::string getName ( ) ;
-  EvtDecayBase * clone ( ) ;
-  
-  void decay ( EvtParticle * p ) ;
-  void init ( ) ;
-  
-  void initProbMax ( ) ;
-  
-protected:
+  void decay ( EvtParticle * p ) override;
+  void init ( ) override;
+
+  void initProbMax ( ) override;
 
 private:
   int _flag ;

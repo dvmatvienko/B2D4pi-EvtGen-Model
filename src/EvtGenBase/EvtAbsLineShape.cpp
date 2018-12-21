@@ -33,11 +33,6 @@
 
 using namespace std;
 
-EvtAbsLineShape::EvtAbsLineShape() {
-}
-
-EvtAbsLineShape::~EvtAbsLineShape() {
-}
 
 EvtAbsLineShape::EvtAbsLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp) {
 
@@ -85,7 +80,7 @@ EvtAbsLineShape& EvtAbsLineShape::operator=(const EvtAbsLineShape& x){
   _width=x._width;
   _spin=x._spin;
   _maxRange=x._maxRange;
-  return *this; 
+  return *this;
 }
 
 EvtAbsLineShape* EvtAbsLineShape::clone() {
@@ -130,7 +125,7 @@ double EvtAbsLineShape::getRandMass(EvtId *parId, int /* nDaug */, EvtId * /*dau
   if ( maxMass>-0.5 && maxMass< mMax) mMax=maxMass;
   double ymin = atan( 2.0*(mMin-_mass)/_width);
   double ymax = atan( 2.0*(mMax-_mass)/_width);
-  
+
   return ( _mass + ((_width/2.0)*tan(EvtRandom::Flat(ymin,ymax))));
   //  return EvtRandom::Flat(_massMin,_massMax);
 }
@@ -154,7 +149,7 @@ double EvtAbsLineShape::getMassProb(double mass, double massPar, int nDaug, doub
     if ( mass > massPar) return 0.;
   }
   //Otherwise return the right value.
-  //Fortunately we have generated events according to a non-rel BW, so 
+  //Fortunately we have generated events according to a non-rel BW, so
   //just return..
   //EvtPropBreitWigner bw(_mass,_width);
   //EvtPropFactor<EvtTwoBodyVertex> f(bw);

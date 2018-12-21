@@ -20,11 +20,11 @@ using std::ostream;
 // Default ctor can sometimes be useful
 
 EvtTwoBodyVertex::EvtTwoBodyVertex()
-  : _LL(0), _p0(0), _f(0)
+  : _LL(0), _p0(0)
 {}
 
 EvtTwoBodyVertex::EvtTwoBodyVertex(double mA, double mB, double mAB, int L)
-  : _kine(), _LL(L), _p0(0), _f(0)
+  : _kine(), _LL(L), _p0(0)
 {
   // Kinematics is initialized only if the decay is above threshold
 
@@ -37,20 +37,23 @@ EvtTwoBodyVertex::EvtTwoBodyVertex(double mA, double mB, double mAB, int L)
 
 
 EvtTwoBodyVertex::EvtTwoBodyVertex(const EvtTwoBodyVertex& other)
-  : _kine(other._kine), _LL(other._LL), _p0(other._p0), 
-  _f( (other._f) ? new EvtBlattWeisskopf(*other._f) : 0 )
+  : _kine(other._kine), _LL(other._LL), _p0(other._p0),
+  _f( (other._f) ? new EvtBlattWeisskopf(*other._f) : nullptr )
 {}
 
-EvtTwoBodyVertex::~EvtTwoBodyVertex()
+EvtTwoBodyVertex&
+EvtTwoBodyVertex::operator=(const EvtTwoBodyVertex& other)
 {
-  if(_f) delete _f;
+  _kine = other._kine;
+  _LL = other._LL;
+  _p0 = other._p0;
+  _f.reset( other._f ? new EvtBlattWeisskopf(*other._f) : nullptr );
+  return *this;
 }
 
-
-void EvtTwoBodyVertex::set_f(double R) 
+void EvtTwoBodyVertex::set_f(double R)
 {
-  if(_f) delete _f;
-  _f = new EvtBlattWeisskopf(_LL,R,_p0);
+  _f = std::make_unique<EvtBlattWeisskopf>(_LL,R,_p0);
 }
 
 
@@ -82,7 +85,7 @@ double EvtTwoBodyVertex::formFactor(EvtTwoBodyKine x) const
     double p1 = x.p();
     ff = (*_f)(p1);
   }
-  
+
   return ff;
 }
 

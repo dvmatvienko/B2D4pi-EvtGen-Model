@@ -4,6 +4,9 @@
 //
 //===========================================================================
 
+21st December 2018 John Back
+    Imported C++ modernization changes from Gerhard Raven (LHCb).
+
 7th December 2018 John Back
     Added the EvtBLLNuL (BLLNUL) model that generates rare B -> ell ell nu ell 
     decays, where ell = e or mu, courtesy of Anna Danilina and Nikolai Nikitin 

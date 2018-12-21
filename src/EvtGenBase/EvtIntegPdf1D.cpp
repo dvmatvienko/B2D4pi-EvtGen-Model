@@ -23,12 +23,9 @@ EvtIntegPdf1D::EvtIntegPdf1D(const EvtIntegPdf1D& other)
   : EvtPdf<EvtPoint1D>(other), _min(other._min), _max(other._max)
 {}
 
-EvtIntegPdf1D::~EvtIntegPdf1D() 
-{}
-
 EvtValError EvtIntegPdf1D::compute_integral() const
 {
-  double x1 = pdfIntegral(_min); 
+  double x1 = pdfIntegral(_min);
   double x2 = pdfIntegral(_max);
   return EvtValError(x2-x1,0.);
 }

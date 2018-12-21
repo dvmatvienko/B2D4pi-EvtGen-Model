@@ -27,11 +27,9 @@
 #include "EvtGenModels/EvtPhsp.hh"
 #include <string>
 
-EvtPhsp::~EvtPhsp() {}
-
 std::string EvtPhsp::getName(){
 
-  return "PHSP";     
+  return "PHSP";
 
 }
 

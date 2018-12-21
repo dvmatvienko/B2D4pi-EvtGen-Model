@@ -16,20 +16,13 @@ using std::fstream ;
 //*                      Class EvtLambdaB2LambdaV                        *
 //*                                                                      *
 //************************************************************************
-//DECLARE_ALGORITHM_FACTORY( EvtLambdaB2LambdaV );
+//DECLARE_COMPONENT( EvtLambdaB2LambdaV );
 
 EvtLambdaB2LambdaV::EvtLambdaB2LambdaV()
 {
   //set facility name
-  fname="EvtGen.EvtLambdaB2LambdaV";  
+  fname="EvtGen.EvtLambdaB2LambdaV";
 }
-
-
-//------------------------------------------------------------------------
-// Destructor
-//------------------------------------------------------------------------
-EvtLambdaB2LambdaV::~EvtLambdaB2LambdaV()
-{}
 
 
 //------------------------------------------------------------------------
@@ -69,43 +62,43 @@ void EvtLambdaB2LambdaV::initProbMax()
 void EvtLambdaB2LambdaV::init()
 {
   bool antiparticle=false;
-  
+
   //introduction
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<< "*************************************************"<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<< "*    Event Model Class : EvtLambdaB2LambdaV     *"<<std::endl;
-  EvtGenReport(EVTGEN_DEBUG,fname.c_str())<< "*************************************************"<<std::endl; 
+  EvtGenReport(EVTGEN_DEBUG,fname.c_str())<< "*************************************************"<<std::endl;
 
   //check the number of arguments
   checkNArg(2);
- 
-  
+
+
   //check the number of daughters
   checkNDaug(2);
 
   const EvtId Id_mother = getParentId();
   const EvtId Id_daug1  = getDaug(0);
   const EvtId Id_daug2  = getDaug(1);
-  
 
-  //lambdab identification 
-  if (Id_mother==EvtPDL::getId("Lambda_b0")) 
+
+  //lambdab identification
+  if (Id_mother==EvtPDL::getId("Lambda_b0"))
   {
     antiparticle=false;
   }
   else if (Id_mother==EvtPDL::getId("anti-Lambda_b0"))
   {
-    antiparticle=true;    
+    antiparticle=true;
   }
   else
-  {    
+  {
     EvtGenReport(EVTGEN_ERROR,fname.c_str())<<" Mother is not a Lambda_b0 or an anti-Lambda_b0, but a "
                           <<EvtPDL::name(Id_mother)<<std::endl;
     abort();
   }
 
   //lambda
-  if ( !(Id_daug1==EvtPDL::getId("Lambda0") && !antiparticle ) && !(Id_daug1==EvtPDL::getId("anti-Lambda0") && antiparticle) ) 
-  {    
+  if ( !(Id_daug1==EvtPDL::getId("Lambda0") && !antiparticle ) && !(Id_daug1==EvtPDL::getId("anti-Lambda0") && antiparticle) )
+  {
     if (!antiparticle)
     {
       EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter1 is not a Lambda0, but a "
@@ -124,42 +117,42 @@ void EvtLambdaB2LambdaV::init()
   else if (getArg(1)==2) Vtype=VID::RHO;
   else if (getArg(1)==3) Vtype=VID::OMEGA;
   else if (getArg(1)==4) Vtype=VID::RHO_OMEGA_MIXING;
-  else 
+  else
   {
     EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Vtype " <<getArg(1)<<" is unknown"<<std::endl;
     abort();
   }
-  
+
 
   //check vector meson V
-  if (Id_daug2==EvtPDL::getId("J/psi") && Vtype==VID::JPSI) 
+  if (Id_daug2==EvtPDL::getId("J/psi") && Vtype==VID::JPSI)
   {
     if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : Lambda_b0 -> Lambda J/psi"<<std::endl;
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : anti-Lambda_b0 -> anti-Lambda J/psi"<<std::endl;
   }
-  else if (Id_daug2==EvtPDL::getId("rho0") && Vtype==VID::RHO ) 
+  else if (Id_daug2==EvtPDL::getId("rho0") && Vtype==VID::RHO )
   {
     if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : Lambda_b0 -> Lambda rho0"<<std::endl;
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : anti-Lambda_b0 -> anti-Lambda rho0"<<std::endl;
   }
-  else if (Id_daug2==EvtPDL::getId("omega") && Vtype==VID::OMEGA) 
+  else if (Id_daug2==EvtPDL::getId("omega") && Vtype==VID::OMEGA)
   {
     if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : Lambda_b0 -> Lambda omega"<<std::endl;
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : anti-Lambda_b0 -> anti-Lambda omega"<<std::endl;
   }
-  else if ((Id_daug2==EvtPDL::getId("omega") ||  Id_daug2==EvtPDL::getId("rho0") )&& Vtype==VID::RHO_OMEGA_MIXING) 
+  else if ((Id_daug2==EvtPDL::getId("omega") ||  Id_daug2==EvtPDL::getId("rho0") )&& Vtype==VID::RHO_OMEGA_MIXING)
   {
      if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : "
                                                    <<"Lambda_b0 -> Lambda rho-omega-mixing"<<std::endl;
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : "
-                                    <<"anti-Lambda_b0 -> anti-Lambda rho-omega-mixing"<<std::endl;   
+                                    <<"anti-Lambda_b0 -> anti-Lambda rho-omega-mixing"<<std::endl;
   }
-  
+
   else
   {
     EvtGenReport(EVTGEN_ERROR,fname.c_str())<<" Daughter2 is not a J/psi, phi or rho0 but a "
                           <<EvtPDL::name(Id_daug2)<<std::endl;
-    abort();    
+    abort();
   }
 
   //fix dynamics parameters
@@ -177,8 +170,8 @@ void EvtLambdaB2LambdaV::init()
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<"   - lambda asymmetry A = "<<A<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<"   - lambdab polarisation B = "<<B<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<"   - lambdab density matrix rho+- C = "<<C<<std::endl;
- 
-  
+
+
 
 
 }
@@ -198,11 +191,11 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
   //get resonance masses
   // - LAMBDAB          -> mass given by the preceding class
   // - LAMBDA           -> nominal mass
-  // - V                -> getVmass method               
+  // - V                -> getVmass method
   double MASS_LAMBDAB   = lambdab->mass();
   double MASS_LAMBDA    = EvtPDL::getMeanMass(EvtPDL::getId("Lambda0"));
   double MASS_V         = getVMass(MASS_LAMBDAB,MASS_LAMBDA);
-  
+
   //generate random angles
   double phi   = EvtRandom::Flat(0,2*EvtConst::pi);
   double theta = acos( EvtRandom::Flat(-1,+1));
@@ -214,7 +207,7 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
   double E_V      = (MASS_LAMBDAB*MASS_LAMBDAB + MASS_V*MASS_V - MASS_LAMBDA*MASS_LAMBDA)
                     /(2*MASS_LAMBDAB);
   double P = sqrt(E_lambda*E_lambda-lambda->mass()*lambda->mass());
- 
+
 
 
 
@@ -226,7 +219,7 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
     double E  = P_lambdab.get(0);
     EvtGenReport(EVTGEN_INFO,fname.c_str())<<"E of lambdab:  "<< P_lambdab.get(0)<<std::endl;
     EvtGenReport(EVTGEN_INFO,fname.c_str())<<"E of lambdab:  "<< E<<std::endl;
-  
+
 
     EvtVector4R q_lambdab2 (E,
                             ((1/(sqrt(pow(px,2)+pow(py,2))))*((px*(px))+(py*(py)))),
@@ -238,7 +231,7 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
                             q_lambdab2.get(1),
                             q_lambdab2.get(2));
 
-    
+
     EvtVector4R q_lambda0 (E_lambda,
                            P*sin(theta)*cos(phi),
                            P*sin(theta)*sin(phi),
@@ -249,7 +242,7 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
                            -P*sin(theta)*sin(phi),
                            -P*cos(theta) );
 
-    
+
     EvtVector4R q_lambda1 (E_lambda,
                            q_lambda0.get(2),
                            q_lambda0.get(3),
@@ -259,21 +252,21 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
                            q_V0.get(2),
                            q_V0.get(3),
                            q_V0.get(1) );
-   
+
      EvtVector4R q_lambda (E_lambda,
                           ((1/(sqrt(pow(px,2)+pow(py,2))))*((px*(q_lambda1.get(1))) - (py*(q_lambda1.get(2))))),
                           ((1/(sqrt(pow(px,2)+pow(py,2))))*((py*(q_lambda1.get(1))) + (px*(q_lambda1.get(2))))),
                           (q_lambda1.get(3)));
-    
-    
+
+
     EvtVector4R q_V     (E_V,
                           ((1/(sqrt(pow(px,2)+pow(py,2))))*((px*(q_V1.get(1))) - (py*(q_V1.get(2))))),
                           ((1/(sqrt(pow(px,2)+pow(py,2))))*((py*(q_V1.get(1))) + (px*(q_V1.get(2))))),
                           (q_V1.get(3)));
-  
 
 
-  
+
+
 
    lambda->getP4();
    V->getP4();
@@ -281,7 +274,7 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" LambdaB  py: "<<py<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" LambdaB  pz: "<<pz<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" LambdaB  E: "<<E<<std::endl;
-  
+
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Lambdab3  E:  "<<q_lambdab3.get(0)<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Lambda 0 px:  "<<q_lambda0.get(1)<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Lambda 0 py:  "<<q_lambda0.get(2)<<std::endl;
@@ -310,14 +303,14 @@ void EvtLambdaB2LambdaV::decay( EvtParticle *lambdab)
   //set quadrivectors to particles
   lambda ->init(getDaugs()[0],q_lambda);
   V      ->init(getDaugs()[1],q_V     );
-   
+
   //computate pdf
   double pdf = 1 + A*B*cos(theta) + 2*A*real(C*EvtComplex(cos(phi),sin(phi)))*sin(theta);
- 
+
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" LambdaB decay pdf value : "<<pdf<<std::endl;
   //set probability
   setProb(pdf);
-  
+
   return;
 }
 
@@ -348,14 +341,14 @@ double EvtLambdaB2LambdaV::RhoOmegaMixingPDF(double m, double _mr, double _gr, d
 
   //computate pdf value
   double f =  1/(a*a+c*c) * ( 1+
-	      (va_pi*va_pi+2*b*re_pi+2*d*im_pi)/(b*b+d*d));
+              (va_pi*va_pi+2*b*re_pi+2*d*im_pi)/(b*b+d*d));
 
   //computate pdf max value
   a = 0;
   b = _mr*_mr - _mo*_mo;
-  
+
   double maxi = 1/(a*a+c*c) * ( 1+
-	      (va_pi*va_pi+2*b*re_pi+2*d*im_pi)/(b*b+d*d));
+              (va_pi*va_pi+2*b*re_pi+2*d*im_pi)/(b*b+d*d));
 
   return f/maxi;
 }
@@ -384,11 +377,11 @@ double EvtLambdaB2LambdaV::getVMass(double MASS_LAMBDAB, double MASS_LAMBDA)
     double _max         = MASS_LAMBDAB - MASS_LAMBDA;
     double _min         = 2*MASS_PION;
 
-    double mass=0; bool test=false; int ntimes=10000;    
+    double mass=0; bool test=false; int ntimes=10000;
     do
-    {  
+    {
       double y   = EvtRandom::Flat(0,1);
-      
+
       //generate mass
       mass = (_max-_min) * EvtRandom::Flat(0,1) + _min;
 
@@ -400,7 +393,7 @@ double EvtLambdaB2LambdaV::getVMass(double MASS_LAMBDAB, double MASS_LAMBDA)
         case VID::OMEGA :            f = BreitWignerRelPDF(mass,MASS_OMEGA,WIDTH_OMEGA); break;
         case VID::RHO_OMEGA_MIXING : f = RhoOmegaMixingPDF(mass,MASS_RHO,WIDTH_RHO,
                                                                 MASS_OMEGA,WIDTH_OMEGA); break;
-        default :                    f = 1;                                              break;  
+        default :                    f = 1;                                              break;
       }
 
       ntimes--;
@@ -411,13 +404,13 @@ double EvtLambdaB2LambdaV::getVMass(double MASS_LAMBDAB, double MASS_LAMBDA)
   if (ntimes==0)
   {
       EvtGenReport(EVTGEN_INFO,fname.c_str()) << "Tried accept/reject:10000"
-			   <<" times, and rejected all the times!"<<std::endl;
+                           <<" times, and rejected all the times!"<<std::endl;
       EvtGenReport(EVTGEN_INFO,fname.c_str()) << "Is therefore accepting the last event!"<<std::endl;
   }
 
   //return V particle mass
   return mass;
-  }  
+  }
 }
 
 
@@ -435,17 +428,9 @@ double EvtLambdaB2LambdaV::getVMass(double MASS_LAMBDAB, double MASS_LAMBDA)
 // Constructor
 //------------------------------------------------------------------------
 EvtLambda2PPiForLambdaB2LambdaV::EvtLambda2PPiForLambdaB2LambdaV()
-{ 
-  //set facility name
-  fname="EvtGen.EvtLambda2PPiForLambdaB2LambdaV";  
-}
-
-
-//------------------------------------------------------------------------
-// Destructor
-//------------------------------------------------------------------------
-EvtLambda2PPiForLambdaB2LambdaV::~EvtLambda2PPiForLambdaB2LambdaV()
 {
+  //set facility name
+  fname="EvtGen.EvtLambda2PPiForLambdaB2LambdaV";
 }
 
 
@@ -479,11 +464,11 @@ void EvtLambda2PPiForLambdaB2LambdaV::initProbMax()
   else if (B==0) Max=1+ EvtConst::pi/2.0*fabs(C*A*real(D));
   else
     {
-      double theta_max = atan(- EvtConst::pi/2.0*C*real(D)/B); 
+      double theta_max = atan(- EvtConst::pi/2.0*C*real(D)/B);
       double max1 = 1 + fabs(A*B*cos(theta_max)
                       - EvtConst::pi/2.0*C*A*real(D)*sin(theta_max));
       double max2 = 1 + fabs(A*B);
-      if (max1>max2) Max=max1; else Max=max2;      
+      if (max1>max2) Max=max1; else Max=max2;
     }
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" PDF max value : "<<Max<<std::endl;
   setProbMax(Max);
@@ -496,7 +481,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::initProbMax()
 void EvtLambda2PPiForLambdaB2LambdaV::init()
 {
   bool antiparticle=false;
-  
+
   //introduction
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" ***********************************************************"<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" *   Event Model Class : EvtLambda2PPiForLambdaB2LambdaV   *"<<std::endl;
@@ -504,7 +489,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
 
   //check the number of arguments
   checkNArg(2);
-  
+
   //check the number of daughters
   checkNDaug(2);
 
@@ -512,25 +497,25 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
   const EvtId Id_daug1  = getDaug(0);
   const EvtId Id_daug2  = getDaug(1);
 
-  //lambda  identification 
-  if (Id_mother==EvtPDL::getId("Lambda0")) 
+  //lambda  identification
+  if (Id_mother==EvtPDL::getId("Lambda0"))
   {
     antiparticle=false;
   }
   else if (Id_mother==EvtPDL::getId("anti-Lambda0"))
   {
-    antiparticle=true;    
+    antiparticle=true;
   }
   else
-  {    
+  {
     EvtGenReport(EVTGEN_ERROR,fname.c_str())<<" Mother is not a Lambda0 or an anti-Lambda0, but a "
                           <<EvtPDL::name(Id_mother)<<std::endl;
     abort();
   }
 
   //proton identification
-  if ( !(Id_daug1==EvtPDL::getId("p+") && !antiparticle ) && !(Id_daug1==EvtPDL::getId("anti-p-") && antiparticle) ) 
-  {    
+  if ( !(Id_daug1==EvtPDL::getId("p+") && !antiparticle ) && !(Id_daug1==EvtPDL::getId("anti-p-") && antiparticle) )
+  {
     if (!antiparticle)
     {
       EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter1 is not a p+, but a "
@@ -544,8 +529,8 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
   }
 
   //pion identification
-  if ( !(Id_daug2==EvtPDL::getId("pi-") && !antiparticle ) && !(Id_daug2==EvtPDL::getId("pi+") && antiparticle) ) 
-  {    
+  if ( !(Id_daug2==EvtPDL::getId("pi-") && !antiparticle ) && !(Id_daug2==EvtPDL::getId("pi+") && antiparticle) )
+  {
     if (!antiparticle)
     {
       EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter2 is not a p-, but a "
@@ -574,23 +559,20 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : anti-Lambda_b0 -> anti-Lambda rho0"<<std::endl;
   }
   else if (getArg(1)==3)
-  { 
+  {
     Vtype=VID::OMEGA;
     if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : Lambda_b0 -> Lambda omega"<<std::endl;
     else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : anti-Lambda_b0 -> anti-Lambda omega"<<std::endl;
   }
-  else if (getArg(1)==4) 
+  else if (getArg(1)==4)
   {
     Vtype=VID::RHO_OMEGA_MIXING;
   }
-  else 
+  else
   {
     EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Vtype " <<getArg(1)<<" is unknown"<<std::endl;
-    if (!antiparticle) {
-	EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : Lambda_b0 -> Lambda rho-omega-mixing"<<std::endl;
-    } else {
-	EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : anti-Lambda_b0 -> anti-Lambda rho-omega-mixing"<<std::endl;  
-    }
+    if (!antiparticle) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : Lambda_b0 -> Lambda rho-omega-mixing"<<std::endl;
+    else EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" From : anti-Lambda_b0 -> anti-Lambda rho-omega-mixing"<<std::endl;
     abort();
   }
 
@@ -605,7 +587,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
     case VID::RHO_OMEGA_MIXING : B = -0.21;  D = EvtComplex(0.31,0.0); break;
     default :                    B = 0;      D = EvtComplex(0,0);      break;
   }
- 
+
 
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Lambda decay parameters : "<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<"   - proton asymmetry A = "<<A<<std::endl;
@@ -621,7 +603,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::init()
 void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
 {
   lambda->makeDaughters(getNDaug(),getDaugs());
- 
+
   //get proton and pion particles
   EvtParticle * proton = lambda->getDaug(0);
   EvtParticle * pion = lambda->getDaug(1);
@@ -642,21 +624,21 @@ void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
   double E_proton = (MASS_LAMBDA*MASS_LAMBDA + MASS_PROTON*MASS_PROTON - MASS_PION*MASS_PION)
                     /(2*MASS_LAMBDA);
   double E_pion   = (MASS_LAMBDA*MASS_LAMBDA + MASS_PION*MASS_PION - MASS_PROTON*MASS_PROTON)
-                    /(2*MASS_LAMBDA);           
+                    /(2*MASS_LAMBDA);
   double P = sqrt(E_proton*E_proton-proton->mass()*proton->mass());
-  
+
   EvtVector4R P_lambda=lambda->getP4();
   EvtParticle *Mother_lambda=lambda->getParent();
   EvtVector4R lambdab=Mother_lambda->getP4();
- 
 
-   
+
+
   double E_lambda =P_lambda.get(0);
   double px_M     =lambdab.get(1);
   double py_M     =lambdab.get(2);
   double pz_M     =lambdab.get(3);
   double E_M     =lambdab.get(0);
- 
+
   EvtVector4R q_lambdab2 (E_M,
                             ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(px_M))+(py_M*(py_M)))),
                             ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*(-((py_M)*(px_M))+(px_M*(py_M)))),
@@ -667,7 +649,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
                             q_lambdab2.get(1),
                             q_lambdab2.get(2));
 
-  
+
 
   EvtVector4R q_lambda1 (E_lambda,
                          ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(P_lambda.get(1))) + (py_M*(P_lambda.get(2))))),
@@ -679,17 +661,17 @@ void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
                          q_lambda1.get(1),
                          q_lambda1.get(2));
 
-  
 
- 
+
+
 
    double px=q_lambda2.get(1);
   double py=q_lambda2.get(2);
   double pz=q_lambda2.get(3);
-   
 
-   
-   
+
+
+
     EvtVector4R q_lambda4 (q_lambda2.get(0),
                           ((1/(sqrt(pow(q_lambda2.get(1),2) + pow(q_lambda2.get(2),2) + pow(q_lambda2.get(3),2))))* (1/(sqrt(pow(q_lambda2.get(1),2) + pow(q_lambda2.get(2),2))))*((q_lambda2.get(1))*(q_lambda2.get(1))*(q_lambda2.get(3))+((q_lambda2.get(2))*(q_lambda2.get(2))*(q_lambda2.get(3))) - ((q_lambda2.get(3))*(pow(q_lambda2.get(1),2) + pow(q_lambda2.get(2),2))))),
                           ((((q_lambda2.get(2))*(q_lambda2.get(1)))-((q_lambda2.get(1))*(q_lambda2.get(2))))/(sqrt(pow(q_lambda2.get(1),2) + pow(q_lambda2.get(2),2)))),
@@ -706,7 +688,7 @@ void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
                         -P*sin(theta)*cos(phi),
                         -P*sin(theta)*sin(phi),
                         -P*cos(theta));
-             
+
 
    EvtVector4R q_proton3     (E_proton,
                        ((1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))* (1/(sqrt(pow(px,2) + pow(py,2))))*((q_proton1.get(1))*(px)*(pz) - ((q_proton1.get(2))*(py)*((sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))) + (((q_proton1.get(3)))*(sqrt(pow(px,2) + pow(py,2)))*(px)))),
@@ -722,18 +704,18 @@ void EvtLambda2PPiForLambdaB2LambdaV::decay( EvtParticle *lambda )
                         (q_proton3.get(2)),
                         (q_proton3.get(3)),
                         (q_proton3.get(1)));
- 
+
  EvtVector4R q_pion5      (q_pion3.get(0),
                            (q_pion3.get(2)),
                            (q_pion3.get(3)),
                            (q_pion3.get(1)));
- 
+
  EvtVector4R q_proton          (q_proton5.get(0),
                                 ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(q_proton5.get(1)))-(py_M*(q_proton5.get(2))))),
                                 ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((py_M*(q_proton5.get(1)))+(px_M*(q_proton5.get(2))))),
                                 (q_proton5.get(3)));
- 
- 
+
+
  EvtVector4R q_pion      (q_pion5.get(0),
                           ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(q_pion5.get(1)))-(py_M*(q_pion5.get(2))))),
                           ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((py_M*(q_pion5.get(1)))+(px_M*(q_pion5.get(2))))),
@@ -772,7 +754,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Lambda  pz: "<<pz<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 1 py:  "<<q_pion1.get(2)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 1 pz:  "<<q_pion1.get(3)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 1 E:   "<<q_pion1.get(0)<<std::endl;
- 
+
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 3 px:  "<<q_pion3.get(1)<<std::endl;
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 3 px:  "<<q_pion3.get(1)<<std::endl;
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion 3 py:  "<<q_pion3.get(2)<<std::endl;
@@ -795,7 +777,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 3  px:  "<<q_proton3.get(1)<<s
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 3  py:  "<<q_proton3.get(2)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 3  pz:  "<<q_proton3.get(3)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 3  E:   "<<q_proton3.get(0)<<std::endl;
- 
+
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 5  px:  "<<q_proton5.get(1)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 5  py:  "<<q_proton5.get(2)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton 5  pz:  "<<q_proton5.get(3)<<std::endl;
@@ -808,11 +790,11 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton  px:  "<<q_proton.get(1)<<std:
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion px:  "<<q_pion.get(1)<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion py:  "<<q_pion.get(2)<<std::endl;
    EvtGenReport(EVTGEN_INFO,fname.c_str())<<" pion pz:  "<<q_pion.get(3)<<std::endl;
-   
 
-   
-  
-   
+
+
+
+
   ;
 
 
@@ -825,7 +807,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton  px:  "<<q_proton.get(1)<<std:
   //set quadrivectors to particles
   proton->init(getDaugs()[0],q_proton);
   pion  ->init(getDaugs()[1],q_pion  );
- 
+
   //computate pdf
   //double pdf = 1 + A*B*cos(theta) - EvtConst::pi/2.0*C*A*real(D*EvtComplex(cos(phi),sin(phi)))*sin(theta);
   double pdf = 1 + A*B*cos(theta) + 2*A*real(D*EvtComplex(cos(phi),sin(phi)))*sin(theta);
@@ -852,15 +834,8 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" proton  px:  "<<q_proton.get(1)<<std:
 EvtV2VpVmForLambdaB2LambdaV::EvtV2VpVmForLambdaB2LambdaV()
 {
   //set facility name
-  fname="EvtGen.EvtV2VpVmForLambdaB2LambdaV";  
+  fname="EvtGen.EvtV2VpVmForLambdaB2LambdaV";
 }
-
-
-//------------------------------------------------------------------------
-// Destructor
-//------------------------------------------------------------------------
-EvtV2VpVmForLambdaB2LambdaV::~EvtV2VpVmForLambdaB2LambdaV()
-{}
 
 
 //------------------------------------------------------------------------
@@ -897,7 +872,7 @@ void EvtV2VpVmForLambdaB2LambdaV::initProbMax()
     if ((3*A-1)>=0) Max=2*A;
     else Max=1-A;
   }
-   
+
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" PDF max value : "<<Max<<std::endl;
   setProbMax(Max);
 }
@@ -915,7 +890,7 @@ void EvtV2VpVmForLambdaB2LambdaV::init()
 
   //check the number of arguments
   checkNArg(2);
-  
+
   //check the number of daughters
   checkNDaug(2);
 
@@ -928,43 +903,43 @@ void EvtV2VpVmForLambdaB2LambdaV::init()
   else if (getArg(1)==2) Vtype=VID::RHO;
   else if (getArg(1)==3) Vtype=VID::OMEGA;
   else if (getArg(1)==4) Vtype=VID::RHO_OMEGA_MIXING;
-  else 
+  else
   {
     EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Vtype " <<getArg(1)<<" is unknown"<<std::endl;
     abort();
   }
 
   //vector meson V
-  if (Id_mother==EvtPDL::getId("J/psi") && Vtype==VID::JPSI) 
+  if (Id_mother==EvtPDL::getId("J/psi") && Vtype==VID::JPSI)
   {
   }
-  else if (Id_mother==EvtPDL::getId("omega") &&  Vtype==VID::OMEGA) 
+  else if (Id_mother==EvtPDL::getId("omega") &&  Vtype==VID::OMEGA)
   {
   }
-  else if (Id_mother==EvtPDL::getId("rho0") &&  Vtype==VID::RHO) 
+  else if (Id_mother==EvtPDL::getId("rho0") &&  Vtype==VID::RHO)
   {
   }
-  else if ((Id_mother==EvtPDL::getId("rho0") || Id_mother==EvtPDL::getId("omega")) && Vtype==VID::RHO_OMEGA_MIXING) 
+  else if ((Id_mother==EvtPDL::getId("rho0") || Id_mother==EvtPDL::getId("omega")) && Vtype==VID::RHO_OMEGA_MIXING)
   {
   }
   else
   {
     EvtGenReport(EVTGEN_ERROR,fname.c_str())<<" Mother is not a J/psi, phi or rho0 but a "
                           <<EvtPDL::name(Id_mother)<<std::endl;
-    abort();    
+    abort();
   }
 
   //daughters for each V possibility
   switch(Vtype)
     {
     case VID::JPSI :
-      if (Id_daug1!=EvtPDL::getId("mu+")) 
+      if (Id_daug1!=EvtPDL::getId("mu+"))
       {
         EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter1 is not a mu+, but a "
                                                            << EvtPDL::name(Id_daug1)<<std::endl;
         abort();
       }
-      if (Id_daug2!=EvtPDL::getId("mu-")) 
+      if (Id_daug2!=EvtPDL::getId("mu-"))
       {
         EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter2 is not a mu-, but a "
                                                            << EvtPDL::name(Id_daug2)<<std::endl;
@@ -976,13 +951,13 @@ void EvtV2VpVmForLambdaB2LambdaV::init()
     case VID::RHO :
     case VID::OMEGA :
     case VID::RHO_OMEGA_MIXING :
-      if (Id_daug1!=EvtPDL::getId("pi+")) 
+      if (Id_daug1!=EvtPDL::getId("pi+"))
       {
         EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter1 is not a pi+, but a "
                                                            << EvtPDL::name(Id_daug1)<<std::endl;
         abort();
       }
-      if (Id_daug2!=EvtPDL::getId("pi-")) 
+      if (Id_daug2!=EvtPDL::getId("pi-"))
       {
         EvtGenReport(EVTGEN_ERROR,fname.c_str()) << " Daughter2 is not a pi-, but a "
                                                            << EvtPDL::name(Id_daug2)<<std::endl;
@@ -990,10 +965,9 @@ void EvtV2VpVmForLambdaB2LambdaV::init()
       }
       if (Vtype==VID::RHO) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : rho0 -> pi+ pi-"<<std::endl;
       if (Vtype==VID::OMEGA) EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : omega -> pi+ pi-"<<std::endl;
-      if (Vtype==VID::RHO_OMEGA_MIXING) {
-	  EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : rho-omega mixing -> pi+ pi-"<<std::endl; 
-	  break;
-      }
+      if (Vtype==VID::RHO_OMEGA_MIXING)
+              EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Decay mode successfully initialized : rho-omega mixing -> pi+ pi-"<<std::endl;
+      break;
 
     default :
       EvtGenReport(EVTGEN_ERROR,fname.c_str()) << "No decay mode chosen ! "<<std::endl;
@@ -1013,7 +987,7 @@ void EvtV2VpVmForLambdaB2LambdaV::init()
 
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" V decay parameters : "<<std::endl;
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<"   - V density matrix rho00 A = "<<A<<std::endl;
-  
+
 
 }
 
@@ -1030,36 +1004,36 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
 
   //get resonance masses
   // - V         -> mass given by EvtLambdaB2LambdaV class
-  // - Vp & Vm   -> nominal mass               
+  // - Vp & Vm   -> nominal mass
   double MASS_V   = V->mass();
   double MASS_VM  = 0;
   switch(Vtype)
   {
   case VID::JPSI :             MASS_VM=EvtPDL::getMeanMass(EvtPDL::getId("mu-")); break;
-  case VID::RHO :              
+  case VID::RHO :
   case VID::OMEGA :
   case VID::RHO_OMEGA_MIXING : MASS_VM=EvtPDL::getMeanMass(EvtPDL::getId("pi-")); break;
   default :                    MASS_VM=0;                                         break;
   }
   double MASS_VP  = MASS_VM;
 
-  //generate random angles  
+  //generate random angles
   double phi   = EvtRandom::Flat(0,2*EvtConst::pi);
   double theta = acos( EvtRandom::Flat(-1,+1));
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" Angular angles  : theta = "<<theta<<" ; phi = "<<phi<<std::endl;
 
-  //computate resonance quadrivectors  
+  //computate resonance quadrivectors
   double E_Vp = (MASS_V*MASS_V + MASS_VP*MASS_VP - MASS_VM*MASS_VM)
                  /(2*MASS_V);
   double E_Vm = (MASS_V*MASS_V + MASS_VM*MASS_VM - MASS_VP*MASS_VP)
                  /(2*MASS_V);
   double P = sqrt(E_Vp*E_Vp-Vp->mass()*Vp->mass());
- 
+
   EvtVector4R P_V=V->getP4();
   EvtParticle *Mother_V=V->getParent();
   EvtVector4R lambdab=Mother_V->getP4();
 
-  
+
   double E_V=(P_V.get(0));
    double px_M=lambdab.get(1);
    double py_M=lambdab.get(2);
@@ -1075,7 +1049,7 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
                             q_lambdab2.get(3),
                             q_lambdab2.get(1),
                             q_lambdab2.get(2));
-   
+
 
  EvtVector4R q_V1 (E_V,
                          ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(P_V.get(1))) + (py_M*(P_V.get(2))))),
@@ -1087,12 +1061,12 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
                          q_V1.get(1),
                          q_V1.get(2));
 
-  
+
 
      double px= -(q_V2.get(1));
   double py=-(q_V2.get(2));
   double pz=-(q_V2.get(3));
-   
+
 
 
 
@@ -1102,7 +1076,7 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
                           (((1/sqrt(pow(q_V2.get(1),2) + pow(q_V2.get(2),2) + pow(q_V2.get(3),2)))*( ((q_V2.get(1))*(q_V2.get(1))) +((q_V2.get(2))*(q_V2.get(2))) +   ((q_V2.get(3))*(q_V2.get(3)))))) );
 
 
- 
+
    EvtVector4R q_Vp1     (E_Vp,
                         P*sin(theta)*cos(phi),
                         P*sin(theta)*sin(phi),
@@ -1111,12 +1085,12 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
                         -P*sin(theta)*cos(phi),
                         -P*sin(theta)*sin(phi),
                         -P*cos(theta));
-  
+
     EvtVector4R q_Vp3     (q_Vp1.get(0),
                        ((1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))* (1/(sqrt(pow(px,2) + pow(py,2))))*((q_Vp1.get(1))*(px)*(pz)+((q_Vp1.get(2))*(py)*((sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))) - (((q_Vp1.get(3)))*(sqrt(pow(px,2) + pow(py,2)))*(px)))),
                        ((1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))* (1/(sqrt(pow(px,2) + pow(py,2))))*(((q_Vp1.get(1)))*(py)*(pz) - ((q_Vp1.get(2))*(px)*((sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))) - (((q_Vp1.get(3)))*(sqrt(pow(px,2) + pow(py,2)))*(py)))) ,
                         ((-(1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2)))))*((q_Vp1.get(1))*((sqrt(pow(px,2) + pow(py,2)))) + ((q_Vp1.get(3))*(pz)))));
-   
+
    EvtVector4R q_Vm3     (q_Vm1.get(0),
                           ((1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))* (1/(sqrt(pow(px,2) + pow(py,2))))*((q_Vm1.get(1))*(px)*(pz)+((q_Vm1.get(2))*(py)*((sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))) - (((q_Vm1.get(3)))*(sqrt(pow(px,2) + pow(py,2)))*(px)))),
                           ((1/(sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))* (1/(sqrt(pow(px,2) + pow(py,2))))*(((q_Vm1.get(1)))*(py)*(pz) - ((q_Vm1.get(2))*(px)*((sqrt(pow(px,2) + pow(py,2) + pow(pz,2))))) - (((q_Vm1.get(3)))*(sqrt(pow(px,2) + pow(py,2)))*(py)))) ,
@@ -1126,24 +1100,24 @@ void EvtV2VpVmForLambdaB2LambdaV::decay( EvtParticle *V )
 
 
 
- 
+
  EvtVector4R q_Vp5 (q_Vp3.get(0),
                         (q_Vp3.get(2)),
                         (q_Vp3.get(3)),
                         (q_Vp3.get(1)));
- 
+
    EvtVector4R q_Vm5      (q_Vm3.get(0),
                            (q_Vm3.get(2)),
                            (q_Vm3.get(3)),
                            (q_Vm3.get(1)));
- 
- 
+
+
  EvtVector4R q_Vp          (q_Vp5.get(0),
                                 ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(q_Vp5.get(1)))-(py_M*(q_Vp5.get(2))))),
                                 ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((py_M*(q_Vp5.get(1)))+(px_M*(q_Vp5.get(2))))),
                                 (q_Vp5.get(3)));
- 
- 
+
+
  EvtVector4R q_Vm      (q_Vm5.get(0),
                           ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((px_M*(q_Vm5.get(1)))-(py_M*(q_Vm5.get(2))))),
                           ((1/(sqrt(pow(px_M,2)+pow(py_M,2))))*((py_M*(q_Vm5.get(1)))+(px_M*(q_Vm5.get(2))))),
@@ -1179,7 +1153,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" V  pz: "<<pz<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 1 px:  "<<q_Vm1.get(1)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 1 py:  "<<q_Vm1.get(2)<<std::endl;
  EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 1 pz:  "<<q_Vm1.get(3)<<std::endl;
- EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 1 E:   "<<q_Vm1.get(0)<<std::endl; 
+ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 1 E:   "<<q_Vm1.get(0)<<std::endl;
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 3 px:  "<<q_Vm3.get(1)<<std::endl;
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 3 px:  "<<q_Vm3.get(1)<<std::endl;
 EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vm 3 py:  "<<q_Vm3.get(2)<<std::endl;
@@ -1213,7 +1187,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vp 3  px:  "<<q_Vp3.get(1)<<std::endl
   Vm->init(getDaugs()[1],q_Vm);
 
   //computate pdf
-  double pdf = 0; 
+  double pdf = 0;
   if (Vtype==VID::JPSI)
   {
     //leptonic case
@@ -1223,7 +1197,7 @@ EvtGenReport(EVTGEN_INFO,fname.c_str())<<" Vp 3  px:  "<<q_Vp3.get(1)<<std::endl
   {
     //hadronic case
     pdf = (3*A-1)*cos(theta)*cos(theta) + (1-A);
-   
+
   }
   EvtGenReport(EVTGEN_DEBUG,fname.c_str())<<" V decay pdf value : "<<pdf<<std::endl;
 

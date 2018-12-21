@@ -16,7 +16,7 @@
 #include "EvtGenBase/EvtTwoBodyKine.hh"
 #include "EvtGenBase/EvtBlattWeisskopf.hh"
 
-#include <iosfwd>
+#include <memory>
 
 class EvtTwoBodyVertex {
 
@@ -25,7 +25,7 @@ public:
   EvtTwoBodyVertex();
   EvtTwoBodyVertex(double mA, double mB, double mAB, int L);
   EvtTwoBodyVertex(const EvtTwoBodyVertex& other);
-  ~EvtTwoBodyVertex();
+  EvtTwoBodyVertex& operator=(const EvtTwoBodyVertex& other);
 
   double widthFactor(EvtTwoBodyKine x) const;
   double formFactor(EvtTwoBodyKine x) const;
@@ -36,16 +36,16 @@ public:
   inline double mB() const { return _kine.mB(); }
   inline double mAB() const { return _kine.mAB(); }
   inline double pD() const { return _p0; }
-  void print(std::ostream& os) const; 
+  void print(std::ostream& os) const;
 
   void set_f(double R);
 
 private:
 
   EvtTwoBodyKine _kine;
-  int _LL;  
-  double _p0; 
-  EvtBlattWeisskopf* _f;  // optional Blatt-Weisskopf form factor
+  int _LL;
+  double _p0;
+  std::unique_ptr<EvtBlattWeisskopf> _f;  // optional Blatt-Weisskopf form factor
 
 };
 

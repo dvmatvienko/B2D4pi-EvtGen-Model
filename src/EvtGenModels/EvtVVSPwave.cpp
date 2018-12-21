@@ -19,7 +19,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -32,11 +32,9 @@
 #include <string>
 using std::endl;
 
-EvtVVSPwave::~EvtVVSPwave() {}
-
 std::string EvtVVSPwave::getName(){
 
-  return "VVS_PWAVE";     
+  return "VVS_PWAVE";
 
 }
 
@@ -64,7 +62,7 @@ void EvtVVSPwave::initProbMax() {
 
    setProbMax(1.0);
 
-}      
+}
 
 void EvtVVSPwave::decay( EvtParticle *p){
 
@@ -79,20 +77,20 @@ void EvtVVSPwave::decay( EvtParticle *p){
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "P wave not yet implemented!!"<<endl;
     ::abort();
   }
-    
+
   EvtParticle *v;
   v=p->getDaug(0);
 
   EvtTensor4C d,g;
-  
+
   g.setdiag(1.0,-1.0,-1.0,-1.0);
 
   d=ad*((1.0/(v->getP4().d3mag()*v->getP4().d3mag()))*
         EvtGenFunctions::directProd(v->getP4(),v->getP4())+(1/3.0)*g)+
     as*g;
 
-  EvtVector4C ep0,ep1,ep2;  
-  
+  EvtVector4C ep0,ep1,ep2;
+
   ep0=d.cont1(p->eps(0));
   ep1=d.cont1(p->eps(1));
   ep2=d.cont1(p->eps(2));
@@ -100,11 +98,11 @@ void EvtVVSPwave::decay( EvtParticle *p){
   vertex(0,0,ep0.cont(v->eps(0).conj()));
   vertex(0,1,ep0.cont(v->eps(1).conj()));
   vertex(0,2,ep0.cont(v->eps(2).conj()));
-  
+
   vertex(1,0,ep1.cont(v->eps(0).conj()));
   vertex(1,1,ep1.cont(v->eps(1).conj()));
   vertex(1,2,ep1.cont(v->eps(2).conj()));
-  
+
   vertex(2,0,ep2.cont(v->eps(0).conj()));
   vertex(2,1,ep2.cont(v->eps(1).conj()));
   vertex(2,2,ep2.cont(v->eps(2).conj()));

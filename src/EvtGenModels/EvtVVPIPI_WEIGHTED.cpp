@@ -10,7 +10,7 @@
 //
 // Module: EvtVVSPwave.cc
 //
-// Description: Routine to decay vector-> vector pi pi where the 
+// Description: Routine to decay vector-> vector pi pi where the
 //              decay is S-wave dominated.
 //
 // Modification history:
@@ -18,7 +18,7 @@
 // Jim Hunt      June 4, 2008 Module Created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -31,11 +31,9 @@
 #include <string>
 using std::endl;
 
-EvtVVPIPI_WEIGHTED::~EvtVVPIPI_WEIGHTED() {}
-
 std::string EvtVVPIPI_WEIGHTED::getName(){
 
-  return "VVPIPI_WEIGHTED";     
+  return "VVPIPI_WEIGHTED";
 
 }
 
@@ -75,7 +73,7 @@ void EvtVVPIPI_WEIGHTED::init(){
 void EvtVVPIPI_WEIGHTED::initProbMax() {
   //Hard coded... should not be hard to calculate...
   setProbMax(0.08* 1.13 );
-}      
+}
 
 double reweight_event(double pipi_mass)
 {
@@ -92,20 +90,20 @@ void EvtVVPIPI_WEIGHTED::decay( EvtParticle *psi_prime){
   psi_prime->initializePhaseSpace(getNDaug(),getDaugs());
 
   EvtParticle *jpsi,*pi1,*pi2;
-  
+
   jpsi=psi_prime->getDaug(0);
   pi1=psi_prime->getDaug(1);
   pi2=psi_prime->getDaug(2);
 
 //  Put phase space results into the daughters.
-  
-  EvtVector4C ep0,ep1,ep2;  
-  
+
+  EvtVector4C ep0,ep1,ep2;
+
   ep0=psi_prime->eps(0);
   ep1=psi_prime->eps(1);
   ep2=psi_prime->eps(2);
 
-  EvtVector4C e0,e1,e2;  
+  EvtVector4C e0,e1,e2;
 
   e0 = jpsi->epsParent(0);
   e1 = jpsi->epsParent(1);
@@ -120,11 +118,11 @@ void EvtVVPIPI_WEIGHTED::decay( EvtParticle *psi_prime){
   vertex(0,0,fac*(ep0*e0.conj()));
   vertex(0,1,fac*(ep0*e1.conj()));
   vertex(0,2,fac*(ep0*e2.conj()));
-  
+
   vertex(1,0,fac*(ep1*e0.conj()));
   vertex(1,1,fac*(ep1*e1.conj()));
   vertex(1,2,fac*(ep1*e2.conj()));
-  
+
   vertex(2,0,fac*(ep2*e0.conj()));
   vertex(2,1,fac*(ep2*e1.conj()));
   vertex(2,2,fac*(ep2*e2.conj()));

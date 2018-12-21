@@ -35,20 +35,21 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 
 class EvtPythiaEngine : public EvtAbsExternalGen {
 
 public:
 
-  EvtPythiaEngine(std::string xmlDir = "./xmldoc", 
+  EvtPythiaEngine(std::string xmlDir = "./xmldoc",
 		  bool convertPhysCodes = false,
 		  bool useEvtGenRandom = true);
 
   virtual ~EvtPythiaEngine();
 
-  virtual bool doDecay(EvtParticle* theMother);
+  bool doDecay(EvtParticle* theMother) override;
 
-  virtual void initialise();
+  void initialise() override;
 
 protected:
 
@@ -69,8 +70,8 @@ private:
 
   int getModeInt(EvtDecayBase* decayModel);
 
-  Pythia8::Pythia* _genericPythiaGen;
-  Pythia8::Pythia* _aliasPythiaGen;
+  std::unique_ptr<Pythia8::Pythia> _genericPythiaGen;
+  std::unique_ptr<Pythia8::Pythia> _aliasPythiaGen;
   Pythia8::Pythia* _thePythiaGenerator;
 
   std::vector<int> _daugPDGVector;
@@ -81,7 +82,7 @@ private:
 
   bool _convertPhysCodes, _initialised, _useEvtGenRandom;
 
-  EvtPythiaRandom* _evtgenRandom;
+  std::unique_ptr<EvtPythiaRandom> _evtgenRandom;
 
   std::map<int, int> _addedPDGCodes;
 

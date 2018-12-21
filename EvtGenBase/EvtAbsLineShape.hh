@@ -32,17 +32,17 @@ class EvtAbsLineShape {
 
 public:
 
-  EvtAbsLineShape(); 
-  EvtAbsLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp); 
-  virtual ~EvtAbsLineShape();
+  EvtAbsLineShape() = default;
+  EvtAbsLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp);
+  virtual ~EvtAbsLineShape() = default;
   EvtAbsLineShape& operator=(const EvtAbsLineShape& x);
-  EvtAbsLineShape(const EvtAbsLineShape& x); 
+  EvtAbsLineShape(const EvtAbsLineShape& x);
 
   double getMass() {return _mass;}
-  double getMassMin() {return _massMin;} 
+  double getMassMin() {return _massMin;}
   double getMassMax() {return _massMax;}
   double getMaxRange() {return _maxRange;}
-  double getWidth() {return _width;} 
+  double getWidth() {return _width;}
   EvtSpinType::spintype getSpinType() {return _spin;}
   virtual double rollMass();
   virtual EvtAbsLineShape* clone();
@@ -55,12 +55,12 @@ public:
   virtual void reSetBlattBirth(double /*blatt*/) {};
   void includeBirthFactor(bool yesno) { _includeBirthFact = yesno; }
   void includeDecayFactor(bool yesno) { _includeDecayFact = yesno; }
-  void setPWForDecay( int spin, EvtId d1, EvtId d2) { 
+  void setPWForDecay( int spin, EvtId d1, EvtId d2) {
     _userSetPW.push_back(spin);
     _userSetPWD1.push_back(d1);
     _userSetPWD2.push_back(d2);
   }
-  void setPWForBirthL( int spin, EvtId par, EvtId othD) { 
+  void setPWForBirthL( int spin, EvtId par, EvtId othD) {
     _userSetBirthPW.push_back(spin);
     _userSetBirthOthD.push_back(othD);
     _userSetBirthPar.push_back(par);
@@ -91,7 +91,7 @@ protected:
   std::vector<int> _userSetBirthPW;
 
   EvtSpinType::spintype _spin;
-}; 
+};
 
 #endif
 

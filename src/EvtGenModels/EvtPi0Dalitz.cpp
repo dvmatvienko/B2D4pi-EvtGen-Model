@@ -10,7 +10,7 @@
 //
 // Module: EvtPi0Dalitz.cc
 //
-// Description: pi0 -> e+ e- gamma 
+// Description: pi0 -> e+ e- gamma
 //
 // Modification history:
 //
@@ -33,8 +33,6 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtTensor4C.hh"
 using std::fstream;
-
-EvtPi0Dalitz::~EvtPi0Dalitz() {}
 
 std::string EvtPi0Dalitz::getName(){
 
@@ -62,7 +60,7 @@ void EvtPi0Dalitz::init(){
   checkNArg(0);
   checkNDaug(3);
 
-    
+
   checkSpinParent(EvtSpinType::SCALAR);
 
   checkSpinDaughter(0,EvtSpinType::DIRAC);
@@ -85,9 +83,9 @@ void EvtPi0Dalitz::decay( EvtParticle *p){
   // the next four lines generates events with a weight such that
   // the efficiency for selecting them is good. The parameter below of
   // 0.1 is the size of the peak at low q^2 (in arbitrary units).
-  // The value of 0.1 is appropriate for muons. 
+  // The value of 0.1 is appropriate for muons.
   // when you use this remember to remove the cut on q^2!
-   
+
 
   //ep em invariant mass^2
   double m2=(ep->getP4()+em->getP4()).mass2();
@@ -96,11 +94,11 @@ void EvtPi0Dalitz::decay( EvtParticle *p){
 
   EvtTensor4C w,v;
 
-  v=2.0*(gamma->getP4()*q)*EvtGenFunctions::directProd(q,gamma->getP4()) 
+  v=2.0*(gamma->getP4()*q)*EvtGenFunctions::directProd(q,gamma->getP4())
     - (gamma->getP4()*q)*(gamma->getP4()*q)*EvtTensor4C::g()
     -m2*EvtGenFunctions::directProd(gamma->getP4(),gamma->getP4());
- 
-  w=4.0*( EvtGenFunctions::directProd(ep->getP4(),em->getP4()) + 
+
+  w=4.0*( EvtGenFunctions::directProd(ep->getP4(),em->getP4()) +
           EvtGenFunctions::directProd(em->getP4(),ep->getP4())
 	   -EvtTensor4C::g()*(ep->getP4()*em->getP4()-ep->getP4().mass2()));
 

@@ -20,18 +20,18 @@
 
 class EvtIntervalFlatPdf : public EvtPdf<EvtPoint1D> {
 public:
-  
+
   EvtIntervalFlatPdf(double min, double max);
   EvtIntervalFlatPdf(const EvtIntervalFlatPdf& other);
-  virtual ~EvtIntervalFlatPdf();
-  virtual EvtPdf<EvtPoint1D>* clone() const;
-  
-  virtual EvtValError compute_integral() const;
-  virtual EvtPoint1D randomPoint();
-  
+  EvtPdf<EvtPoint1D>* clone() const override;
+
+  using EvtPdf<EvtPoint1D>::compute_integral;
+  EvtValError compute_integral() const override;
+  EvtPoint1D randomPoint() override;
+
 protected:
 
-  virtual double pdf(const EvtPoint1D&) const;
+  double pdf(const EvtPoint1D&) const override;
 
   double _min;
   double _max;

@@ -17,7 +17,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -29,11 +29,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSSSCP::~EvtSSSCP() {}
-
 std::string EvtSSSCP::getName(){
 
-  return "SSS_CP";     
+  return "SSS_CP";
 
 }
 
@@ -82,10 +80,10 @@ void EvtSSSCP::decay( EvtParticle *p ){
   EvtComplex amp;
 
   EvtComplex A,Abar;
-  
+
   A=EvtComplex(getArg(3)*cos(getArg(4)),getArg(3)*sin(getArg(4)));
   Abar=EvtComplex(getArg(5)*cos(getArg(6)),getArg(5)*sin(getArg(6)));
-   
+
   if (other_b==B0B){
     amp=A*cos(getArg(1)*t/(2*EvtConst::c))+
       EvtComplex(cos(-2.0*getArg(0)),sin(-2.0*getArg(0)))*
@@ -93,12 +91,12 @@ void EvtSSSCP::decay( EvtParticle *p ){
   }
   if (other_b==B0){
     amp=A*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-      EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+      EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
       getArg(2)*Abar*cos(getArg(1)*t/(2*EvtConst::c));
   }
-  
+
   vertex(amp);
-  
+
   return ;
 }
 

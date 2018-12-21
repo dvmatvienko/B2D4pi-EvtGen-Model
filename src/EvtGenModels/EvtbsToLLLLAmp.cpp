@@ -763,7 +763,7 @@ double EvtbsToLLLLAmp::CalcMaxProb(
 //                                     double CKM_barrho, double CKM_bareta
                                   ){
 
-  double maxfoundprob = 12650.0; // maximum of the probability
+  double maxfoundprob = 5.0; // maximum of the probability
 
   return maxfoundprob;
 }

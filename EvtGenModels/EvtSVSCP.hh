@@ -29,18 +29,16 @@ class EvtSVSCP:public  EvtDecayAmp  {
 
 public:
 
-  EvtSVSCP() {}
-  virtual ~EvtSVSCP();
-  
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
-  void init();
-  void decay(EvtParticle *p); 
+  void initProbMax() override;
+  void init() override;
+  void decay(EvtParticle *p) override;
 
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
+  std::string getParamName(int i) override;
+  std::string getParamDefault(int i) override;
+
 };
 
 #endif

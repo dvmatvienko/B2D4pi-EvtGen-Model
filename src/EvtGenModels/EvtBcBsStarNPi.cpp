@@ -29,13 +29,10 @@ EvtBcBsStarNPi::EvtBcBsStarNPi() {
   FA0_N=8.1; FA0_c1=0.30; FA0_c2=0.069;
   FAm_N=0.0; FAm_c1=0.0; FAm_c2=0.0;
   FAp_N=0.15; FAp_c1=0.30; FAp_c2=0.069;
-  FV_N= 1.08; FV_c1=0.30; FV_c2=0.069; 
+  FV_N= 1.08; FV_c1=0.30; FV_c2=0.069;
 
 }
 
-EvtBcBsStarNPi::~EvtBcBsStarNPi() {
-
-}
 
 std::string EvtBcBsStarNPi::getName() {
 
@@ -43,7 +40,7 @@ std::string EvtBcBsStarNPi::getName() {
 
 }
 
-EvtDecayBase* EvtBcBsStarNPi::clone() {
+EvtBcBsStarNPi* EvtBcBsStarNPi::clone() {
 
   return new EvtBcBsStarNPi;
 

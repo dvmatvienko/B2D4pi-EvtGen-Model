@@ -34,8 +34,6 @@
 
 #include <cmath>
 
-EvtVVP::~EvtVVP() {}
-
 std::string EvtVVP::getName()
 {
   return "VVP";
@@ -68,8 +66,7 @@ void EvtVVP::init()
   }
 }
 
-void EvtVVP::initProbMax()
-{
+void EvtVVP::initProbMax(){
 
   if (getNDaug() == 2) {
     setProbMax(2.0);
@@ -85,8 +82,7 @@ void EvtVVP::initProbMax()
   }
 }
 
-void EvtVVP::decay(EvtParticle *root)
-{
+void EvtVVP::decay(EvtParticle *root){
   if (getNDaug() == 2) {
     decay_2body(root);
   } else if (getNDaug() == 3) {

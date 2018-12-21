@@ -2,8 +2,8 @@
 //
 // Module: EvtGen/EvtHQET2.hh
 //
-// Description:Implementation of the HQET model with dispersive FF due to 
-//             Caprini et al. 
+// Description:Implementation of the HQET model with dispersive FF due to
+//             Caprini et al.
 //
 // Modification history:
 //
@@ -17,6 +17,7 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <memory>
 
 class EvtParticle;
 
@@ -24,21 +25,15 @@ class EvtHQET2:public  EvtDecayAmp  {
 
 public:
 
-  EvtHQET2();
-  virtual ~EvtHQET2();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF *hqetffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> hqetffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 #endif
-
-
-

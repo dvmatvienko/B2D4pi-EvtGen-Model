@@ -33,12 +33,6 @@
 #include "EvtGenBase/EvtSpinType.hh"
 #include "EvtGenBase/EvtIntervalFlatPdf.hh"
 #include <algorithm>
-EvtRelBreitWignerBarrierFact::EvtRelBreitWignerBarrierFact() {
-
-}
-
-EvtRelBreitWignerBarrierFact::~EvtRelBreitWignerBarrierFact() {
-}
 
 EvtRelBreitWignerBarrierFact::EvtRelBreitWignerBarrierFact(double mass, double width, double maxRange, EvtSpinType::spintype sp) :
   EvtAbsLineShape(mass,width,maxRange,sp)
@@ -64,7 +58,7 @@ EvtRelBreitWignerBarrierFact::EvtRelBreitWignerBarrierFact(double mass, double w
     _massMax=mass+maxdelta;
     _massMin=mass-15.0*width;
   }
- 
+
   _massMax=mass+maxdelta;
   if ( _massMin< 0. ) _massMin=0.;
 }
@@ -95,7 +89,7 @@ EvtRelBreitWignerBarrierFact& EvtRelBreitWignerBarrierFact::operator=(const EvtR
   _includeDecayFact=x._includeDecayFact;
   _includeBirthFact=x._includeBirthFact;
   _errorCond=x._errorCond;
-  
+
   return *this;
 }
 
@@ -154,21 +148,21 @@ double EvtRelBreitWignerBarrierFact::getRandMass(EvtId *parId,int nDaug, EvtId *
   // the user has overridden the partial wave to use.
   for (unsigned int vC=0; vC<_userSetPW.size(); vC++) {
     if ( dauId[0]==_userSetPWD1[vC] &&  dauId[1]==_userSetPWD2[vC] ) {
-      Lmin=2*_userSetPW[vC]; 
+      Lmin=2*_userSetPW[vC];
     }
     if ( dauId[0]==_userSetPWD2[vC] &&  dauId[1]==_userSetPWD1[vC] ) {
-      Lmin=2*_userSetPW[vC]; 
+      Lmin=2*_userSetPW[vC];
     }
   }
-  
+
   // allow for special cases.
   if (Lmin<-1 ) {
-    
+
     //There are some things I don't know how to deal with
     if ( t3>4) return EvtAbsLineShape::getRandMass(parId,nDaug,dauId,othDaugId,maxMass,dauMasses);
     if ( t1>4) return EvtAbsLineShape::getRandMass(parId,nDaug,dauId,othDaugId,maxMass,dauMasses);
     if ( t2>4) return EvtAbsLineShape::getRandMass(parId,nDaug,dauId,othDaugId,maxMass,dauMasses);
-    
+
     //figure the min and max allowwed "spins" for the daughters state
     Lmin=std::max(t3-t2-t1,std::max(t2-t3-t1,t1-t3-t2));
     if (Lmin<0) Lmin=0;
@@ -190,27 +184,27 @@ double EvtRelBreitWignerBarrierFact::getRandMass(EvtId *parId,int nDaug, EvtId *
   if ( othDaugId) {
     EvtSpinType::spintype spinOth=EvtPDL::getSpinType(*othDaugId);
     EvtSpinType::spintype spinPar=EvtPDL::getSpinType(*parId);
-    
+
     int tt1=EvtSpinType::getSpin2(spinOth);
     int tt2=EvtSpinType::getSpin2(spinPar);
     int tt3=EvtSpinType::getSpin2(_spin);
-    
-    
+
+
     //figure the min and max allowwed "spins" for the daughters state
     if ( (tt1<=4) && ( tt2<=4) ) {
       birthl=std::max(tt3-tt2-tt1,std::max(tt2-tt3-tt1,tt1-tt3-tt2));
       if (birthl<0) birthl=0;
-    
+
       massOthD=EvtPDL::getMeanMass(*othDaugId);
       massParent=EvtPDL::getMeanMass(*parId);
-    
+
     }
 
     // allow user to override
     for (size_t vC=0; vC<_userSetBirthPW.size(); vC++) {
       if ( *othDaugId==_userSetBirthOthD[vC] && *parId==_userSetBirthPar[vC]){
 	birthl=2*_userSetBirthPW[vC];
-      } 
+      }
     }
 
   }
@@ -263,7 +257,7 @@ double EvtRelBreitWignerBarrierFact::getRandMass(EvtId *parId,int nDaug, EvtId *
     _errorCond=true;
     return tempMinMass;
   }
-  
+
   if ( tempMaxLoc < tempMinMass) tempMaxLoc=tempMinMass;
 
   double safetyFactor=1.2;
@@ -281,3 +275,12 @@ double EvtRelBreitWignerBarrierFact::getRandMass(EvtId *parId,int nDaug, EvtId *
   return point.value();
 
 }
+
+
+
+
+
+
+
+
+

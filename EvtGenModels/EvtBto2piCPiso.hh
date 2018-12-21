@@ -27,20 +27,18 @@
 class EvtBto2piCPiso:public  EvtDecayAmp  {
 
 public:
+
+  std::string getName() override;
+  EvtDecayBase* clone() override;
+
+  void init() override;
+  void initProbMax() override;
+
+  void decay(EvtParticle *p) override;
   
-  EvtBto2piCPiso() {}
-  virtual ~EvtBto2piCPiso();
-  
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getParamName(int i) override;
+  std::string getParamDefault(int i) override;
 
-  void init();
-  void initProbMax();
-
-  void decay(EvtParticle *p); 
-
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
 };
 
 #endif

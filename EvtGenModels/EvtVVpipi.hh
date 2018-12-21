@@ -30,15 +30,12 @@ class EvtVVpipi:public  EvtDecayAmp  {
 
 public:
 
-  EvtVVpipi() {}
-  virtual ~EvtVVpipi();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
 
 };
 

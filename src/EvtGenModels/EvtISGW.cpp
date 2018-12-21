@@ -18,7 +18,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -32,11 +32,9 @@
 #include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicTensorAmp.hh"
 
-EvtISGW::~EvtISGW() {}
-
 std::string EvtISGW::getName(){
 
-  return "ISGW";     
+  return "ISGW";
 
 }
 
@@ -52,8 +50,7 @@ void EvtISGW::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
-  calcamp->CalcAmp(p,_amp2,isgwffmodel);
-  return;
+  calcamp->CalcAmp(p,_amp2,isgwffmodel.get());
 
 }
 
@@ -64,7 +61,7 @@ void EvtISGW::init(){
   checkNDaug(3);
 
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
@@ -74,17 +71,21 @@ void EvtISGW::init(){
   checkSpinDaughter(2,EvtSpinType::NEUTRINO);
 
 
-  isgwffmodel = new EvtISGWFF;
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
+  isgwffmodel = std::make_unique< EvtISGWFF >();
+
+  switch(mesontype) {
+  case EvtSpinType::SCALAR:
+    calcamp = std::make_unique< EvtSemiLeptonicScalarAmp >();
+    break;
+  case EvtSpinType::VECTOR:
+    calcamp = std::make_unique< EvtSemiLeptonicVectorAmp >();
+    break;
+  case EvtSpinType::TENSOR:
+    calcamp = std::make_unique< EvtSemiLeptonicTensorAmp >();
+    break;
+  default:
+    ;
   }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
-  }
-  
+
 }
 

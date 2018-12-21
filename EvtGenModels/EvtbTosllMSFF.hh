@@ -9,7 +9,7 @@
 //      Copyright (C) 1998      Caltech, UCSB
 //
 // Module:      EvtbTosllMSFF.hh
-// Description: Form factors for B^0_d -> K^* l^+ l^- transition according 
+// Description: Form factors for B^0_d -> K^* l^+ l^- transition according
 //              to the paper: D.Melikhov, B.Stech, PRD62, 014006 (2000).
 //
 // Modification history:
@@ -30,18 +30,18 @@ class EvtbTosllMSFF : public EvtbTosllFFNew{
 public:
 
   EvtbTosllMSFF();
- 
-  double equation9_10(double ff0, double M2, double q2, 
+
+  double equation9_10(double ff0, double M2, double q2,
                       double sigma1, double sigma2, int eq_num);
 
-  void getScalarFF(EvtId parent, EvtId daught,double t, 
-		   double& fp,double& f0,double& ft);
+  void getScalarFF(EvtId parent, EvtId daught,double t,
+		   double& fp,double& f0,double& ft) override;
 
-  void getVectorFF(EvtId parent, EvtId daught,double t, 
+  void getVectorFF(EvtId parent, EvtId daught,double t,
 		   double& a1,double& a2,double& a0, double& v,
-		   double& t1, double& t2, double& t3 );
+		   double& t1, double& t2, double& t3 ) override;
 
-  double getQuarkMass(int i);
+  double getQuarkMass(int i) override;
 
 private:
 

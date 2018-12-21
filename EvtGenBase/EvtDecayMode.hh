@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtDecayMode.hh,v 1.2 2009-03-16 16:44:33 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -23,18 +23,17 @@
 
 #include <iosfwd>
 
-class EvtDecayMode {
+class EvtDecayMode final {
 
 public:
 
   EvtDecayMode(const char* decay);
   EvtDecayMode(const EvtDecayMode& other);
   EvtDecayMode(std::string mother,std::vector<std::string> dau);
-  ~EvtDecayMode();
 
   const char* mother() const;
   int nD() const;
-  const char* dau(int i) const; 
+  const char* dau(int i) const;
 
   std::ostream& print(std::ostream&) const;
 

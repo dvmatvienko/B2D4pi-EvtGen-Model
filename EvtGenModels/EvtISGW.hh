@@ -24,6 +24,7 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <memory>
 class EvtParticle;
 
 
@@ -32,21 +33,17 @@ class EvtISGW:public  EvtDecayAmp  {
 
 public:
 
-  EvtISGW() {}
-  virtual ~EvtISGW();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void init();
+  void decay(EvtParticle *p) override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF *isgwffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> isgwffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 
 
 #endif
-

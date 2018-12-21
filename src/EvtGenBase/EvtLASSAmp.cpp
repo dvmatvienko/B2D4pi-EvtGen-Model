@@ -1,9 +1,9 @@
 /*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory 
- * Package: EvtGenBase 
- *  Author: Denis Dujmic, ddujmic@slac.stanford.edu               
- *  
- * Copyright (C) 2005 SLAC   
+ * Project: BaBar detector at the SLAC PEP-II B-factory
+ * Package: EvtGenBase
+ *  Author: Denis Dujmic, ddujmic@slac.stanford.edu
+ *
+ * Copyright (C) 2005 SLAC
  *******************************************************************************/
 
 #include <assert.h>
@@ -19,7 +19,7 @@ using EvtCyclic3::Index;
 using EvtCyclic3::Pair;
 
 
-EvtLASSAmp::EvtLASSAmp(EvtDalitzPlot *dp, 
+EvtLASSAmp::EvtLASSAmp(EvtDalitzPlot *dp,
 		       EvtCyclic3::Pair pair,
 		       double m0, double g0,
 		       double a, double r, double cutoff, std::string subtype) :
@@ -42,30 +42,9 @@ EvtLASSAmp::EvtLASSAmp(EvtDalitzPlot *dp,
 }
 
 
-
-EvtLASSAmp::EvtLASSAmp(const EvtLASSAmp& other) :
-  EvtAmplitude<EvtDalitzPoint>(other),
-  _pair(other._pair),
-  _m0(other._m0),
-  _g0(other._g0),
-  _q0(other._q0),
-  _r(other._r),
-  _a(other._a),
-  _cutoff(other._cutoff),
-  _subtype(other._subtype)
-
-{  
-  _dalitzSpace = other._dalitzSpace;
-}
-
-
-EvtLASSAmp::~EvtLASSAmp() {}
-
-
-
-EvtComplex 
+EvtComplex
 EvtLASSAmp::amplitude(const EvtDalitzPoint &dalitzPoint) const {
-  
+
   /*
 
     Parameterization of Kpi S-wave using LASS scattering data.
@@ -78,7 +57,7 @@ EvtLASSAmp::amplitude(const EvtDalitzPoint &dalitzPoint) const {
 
 
     where q = momentum of K or pi in Kpi system
-          
+
           q*cot(delta) = 1/ a   + 1/2 * [ r * q**2 ]
 
 	  a = scattering length
@@ -91,7 +70,7 @@ EvtLASSAmp::amplitude(const EvtDalitzPoint &dalitzPoint) const {
   double m = sqrt(s);
   double q = dalitzPoint.p(first(_pair), _pair);
 
-  // elastic scattering 
+  // elastic scattering
   double qcotd = 1./_a + 0.5*_r*q*q;
   EvtComplex lass_elastic = m<_cutoff ? m / ( qcotd - EvtComplex(0,q) ) : 0;
 
@@ -108,7 +87,7 @@ EvtLASSAmp::amplitude(const EvtDalitzPoint &dalitzPoint) const {
 
   // K*(1430)
   double gamma = _g0 * q/m * _m0/_q0;
-  EvtComplex lass_Kstar = (_m0*_m0)*(_g0/_q0)/(_m0*_m0-m*m-EvtComplex(0.,_m0*gamma));   
+  EvtComplex lass_Kstar = (_m0*_m0)*(_g0/_q0)/(_m0*_m0-m*m-EvtComplex(0.,_m0*gamma));
 
   EvtComplex theAmplitude(0.0, 0.0);
 
@@ -127,5 +106,5 @@ EvtLASSAmp::amplitude(const EvtDalitzPoint &dalitzPoint) const {
   }
 
   return theAmplitude;
- 
+
 }

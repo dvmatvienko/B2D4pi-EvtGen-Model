@@ -10,9 +10,9 @@
 //
 // Module: EvtGen/EvtLNuGamma.hh
 //
-// Description: B+ -> l+ nu gamma.  Form factor is tree level, from 
+// Description: B+ -> l+ nu gamma.  Form factor is tree level, from
 //  Korchemsky, Pirjol, and Yan,Phy Rev D 61 (200) 114510
-//               
+//
 //
 // Modification history:
 //
@@ -31,18 +31,15 @@ class EvtLNuGamma:public  EvtDecayAmp  {
 
 public:
 
-  EvtLNuGamma();
-  virtual ~EvtLNuGamma();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
   double getFormFactor(double photonEnergy);
 
-  bool _fafvzero;
+  bool _fafvzero = false;
 
 };
 

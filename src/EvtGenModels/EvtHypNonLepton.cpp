@@ -23,8 +23,6 @@
 #include "EvtGenBase/EvtGammaMatrix.hh"
 
 
-EvtHypNonLepton::~EvtHypNonLepton() {}
-
 EvtDecayBase* EvtHypNonLepton::clone(){
   return new EvtHypNonLepton;
 }
@@ -118,7 +116,7 @@ void EvtHypNonLepton::decay(EvtParticle* parent){
 
   parent->initializePhaseSpace(getNDaug(),getDaugs());
   calcAmp(&_amp2,parent);
-  
+
 }
 
 void EvtHypNonLepton::calcAmp(EvtAmp *amp,EvtParticle *parent){

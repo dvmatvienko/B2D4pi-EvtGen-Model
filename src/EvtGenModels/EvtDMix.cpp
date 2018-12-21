@@ -28,11 +28,9 @@
 #include "EvtGenBase/EvtRandom.hh"
 #include <string>
 
-EvtDMix::~EvtDMix() {}
-
 std::string EvtDMix::getName(){
 
-  return "DMIX";     
+  return "DMIX";
 
 }
 

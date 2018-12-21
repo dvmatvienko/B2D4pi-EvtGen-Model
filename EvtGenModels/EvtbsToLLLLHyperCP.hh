@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtbsToLLLLHyperCP.hh
 //
-// Description: 
+// Description:
 //
 // Modification history:
 //
@@ -33,12 +33,12 @@ public:
   EvtbsToLLLLHyperCP() {} ;
   virtual ~EvtbsToLLLLHyperCP();
 
-  virtual std::string getName() ;
-  virtual EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual void init();
-  virtual void initProbMax();
-  virtual void decay(EvtParticle *p);
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *p) override;
 
 private:
   EvtbsToLLLLHyperCPAmp        *_calcamp;

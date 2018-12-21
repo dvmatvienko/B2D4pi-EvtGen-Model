@@ -20,7 +20,7 @@
 //      AVL     Nov 9 2017:   models joined
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtPDL.hh"
@@ -32,8 +32,6 @@
 #include "EvtGenModels/EvtSVP.hh"
 
 #include <cmath>
-
-EvtSVP::~EvtSVP() {}
 
 std::string EvtSVP::getName()
 {
@@ -181,3 +179,4 @@ void EvtSVP::initProbMax()
   }
 
 }
+

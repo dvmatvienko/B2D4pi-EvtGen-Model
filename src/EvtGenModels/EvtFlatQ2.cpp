@@ -27,25 +27,23 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-double lambda(double q, double m1, double m2) 
+double lambda(double q, double m1, double m2)
 {
-    double L(1.0);
-    double mSum = m1 + m2;
-    double mDiff = m1 - m2;
-    double qSq = q*q;
+  double L(1.0);
+  double mSum = m1 + m2;
+  double mDiff = m1 - m2;
+  double qSq = q*q;
 
-    if (qSq > 0.0) {
+  if (qSq > 0.0) {
 
-	double prodTerm = (qSq - mSum*mSum)*(qSq - mDiff*mDiff);
+    double prodTerm = (qSq - mSum*mSum)*(qSq - mDiff*mDiff);
 
-	if (prodTerm > 0.0) {L = sqrt(prodTerm)/qSq;}
+    if (prodTerm > 0.0) {L = sqrt(prodTerm)/qSq;}
 
-    }
+  }
 
-    return L;
+  return L;
 }
-
-EvtFlatQ2::~EvtFlatQ2() {}
 
 std::string EvtFlatQ2::getName(){
 
@@ -80,14 +78,14 @@ void EvtFlatQ2::init(){
 
   if (!(d1type == EvtSpinType::DIRAC || d1type == EvtSpinType::NEUTRINO)) {
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtFlatQ2 expects 2nd daughter to "
-					  << "be a lepton" <<std::endl;
+			     << "be a lepton" <<std::endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<std::endl;
       ::abort();
   }
 
   if (!(d2type == EvtSpinType::DIRAC || d2type == EvtSpinType::NEUTRINO)) {
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtFlatQ2 expects 3rd daughter to "
-					  << "be a lepton" <<std::endl;
+			     << "be a lepton" <<std::endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<std::endl;
       ::abort();
   }
@@ -138,5 +136,3 @@ void EvtFlatQ2::decay( EvtParticle *p){
   return;
 
 }
-
-

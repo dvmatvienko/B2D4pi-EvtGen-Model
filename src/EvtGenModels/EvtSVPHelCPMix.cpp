@@ -38,8 +38,6 @@
 #include "EvtGenModels/EvtSVPHelCPMix.hh"
 #include "EvtGenModels/EvtSVPHelAmp.hh"
 
-EvtSVPHelCPMix::~EvtSVPHelCPMix() {}
-
 std::string EvtSVPHelCPMix::getName(){
 
   return "SVPHELCPMIX";
@@ -54,21 +52,21 @@ EvtDecayBase* EvtSVPHelCPMix::clone(){
 
 void EvtSVPHelCPMix::init(){
 
-  // check that there are 5 arguments  
-  checkNArg(5);		
+  // check that there are 5 arguments
+  checkNArg(5);
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::SCALAR);
 
   checkSpinDaughter(0,EvtSpinType::VECTOR);
   checkSpinDaughter(1,EvtSpinType::PHOTON);
-  
+
 }
 
 void EvtSVPHelCPMix::initProbMax(){
 
-  setProbMax(2.0*(getArg(0)*getArg(0)+getArg(2)*getArg(2))); 
-  
+  setProbMax(2.0*(getArg(0)*getArg(0)+getArg(2)*getArg(2)));
+
 }
 
 void EvtSVPHelCPMix::decay( EvtParticle *p){
@@ -90,7 +88,7 @@ void EvtSVPHelCPMix::decay( EvtParticle *p){
       Initial_state = 0;
     } else {
       Initial_state = 1;
-    } 
+    }
   }
 
   static EvtId BSH=EvtPDL::getId("B_s0H");
@@ -112,7 +110,7 @@ void EvtSVPHelCPMix::decay( EvtParticle *p){
   static double deltaMs = EvtCPUtil::getInstance()->getDeltaM(BS0);
   double mt = exp(-std::max(0.0,deltaGamma)*t/(2.0*EvtConst::c));
   double pt = exp(+std::min(0.0,deltaGamma)*t/(2.0*EvtConst::c));
-  
+
   //Using the same sign convention as in J.P. Silva, hep-ph/0410351 (2004)
   EvtComplex qp=EvtComplex(cos(-2.0*getArg(4)),sin(-2.0*getArg(4))); // q/p=e^(-2*beta_s)
   EvtComplex gplus  = ( mt*EvtComplex(cos(deltaMs*t/(2.0*EvtConst::c)),sin( deltaMs*t/(2.0*EvtConst::c)))
@@ -141,7 +139,7 @@ void EvtSVPHelCPMix::decay( EvtParticle *p){
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Initial state was not BSB or BS0!" << std::endl;
     ::abort();
   }
-  
+
   //Compute the decay amplitudes from the time-dependent helicity amplitudes
   EvtSVPHelAmp::SVPHel(p,_amp2,getDaug(0),getDaug(1),hp,hm);
 

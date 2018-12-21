@@ -18,7 +18,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -34,22 +34,9 @@
 #include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicTensorAmp.hh"
 
-EvtISGW2::EvtISGW2():
-   isgw2ffmodel(0)
-  ,calcamp(0)
-{}
-
-
-EvtISGW2::~EvtISGW2() {
-  delete isgw2ffmodel;
-  isgw2ffmodel=0;
-  delete calcamp;
-  calcamp=0;
-}
-
 std::string EvtISGW2::getName(){
 
-  return "ISGW2";     
+  return "ISGW2";
 
 }
 
@@ -65,7 +52,7 @@ void EvtISGW2::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
-  calcamp->CalcAmp(p,_amp2,isgw2ffmodel);
+  calcamp->CalcAmp(p,_amp2,isgw2ffmodel.get());
 
 }
 
@@ -381,7 +368,7 @@ if ( parnum==BP||parnum==BM||parnum==B0||parnum==B0B||parnum==BS0||parnum==BSB )
     if ( lnum==EP||lnum==EM||lnum==MUP||lnum==MUM ) {
        setProbMax(3000.0);
        return;
-    } 
+    }
     if ( lnum==TAUP||lnum==TAUM ) {
        setProbMax(3000.0);
        return;
@@ -689,7 +676,7 @@ if ( parnum==D0||parnum==DP||parnum==DM||parnum==D0B ) {
   if ( mesnum==K2STP||mesnum==K2STM||mesnum==K2ST0||mesnum==K2STB) {
 
     if ( lnum==EP||lnum==EM||lnum==MUP||lnum==MUM ) {
-      //Lange - Oct 26,2001 - increasing from 0.75 to 
+      //Lange - Oct 26,2001 - increasing from 0.75 to
       //accomodate
       setProbMax( 9.0);
       // setProbMax( 0.75);
@@ -738,7 +725,7 @@ if ( parnum==DSP||parnum==DSM ) {
 
     if ( lnum==EP||lnum==EM||lnum==MUP||lnum==MUM ) {
       setProbMax( 100.0) ;
-       return;	
+       return;
     }
   }
 
@@ -778,7 +765,7 @@ void EvtISGW2::init(){
   checkNArg(0);
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -787,23 +774,20 @@ void EvtISGW2::init(){
 
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
 
-  isgw2ffmodel = new EvtISGW2FF;
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
+  isgw2ffmodel = std::make_unique< EvtISGW2FF >();
+
+  switch (mesontype) {
+  case EvtSpinType::SCALAR:
+    calcamp = std::make_unique< EvtSemiLeptonicScalarAmp >();
+    break;
+  case EvtSpinType::VECTOR:
+    calcamp = std::make_unique< EvtSemiLeptonicVectorAmp >();
+    break;
+  case EvtSpinType::TENSOR:
+    calcamp = std::make_unique< EvtSemiLeptonicTensorAmp >();;
+    break;
+  default:
+    ;
   }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
-  }
-  
+
 }
-
-
-
-
-
-
-

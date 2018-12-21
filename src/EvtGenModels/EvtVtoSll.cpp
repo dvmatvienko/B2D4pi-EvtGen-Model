@@ -10,9 +10,9 @@
 //
 // Module: EvtVll.cc
 //
-// Description: The decay of a vector meson to a scalar and a 
+// Description: The decay of a vector meson to a scalar and a
 //              lepton pair. E.g. D_s*+ -> D_s+ e+ e-
-//           
+//
 //
 // Modification history:
 //
@@ -33,11 +33,9 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtTensor4C.hh"
 
-EvtVtoSll::~EvtVtoSll() {}
-
 std::string EvtVtoSll::getName(){
 
-  return "VTOSLL";     
+  return "VTOSLL";
 
 }
 
@@ -55,7 +53,7 @@ void EvtVtoSll::init(){
   checkNDaug(3);
 
   checkSpinParent(EvtSpinType::VECTOR);
-  
+
   checkSpinDaughter(0,EvtSpinType::SCALAR);
   checkSpinDaughter(1,EvtSpinType::DIRAC);
   checkSpinDaughter(2,EvtSpinType::DIRAC);
@@ -103,17 +101,17 @@ void EvtVtoSll::decay(EvtParticle *p){
   vertex(0,0,1,norm*(eps0*T.cont2(l12)));
   vertex(0,1,0,norm*(eps0*T.cont2(l21)));
   vertex(0,1,1,norm*(eps0*T.cont2(l22)));
-  
+
   vertex(1,0,0,norm*(eps1*T.cont2(l11)));
   vertex(1,0,1,norm*(eps1*T.cont2(l12)));
   vertex(1,1,0,norm*(eps1*T.cont2(l21)));
   vertex(1,1,1,norm*(eps1*T.cont2(l22)));
-  
+
   vertex(2,0,0,norm*(eps2*T.cont2(l11)));
   vertex(2,0,1,norm*(eps2*T.cont2(l12)));
   vertex(2,1,0,norm*(eps2*T.cont2(l21)));
   vertex(2,1,1,norm*(eps2*T.cont2(l22)));
-  
+
   return;
 
 }

@@ -32,7 +32,7 @@
 Evt3Rank3C::Evt3Rank3C( const Evt3Rank3C& t1 ) {
 
   int i,j,k;
-  
+
   for(i=0;i<3;i++) {
     for(j=0;j<3;j++) {
       for(k=0;k<3;k++) {
@@ -42,12 +42,10 @@ Evt3Rank3C::Evt3Rank3C( const Evt3Rank3C& t1 ) {
   }
 }
 
-Evt3Rank3C::~Evt3Rank3C() { }
-
 
 Evt3Rank3C& Evt3Rank3C::operator=(const Evt3Rank3C& t1) {
   int i,j,k;
-  
+
   for(i=0;i<3;i++) {
     for(j=0;j<3;j++) {
       for(k=0;k<3;k++) {
@@ -61,9 +59,9 @@ Evt3Rank3C& Evt3Rank3C::operator=(const Evt3Rank3C& t1) {
 
 Evt3Rank3C Evt3Rank3C::conj() const {
   Evt3Rank3C temp;
-  
+
   int i,j,k;
-  
+
   for(i=0;i<3;i++) {
     for(j=0;j<3;j++) {
       for(k=0;k<3;k++) {
@@ -87,9 +85,9 @@ void Evt3Rank3C::zero(){
 
 
 Evt3Rank3C::Evt3Rank3C(){
-  
+
   int i,j,k;
-  
+
   for(i=0;i<3;i++){
     for(j=0;j<3;j++){
       for(k=0;k<3;k++){
@@ -114,9 +112,9 @@ std::ostream& operator<<(std::ostream& s, const Evt3Rank3C& t2){
 }
 
 Evt3Rank3C& Evt3Rank3C::operator+=(const Evt3Rank3C& t2){
-  
+
   int i,j,k;
-  
+
   for (i=0;i<3;i++) {
     for (j=0;j<3;j++) {
       for (k=0;k<3;k++) {
@@ -130,7 +128,7 @@ Evt3Rank3C& Evt3Rank3C::operator+=(const Evt3Rank3C& t2){
 Evt3Rank3C& Evt3Rank3C::operator-=(const Evt3Rank3C& t2) {
 
   int i,j,k;
-  
+
   for (i=0;i<3;i++) {
     for (j=0;j<3;j++) {
       for (k=0;k<3;k++) {
@@ -147,7 +145,7 @@ Evt3Rank3C& Evt3Rank3C::operator-=(const Evt3Rank3C& t2) {
 Evt3Rank3C& Evt3Rank3C::operator*=(const EvtComplex& c){
 
   int i,j,k;
-  
+
   for (i=0;i<3;i++) {
     for (j=0;j<3;j++) {
       for (k=0;k<3;k++) {
@@ -160,7 +158,7 @@ Evt3Rank3C& Evt3Rank3C::operator*=(const EvtComplex& c){
 
 Evt3Rank3C& Evt3Rank3C::operator*=(const double c){
   int i,j,k;
-  
+
   for (i=0;i<3;i++) {
     for (j=0;j<3;j++) {
       for (k=0;k<3;k++) {
@@ -173,14 +171,14 @@ Evt3Rank3C& Evt3Rank3C::operator*=(const double c){
 
 }
 
-Evt3Rank3C conj(const Evt3Rank3C& t2) { 
+Evt3Rank3C conj(const Evt3Rank3C& t2) {
   Evt3Rank3C temp;
-  
+
   int i,j,k;
 
-  for(i=0;i<3;i++){ 
-    for(j=0;j<3;j++){ 
-      for(k=0;k<3;k++){ 
+  for(i=0;i<3;i++){
+    for(j=0;j<3;j++){
+      for(k=0;k<3;k++){
 	temp.t[i][j][k]=::conj(t2.t[i][j][k]);
       }
     }
@@ -190,9 +188,9 @@ Evt3Rank3C conj(const Evt3Rank3C& t2) {
 
 EvtTensor3C Evt3Rank3C::cont1(const EvtVector3C& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[0][i][k]*v.get(0)+t[1][i][k]*v.get(1)
@@ -200,14 +198,14 @@ EvtTensor3C Evt3Rank3C::cont1(const EvtVector3C& v) const {
     }
   }
   return temp;
-} 
+}
 
 
 EvtTensor3C Evt3Rank3C::cont2(const EvtVector3C& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[i][0][k]*v.get(0)+t[i][1][k]*v.get(1)
@@ -215,14 +213,14 @@ EvtTensor3C Evt3Rank3C::cont2(const EvtVector3C& v) const {
     }
   }
   return temp;
-} 
+}
 
 
 EvtTensor3C Evt3Rank3C::cont3(const EvtVector3C& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[i][k][0]*v.get(0)+t[i][k][1]*v.get(1)
@@ -230,13 +228,13 @@ EvtTensor3C Evt3Rank3C::cont3(const EvtVector3C& v) const {
     }
   }
   return temp;
-} 
+}
 
 EvtTensor3C Evt3Rank3C::cont1(const EvtVector3R& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[0][i][k]*v.get(0)+t[1][i][k]*v.get(1)
@@ -244,14 +242,14 @@ EvtTensor3C Evt3Rank3C::cont1(const EvtVector3R& v) const {
     }
   }
   return temp;
-} 
+}
 
 
 EvtTensor3C Evt3Rank3C::cont2(const EvtVector3R& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[i][0][k]*v.get(0)+t[i][1][k]*v.get(1)
@@ -259,14 +257,14 @@ EvtTensor3C Evt3Rank3C::cont2(const EvtVector3R& v) const {
     }
   }
   return temp;
-} 
+}
 
 
 EvtTensor3C Evt3Rank3C::cont3(const EvtVector3R& v) const {
   EvtTensor3C temp;
-  
+
   int i,k;
-  
+
   for(i=0;i<3;i++){
     for(k=0;k<3;k++){
       temp.set(i,k,t[i][k][0]*v.get(0)+t[i][k][1]*v.get(1)
@@ -274,5 +272,5 @@ EvtTensor3C Evt3Rank3C::cont3(const EvtVector3R& v) const {
     }
   }
   return temp;
-} 
+}
 

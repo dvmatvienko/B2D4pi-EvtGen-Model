@@ -17,7 +17,7 @@
 //    DJL/RYD   September 25, 1996           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include <iostream>
@@ -28,15 +28,13 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-EvtVectorParticle::~EvtVectorParticle(){}
-
 
 void EvtVectorParticle::init(EvtId part_n,double e,double px,double py,double pz){
 
   _validP4=true;
   setp(e,px,py,pz);
   setpart_num(part_n);
-  
+
   _eps[0].set(0.0,1.0,0.0,0.0);
   _eps[1].set(0.0,0.0,1.0,0.0);
   _eps[2].set(0.0,0.0,0.0,1.0);
@@ -49,7 +47,7 @@ void EvtVectorParticle::init(EvtId part_n,const EvtVector4R& p4){
   _validP4=true;
   setp(p4);
   setpart_num(part_n);
-  
+
   _eps[0].set(0.0,1.0,0.0,0.0);
   _eps[1].set(0.0,0.0,1.0,0.0);
   _eps[2].set(0.0,0.0,0.0,1.0);
@@ -64,7 +62,7 @@ void EvtVectorParticle::init(EvtId part_n,const EvtVector4R& p4,
   _validP4=true;
   setp(p4);
   setpart_num(part_n);
-  
+
   _eps[0]=epsin1;
   _eps[1]=epsin2;
   _eps[2]=epsin3;
@@ -79,7 +77,7 @@ EvtSpinDensity EvtVectorParticle::rotateToHelicityBasis() const{
   static EvtVector4C eplus(0.0,-1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
   static EvtVector4C ezero(0.0,0.0,0.0,1.0);
   static EvtVector4C eminus(0.0,1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
-  
+
   static EvtVector4C eplusC(eplus.conj());
   static EvtVector4C ezeroC(ezero.conj());
   static EvtVector4C eminusC(eminus.conj());
@@ -105,7 +103,7 @@ EvtSpinDensity EvtVectorParticle::rotateToHelicityBasis(double alpha,
   EvtVector4C eplus(0.0,-1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
   EvtVector4C ezero(0.0,0.0,0.0,1.0);
   EvtVector4C eminus(0.0,1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
-  
+
   eplus.applyRotateEuler(alpha,beta,gamma);
   ezero.applyRotateEuler(alpha,beta,gamma);
   eminus.applyRotateEuler(alpha,beta,gamma);

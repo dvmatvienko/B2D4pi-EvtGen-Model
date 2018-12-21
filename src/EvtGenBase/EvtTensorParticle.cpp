@@ -17,7 +17,7 @@
 //    DJL/RYD   September 25,1996           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include <iostream>
@@ -29,16 +29,14 @@
 #include "EvtGenBase/EvtTensorParticle.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-EvtTensorParticle::~EvtTensorParticle(){}
-
 void EvtTensorParticle::init(EvtId part_n,const EvtVector4R& p4){
- 
+
   init(part_n,p4.get(0),p4.get(1)
        ,p4.get(2),p4.get(3));
 
   setLifetime();
 
-  
+
 }
 
 void EvtTensorParticle::init(EvtId part_n,double e,double px,double py,double pz){
@@ -46,7 +44,7 @@ void EvtTensorParticle::init(EvtId part_n,double e,double px,double py,double pz
   _validP4=true;
   setp(e,px,py,pz);
   setpart_num(part_n);
-  
+
   eps[0].setdiag(0.0,-1.0/sqrt(6.0),-1.0/sqrt(6.0),
 	       2.0/sqrt(6.0));
   eps[1].setdiag(0.0,1.0/sqrt(2.0),-1.0/sqrt(2.0),0.0);
@@ -62,17 +60,17 @@ void EvtTensorParticle::init(EvtId part_n,double e,double px,double py,double pz
   eps[4].set(3,2,EvtComplex(1.0/sqrt(2.0),0.0));
 
   setLifetime();
-  
+
 }
 
 
 void EvtTensorParticle::init(EvtId part_n,const EvtVector4R& p4,
-			     const EvtTensor4C& epsin1, 
+			     const EvtTensor4C& epsin1,
 			     const EvtTensor4C& epsin2,
-			     const EvtTensor4C& epsin3, 
+			     const EvtTensor4C& epsin3,
 			     const EvtTensor4C& epsin4,
 			     const EvtTensor4C& epsin5){
- 
+
   _validP4=true;
   setp(p4);
   setpart_num(part_n);
@@ -84,7 +82,7 @@ void EvtTensorParticle::init(EvtId part_n,const EvtVector4R& p4,
   eps[4]=epsin5;
 
   setLifetime();
-  
+
 }
 
 
@@ -95,12 +93,12 @@ EvtTensor4C EvtTensorParticle::epsTensorParent(int i) const {
 
   temp.applyBoostTo(this->getP4());
   return temp;
-  
+
 } //epsParent
 
 
 EvtTensor4C EvtTensorParticle::epsTensor(int i) const {
-   
+
   return eps[i];
 
 } //eps
@@ -113,7 +111,7 @@ EvtSpinDensity EvtTensorParticle::rotateToHelicityBasis() const{
   static EvtVector4C eplus(0.0,-1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
   static EvtVector4C ezero(0.0,0.0,0.0,1.0);
   static EvtVector4C eminus(0.0,1.0/sqrt(2.0),EvtComplex(0.0,-1.0/sqrt(2.0)),0.0);
-  
+
   static EvtTensor4C dPpp(EvtGenFunctions::directProd(eplus,eplus));
   static EvtTensor4C dPp0(EvtGenFunctions::directProd(eplus,ezero));
   static EvtTensor4C dP0p(EvtGenFunctions::directProd(ezero,eplus));
@@ -160,8 +158,8 @@ EvtSpinDensity EvtTensorParticle::rotateToHelicityBasis(double alpha,
   ezero.applyRotateEuler(alpha,beta,gamma);
   eminus.applyRotateEuler(alpha,beta,gamma);
 
-  for (int i=0; i<5; i++) es[i].zero();    
-  
+  for (int i=0; i<5; i++) es[i].zero();
+
   es[0]=EvtGenFunctions::directProd(eplus,eplus);
   es[1] =(1/sqrt(2.0))*EvtGenFunctions::directProd(eplus,ezero)
     +(1/sqrt(2.0))*EvtGenFunctions::directProd(ezero,eplus);
@@ -172,7 +170,7 @@ EvtSpinDensity EvtTensorParticle::rotateToHelicityBasis(double alpha,
     +(1/sqrt(2.0))*EvtGenFunctions::directProd(ezero,eminus);
   es[4]=EvtGenFunctions::directProd(eminus,eminus);
 
-  for (int i=0; i<5; i++) es[i]=conj(es[i]);    
+  for (int i=0; i<5; i++) es[i]=conj(es[i]);
 
   EvtSpinDensity R;
   R.setDim(5);
@@ -184,11 +182,4 @@ EvtSpinDensity EvtTensorParticle::rotateToHelicityBasis(double alpha,
   return R;
 
 }
-
-  
-
-
-
-
-
 

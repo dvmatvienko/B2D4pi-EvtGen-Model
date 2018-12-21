@@ -17,7 +17,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -28,11 +28,9 @@
 #include "EvtGenModels/EvtSVS.hh"
 #include <string>
 
-EvtSVS::~EvtSVS() {}
-
 std::string EvtSVS::getName(){
 
-  return "SVS";     
+  return "SVS";
 
 }
 
@@ -48,7 +46,7 @@ void EvtSVS::init(){
   // check that there are 0 arguments
   checkNArg(0);
   checkNDaug(2);
-    
+
   checkSpinParent(EvtSpinType::SCALAR);
 
   checkSpinDaughter(0,EvtSpinType::VECTOR);
@@ -82,7 +80,7 @@ void EvtSVS::decay( EvtParticle *p){
   vertex(0,p4_parent*(v->epsParent(0)));
   vertex(1,p4_parent*(v->epsParent(1)));
   vertex(2,p4_parent*(v->epsParent(2)));
-  
+
   return ;
 }
 

@@ -18,7 +18,7 @@
 //    DJL/RYD   August 11, 1997           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include "EvtGenModels/EvtTVSPwave.hh"
 #include <string>
 
-EvtTVSPwave::~EvtTVSPwave() {}
-
 std::string EvtTVSPwave::getName(){
 
-  return "TVS_PWAVE";     
+  return "TVS_PWAVE";
 
 }
 
@@ -50,7 +48,7 @@ void EvtTVSPwave::init(){
   // check that there are 6 arguments
   checkNArg(6);
   checkNDaug(2);
-    
+
   checkSpinParent(EvtSpinType::TENSOR);
 
   checkSpinDaughter(0,EvtSpinType::VECTOR);
@@ -76,7 +74,7 @@ void EvtTVSPwave::decay( EvtParticle *p ){
   }
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-    
+
   EvtParticle *v;
   v = p->getDaug(0);
   EvtVector4R momv = v->getP4();
@@ -87,21 +85,21 @@ void EvtTVSPwave::decay( EvtParticle *p ){
   double m_parent = p->mass();
 
   EvtVector4R p_parent;
-  
+
   p_parent.set(m_parent,0.0,0.0,0.0);
-  
-  EvtVector4C  pep0,pep1,pep2,pep3,pep4;  
+
+  EvtVector4C  pep0,pep1,pep2,pep3,pep4;
   EvtTensor4C pdual;
-  
+
   EvtVector4C epsdual0,epsdual1,epsdual2;
 
   double norm=massv/(m_parent*momv.get(0)*momv.d3mag()*momv.d3mag());
   pdual=dual(EvtGenFunctions::directProd(norm*p_parent,momv));
-  
+
   epsdual0=pdual.cont1(v->epsParent(0).conj());
   epsdual1=pdual.cont1(v->epsParent(1).conj());
   epsdual2=pdual.cont1(v->epsParent(2).conj());
-  
+
   pep0=p->epsTensor(0).cont1(momv);
   pep1=p->epsTensor(1).cont1(momv);
   pep2=p->epsTensor(2).cont1(momv);
@@ -113,19 +111,19 @@ void EvtTVSPwave::decay( EvtParticle *p ){
   vertex(2,0,pep2*epsdual0);
   vertex(3,0,pep3*epsdual0);
   vertex(4,0,pep4*epsdual0);
-  
+
   vertex(0,1,pep0*epsdual1);
   vertex(1,1,pep1*epsdual1);
   vertex(2,1,pep2*epsdual1);
   vertex(3,1,pep3*epsdual1);
   vertex(4,1,pep4*epsdual1);
-  
+
   vertex(0,2,pep0*epsdual2);
   vertex(1,2,pep1*epsdual2);
   vertex(2,2,pep2*epsdual2);
   vertex(3,2,pep3*epsdual2);
   vertex(4,2,pep4*epsdual2);
-  
+
   return ;
 }
 

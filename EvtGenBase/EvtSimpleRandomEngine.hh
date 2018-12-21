@@ -37,7 +37,7 @@ public:
 	_next=1;
     }
 
-    virtual double random();
+    double random() override;
 
 private:
 

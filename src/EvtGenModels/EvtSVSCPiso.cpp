@@ -20,7 +20,7 @@
 //    RYD/NK    Febuary 16, 1998          Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -35,11 +35,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVSCPiso::~EvtSVSCPiso() {}
-
 std::string EvtSVSCPiso::getName(){
 
-  return "SVS_CP_ISO";     
+  return "SVS_CP_ISO";
 
 }
 
@@ -85,21 +83,21 @@ if ((EvtPDL::chg3(getDaug(0)) == 0) && (EvtPDL::chg3(getDaug(1)) < 0)) {
 }
 
 if ((EvtPDL::chg3(getDaug(0)) > 0) && (EvtPDL::chg3(getDaug(1)) < 0)) {
-  setProbMax(2.0*(getArg(11)*getArg(11) + getArg(23)*getArg(23) + 
-                  getArg(19)*getArg(19) + getArg(13)*getArg(13) + 
+  setProbMax(2.0*(getArg(11)*getArg(11) + getArg(23)*getArg(23) +
+                  getArg(19)*getArg(19) + getArg(13)*getArg(13) +
                   getArg(25)*getArg(25) + getArg(21)*getArg(21)));
 }
 
 if ((EvtPDL::chg3(getDaug(0)) < 0) && (EvtPDL::chg3(getDaug(1)) > 0)) {
-  setProbMax(2.0*(getArg(15)*getArg(15) + getArg(23)*getArg(23) + 
-                  getArg(19)*getArg(19) + getArg(17)*getArg(17) + 
+  setProbMax(2.0*(getArg(15)*getArg(15) + getArg(23)*getArg(23) +
+                  getArg(19)*getArg(19) + getArg(17)*getArg(17) +
                   getArg(25)*getArg(25) + getArg(21)*getArg(21)));
 }
 
 if ((EvtPDL::chg3(getDaug(0)) == 0) && (EvtPDL::chg3(getDaug(1)) == 0)) {
-   setProbMax(2.0*(getArg(7)*getArg(7) + getArg(3)*getArg(3) + getArg(11)*getArg(11) + 
+   setProbMax(2.0*(getArg(7)*getArg(7) + getArg(3)*getArg(3) + getArg(11)*getArg(11) +
                   getArg(15)*getArg(15) + 4.0*getArg(19)*getArg(19) + getArg(9)*getArg(9)+
-                   getArg(5)*getArg(5) + getArg(13)*getArg(13) + getArg(17)*getArg(17) + 
+                   getArg(5)*getArg(5) + getArg(13)*getArg(13) + getArg(17)*getArg(17) +
                    4.0*getArg(21)*getArg(21)));
 }
 
@@ -121,16 +119,16 @@ void EvtSVSCPiso::decay( EvtParticle *p){
   EvtId ds[2];
 
 
-//randomly generate the tag (B0 or B0B) 
+//randomly generate the tag (B0 or B0B)
 
    double tag = EvtRandom::Flat(0.0,1.0);
    if (tag < 0.5) {
- 
+
      EvtCPUtil::getInstance()->OtherB(p,t,other_b,1.0);
      other_b = B0;
    }
    else {
-    
+
      EvtCPUtil::getInstance()->OtherB(p,t,other_b,0.0);
      other_b = B0B;
    }
@@ -187,7 +185,7 @@ void EvtSVSCPiso::decay( EvtParticle *p){
  if ((EvtPDL::chg3(getDaug(0)) > 0 ) && (EvtPDL::chg3(getDaug(1)) == 0)) {
 
 //V+ S0, so T+0 + 2 P1
-   
+
    charged = 1;
    A_f = Tp0 + 2.0*P1;
  }
@@ -195,11 +193,11 @@ void EvtSVSCPiso::decay( EvtParticle *p){
  if ((EvtPDL::chg3(getDaug(0)) < 0 ) && (EvtPDL::chg3(getDaug(1)) == 0)) {
 
 //V- S0, so T+0_bar + 2P1_bar
-   
+
    charged = 1;
-   A_f = Tp0_bar + 2.0*P1_bar; 
+   A_f = Tp0_bar + 2.0*P1_bar;
  }
- 
+
  if ((EvtPDL::chg3(getDaug(0)) == 0 ) && (EvtPDL::chg3(getDaug(1)) > 0)) {
 
 //V0 S+, so T0+ - 2 P1
@@ -233,7 +231,7 @@ Amp_bar = Tmp_bar - P1_bar + P0;
 
 //V+ S-
    charged = 0;
-   A_f = Apm; 
+   A_f = Apm;
    Abar_f = Apm_bar;
    A_fbar = Amp;
    Abar_fbar = Amp_bar;
@@ -244,7 +242,7 @@ Amp_bar = Tmp_bar - P1_bar + P0;
 
 //V- S+
    charged = 0;
-   A_f = Amp; 
+   A_f = Amp;
    Abar_f = Amp_bar;
    A_fbar = Apm;
    Abar_fbar = Apm_bar;
@@ -255,7 +253,7 @@ Amp_bar = Tmp_bar - P1_bar + P0;
 
 //V0 S0
    charged = 0;
-   A_f = T0p + Tp0 - Tpm - Tmp - 2.0*P0 ; 
+   A_f = T0p + Tp0 - Tpm - Tmp - 2.0*P0 ;
    Abar_f = T0p_bar + Tp0_bar - Tpm_bar - Tmp_bar - 2.0*P0_bar;
    A_fbar = A_f;
    Abar_fbar = Abar_f;
@@ -263,7 +261,7 @@ Amp_bar = Tmp_bar - P1_bar + P0;
  }
 
 if (charged==0) {
-   
+
    if (!flip) {
      if (other_b==B0B){
 
@@ -272,9 +270,9 @@ if (charged==0) {
 	 EvtComplex(0.0,1.0)*Abar_f*sin(getArg(1)*t/(2*EvtConst::c));
      }
      if (other_b==B0){
-            
+
        amp=A_f*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-	 EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+	 EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
 	 Abar_f*cos(getArg(1)*t/(2*EvtConst::c));
      }
    }
@@ -288,7 +286,7 @@ if (charged==0) {
      if (other_b==B0){
 
        amp=A_fbar*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-	 EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+	 EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
 	 Abar_fbar*cos(getArg(1)*t/(2*EvtConst::c));
      }
    }

@@ -40,17 +40,15 @@
 #include "EvtGenBase/EvtVector4R.hh"
 #include <string>
 
-EvtBToKpipiCP::~EvtBToKpipiCP() {}
-
 
 std::string EvtBToKpipiCP::getName(){
 
-  return "BTOKPIPI_CP";     
+  return "BTOKPIPI_CP";
 
 }
 
 
-EvtDecayBase* EvtBToKpipiCP::clone(){
+EvtBToKpipiCP* EvtBToKpipiCP::clone(){
 
   return new EvtBToKpipiCP;
 

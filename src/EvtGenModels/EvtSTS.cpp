@@ -18,7 +18,7 @@
 //    RYD       Aug  21, 1998       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -31,11 +31,9 @@
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 
-EvtSTS::~EvtSTS() {}
-
 std::string EvtSTS::getName(){
 
-  return "STS";     
+  return "STS";
 
 }
 
@@ -57,7 +55,7 @@ void EvtSTS::init(){
   // check that there are 0 arguments
   checkNArg(0);
   checkNDaug(2);
-    
+
   checkSpinParent(EvtSpinType::SCALAR);
 
   checkSpinDaughter(0,EvtSpinType::TENSOR);
@@ -81,7 +79,7 @@ void EvtSTS::decay( EvtParticle *p){
   double m_parent=p4_parent.mass();
 
   double norm=masst*masst/(m_parent*momt.d3mag()*momt.d3mag());
-   
+
   vertex(0,norm*t1->epsTensorParent(0).cont1(p4_parent)*p4_parent);
   vertex(1,norm*t1->epsTensorParent(1).cont1(p4_parent)*p4_parent);
   vertex(2,norm*t1->epsTensorParent(2).cont1(p4_parent)*p4_parent);

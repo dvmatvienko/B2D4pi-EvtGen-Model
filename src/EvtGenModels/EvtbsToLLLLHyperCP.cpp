@@ -155,7 +155,7 @@ void EvtbsToLLLLHyperCP::decay( EvtParticle *p ){
   _calcamp->CalcAmp(p, _amp2, mS, mP, gammaS, gammaP, mLiiLR, Fc, 
                     mD23LL, mD23RR, mD32LL, mD32RR, mD13LL, mD13RR, mD31LL, mD31RR); 
 
-//  EvtGenReport(NOTICE,"EvtGen") << "\n The function EvtbsToLLLLHyperCP::decay(...) passed with arguments:"
+//  EvtGenReport(EVTGEN_NOTICE,"EvtGen") << "\n The function EvtbsToLLLLHyperCP::decay(...) passed with arguments:"
 //                        << "\n mS = " << mS 
 //                        << "\n mP = " << mP 
 //                        << "\n gammaS = " << gammaS 

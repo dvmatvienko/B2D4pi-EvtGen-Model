@@ -18,7 +18,7 @@
  * by numeric quadrature and distributions can be generated according to them.
  *
  * EvtPdfGen:
- * 
+ *
  * Generator adaptor. Can be used to generate random points
  * distributed according to the PDF for analytic PDFs.
  *
@@ -33,9 +33,9 @@
  *
  * EvtPdfDiv:
  *
- * PDF obtained by division of one PDF by another. Because the two PDFs are 
- * arbitrary this PDF is not analytic. When importance sampling is used the 
- * original PDF is divided by the analytic comparison function. EvtPdfDiv is 
+ * PDF obtained by division of one PDF by another. Because the two PDFs are
+ * arbitrary this PDF is not analytic. When importance sampling is used the
+ * original PDF is divided by the analytic comparison function. EvtPdfDiv is
  * used to represent the modified PDF.
  */
 
@@ -56,14 +56,14 @@ template <class T> class EvtPdfGen;
 
 template <class T> class EvtPdf {
 public:
-  
+
   EvtPdf() {}
   EvtPdf(const EvtPdf& other) : _itg(other._itg) {}
   virtual ~EvtPdf() {}
   virtual EvtPdf<T>* clone() const = 0;
-  
-  double evaluate(const T& p) const { 
-    if(p.isValid()) return pdf(p); 
+
+  double evaluate(const T& p) const {
+    if(p.isValid()) return pdf(p);
     else return 0.;
   }
 
@@ -74,12 +74,12 @@ public:
   // Find generation efficiency.
 
   EvtValError findGenEff(const EvtPdf<T>& pc, int N, int nFindMax);
-  
+
   // Analytic integration. Calls cascade down until an overridden
   // method is called.
 
   void setItg(EvtValError itg) {_itg = itg; }
-  
+
   EvtValError getItg() const {
     if(!_itg.valueKnown()) _itg = compute_integral();
     return _itg;
@@ -88,7 +88,7 @@ public:
     if(!_itg.valueKnown()) _itg = compute_integral(N);
     return _itg;
   }
-  
+
   virtual EvtValError compute_integral() const
     //make sun happy - return something
   { printf("Analytic integration of PDF is not defined\n"); assert(0); return compute_integral();}
@@ -97,12 +97,12 @@ public:
   //  Monte Carlo integration.
 
   EvtValError compute_mc_integral(const EvtPdf<T>& pc, int N);
-  
+
   // Generation. Create predicate accept-reject generators.
   // nMax iterations will be used to find the maximum of the accept-reject predicate
-  
+
   EvtPredGen<EvtPdfGen<T>,EvtPdfPred<T> >  accRejGen(const EvtPdf<T>& pc, int nMax, double factor = 1.);
-  
+
   virtual T randomPoint();
 
 protected:
@@ -120,15 +120,15 @@ public:
   EvtPdfGen(const EvtPdfGen<T>& other) :
     _pdf(other._pdf ? other._pdf->clone() : 0)
   {}
-  EvtPdfGen(const EvtPdf<T>& pdf) : 
+  EvtPdfGen(const EvtPdf<T>& pdf) :
     _pdf(pdf.clone())
   {}
   ~EvtPdfGen() { delete _pdf;}
-  
+
   result_type operator()() {return _pdf->randomPoint();}
-  
+
 private:
-  
+
   EvtPdf<T>* _pdf;
 };
 
@@ -137,38 +137,38 @@ template <class T> class EvtPdfPred {
 public:
   typedef T    argument_type;
   typedef bool result_type;
-  
+
   EvtPdfPred() {}
   EvtPdfPred(const EvtPdf<T>& thePdf) : itsPdf(thePdf.clone()) {}
   EvtPdfPred(const EvtPdfPred& other) : COPY_PTR(itsPdf), COPY_MEM(itsPdfMax) {}
   ~EvtPdfPred() { delete itsPdf; }
-  
+
   result_type operator()(argument_type p)
   {
     assert(itsPdf);
     assert(itsPdfMax.valueKnown());
-    
+
     double random = EvtRandom::Flat(0.,itsPdfMax.value());
-    return (random <= itsPdf->evaluate(p));     
+    return (random <= itsPdf->evaluate(p));
   }
-  
-  EvtPdfMax<T> getMax() const { return itsPdfMax; }  
+
+  EvtPdfMax<T> getMax() const { return itsPdfMax; }
   void setMax(const EvtPdfMax<T>& max) { itsPdfMax = max; }
   template <class InputIterator> void compute_max(InputIterator it, InputIterator end,
-						  double factor = 1.)
+                                                  double factor = 1.)
   {
     T p = *it++;
     itsPdfMax = EvtPdfMax<T>(p,itsPdf->evaluate(p)*factor);
-    
-    while(!(it == end)) {      
+
+    while(!(it == end)) {
       T p = *it++;
       double val = itsPdf->evaluate(p)*factor;
       if(val > itsPdfMax.value()) itsPdfMax = EvtPdfMax<T>(p,val);
     }
   }
-  
+
 private:
-  
+
   EvtPdf<T>*   itsPdf;
   EvtPdfMax<T> itsPdfMax;
 };
@@ -188,11 +188,11 @@ public:
   {
     assert(itsPdf);
     double ret = itsPdf->evaluate(p);
-    return ret;    
+    return ret;
   }
-  
+
 private:
-  
+
   EvtPdf<T>* itsPdf;
 };
 
@@ -206,24 +206,24 @@ public:
   {}
   EvtPdfDiv(const EvtPdfDiv<T>& other)
     : EvtPdf<T>(other), COPY_PTR(itsNum), COPY_PTR(itsDen)
-  {} 
+  {}
   virtual ~EvtPdfDiv() { delete itsNum; delete itsDen; }
-  virtual EvtPdf<T>* clone() const
+  EvtPdf<T>* clone() const override
   { return new EvtPdfDiv(*this); }
-  
-  virtual double pdf(const T& p) const
+
+  double pdf(const T& p) const override
   {
     double num = itsNum->evaluate(p);
     double den = itsDen->evaluate(p);
     assert(den != 0);
     return num/den;
   }
-  
+
 private:
-  
+
   EvtPdf<T>* itsNum; // numerator
   EvtPdf<T>* itsDen; // denominator
-};  
+};
 
 
 template <class T>
@@ -256,21 +256,21 @@ EvtValError EvtPdf<T>::compute_mc_integral(const EvtPdf<T>& pc, int N)
 
   EvtValError otherItg = pc.getItg();
   EvtPdfDiv<T> pdfdiv(*this,pc);
-  EvtPdfUnary<T> unary(pdfdiv);  
-  
-  EvtPdfGen<T> gen(pc);    
+  EvtPdfUnary<T> unary(pdfdiv);
+
+  EvtPdfGen<T> gen(pc);
   EvtStreamInputIterator<T> begin = iter(gen,N);
   EvtStreamInputIterator<T> end;
 
   double sum = 0.;
   double sum2 = 0.;
   while(!(begin == end)) {
-    
+
     double value = pdfdiv.evaluate(*begin++);
     sum += value;
     sum2 += value*value;
   }
-  
+
   EvtValError x;
   if(N > 0) {
     double av = sum/((double) N);
@@ -297,7 +297,7 @@ T EvtPdf<T>::randomPoint()
 }
 
 template <class T>
-EvtPredGen<EvtPdfGen<T>,EvtPdfPred<T> > 
+EvtPredGen<EvtPdfGen<T>,EvtPdfPred<T> >
 EvtPdf<T>::accRejGen(const EvtPdf<T>& pc, int nMax, double factor)
 {
   EvtPdfGen<T> gen(pc);

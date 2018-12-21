@@ -11,7 +11,7 @@
 // Module: EvtItgFourCoeffFcn.hh
 //
 // Description:
-//      Class describing a function with Four vectors of coefficients. 
+//      Class describing a function with Four vectors of coefficients.
 //
 // Modification history:
 //
@@ -32,21 +32,19 @@ public:
   EvtItgFourCoeffFcn( double (*theFunction)(double, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &),
 		     double lowerRange, double upperRange, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, const std::vector<double> &coeffs3, const std::vector<double> &coeffs4);
 
-  virtual ~EvtItgFourCoeffFcn( );
-
-  virtual void setCoeff(int, int, double);
-  virtual double getCoeff(int, int);
+  void setCoeff(int, int, double) override;
+  double getCoeff(int, int) override;
 
 protected:
 
-  virtual double myFunction(double x) const;
+  double myFunction(double x) const override;
 
 private:
- 
+
   // Data members
   double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2, const std::vector<double> & coeffs3, const std::vector<double> & coeffs4);
-  
-  // Note: if your class needs a copy constructor or an assignment operator, 
+
+  // Note: if your class needs a copy constructor or an assignment operator,
   //  make one of the following public and implement it.
   EvtItgFourCoeffFcn( const EvtItgFourCoeffFcn& );                //// Copy Constructor
   EvtItgFourCoeffFcn& operator= ( const EvtItgFourCoeffFcn& );    // Assignment op

@@ -32,11 +32,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtVll::~EvtVll() {}
-
 std::string EvtVll::getName(){
 
-  return "VLL";     
+  return "VLL";
 
 }
 
@@ -54,7 +52,7 @@ void EvtVll::init(){
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::VECTOR);
-  
+
   checkSpinDaughter(0,EvtSpinType::DIRAC);
   checkSpinDaughter(1,EvtSpinType::DIRAC);
 
@@ -95,17 +93,17 @@ void EvtVll::decay(EvtParticle *p){
   vertex(0,0,1,norm*(eps0*l12));
   vertex(0,1,0,norm*(eps0*l21));
   vertex(0,1,1,norm*(eps0*l22));
-  
+
   vertex(1,0,0,norm*(eps1*l11));
   vertex(1,0,1,norm*(eps1*l12));
   vertex(1,1,0,norm*(eps1*l21));
   vertex(1,1,1,norm*(eps1*l22));
-  
+
   vertex(2,0,0,norm*(eps2*l11));
   vertex(2,0,1,norm*(eps2*l12));
   vertex(2,1,0,norm*(eps2*l21));
   vertex(2,1,1,norm*(eps2*l22));
-  
+
   return;
 
 }

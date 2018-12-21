@@ -13,23 +13,19 @@
 #include "EvtGenBase/EvtPropBreitWigner.hh"
 
 
-EvtPropBreitWigner::EvtPropBreitWigner(double m0, double g0) 
-  : EvtPropagator(m0,g0) 
+EvtPropBreitWigner::EvtPropBreitWigner(double m0, double g0)
+  : EvtPropagator(m0,g0)
 {}
 
 
-EvtPropBreitWigner::EvtPropBreitWigner(const EvtPropBreitWigner& other) 
+EvtPropBreitWigner::EvtPropBreitWigner(const EvtPropBreitWigner& other)
   : EvtPropagator(other)
 {}
-  
- 
-EvtPropBreitWigner::~EvtPropBreitWigner() 
-{}
-  
+
 
 EvtAmplitude<EvtPoint1D>* EvtPropBreitWigner::clone() const
-{ 
-  return new EvtPropBreitWigner(*this); 
+{
+  return new EvtPropBreitWigner(*this);
 }
 
 

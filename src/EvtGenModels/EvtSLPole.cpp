@@ -18,7 +18,7 @@
 //    DJL       April 23, 1998       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -32,11 +32,9 @@
 #include "EvtGenBase/EvtSemiLeptonicTensorAmp.hh"
 #include <string>
 
-EvtSLPole::~EvtSLPole() {}
-
 std::string EvtSLPole::getName(){
 
-  return "SLPOLE";     
+  return "SLPOLE";
 
 }
 
@@ -50,8 +48,7 @@ EvtDecayBase* EvtSLPole::clone(){
 void EvtSLPole::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs(),_resetDaughterTree);
-  calcamp->CalcAmp(p,_amp2,SLPoleffmodel);
-  return;
+  calcamp->CalcAmp(p,_amp2,SLPoleffmodel.get());
 }
 
 void EvtSLPole::initProbMax(){
@@ -64,7 +61,7 @@ lnum = getDaug(1);
 nunum = getDaug(2);
 
 double mymaxprob = calcamp->CalcMaxProb(parnum,mesnum,
-                           lnum,nunum,SLPoleffmodel);
+                           lnum,nunum,SLPoleffmodel.get());
 
 setProbMax(mymaxprob);
 
@@ -72,10 +69,10 @@ setProbMax(mymaxprob);
 
 
 void EvtSLPole::init(){
-  
+
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -84,20 +81,24 @@ void EvtSLPole::init(){
 
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
 
-  SLPoleffmodel = new EvtSLPoleFF(getNArg(),getArgs());
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
-  }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
+  SLPoleffmodel = std::make_unique<EvtSLPoleFF>(getNArg(),getArgs());
+
+  switch(mesontype) {
+  case EvtSpinType::SCALAR:
+    calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
+    break;
+  case EvtSpinType::VECTOR:
+    calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+    break;
+  case EvtSpinType::TENSOR:
+    calcamp = std::make_unique<EvtSemiLeptonicTensorAmp>();
+    break;
+  default:
+    ;
   }
 
   _resetDaughterTree=false;
   if ( getArgStr(getNArg()-1) == "true") _resetDaughterTree=true;
-  
+
 }
 

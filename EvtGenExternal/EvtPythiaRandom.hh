@@ -34,7 +34,7 @@ public:
 
   virtual ~EvtPythiaRandom() {};
 
-  virtual double flat() {return EvtRandom::Flat();}
+  double flat() override {return EvtRandom::Flat();}
 
 private:
 

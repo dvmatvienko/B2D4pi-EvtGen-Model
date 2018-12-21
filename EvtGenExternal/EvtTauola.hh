@@ -28,22 +28,19 @@ class EvtDecayBase;
 class EvtTauola: public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtTauola();
-  virtual ~EvtTauola();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
-  void init();
+  void initProbMax() override;
+  void init() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 protected:
 
-  EvtAbsExternalGen* _tauolaEngine;
+  EvtAbsExternalGen* _tauolaEngine = nullptr;
 
 private:
 

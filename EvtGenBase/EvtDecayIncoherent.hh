@@ -32,14 +32,14 @@ class EvtDecayIncoherent : public EvtDecayBase{
 
 public:
 
-  void makeDecay(EvtParticle* p, bool recursive=true);
+  void makeDecay(EvtParticle* p, bool recursive=true) override;
 
   virtual ~EvtDecayIncoherent() {}
 
   void setDaughterSpinDensity(int daughter)
   { spinDensitySet[daughter]=1; return;}
 
-  int isDaughterSpinDensitySet(int daughter) 
+  int isDaughterSpinDensitySet(int daughter)
   {return spinDensitySet[daughter];}
 
 private:

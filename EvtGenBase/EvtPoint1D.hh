@@ -13,20 +13,19 @@
 #ifndef EVT_POINT_1D_HH
 #define EVT_POINT_1D_HH
 
-class EvtPoint1D {
+class EvtPoint1D final {
 public:
 
   EvtPoint1D();
   EvtPoint1D(double value);
   EvtPoint1D(double min, double max, double value);
-  ~EvtPoint1D();
 
   bool isValid() const
-  { 
-    return _valid; 
+  {
+    return _valid;
   }
 
-  double value() const 
+  double value() const
   {
     return _value;
   }
@@ -34,7 +33,7 @@ public:
   void print() const;
 
 private:
-  
+
   double _min;   // interval minimum
   double _max;   // interval maximum
   double _value;

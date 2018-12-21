@@ -1,10 +1,10 @@
-#ifndef EVTRARELBTOLLLFFLQCD_HH 
+#ifndef EVTRARELBTOLLLFFLQCD_HH
 #define EVTRARELBTOLLLFFLQCD_HH 1
 
 // Include files
 
 /** @class EvtRareLbToLllFF EvtRareLbToLllFF.hh EvtGenModels/EvtRareLbToLllFF.hh
- *  
+ *
  *
  *  @author Michal Kreps
  *  @date   2016-04-19
@@ -16,27 +16,22 @@
 #include "EvtGenModels/EvtRareLbToLllFFBase.hh"
 
 #include <string>
-#include <map> 
+#include <map>
 
 class EvtRareLbToLllFFlQCD : public EvtRareLbToLllFFBase{
 
-public: 
-  
+public:
+
   /// Standard constructor
-  EvtRareLbToLllFFlQCD( ); 
+  EvtRareLbToLllFFlQCD( ) = default;
 
-  virtual ~EvtRareLbToLllFFlQCD( ); ///< Destructor
-  
-  void init() ;
-  
-  void getFF( EvtParticle* parent, 
-              EvtParticle* lambda, 
-              EvtRareLbToLllFFBase::FormFactors& FF );
+  void init() override;
+
+  void getFF( EvtParticle* parent,
+              EvtParticle* lambda,
+              EvtRareLbToLllFFBase::FormFactors& FF ) override;
 
 
-protected:
-  
-  
 private:
   double formFactorParametrization(double q2, double a0, double a1, double pole);
   double zvar(double q2);

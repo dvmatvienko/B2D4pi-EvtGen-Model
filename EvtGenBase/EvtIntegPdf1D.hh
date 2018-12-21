@@ -18,21 +18,21 @@
 class EvtIntegPdf1D : public EvtPdf<EvtPoint1D> {
 
 public:
-  
+
   EvtIntegPdf1D(double min, double max);
   EvtIntegPdf1D(const EvtIntegPdf1D&);
-  virtual ~EvtIntegPdf1D();
 
-  // Pdf integral function and its inverse to be defined in subclasses  
+  // Pdf integral function and its inverse to be defined in subclasses
 
   virtual double pdfIntegral(double x) const = 0;
   virtual double pdfIntegralInverse(double x) const = 0;
 
-  virtual EvtValError compute_integral() const;
-  virtual EvtPoint1D randomPoint();
+  using EvtPdf<EvtPoint1D>::compute_integral;
+  EvtValError compute_integral() const override;
+  EvtPoint1D randomPoint() override;
 
-protected: 
-  
+protected:
+
   double _min;
   double _max;
 };

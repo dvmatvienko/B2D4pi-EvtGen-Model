@@ -1,4 +1,3 @@
-#ifdef EVTGEN_CPP11
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -12,7 +11,6 @@
 //
 // Generate random numbers using the Mersenne-Twister MT19937.
 // Member function random returns a random number in the range ]0..1[.
-// This requires c++11 features, hence the EVTGEN_CPP11 preprocessor.
 //
 // Modification history:
 //
@@ -43,7 +41,5 @@ private:
     URDist distribution_;
 
 };
-
-#endif
 
 #endif

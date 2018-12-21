@@ -17,7 +17,7 @@
 //    RYD   August 8, 2000           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
@@ -28,9 +28,6 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtSpinDensity.hh"
 #include "EvtGenBase/EvtdFunction.hh"
-
-
-EvtHighSpinParticle::~EvtHighSpinParticle() {}
 
 
 void EvtHighSpinParticle::init(EvtId id,const EvtVector4R& p4){
@@ -61,34 +58,26 @@ EvtSpinDensity EvtHighSpinParticle::rotateToHelicityBasis(double alpha,
 							  double gamma) const{
 
   int i,j;
-  
+
   int n=EvtSpinType::getSpinStates(EvtPDL::getSpinType(getId()));
 
   EvtSpinDensity R;
-  
+
   R.setDim(n);
 
   int J2=EvtSpinType::getSpin2(EvtPDL::getSpinType(getId()));
 
   assert(n==J2+1);
 
-  int *lambda2;
-
-  lambda2=new int[J2+1];
-
-  for(i=0;i<J2+1;i++){
-    lambda2[i]=J2-i*2;
-  }
+  auto lambda2 = [J2](int i) { return J2-i*2; };
 
 
   for(i=0;i<n;i++){
     for(j=0;j<n;j++){
-      R.set(i,j,EvtdFunction::d(J2,lambda2[j],lambda2[i],beta)*
-	exp(EvtComplex(0.0,0.5*(alpha*lambda2[i]-gamma*lambda2[j]))));
+      R.set(i,j,EvtdFunction::d(J2,lambda2(j),lambda2(i),beta)*
+	exp(EvtComplex(0.0,0.5*(alpha*lambda2(i)-gamma*lambda2(j)))));
     }
   }
-
-  delete [] lambda2;
 
   return R;
 

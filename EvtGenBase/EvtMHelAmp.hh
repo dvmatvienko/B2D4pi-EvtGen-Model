@@ -9,12 +9,12 @@ class EvtMHelAmp : public EvtMRes {
 
         EvtMHelAmp( const EvtId& id, EvtMLineShape *, const
                 vector<EvtMNode * >&, const vector<EvtComplex>& );
-        virtual ~EvtMHelAmp() {};
-        
-        EvtSpinAmp amplitude( const vector<EvtVector4R>& product )
-            const;
+        ~EvtMHelAmp() {};
 
-        EvtMNode * duplicate() const;
+        EvtSpinAmp amplitude( const vector<EvtVector4R>& product )
+            const override;
+
+        EvtMNode * duplicate() const override;
 
     private:
 

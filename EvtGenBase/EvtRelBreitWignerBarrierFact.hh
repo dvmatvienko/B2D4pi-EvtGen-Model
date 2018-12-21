@@ -28,23 +28,22 @@ class EvtRelBreitWignerBarrierFact :public EvtAbsLineShape {
 
 public:
 
-  EvtRelBreitWignerBarrierFact(); 
+  EvtRelBreitWignerBarrierFact() = default;
   EvtRelBreitWignerBarrierFact(double mass, double width, double maxRange, EvtSpinType::spintype sp);
     //figure the m1 and l on the fly
-    //			       double mDaug1, double mDaug2, int l); 
-  ~EvtRelBreitWignerBarrierFact();
+    //			       double mDaug1, double mDaug2, int l);
   EvtRelBreitWignerBarrierFact& operator=(const EvtRelBreitWignerBarrierFact& x);
-  EvtRelBreitWignerBarrierFact(const EvtRelBreitWignerBarrierFact& x); 
+  EvtRelBreitWignerBarrierFact(const EvtRelBreitWignerBarrierFact& x);
 
-  EvtAbsLineShape* clone();
+  EvtAbsLineShape* clone() override;
 
-  double getMassProb(double mass, double massPar, int nDaug, double *massDau);
+  double getMassProb(double mass, double massPar, int nDaug, double *massDau) override;
   // othDaugId is the other daughter of the parent in the case of a two body decay (only!)
   // ie B->rho K rho->pipi, othDaugId = K
-   double getRandMass(EvtId *parId, int nDaug, EvtId *dauId, EvtId *othDaugId, double maxMass, double *dauMasses);
+   double getRandMass(EvtId *parId, int nDaug, EvtId *dauId, EvtId *othDaugId, double maxMass, double *dauMasses) override;
 
-  virtual void reSetBlatt(double blatt) { _blattDecay = blatt; }
-  virtual void reSetBlattBirth(double blatt) { _blattBirth = blatt; }
+  void reSetBlatt(double blatt) override { _blattDecay = blatt; }
+  void reSetBlattBirth(double blatt) override { _blattBirth = blatt; }
 
 protected:
 
@@ -52,7 +51,7 @@ protected:
   double _blattBirth;
   bool _errorCond;
 
-}; 
+};
 
 #endif
 

@@ -25,6 +25,7 @@
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
 #include "EvtGenBase/EvtPoint1D.hh"
+#include <memory>
 
 class Evtparticle;
 
@@ -32,15 +33,12 @@ class EvtPropSLPole:public  EvtDecayAmp  {
 
 public:
 
-  EvtPropSLPole() {}
-  virtual ~EvtPropSLPole();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
   double calBreitWigner(EvtParticle *pmeson, EvtPoint1D point);
   double calBreitWignerBasic(double maxMass);
@@ -61,8 +59,8 @@ private:
   double _blatt;
   bool _isProbMaxSet;
 
-  EvtSemiLeptonicFF *SLPoleffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> SLPoleffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif

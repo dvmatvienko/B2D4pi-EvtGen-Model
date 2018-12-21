@@ -30,16 +30,13 @@ EvtBcBsNPi::EvtBcBsNPi() {
 
 }
 
-EvtBcBsNPi::~EvtBcBsNPi() {
-}
-
 std::string EvtBcBsNPi::getName() {
 
   return "BC_BS_NPI";
 
 }
 
-EvtDecayBase* EvtBcBsNPi::clone() {
+EvtBcBsNPi* EvtBcBsNPi::clone() {
 
   return new EvtBcBsNPi;
 

@@ -27,14 +27,10 @@
 class EvtBtoXsgammaFixedMass : public EvtBtoXsgammaAbsModel {
 
 public:
-  
-  EvtBtoXsgammaFixedMass() {}
 
-  virtual ~EvtBtoXsgammaFixedMass();
+  void init(int, double*) override;
 
-  void init(int, double*);
-
-  double GetMass(int code);
+  double GetMass(int code) override;
 
 private:
   //Input parameters
@@ -42,6 +38,3 @@ private:
 };
 
 #endif
-
-
-

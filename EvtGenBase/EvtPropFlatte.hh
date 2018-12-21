@@ -18,17 +18,16 @@
 class EvtPropFlatte :  public EvtPropagator {
 public:
 
-  EvtPropFlatte(double m0, 
-		double g0, double m0a, double m0b, 
-		double g1, double m1a, double m1b); 
-  EvtPropFlatte(const EvtPropFlatte& other); 
-  ~EvtPropFlatte(); 
+  EvtPropFlatte(double m0,
+		double g0, double m0a, double m0b,
+		double g1, double m1a, double m1b);
+  EvtPropFlatte(const EvtPropFlatte& other);
 
-  EvtAmplitude<EvtPoint1D>* clone() const;
+  EvtAmplitude<EvtPoint1D>* clone() const override;
 
 protected:
 
-  EvtComplex amplitude(const EvtPoint1D& x) const;
+  EvtComplex amplitude(const EvtPoint1D& x) const override;
 
   double _m0a;
   double _m0b;

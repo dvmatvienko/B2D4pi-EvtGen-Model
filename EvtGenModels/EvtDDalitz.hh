@@ -31,26 +31,23 @@ class EvtDDalitz:public  EvtDecayAmp  {
 
 public:
 
-  EvtDDalitz() {}
-  virtual ~EvtDDalitz();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  void init();
-  void initProbMax();
-
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 private:
 
   int _d1,_d2,_d3,_flag;
 
-  EvtComplex amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1, 
+  EvtComplex amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1,
   			   EvtVector4R moms2, EvtVector4R moms3);
-  EvtComplex amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1, 
+  EvtComplex amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1,
   			 EvtVector4R moms2, EvtVector4R moms3);
-  
+
   vector<EvtFlatteParam> _kkpi_params;
 
 };

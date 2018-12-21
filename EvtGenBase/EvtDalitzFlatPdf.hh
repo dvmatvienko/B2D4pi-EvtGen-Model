@@ -21,18 +21,18 @@
 
 class EvtDalitzFlatPdf : public EvtPdf<EvtDalitzPoint> {
 public:
-  
+
   EvtDalitzFlatPdf(const EvtDalitzPlot& dp);
   EvtDalitzFlatPdf(const EvtDalitzFlatPdf& other);
-  virtual ~EvtDalitzFlatPdf();
-  virtual EvtPdf<EvtDalitzPoint>* clone() const;
-  
-  virtual EvtValError compute_integral(int N) const;
-  virtual EvtDalitzPoint randomPoint();
-  
+  EvtPdf<EvtDalitzPoint>* clone() const override;
+
+  using EvtPdf<EvtDalitzPoint>::compute_integral;
+  EvtValError compute_integral(int N) const override;
+  EvtDalitzPoint randomPoint() override;
+
 protected:
 
-  virtual double pdf(const EvtDalitzPoint&) const;
+  double pdf(const EvtDalitzPoint&) const override;
 
   EvtDalitzPlot _dp;
 };

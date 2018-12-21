@@ -22,19 +22,16 @@ class EvtParticle;
 class EvtVubBLNP:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVubBLNP() {}
-  virtual ~EvtVubBLNP();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *Bmeson); 
+  void decay(EvtParticle *Bmeson) override;
 
 private:
 
@@ -94,7 +91,7 @@ private:
   double precision;
 
   std::vector<double> gvars;
-  
+
   double rate3(double Pp, double Pl, double Pm);
   double F1(double Pp, double Pm, double muh, double mui, double mubar, double doneJS, double done1);
   double F2(double Pp, double Pm, double muh, double mui, double mubar, double done3);

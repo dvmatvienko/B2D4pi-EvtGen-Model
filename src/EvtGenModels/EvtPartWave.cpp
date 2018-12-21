@@ -20,7 +20,7 @@
 //    RYD       September 7, 2000       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,7 +30,6 @@
 #include "EvtGenBase/EvtTensor4C.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenModels/EvtPartWave.hh"
-#include "EvtGenBase/EvtEvalHelAmp.hh"
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
@@ -38,11 +37,10 @@
 #include "EvtGenBase/EvtCGCoefSingle.hh"
 #include <algorithm>
 using std::endl;
-EvtPartWave::~EvtPartWave() {}
 
 std::string EvtPartWave::getName(){
 
-  return "PARTWAVE";     
+  return "PARTWAVE";
 
 }
 
@@ -141,7 +139,7 @@ void EvtPartWave::init(){
 
       _nPartialWaveAmp++;
       if (verbose()){
-	EvtGenReport(EVTGEN_INFO,"EvtGen")<<"M["<<L<<"]["<<S<<"]"<<endl;    
+	EvtGenReport(EVTGEN_INFO,"EvtGen")<<"M["<<L<<"]["<<S<<"]"<<endl;
       }
     }
   }
@@ -166,7 +164,7 @@ void EvtPartWave::init(){
   //Now calculate the helicity amplitudes
 
   double helampsqtot=0.0;
-  
+
   for(ib=0;ib<_nB;ib++){
     for(ic=0;ic<_nC;ic++){
       _HBC[ib][ic]=0.0;
@@ -208,8 +206,8 @@ void EvtPartWave::init(){
   if (fabs(helampsqtot-partampsqtot)/(helampsqtot+partampsqtot)>1e-6){
       EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"In EvtPartWave for decay "
 			    << EvtPDL::name(getParentId()) << " -> "
-                            << EvtPDL::name(getDaug(0)) << " "     
-                            << EvtPDL::name(getDaug(1)) << std::endl; 
+                            << EvtPDL::name(getDaug(0)) << " "
+                            << EvtPDL::name(getDaug(1)) << std::endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"With arguments: "<<std::endl;
       for(i=0;i*2<getNArg();i++){
 	  EvtGenReport(EVTGEN_ERROR,"EvtGen") <<"M("<<_nL[i]<<","<<_nS[i]<<")="
@@ -226,11 +224,11 @@ void EvtPartWave::init(){
 			    << std::endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen")<< "Seriously consider if your specified amplitudes are correct. "
 			    << std::endl;
-      
-  
+
+
   }
-  
-  _evalHelAmp=new EvtEvalHelAmp(getParentId(),
+
+  _evalHelAmp=std::make_unique<EvtEvalHelAmp>(getParentId(),
 				getDaug(0),
 				getDaug(1),
 				_HBC);
@@ -265,16 +263,16 @@ void EvtPartWave::decay( EvtParticle *p){
 
 
 void EvtPartWave::fillHelicity(int* lambda2,int n,int J2){
-  
+
   int i;
-  
+
   //photon is special case!
   if (n==2&&J2==2) {
     lambda2[0]=2;
     lambda2[1]=-2;
     return;
   }
-  
+
   assert(n==J2+1);
 
   for(i=0;i<n;i++){

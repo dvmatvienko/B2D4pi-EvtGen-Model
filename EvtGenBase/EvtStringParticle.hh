@@ -30,24 +30,20 @@ class EvtStringParticle:public EvtParticle {
 
 public:
 
-  EvtStringParticle();
-  virtual ~EvtStringParticle();
-  void init(EvtId id, const EvtVector4R& p4);
+  void init(EvtId id, const EvtVector4R& p4) override;
   void initPartons(int npartons,EvtVector4R* p4partons,EvtId* idpartons);
   int getNPartons();
   EvtId getIdParton(int i);
   EvtVector4R getP4Parton(int i);
-  EvtSpinDensity rotateToHelicityBasis() const;
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
+				       double gamma) const override;
 
 private:
 
-  int _npartons;
-
-  EvtVector4R* _p4partons;
-  EvtId* _idpartons;
+  std::vector<EvtVector4R> _p4partons;
+  std::vector<EvtId> _idpartons;
 
   EvtStringParticle& operator=(const EvtStringParticle& d);
 

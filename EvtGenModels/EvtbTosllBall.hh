@@ -23,6 +23,7 @@
 
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+#include <memory>
 
 class EvtbTosllFF;
 class EvtbTosllAmp;
@@ -32,19 +33,16 @@ class EvtbTosllBall:public  EvtDecayAmp  {
 
 public:
 
-  EvtbTosllBall() : _calcamp(0), _ballffmodel(0) {}
-  virtual ~EvtbTosllBall();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
 
 private:
-  EvtbTosllAmp *_calcamp;
-  EvtbTosllFF *_ballffmodel;
+  std::unique_ptr<EvtbTosllAmp> _calcamp;
+  std::unique_ptr<EvtbTosllFF> _ballffmodel;
   double _poleSize;
 };
 

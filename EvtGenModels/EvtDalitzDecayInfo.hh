@@ -26,12 +26,11 @@
 #include "EvtGenBase/EvtDalitzReso.hh"
 #include <vector>
 
-class EvtDalitzDecayInfo {
+class EvtDalitzDecayInfo final {
 public:
 
   EvtDalitzDecayInfo(EvtId d1, EvtId d2, EvtId d3)
     : _d1(d1), _d2(d2), _d3(d3), _probMax(0.) {}
-  ~EvtDalitzDecayInfo() {}
 
   void addResonance(EvtComplex amp, EvtDalitzReso res) {_resonances.push_back(std::pair<EvtComplex, EvtDalitzReso>(amp,res));}
   void addResonance(std::pair<EvtComplex,EvtDalitzReso> res) {_resonances.push_back(res);}

@@ -33,23 +33,23 @@ using std::string;
 
 class EvtBcVHad:public  EvtDecayAmp  {
 public:
-  EvtBcVHad() : nCall( 0 ) , whichfit( 0 ) , idVector( 0 ) , out_code( 0 ) , 
+  EvtBcVHad() : nCall( 0 ) , whichfit( 0 ) , idVector( 0 ) , out_code( 0 ) ,
                 ffmodel( 0 ) , wcurr( 0 ) {  };
-    virtual ~EvtBcVHad();
-    std::string getName();
-    EvtDecayBase* clone();
-    void initProbMax();
-    void init();
-    void decay(EvtParticle *p); 
+    ~EvtBcVHad();
+    std::string getName() override;
+    EvtDecayBase* clone() override;
+    void initProbMax() override;
+    void init() override;
+    void decay(EvtParticle *p) override;
 protected:
   int nCall;
 
-  
+
 // whichfit --- code of the Bc -> VW formfactor set:
 //   1 - SR
 //   2 - PM
   int whichfit;
-  
+
 // idVector --- final vector particle code
   int idVector;
 
@@ -61,8 +61,8 @@ protected:
 //   5 - pi+ pi+ pi- pi- pi+
 //   6 - K+ K- pi+
 //   7 - K+ pi+ pi-
-  int out_code; 
-  
+  int out_code;
+
   EvtBCVFF2 *ffmodel;
   EvtWHad *wcurr;
   EvtVector4C _hardCurr(EvtParticle *root_particle);

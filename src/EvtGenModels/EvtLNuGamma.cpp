@@ -11,7 +11,7 @@
 // Module: EvtLNuGamma.cc
 //
 // Description: B+ -> l+ nu gamma
-//             
+//
 //
 // Modification history:
 //
@@ -34,15 +34,9 @@
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtTensor4C.hh"
 
-EvtLNuGamma::EvtLNuGamma(){
-  _fafvzero = false;
-}
-
-EvtLNuGamma::~EvtLNuGamma() {}
-
 std::string EvtLNuGamma::getName(){
 
-  return "LNUGAMMA";     
+  return "LNUGAMMA";
 
 }
 
@@ -60,9 +54,9 @@ void EvtLNuGamma::init(){
   checkNDaug(3);
 
   if (getNArg() == 4){
-    //      Argv[3] is a flag set to 0 if abs(f_a/f_v) is 1 
+    //      Argv[3] is a flag set to 0 if abs(f_a/f_v) is 1
     //       and not set to 0 if f_a/f_v is set to 0.
-    if (getArg(3) > 0){      
+    if (getArg(3) > 0){
       _fafvzero = true;
     }
     else{
@@ -150,7 +144,7 @@ void EvtLNuGamma::decay(EvtParticle *p){
   vertex(0,1,lept1.cont(photon2));
   vertex(1,0,lept2.cont(photon1));
   vertex(1,1,lept2.cont(photon2));
-  
+
   return;
 
 }
@@ -161,7 +155,7 @@ double EvtLNuGamma::getFormFactor(double photonEnergy){
   // Arg[2] = m_b (GeV)
   // Using Korchemsky et al. Phy Rev D 61 (2000) 114510
   // Up to a constant
-  
+
   double formFactor = 0;
   double qu = 2./3.;
   double qb = -1./3.;

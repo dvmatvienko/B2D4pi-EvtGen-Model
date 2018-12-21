@@ -48,11 +48,9 @@
 #include <string>
 using std::endl;
 
-EvtY3SToY1SpipiMoxhay::~EvtY3SToY1SpipiMoxhay() {}
-
 std::string EvtY3SToY1SpipiMoxhay::getName(){
 
-  return "Y3STOY1SPIPIMOXHAY";     
+  return "Y3STOY1SPIPIMOXHAY";
 
 }
 
@@ -91,14 +89,14 @@ void EvtY3SToY1SpipiMoxhay::init(){
 
 void EvtY3SToY1SpipiMoxhay::initProbMax() {
   setProbMax(0.2);
-}      
+}
 
 void EvtY3SToY1SpipiMoxhay::decay( EvtParticle *p){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
   EvtParticle *v,*s1,*s2;
-  
+
   v=p->getDaug(0);
   s1=p->getDaug(1);
   s2=p->getDaug(2);
@@ -126,10 +124,10 @@ void EvtY3SToY1SpipiMoxhay::decay( EvtParticle *p){
 
   Xi = EvtComplex( 2.0/EvtConst::pi * ( 1.0 - sqrt(1.0 - 4*m_pi*m_pi/(q*q)) * log( (sqrt(q*q) + sqrt(q*q-4.0*m_pi*m_pi))/(2*m_pi) )),
 		   sqrt(1.0 - 4*m_pi*m_pi/(q*q)));
-  
+
   // The form factor
   EvtComplex F;
-  
+
   F = (g_spp*g_spp + lambda*(m_sigma*m_sigma - q*q)) / ( ( (m_sigma*m_sigma - q*q)*(1.0 - lambda*Xi) - (g_spp*g_spp*Xi) ) * 1.0/(8.0 * EvtConst::pi * f_pi*f_pi) * q * q  );
 
   EvtComplex B_over_A;
@@ -137,9 +135,9 @@ void EvtY3SToY1SpipiMoxhay::decay( EvtParticle *p){
 
   // The dGamma/d(M_pipi) spectrum
   EvtComplex dGdMpp;
-  
-  dGdMpp = abs2((q*q*F - B_over_A)) * q * sqrt(q*q - 4 * m_pi *m_pi) * sqrt(EV2 * EV2 - MV2*MV2); 
-  
+
+  dGdMpp = abs2((q*q*F - B_over_A)) * q * sqrt(q*q - 4 * m_pi *m_pi) * sqrt(EV2 * EV2 - MV2*MV2);
+
 
   setProb( real(dGdMpp) );
   return ;

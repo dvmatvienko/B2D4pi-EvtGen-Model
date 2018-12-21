@@ -25,12 +25,12 @@
 //	deltaM, averageM - mass diference and average of light and heavy mass eigenstates (real scalars)
 //	gamma, deltagamma - average width and width difference of the l and h eigenstates (real scalars)
 //	delta1, delta2 - strong phases (real scalars)
-//	direct weak phase (real scalar) (for Bs->JPsiPhi this will be zero)	
+//	direct weak phase (real scalar) (for Bs->JPsiPhi this will be zero)
 //	weak mixing phase (real scalar) (this is equal to 2*arg(Vts Vtb) for Bs->JPsiPhi)
 //	Magnitudes of helicity amplitudes as in SVV_HELAMP
 // See Phys Rev D 34 p1404 - p1417 and chapters 5 and 7 of Physics Reports 370 p537-680 for more details
 //------------------------------------------------------------------------
-// 
+//
 
 #include <iostream>
 #include <fstream>
@@ -49,11 +49,9 @@
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 
-EvtSVVHelCPMix::~EvtSVVHelCPMix() {}
-
 std::string EvtSVVHelCPMix::getName(){
 
-  return "SVVHELCPMIX";     
+  return "SVVHELCPMIX";
 
 }
 
@@ -90,7 +88,7 @@ void EvtSVVHelCPMix::init(){
 void EvtSVVHelCPMix::initProbMax(){
 
   setProbMax(getArg(0)*getArg(0)+getArg(2)*getArg(2)+getArg(4)*getArg(4));
-  
+
 }
 
 
@@ -100,11 +98,11 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
   EvtAmp& amp = _amp2;
   EvtId n_v1 = getDaug(0);
   EvtId n_v2 = getDaug(1);
-	
+
   //  Routine to decay a vector into a vector and scalar.  Started
   //  by ryd on Oct 17, 1996.
   // Modified by J.Catmore to take account of CP-violation and mixing
-    
+
   int tndaug = 2;
   EvtId tdaug[2];
   EvtId Bs=EvtPDL::getId("B_s0");
@@ -132,24 +130,24 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
   //EvtComplex deltamu = EvtComplex(deltaM, -0.5*deltagamma); // See Phys Rev D 34 p1404
 
   // conversion from times in mm/c to natural units [GeV]^-1
-  double t = ((parent->getLifetime())/2.998e11)*6.58e-25; 
+  double t = ((parent->getLifetime())/2.998e11)*6.58e-25;
 
   // The following two quantities defined in Phys Rev D 34 p1404
   EvtComplex fplus =  EvtComplex(cos(averageM*t),-1.*sin(averageM*t))*exp(-(gamma/2.0)*t)*
     (cos(0.5*deltaM*t)*cosh(0.25*deltagamma*t)+EvtComplex(0.0,sin(0.5*deltaM*t)*sinh(0.25*deltagamma*t)));
   EvtComplex fminus = EvtComplex(cos(averageM*t), -1.*sin(averageM*t))*exp(-(gamma/2.0)*t)*EvtComplex(0.0,1.0)*
-    (sin(0.5*deltaM*t)*cosh(0.25*deltagamma*t)-EvtComplex(0.0,1.0)*sinh(0.25*deltagamma*t)*cos(0.5*deltaM*t)); 
+    (sin(0.5*deltaM*t)*cosh(0.25*deltagamma*t)-EvtComplex(0.0,1.0)*sinh(0.25*deltagamma*t)*cos(0.5*deltaM*t));
 
 // See EvtGen manual pp 106-107
 
   a=-0.5*(hp+hm);
   b=EvtComplex(0.0,0.5)*(hp-hm);
   c=(h0+0.5*(hp+hm));
-  
+
   M=a*EvtTensor3C::id()+
     b*EvtGenFunctions::eps(v1dir)+
     c*EvtGenFunctions::directProd(v1dir,v1dir);
-		
+
   EvtVector3C t0=M.cont1(v1->eps(0).vec().conj());
   EvtVector3C t1=M.cont1(v1->eps(1).vec().conj());
   EvtVector3C t2=M.cont1(v1->eps(2).vec().conj());
@@ -166,9 +164,9 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
 	EvtComplex amplSum20, amplSum21, amplSum22;
 
   // First the Bs state:
-  
+
   if (parent->getId()==Bs) {
-	
+
 	amplSum00 = (fplus*weakdirectphase*t0*eps0) + (fminus*(1.0/weakdirectphase)*weakmixingphase*t0*eps0);
 	amplSum01 = (fplus*weakdirectphase*t0*eps1) + (fminus*(1.0/weakdirectphase)*weakmixingphase*t0*eps1);
  	amplSum02 = (fplus*weakdirectphase*t0*eps2) + (fminus*(1.0/weakdirectphase)*weakmixingphase*t0*eps2);
@@ -185,7 +183,7 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
   // Now the anti-Bs state:
 
   if (parent->getId()==antiBs) {
-  
+
 	amplSum00 = (fminus*weakdirectphase*(1.0/weakmixingphase)*t0*eps0) + (fplus*(1.0/weakdirectphase)*t0*eps0);
 	amplSum01 = (fminus*weakdirectphase*(1.0/weakmixingphase)*t0*eps1) + (fplus*(1.0/weakdirectphase)*t0*eps1);
  	amplSum02 = (fminus*weakdirectphase*(1.0/weakmixingphase)*t0*eps2) + (fplus*(1.0/weakdirectphase)*t0*eps2);
@@ -203,7 +201,7 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
   // Now set the amplitude
 
   amp.vertex(0,0,amplSum00);
-  EvtGenReport(EVTGEN_INFO,"EvtGen") << "00: " << amplSum00 << std::endl;  
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "00: " << amplSum00 << std::endl;
   amp.vertex(0,1,amplSum01);
   EvtGenReport(EVTGEN_INFO,"EvtGen") << "01: " << amplSum01 << std::endl;
   amp.vertex(0,2,amplSum02);

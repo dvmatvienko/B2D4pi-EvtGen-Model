@@ -1,4 +1,3 @@
-
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -18,7 +17,7 @@
 //    AVL     July 6, 2012        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -37,11 +36,8 @@ using namespace std;
 
 
 
-EvtBcTMuNu::~EvtBcTMuNu() {
-}
-
 std::string EvtBcTMuNu::getName(){
-  return "BC_TMN";     
+  return "BC_TMN";
 }
 
 
@@ -53,13 +49,13 @@ EvtDecayBase* EvtBcTMuNu::clone(){
 void EvtBcTMuNu::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,ffmodel);
+  calcamp->CalcAmp(p,_amp2,ffmodel.get());
 
 }
 
 
 void EvtBcTMuNu::init(){
-  
+
   checkNArg(1);
   checkNDaug(3);
 
@@ -71,14 +67,14 @@ void EvtBcTMuNu::init(){
   checkSpinDaughter(0,EvtSpinType::TENSOR);
   checkSpinDaughter(1,EvtSpinType::DIRAC);
   checkSpinDaughter(2,EvtSpinType::NEUTRINO);
-  
+
   idTensor = getDaug(0).getId();
   whichfit = int(getArg(0)+0.1);
 
-  ffmodel = new EvtBCTFF(idTensor,whichfit);
-  
-  calcamp = new EvtSemiLeptonicTensorAmp; 
- 
+  ffmodel = std::make_unique<EvtBCTFF>(idTensor,whichfit);
+
+  calcamp = std::make_unique<EvtSemiLeptonicTensorAmp>();
+
 }
 
 void EvtBcTMuNu::initProbMax() {
@@ -89,7 +85,7 @@ void EvtBcTMuNu::initProbMax() {
   EvtId nuId = getDaug(2);
 
   int nQ2Bins = 200;
-  double maxProb = calcamp->CalcMaxProb(parId, mesonId, lepId, nuId, ffmodel, nQ2Bins);
+  double maxProb = calcamp->CalcMaxProb(parId, mesonId, lepId, nuId, ffmodel.get(), nQ2Bins);
 
   if (verbose()) {
     EvtGenReport(EVTGEN_INFO,"EvtBcTMuNu") << "Max prob = " << maxProb << endl;

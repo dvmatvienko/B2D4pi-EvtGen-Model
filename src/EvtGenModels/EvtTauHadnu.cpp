@@ -33,11 +33,9 @@
 
 using namespace std;
 
-EvtTauHadnu::~EvtTauHadnu() {}
-
 std::string EvtTauHadnu::getName(){
 
-  return "TAUHADNU";     
+  return "TAUHADNU";
 
 }
 
@@ -96,7 +94,7 @@ void EvtTauHadnu::init() {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Have not yet implemented this final state in TAUHADNUKS model" << endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ndaug="<<getNDaug() << endl;
     int id;
-    for ( id=0; id<(getNDaug()-1); id++ ) 
+    for ( id=0; id<(getNDaug()-1); id++ )
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daug " << id << " "<<EvtPDL::name(getDaug(id)).c_str() << endl;
 
   }
@@ -119,14 +117,14 @@ void EvtTauHadnu::decay(EvtParticle *p){
   EvtIdSet theKs("K+","K-");
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  
+
   EvtParticle *nut;
   nut = p->getDaug(getNDaug()-1);
   p->getDaug(0)->getP4();
 
-  //get the leptonic current 
+  //get the leptonic current
   EvtVector4C tau1, tau2;
-  
+
   if (p->getId()==TAUM) {
     tau1=EvtLeptonVACurrent(nut->spParentNeutrino(),p->sp(0));
     tau2=EvtLeptonVACurrent(nut->spParentNeutrino(),p->sp(1));
@@ -152,9 +150,9 @@ void EvtTauHadnu::decay(EvtParticle *p){
       EvtVector4R q2 = p->getDaug(1)->getP4();
       double m1 = q1.mass();
       double m2 = q2.mass();
-       
+
       hadCurr = Fpi( (q1+q2).mass2(), m1, m2 )  * (q1-q2);
-      
+
       foundHadCurr = true;
     }
 
@@ -174,11 +172,11 @@ void EvtTauHadnu::decay(EvtParticle *p){
       EvtVector4R q1=p->getDaug(samePi1)->getP4();
       EvtVector4R q2=p->getDaug(samePi2)->getP4();
       EvtVector4R q3=p->getDaug(diffPi)->getP4();
-      
+
       double m1 = q1.mass();
       double m2 = q2.mass();
       double m3 = q3.mass();
-      
+
       EvtVector4R Q = q1 + q2 + q3;
       double Q2 = Q.mass2();
       double _mA12 = _mA1*_mA1;
@@ -188,11 +186,11 @@ void EvtTauHadnu::decay(EvtParticle *p){
       EvtComplex denBW_A1( _mA12 - Q2, -1.*_mA1*_gammaA1X );
       EvtComplex BW_A1 = _mA12 / denBW_A1;
 
-      hadCurr = BW_A1 * ( ((q1-q3)-(Q*(Q*(q1-q3))/Q2)) * Fpi( (q1+q3).mass2(), m1, m3) + 
-			  ((q2-q3)-(Q*(Q*(q2-q3))/Q2)) * Fpi( (q2+q3).mass2(), m2, m3) ); 
+      hadCurr = BW_A1 * ( ((q1-q3)-(Q*(Q*(q1-q3))/Q2)) * Fpi( (q1+q3).mass2(), m1, m3) +
+			  ((q2-q3)-(Q*(Q*(q2-q3))/Q2)) * Fpi( (q2+q3).mass2(), m2, m3) );
 
       foundHadCurr = true;
-      
+
     }
 
 
@@ -204,30 +202,30 @@ void EvtTauHadnu::decay(EvtParticle *p){
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Have not yet implemented this final state in TAUHADNUKS model" << endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ndaug="<<getNDaug() << endl;
     int id;
-    for ( id=0; id<(getNDaug()-1); id++ ) 
+    for ( id=0; id<(getNDaug()-1); id++ )
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daug " << id << " "<<EvtPDL::name(getDaug(id)).c_str() << endl;
 
   }
 
-  
+
   vertex(0,tau1*hadCurr);
   vertex(1,tau2*hadCurr);
-  
 
-  
+
+
   return;
 
 }
 
 double EvtTauHadnu::gFunc(double Q2, int dupD) {
-  
+
   double mpi= EvtPDL::getMeanMass(getDaug(dupD));
   double mpi2 = pow( mpi,2.);
   if ( Q2 < pow(_mRho + mpi, 2.) ) {
     double arg = Q2-9.*mpi2;
     return 4.1 * pow(arg,3.) * (1. - 3.3*arg + 5.8*pow(arg,2.));
   }
-  else 
+  else
     return Q2 * (1.623 + 10.38/Q2 - 9.32/pow(Q2,2.) + 0.65/pow(Q2,3.));
 }
 
@@ -235,27 +233,27 @@ EvtComplex EvtTauHadnu::Fpi( double s, double xm1, double xm2 ) {
 
   EvtComplex BW_rho = BW( s, _mRho, _gammaRho, xm1, xm2 );
   EvtComplex BW_rhopr = BW( s, _mRhopr, _gammaRhopr, xm1, xm2 );
-  
-  
+
+
   return (BW_rho + _beta*BW_rhopr)/(1.+_beta);
 }
 
 EvtComplex EvtTauHadnu::BW( double s, double m, double gamma, double xm1, double xm2 ) {
-  
+
   double m2 = pow( m, 2.);
-  
+
   if ( s > pow( xm1+xm2, 2.) ) {
-    double qs = sqrt( fabs( (s-pow(xm1+xm2,2.)) * (s-pow(xm1-xm2,2.)) ) ) / sqrt(s); 
+    double qs = sqrt( fabs( (s-pow(xm1+xm2,2.)) * (s-pow(xm1-xm2,2.)) ) ) / sqrt(s);
     double qm = sqrt( fabs( (m2-pow(xm1+xm2,2.)) * (m2-pow(xm1-xm2,2.)) ) ) / m;
-    
-    gamma *= m2/s * pow( qs/qm, 3.); 
+
+    gamma *= m2/s * pow( qs/qm, 3.);
   }
   else
     gamma = 0.;
 
   EvtComplex denBW( m2 - s, -1.* sqrt(s) * gamma );
-  
-  
+
+
   return m2 / denBW;
 }
 

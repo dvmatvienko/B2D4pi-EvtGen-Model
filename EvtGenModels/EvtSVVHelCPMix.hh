@@ -36,13 +36,10 @@ class EvtSVVHelCPMix:public  EvtDecayAmp  {
 
 public:
 
-  EvtSVVHelCPMix() {}
-  virtual ~EvtSVVHelCPMix();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void init();
+  void init() override;
 
   EvtComplex hp;
   EvtComplex h0;
@@ -56,12 +53,12 @@ public:
   EvtComplex weakmixingphase;
   EvtComplex weakdirectphase;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void decay(EvtParticle *p); 
-
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
+  void decay(EvtParticle *p) override;
+  
+  std::string getParamName(int i) override;
+  std::string getParamDefault(int i) override;
 };
 
 #endif

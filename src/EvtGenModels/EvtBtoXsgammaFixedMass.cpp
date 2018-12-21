@@ -8,7 +8,7 @@
 // Module: EvtBtoXsgammaKagan.cc
 //
 // Description:
-//       Routine to perform two-body B->Xs,gamma decays with a fixed hadronic 
+//       Routine to perform two-body B->Xs,gamma decays with a fixed hadronic
 //       mass. For spectrum measurements.
 //       The input parameters are 1: the hadronic mass
 
@@ -27,20 +27,17 @@
 using std::endl;
 using std::fstream;
 
-EvtBtoXsgammaFixedMass::~EvtBtoXsgammaFixedMass(){
-}
-
 void EvtBtoXsgammaFixedMass::init(int nArg, double* args){
 
   if ((nArg) > 2 || (nArg > 1 && nArg <2)){
-  
+
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
-			 << "EvtBtoXsgammaFixedMass expected " 
+			 << "EvtBtoXsgammaFixedMass expected "
 			 << "either 1(default config) or two arguments but found: "<<nArg<<endl;
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
-    ::abort();  
+    ::abort();
   }
-  
+
   if(nArg == 1){
     _mH = 2.0;
   }else{

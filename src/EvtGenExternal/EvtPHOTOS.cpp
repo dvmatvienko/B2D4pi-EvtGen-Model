@@ -26,25 +26,14 @@
 #include "EvtGenExternal/EvtPHOTOS.hh"
 #include "EvtGenExternal/EvtExternalGenFactory.hh"
 
-EvtPHOTOS::EvtPHOTOS() {
-
-  _photosEngine = 0;
-  
-}
-
-EvtPHOTOS::~EvtPHOTOS() {
-
-}
-
 void EvtPHOTOS::doRadCorr(EvtParticle *p) {
 
-  if (_photosEngine == 0) {
+  if (!_photosEngine) {
     _photosEngine = EvtExternalGenFactory::getInstance()->getGenerator(EvtExternalGenFactory::PhotosGenId);
   }
 
-  if (_photosEngine != 0) {
+  if (_photosEngine) {
     _photosEngine->doDecay(p);
   }
-  
-}
 
+}

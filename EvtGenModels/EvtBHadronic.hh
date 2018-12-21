@@ -28,14 +28,11 @@ class EvtBHadronic:public  EvtDecayAmp{
 
 public:
 
-  EvtBHadronic() {}
-  virtual ~EvtBHadronic();
+  std::string getName() override;
+  EvtBHadronic* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void init();
-  void decay(EvtParticle *p); 
+  void init() override;
+  void decay(EvtParticle *p) override;
 
 };
 

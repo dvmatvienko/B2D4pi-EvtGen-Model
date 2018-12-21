@@ -29,15 +29,12 @@ class EvtKstarnunu:public  EvtDecayAmp  {
 
 public:
 
-  EvtKstarnunu() {}
-  virtual ~EvtKstarnunu();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
 
-  void init();
-
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 };
 

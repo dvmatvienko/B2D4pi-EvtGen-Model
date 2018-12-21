@@ -8,14 +8,14 @@ class EvtMParticle : public EvtMNode {
     public:
 
         EvtMParticle( int label, const EvtId& id );
-        virtual ~EvtMParticle() {}
-        EvtSpinAmp amplitude( const vector<EvtVector4R>& product ) const;
-        int getnchild() const { return 0; }
-        
-  EvtComplex line( const vector<EvtVector4R>& /*product*/ ) const
+        ~EvtMParticle() {}
+        EvtSpinAmp amplitude( const vector<EvtVector4R>& product ) const override;
+        int getnchild() const override { return 0; }
+
+  EvtComplex line( const vector<EvtVector4R>& /*product*/ ) const override
         { return EvtComplex(1.0, 0.0); }
 
-        EvtMNode * duplicate() const;
+        EvtMNode * duplicate() const override;
 };
 
 #endif

@@ -10,7 +10,7 @@
 //
 // Module: EvtSVSCPLH.cc
 //
-// Description: The decay of a scalar to a scalar and a vector particle are 
+// Description: The decay of a scalar to a scalar and a vector particle are
 //              performed with CP violation and different widths for
 //              the cp even and odd states. E.g. B->J/psi K_S.
 //
@@ -34,11 +34,9 @@
 #include "EvtGenBase/EvtVector4C.hh"
 using std::endl;
 
-EvtSVSCPLH::~EvtSVSCPLH() {}
-
 std::string EvtSVSCPLH::getName(){
 
-  return "SVS_CPLH";     
+  return "SVS_CPLH";
 
 }
 
@@ -72,7 +70,7 @@ void EvtSVSCPLH::init(){
 
   _Af=getArg(4)*exp(EvtComplex(0.0,getArg(5)));
   _Abarf=getArg(6)*exp(EvtComplex(0.0,getArg(7)));
-  
+
   if (verbose()){
     EvtGenReport(EVTGEN_INFO,"EvtGen")<<":EvtSVSCPLH:dm="<<_dm<<endl;
     EvtGenReport(EVTGEN_INFO,"EvtGen")<<":EvtSVSCPLH:dGamma="<<_dgamma<<endl;
@@ -128,7 +126,7 @@ void EvtSVSCPLH::decay( EvtParticle *p){
   }
 
   EvtVector4R p4_parent=p->getP4Restframe();;
-  
+
   double norm=p->getDaug(0)->mass()/(p->getDaug(0)->getP4().d3mag()*p4_parent.mass());
 
   EvtParticle* v=p->getDaug(0);
@@ -136,7 +134,7 @@ void EvtSVSCPLH::decay( EvtParticle *p){
   vertex(0,amp*norm*(p4_parent*(v->epsParent(0))));
   vertex(1,amp*norm*(p4_parent*(v->epsParent(1))));
   vertex(2,amp*norm*(p4_parent*(v->epsParent(2))));
-  
+
 
   return ;
 }
