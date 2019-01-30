@@ -4,6 +4,13 @@
 //
 //===========================================================================
 
+29 Jan 2019 Michal Kreps
+   Allow reading decay files which are missing end-of-line before end-of-file.
+
+21 & 24 Jan 2019 John Back
+    Correct B 4-momentum in EvtSLDiBaryonAmp for the BToDiBaryonlnupQCD model,
+    as well as including a parity factor for the vector amplitude terms.
+
 21st December 2018 John Back
     Imported C++ modernization changes from Gerhard Raven (LHCb).
 
