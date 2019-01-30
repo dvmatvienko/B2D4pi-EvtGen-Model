@@ -43,7 +43,6 @@ public:
 
   std::string getParamName(int i) override;
   std::string getParamDefault(int i) override;
-};
 
 };
 

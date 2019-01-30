@@ -53,10 +53,6 @@ private:
   // Data members
   double (*_myFunction)(double x);
 
-  // Note: if your class needs a copy constructor or an assignment operator,
-  //  make one of the following public and implement it.
-   EvtItgFunction( const EvtItgFunction& );                // Copy Constructor
-  EvtItgFunction& operator= ( const EvtItgFunction& );    // Assignment op
 };
 
 #endif // EvtITGFUNCTION_HH

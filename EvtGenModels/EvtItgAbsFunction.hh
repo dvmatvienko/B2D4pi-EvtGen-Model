@@ -64,9 +64,6 @@ private:
   double _upperRange;
   double _lowerRange;
 
-  EvtItgAbsFunction( const EvtItgAbsFunction& );                // Copy Constructor
-  EvtItgAbsFunction& operator= ( const EvtItgAbsFunction& );    // Assignment op
-
 };
 
 #endif // EVTITGABSFUNCTION_HH

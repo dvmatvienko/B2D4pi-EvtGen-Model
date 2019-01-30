@@ -616,8 +616,6 @@ EvtDiracSpinor operator*(const EvtGammaMatrix& g,const EvtDiracSpinor& d){
 // upper index
 const EvtGammaMatrix& EvtGammaMatrix::sigmaUpper(unsigned int mu, unsigned int nu)
 {
-    EvtGammaMatrix a, b;
-    static const EvtTensor4C eta = EvtTensor4C::g(); //metric
     static EvtGammaMatrix sigma[4][4];
     static bool hasBeenCalled = false;
     if (!hasBeenCalled)

@@ -37,7 +37,7 @@ public:
   void decay(EvtParticle *p) override;
 
   std::string getParamName(int i) override;
-  std::string getDefaultName(int i) override;
+  std::string getParamDefault(int i) override;
 
 };
 

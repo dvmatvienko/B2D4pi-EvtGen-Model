@@ -34,6 +34,7 @@
 #include "EvtGenModels/EvtPFermi.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtDiLog.hh"
+#include <array>
 
 using std::cout;
 using std::endl;
@@ -609,9 +610,9 @@ EvtVubNLO::expShapeFunction ( double omega, const std::vector<double> &sCoeffs){
 double
 EvtVubNLO::Gamma(double z) {
 
-  auto gammaCoeffs = std::array{ 76.18009172947146, -86.50532032941677,
-                                 24.01409824083091, -1.231739572450155,
-                                 0.1208650973866179e-2, -0.5395239384953e-5 };
+  auto gammaCoeffs = std::array<double,6>{ 76.18009172947146, -86.50532032941677,
+					   24.01409824083091, -1.231739572450155,
+					   0.1208650973866179e-2, -0.5395239384953e-5 };
 
   //Lifted from Numerical Recipies in C
   double y = z;

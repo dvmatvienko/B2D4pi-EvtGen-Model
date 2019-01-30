@@ -51,11 +51,6 @@ private:
   // Data members
   double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2);
 
-  // Note: if your class needs a copy constructor or an assignment operator,
-  // make one of the following public and implement it.
-   EvtItgTwoCoeffFcn( const EvtItgTwoCoeffFcn& );                //// Copy Constructor
-  EvtItgTwoCoeffFcn& operator= ( const EvtItgTwoCoeffFcn& );    // Assignment op
-
   std::vector<double> _coeffs1;
   std::vector<double> _coeffs2;
 
