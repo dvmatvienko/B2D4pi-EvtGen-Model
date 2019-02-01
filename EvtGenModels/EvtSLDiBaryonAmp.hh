@@ -22,24 +22,22 @@
 #define EVTSLDIBARYONAMP_HH
 
 #include "EvtGenBase/EvtAmp.hh"
+#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
 #include <vector>
 
 class EvtParticle;
-class EvtBToDiBaryonlnupQCDFF;
 
 class EvtSLDiBaryonAmp {
 
 public:
 
-    EvtSLDiBaryonAmp(EvtBToDiBaryonlnupQCDFF*);
+    EvtSLDiBaryonAmp(const EvtBToDiBaryonlnupQCDFF&);
 
-    virtual ~EvtSLDiBaryonAmp() {;}
-    
     void CalcAmp(EvtParticle *parent, EvtAmp& amp) const;
 
 private:
 
-    EvtBToDiBaryonlnupQCDFF* ffModel;
+    EvtBToDiBaryonlnupQCDFF ffModel_;
 
 };
 

@@ -41,7 +41,7 @@ EvtBToDiBaryonlnupQCDFF::EvtBToDiBaryonlnupQCDFF(std::vector<double>& DParameter
 }
 
 void EvtBToDiBaryonlnupQCDFF::getFF(EvtParticle*, double dibaryonMass,
-				    EvtBToDiBaryonlnupQCDFF::FormFactors& FF)
+				    EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const
 {
 
     if (nDPars == 6 && dibaryonMass > 0.0) {
@@ -73,7 +73,7 @@ void EvtBToDiBaryonlnupQCDFF::getFF(EvtParticle*, double dibaryonMass,
 }
 
 void EvtBToDiBaryonlnupQCDFF::getDiracFF(EvtParticle* parent, double dibaryonMass,
-					 EvtBToDiBaryonlnupQCDFF::FormFactors &FF)
+					 EvtBToDiBaryonlnupQCDFF::FormFactors &FF) const
 {
 
     this->getFF(parent, dibaryonMass, FF);
@@ -81,7 +81,7 @@ void EvtBToDiBaryonlnupQCDFF::getDiracFF(EvtParticle* parent, double dibaryonMas
 }
 
 void EvtBToDiBaryonlnupQCDFF::getRaritaFF(EvtParticle* parent, double dibaryonMass,
-					 EvtBToDiBaryonlnupQCDFF::FormFactors &FF)
+					 EvtBToDiBaryonlnupQCDFF::FormFactors &FF) const
 {
 
     this->getFF(parent, dibaryonMass, FF);

@@ -35,13 +35,10 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
-#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
 #include "EvtGenModels/EvtSLDiBaryonAmp.hh"
 
-using std::endl;
-
-EvtSLDiBaryonAmp::EvtSLDiBaryonAmp(EvtBToDiBaryonlnupQCDFF* formFactors) :
-    ffModel(formFactors)
+EvtSLDiBaryonAmp::EvtSLDiBaryonAmp(const EvtBToDiBaryonlnupQCDFF& formFactors) :
+    ffModel_(formFactors)
 {
 }
 
@@ -123,7 +120,7 @@ void EvtSLDiBaryonAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp) const {
 
     } else {
 
-        EvtGenReport(EVTGEN_ERROR,"EvtSLDiBaryonAmp") << "Wrong lepton number"<<endl;
+        EvtGenReport(EVTGEN_ERROR,"EvtSLDiBaryonAmp") << "Wrong lepton number"<<std::endl;
 
     }
     
@@ -149,7 +146,7 @@ void EvtSLDiBaryonAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp) const {
 
 	// Form factor parameters
 	EvtBToDiBaryonlnupQCDFF::FormFactors FF;
-	ffModel->getDiracFF(parent, m_dibaryon, FF);
+	ffModel_.getDiracFF(parent, m_dibaryon, FF);
 
 	// First baryon
 	for (int i = 0; i < N1; i++) {
@@ -201,7 +198,7 @@ void EvtSLDiBaryonAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp) const {
 
 	// Form factor parameters
 	EvtBToDiBaryonlnupQCDFF::FormFactors FF;
-	ffModel->getRaritaFF(parent, m_dibaryon, FF);
+	ffModel_.getRaritaFF(parent, m_dibaryon, FF);
 
 	if (type1 == EvtSpinType::DIRAC) {
 

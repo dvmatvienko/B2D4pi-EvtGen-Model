@@ -31,14 +31,13 @@ class EvtBLLNuL: public EvtDecayAmp {
 public:
 
     EvtBLLNuL();
-    virtual ~EvtBLLNuL();
 
-    virtual std::string getName();
-    virtual EvtDecayBase* clone();
+    virtual std::string getName() override;
+    virtual EvtDecayBase* clone() override;
 
-    virtual void init();
-    virtual void initProbMax();
-    virtual void decay(EvtParticle *p);
+    virtual void init() override;
+    virtual void initProbMax() override;
+    virtual void decay(EvtParticle *p) override;
 
 private:
   

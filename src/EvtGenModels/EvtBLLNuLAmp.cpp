@@ -36,8 +36,8 @@ EvtBLLNuLAmp::EvtBLLNuLAmp(double Vub) :
     coupling_(0.0),
     sqrt2_(sqrt(2.0)),
     fBu_(0.191), // leptonic constant (GeV)
-    Bstar_(new EvtBLLNuLAmp::ResPole(5.32, 0.00658, 0.183/3.0)),
-    Upsilon_(new EvtBLLNuLAmp::ResPole(9.64, 0.0, 0.0)),
+    Bstar_(EvtBLLNuLAmp::ResPole(5.32, 0.00658, 0.183/3.0)),
+    Upsilon_(EvtBLLNuLAmp::ResPole(9.64, 0.0, 0.0)),
     resPoles_(),
     nPoles_(0),
     zero_(EvtComplex(0.0, 0.0)),
@@ -51,10 +51,12 @@ EvtBLLNuLAmp::EvtBLLNuLAmp(double Vub) :
 
     // Define VMD resonance poles using PDG 2016 values with constants from
     // D.Melikhov, N.Nikitin and K.Toms, Phys. Atom. Nucl. 68, 1842 (2005)
-    EvtBLLNuLAmp::ResPole* rho = new EvtBLLNuLAmp::ResPole(0.77526, 0.1491, 1.0/5.04);
+
+    // Rho and omega resonances
+    EvtBLLNuLAmp::ResPole rho = EvtBLLNuLAmp::ResPole(0.77526, 0.1491, 1.0/5.04);
     resPoles_.push_back(rho);
-    
-    EvtBLLNuLAmp::ResPole* omega = new EvtBLLNuLAmp::ResPole(0.78265, 0.00849, 1.0/17.1);
+
+    EvtBLLNuLAmp::ResPole omega = EvtBLLNuLAmp::ResPole(0.78265, 0.00849, 1.0/17.1);
     resPoles_.push_back(omega);
 
     nPoles_ = resPoles_.size();
@@ -69,8 +71,8 @@ EvtBLLNuLAmp::EvtBLLNuLAmp(double qSqMin, double kSqMin, bool symmetry, double V
     coupling_(0.0),
     sqrt2_(sqrt(2.0)),
     fBu_(0.191), // leptonic constant (GeV)
-    Bstar_(new EvtBLLNuLAmp::ResPole(5.32, 0.00658, 0.183/3.0)),
-    Upsilon_(new EvtBLLNuLAmp::ResPole(9.64, 0.0, 0.0)),
+    Bstar_(EvtBLLNuLAmp::ResPole(5.32, 0.00658, 0.183/3.0)),
+    Upsilon_(EvtBLLNuLAmp::ResPole(9.64, 0.0, 0.0)),
     resPoles_(),
     nPoles_(0),
     zero_(EvtComplex(0.0, 0.0)),
@@ -84,26 +86,15 @@ EvtBLLNuLAmp::EvtBLLNuLAmp(double qSqMin, double kSqMin, bool symmetry, double V
 
     // Define VMD resonance poles using PDG 2016 values with constants from
     // D.Melikhov, N.Nikitin and K.Toms, Phys. Atom. Nucl. 68, 1842 (2005)
-    EvtBLLNuLAmp::ResPole* rho = new EvtBLLNuLAmp::ResPole(0.77526, 0.1491, 1.0/5.04);
+
+    // Rho and omega resonances
+    EvtBLLNuLAmp::ResPole rho = EvtBLLNuLAmp::ResPole(0.77526, 0.1491, 1.0/5.04);
     resPoles_.push_back(rho);
-    
-    EvtBLLNuLAmp::ResPole* omega = new EvtBLLNuLAmp::ResPole(0.78265, 0.00849, 1.0/17.1);
+
+    EvtBLLNuLAmp::ResPole omega = EvtBLLNuLAmp::ResPole(0.78265, 0.00849, 1.0/17.1);
     resPoles_.push_back(omega);
 
     nPoles_ = resPoles_.size();
-}
-
-EvtBLLNuLAmp::~EvtBLLNuLAmp()
-{
-    delete Bstar_;
-    delete Upsilon_;
-    // Delete VMD poles
-    std::vector<EvtBLLNuLAmp::ResPole*>::iterator iter;
-    for (iter = resPoles_.begin(); iter != resPoles_.end(); ++iter) {
-	delete *iter;
-    }
-    resPoles_.clear();
-
 }
 
 // Storing resonance pole information
@@ -346,12 +337,12 @@ std::vector<EvtComplex> EvtBLLNuLAmp::getVMDTerms(double qSq, double kSq, double
     // Loop over the VMD poles
     for (int iPole = 0; iPole < nPoles_; iPole++) {
 
-	EvtBLLNuLAmp::ResPole* pole = resPoles_[iPole];
+	auto pole = resPoles_[iPole];
 
 	// Propagator term, common for all factors
-	EvtComplex prop = pole->propagator(qSq);
+	EvtComplex prop = pole.propagator(qSq);
 	
-	double mSum = MB + pole->getMass();
+	double mSum = MB + pole.getMass();
 
 	VMD1 += prop/mSum;
 	VMD2 += mSum*prop;
@@ -377,7 +368,7 @@ std::vector<EvtComplex> EvtBLLNuLAmp::getVMDTerms(double qSq, double kSq, double
 
 EvtComplex EvtBLLNuLAmp::getBStarTerm(double qSq, double kSq, double MB) const 
 {
-    EvtComplex amplitude = Bstar_->propagator(kSq, 1)*FF_B2Bstar(qSq)/(MB + Bstar_->getMass());
+    EvtComplex amplitude = Bstar_.propagator(kSq, 1)*FF_B2Bstar(qSq)/(MB + Bstar_.getMass());
     return amplitude;
 }
 
@@ -385,7 +376,7 @@ double EvtBLLNuLAmp::FF_B2Bstar(double qSq) const
 {    
     // Electromagnetic FF for B -> B* transition, when gamma is emitted from the b quark 
     // D.Melikhov, private communication
-    double y = qSq/Upsilon_->getMassSq();
+    double y = qSq/Upsilon_.getMassSq();
     double denom = (1.0 - y)*(1.0 - 0.81*y);
     
     double V(0.0);
@@ -399,7 +390,7 @@ double EvtBLLNuLAmp::FF_B2Bstar(double qSq) const
 double EvtBLLNuLAmp::FF_V(double kSq) const 
 {
     // D. Melikhov and B. Stech, PRD 62, 014006 (2000) Table XV
-    double y = kSq/Bstar_->getMassSq();
+    double y = kSq/Bstar_.getMassSq();
     double denom = sqrt2_*(1.0 - y)*(1.0 - 0.59*y);
 
     double V(0.0);
@@ -413,7 +404,7 @@ double EvtBLLNuLAmp::FF_V(double kSq) const
 double EvtBLLNuLAmp::FF_A1(double kSq) const 
 {
     // D. Melikhov and B. Stech, PRD 62, 014006 (2000) Table XV
-    double y = kSq/Bstar_->getMassSq();
+    double y = kSq/Bstar_.getMassSq();
     double denom = ((0.1*y - 0.73)*y + 1.0)*sqrt2_;
 
     double A1(0.0);
@@ -427,7 +418,7 @@ double EvtBLLNuLAmp::FF_A1(double kSq) const
 double EvtBLLNuLAmp::FF_A2(double kSq) const 
 {
     // D. Melikhov and B. Stech, PRD 62, 014006 (2000) Table XV
-    double y = kSq/Bstar_->getMassSq();
+    double y = kSq/Bstar_.getMassSq();
     double denom = ((0.5*y - 1.4)*y + 1.0)*sqrt2_;
 
     double A2(0.0);

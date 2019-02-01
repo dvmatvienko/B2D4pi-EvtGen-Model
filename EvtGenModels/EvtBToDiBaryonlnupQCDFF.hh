@@ -29,11 +29,8 @@ class EvtBToDiBaryonlnupQCDFF {
 
 public:
 
-    class FormFactors {
+    class FormFactors final {
     public:
-	FormFactors() {;}
-
-	virtual ~FormFactors() {;}
 
 	double F1, F2, F3, F4, F5;
 	double G1, G2, G3, G4, G5;
@@ -45,13 +42,13 @@ public:
     EvtBToDiBaryonlnupQCDFF(std::vector<double>& DParameters);
 
     void getDiracFF(EvtParticle* parent, double dibaryonMass,
-		    EvtBToDiBaryonlnupQCDFF::FormFactors& FF);
+		    EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
     
     void getRaritaFF(EvtParticle* parent, double dibaryonMass,
-		     EvtBToDiBaryonlnupQCDFF::FormFactors& FF);
+		     EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
 
     void getFF(EvtParticle* parent, double dibaryonMass,
-	       EvtBToDiBaryonlnupQCDFF::FormFactors& FF);
+	       EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
 
 private:
 
@@ -61,5 +58,3 @@ private:
 };
 
 #endif
-
-

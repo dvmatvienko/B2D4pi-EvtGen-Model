@@ -25,32 +25,29 @@
 #define EVTBTODIBARYONLNUPQCD_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
+#include "EvtGenModels/EvtSLDiBaryonAmp.hh"
 #include <string>
+#include <memory>
 
 class EvtParticle;
-class EvtBToDiBaryonlnupQCDFF;
-class EvtSLDiBaryonAmp;
 
 class EvtBToDiBaryonlnupQCD: public EvtDecayAmp  {
 
 public:
 
-    EvtBToDiBaryonlnupQCD();
-    virtual ~EvtBToDiBaryonlnupQCD();
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-    std::string getName();
-    EvtDecayBase* clone();
-
-    void decay(EvtParticle *p);
-    void initProbMax();
-    void init();
+    void decay(EvtParticle *p) override;
+    void initProbMax() override;
+    void init() override;
 
 private:
 
-    EvtBToDiBaryonlnupQCDFF* ffModel;
-    EvtSLDiBaryonAmp* calcAmp;
+    std::unique_ptr<EvtBToDiBaryonlnupQCDFF> ffModel_;
+    std::unique_ptr<EvtSLDiBaryonAmp> calcAmp_;
 
 };
 
 #endif
-
