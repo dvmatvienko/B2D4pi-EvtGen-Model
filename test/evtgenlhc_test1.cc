@@ -71,6 +71,7 @@
 #include "TFile.h"
 #include "TApplication.h"
 #include "TROOT.h"
+#include "TString.h"
 
 using std::vector;
 
@@ -695,8 +696,8 @@ void runJpsiPolarization(int nevent, EvtGen &myGenerator) {
 }
                                                                               
                                                                              
-void runMassCheck(int nevent, EvtGen & /*myGenerator*/, 
-              int partnum) {
+void runMassCheck(int nevent, EvtGen & /*myGenerator*/,
+		  int partnum) {
                                                                              
    int count;
    static EvtId myPart=EvtPDL::evtIdFromStdHep(partnum);
@@ -4719,7 +4720,7 @@ void runBMix(int nevent,EvtGen &myGenerator,std::string userFile,std::string roo
     static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
 
     std::ofstream outmix;
-    TString outFileName(rootFile);
+    TString outFileName(rootFile.c_str());
     outFileName.ReplaceAll(".root", ".dat");
     outmix.open(outFileName.Data());
 
