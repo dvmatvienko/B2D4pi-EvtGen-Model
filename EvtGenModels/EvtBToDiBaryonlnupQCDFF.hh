@@ -16,7 +16,8 @@
 // Modification history:
 //
 //    Mark Smith     July 17, 2017     Module created
-//    
+//    John B         Oct 2018          Added FormFactors class
+//
 //------------------------------------------------------------------------
 
 #ifndef EVTBTODIBARYONLNUPQCDFF_HH

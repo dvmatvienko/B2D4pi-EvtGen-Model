@@ -54,7 +54,7 @@ EvtDecayBase* EvtRareLbToLll::clone(){
 void EvtRareLbToLll::init(){
   checkNArg(1);
 
-  // check that there are 3 daughteres
+  // check that there are 3 daughters
   checkNDaug(3);
 
   // Parent should be spin 1/2 Lambda_b0
@@ -79,10 +79,10 @@ void EvtRareLbToLll::init(){
     ffmodel_ = std::make_unique<EvtRareLbToLllFF>();
   }
   else {
-    EvtGenReport(EVTGEN_INFO ,"EvtGen") << "  Unknown form-factor model, valid options are MR, LQCD, Gutsche." << std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "  Unknown form-factor model, valid options are MR, LQCD, Gutsche." << std::endl;
     ::abort();
   }
-  wcmodel_  = std::make_unique<EvtRareLbToLllWC>();
+  wcmodel_ = std::make_unique<EvtRareLbToLllWC>();
 
   ffmodel_->init();
 
@@ -160,9 +160,9 @@ void EvtRareLbToLll::initProbMax(){
         //std::cout << "q2:  " << q2 << " \t theta:  " << theta << " \t prob:  " << prob << std::endl;
         //std::cout << "p1: " << p4lep1 << " p2: " << p4lep2 << " q2-q2min: " << q2-(m1+m2)*(m1+m2) << std::endl;
         if(prob>m_maxProbability){
-          EvtGenReport(EVTGEN_INFO,"EvtGen") << "  - probability " << prob
-                                << " found at q2 = " << q2 << " (" << 100*(q2-q2min)/(q2max-q2min)
-                                << " %) and theta = " << theta*180/EvtConst::pi << std::endl;
+	  EvtGenReport(EVTGEN_INFO,"EvtGen") << "  - probability " << prob
+					     << " found at q2 = " << q2 << " (" << 100*(q2-q2min)/(q2max-q2min)
+					     << " %) and theta = " << theta*180/EvtConst::pi << std::endl;
           m_maxProbability=prob;
         }
       }
@@ -171,6 +171,7 @@ void EvtRareLbToLll::initProbMax(){
 
     //m_poleSize = 0.04*q2min;
     m_maxProbability *= 1.2;
+
   }
 
   setProbMax(m_maxProbability);

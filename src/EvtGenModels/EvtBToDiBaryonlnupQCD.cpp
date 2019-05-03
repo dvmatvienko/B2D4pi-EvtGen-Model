@@ -1,5 +1,3 @@
-
-
 //
 // Environment:
 //      This software is part of the EvtGen package developed jointly
@@ -37,8 +35,6 @@
 
 #include "EvtGenModels/EvtBToDiBaryonlnupQCD.hh"
 
-using std::endl;
-
 std::string EvtBToDiBaryonlnupQCD::getName() {
 
   return "BToDiBaryonlnupQCD";     
@@ -64,18 +60,17 @@ void EvtBToDiBaryonlnupQCD::init() {
     if ( !(getNArg() == 6 || getNArg() == 7) ) {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
-					    << " 6 or 7 arguments but found:" << getNArg() << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << " 6 or 7 arguments but found:" << getNArg() << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
 
     }
 
     if (getNDaug() != 4) {
 
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") 
-	    << "Wrong number of daughters in EvtBToDiBaryonlnupQCD model: "
-	    << "4 daughters expected but found: " << getNDaug() << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong number of daughters in EvtBToDiBaryonlnupQCD model: "
+					    << "4 daughters expected but found: " << getNDaug() << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -87,10 +82,10 @@ void EvtBToDiBaryonlnupQCD::init() {
 
     if (parentType != EvtSpinType::SCALAR) {
 
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
+        EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a SCALAR parent, found:"
-					    << EvtPDL::name(getParentId()) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getParentId()) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -98,8 +93,8 @@ void EvtBToDiBaryonlnupQCD::init() {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a DIRAC 3rd daughter, found:"
-					    << EvtPDL::name(getDaug(2)) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getDaug(2)) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -107,8 +102,8 @@ void EvtBToDiBaryonlnupQCD::init() {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a NEUTRINO 4th daughter, found:"
-					    << EvtPDL::name(getDaug(3)) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getDaug(3)) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -134,12 +129,11 @@ void EvtBToDiBaryonlnupQCD::init() {
 
     } else {
 
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") 
-	    << "Wrong baryon spin type in EvtBToDiBaryonlnupQCD model. "
-	    << "Expected spin type " << EvtSpinType::DIRAC 
-	    << " or " << EvtSpinType::RARITASCHWINGER 
-	    << ", found spin types " << baryon1Type << " and " << baryon2Type << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong baryon spin type in EvtBToDiBaryonlnupQCD model. "
+					    << "Expected spin type " << EvtSpinType::DIRAC 
+					    << " or " << EvtSpinType::RARITASCHWINGER 
+					    << ", found spin types " << baryon1Type << " and " << baryon2Type << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -187,7 +181,7 @@ void EvtBToDiBaryonlnupQCD::initProbMax() {
 
 	    if (Delta.contains(bar1Id) || Delta.contains(bar2Id)) {
 		// Delta
-		setProbMax(2.2e6);
+		setProbMax(1e7);
 
 	    } else if (LambdaC.contains(bar1Id) || LambdaC.contains(bar2Id)) {
 		// Lambda_c+
@@ -203,31 +197,31 @@ void EvtBToDiBaryonlnupQCD::initProbMax() {
 
 	    } else if (N1440.contains(bar1Id) || N1440.contains(bar2Id)) {
 		// N(1440)
-		setProbMax(1.25e6);
+		setProbMax(8e5);
 
 	    } else if (N1520.contains(bar1Id) || N1520.contains(bar2Id)) {
 		// N(1520)
-		setProbMax(1.25e6);
+		setProbMax(8e6);
 
 	    } else if (N1535.contains(bar1Id) || N1535.contains(bar2Id)) {
 		// N(1535)
-		setProbMax(1.25e6);
+		setProbMax(8e5);
 
 	    } else if (N1650.contains(bar1Id) || N1650.contains(bar2Id)) {
 		// N(1650)
-		setProbMax(1.25e6);
+		setProbMax(8e5);
 
 	    } else if (N1700.contains(bar1Id) || N1700.contains(bar2Id)) {
 		// N(1700)
-		setProbMax(1.25e6);
+		setProbMax(4e6);
 
 	    } else if (N1710.contains(bar1Id) || N1710.contains(bar2Id)) {
 		// N(1710)
-		setProbMax(1.25e6);
+		setProbMax(5e5);
 
 	    } else if (N1720.contains(bar1Id) || N1720.contains(bar2Id)) {
 		// N(1720)
-		setProbMax(1.25e6);
+		setProbMax(4e6);
 
 	    } // Baryon combinations
 
