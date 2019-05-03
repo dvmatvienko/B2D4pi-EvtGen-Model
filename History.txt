@@ -13,10 +13,13 @@
     courtesy of Veronika Chobanova, Jeremy Dalseno, Diego Martinez Santos and
     Marcos Romero Lamas (LHCb).
 
-30 Jan 2019 John Back
+18th April 2019 Tom Latham
+    Implement cmake build system, replacing the old config method.
+
+30th Jan 2019 John Back
     Fix modernization compiler errors and warnings.
 
-29 Jan 2019 Michal Kreps
+29th Jan 2019 Michal Kreps
     Allow reading decay files which are missing end-of-line before end-of-file.
 
 21st December 2018 John Back
