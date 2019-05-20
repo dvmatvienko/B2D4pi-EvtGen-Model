@@ -25,15 +25,23 @@
 #include <math.h>
 
 class EvtVector3R;
+class EvtVector4R;
+
+EvtVector4R rotateEuler(const EvtVector4R& rs,
+			double alpha,double beta,double gamma);
+EvtVector4R boostTo(const EvtVector4R& rs,
+		    const EvtVector4R& p4, bool inverse = false);
+EvtVector4R boostTo(const EvtVector4R& rs,
+		    const EvtVector3R& boost, bool inverse = false);
 
 class EvtVector4R {
 
   friend EvtVector4R rotateEuler(const EvtVector4R& rs,
 				 double alpha,double beta,double gamma);
   friend EvtVector4R boostTo(const EvtVector4R& rs,
-			     const EvtVector4R& p4, bool inverse = false);
+			     const EvtVector4R& p4, bool inverse);
   friend EvtVector4R boostTo(const EvtVector4R& rs,
-			     const EvtVector3R& boost, bool inverse = false);
+			     const EvtVector3R& boost, bool inverse);
   
 
   inline friend EvtVector4R operator*(double d,const EvtVector4R& v2); 
