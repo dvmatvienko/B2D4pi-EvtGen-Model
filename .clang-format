@@ -66,8 +66,16 @@ IncludeCategories:
     Priority:        3
   - Regex:           '^"EvtGenExternal/'
     Priority:        4
-  - Regex:           '.*'
+  - Regex:           '^"HepMC/'
+    Priority:        5
+  - Regex:           '^"(Pythia8|Photos|Tauola)/'
     Priority:        6
+  - Regex:           '^"T[[:alnum:]]+\.h"'
+    Priority:        7
+  - Regex:           '^<[[:alnum:].]+>'
+    Priority:        9
+  - Regex:           '.*'
+    Priority:        8
 IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: true
 IndentPPDirectives: None
