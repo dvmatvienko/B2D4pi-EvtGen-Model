@@ -19,7 +19,7 @@ AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
 BinPackParameters: true
 BraceWrapping:   
-  AfterClass:            true
+  AfterClass:            false
   AfterControlStatement: false
   AfterEnum:             true
   AfterFunction:         true
@@ -37,9 +37,7 @@ BraceWrapping:
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: true
-BreakBeforeInheritanceComma: false
 BreakInheritanceList: AfterColon
-BreakConstructorInitializersBeforeComma: false
 BreakConstructorInitializers: AfterColon
 BreakStringLiterals: false
 ColumnLimit: 80
@@ -103,7 +101,7 @@ SortUsingDeclarations: true
 SpaceAfterCStyleCast: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
-SpaceBeforeCpp11BracedList: true
+SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
