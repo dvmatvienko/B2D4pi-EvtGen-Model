@@ -60,7 +60,13 @@ EvtRelBreitWignerBarrierFact::EvtRelBreitWignerBarrierFact(double mass, double w
   }
 
   _massMax=mass+maxdelta;
-  if ( _massMin< 0. ) _massMin=0.;
+  if ( _massMin< 0. ) {
+    if ( _width > 0.0001 ) {
+      _massMin = 0.00011;
+    } else {
+      _massMin=0.;
+    }
+  }
 }
 
 EvtRelBreitWignerBarrierFact::EvtRelBreitWignerBarrierFact(const EvtRelBreitWignerBarrierFact& x) :
@@ -275,12 +281,3 @@ double EvtRelBreitWignerBarrierFact::getRandMass(EvtId *parId,int nDaug, EvtId *
   return point.value();
 
 }
-
-
-
-
-
-
-
-
-

@@ -184,6 +184,8 @@
 #include "EvtGenModels/EvtFlatSqDalitz.hh"
 #include "EvtGenModels/EvtPhspFlatLifetime.hh"
 
+#include "EvtGenModels/EvtLambdacPHH.hh"
+
 #include "EvtGenModels/EvtModelReg.hh"
 using std::fstream;
 using std::cout;
@@ -332,6 +334,7 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
 
     modelist.registerModel(new EvtKStopizmumu);
     modelist.registerModel(new EvtVtoSll);
+
     modelist.registerModel(new EvtBsMuMuKK);
     modelist.registerModel(new EvtGenericDalitz());
 
@@ -350,5 +353,7 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
 
     modelist.registerModel(new EvtFlatSqDalitz);
     modelist.registerModel(new EvtPhspFlatLifetime);
+
+    modelist.registerModel(new EvtLambdacPHH);
 
 }
