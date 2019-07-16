@@ -4,6 +4,9 @@
 //
 //===========================================================================
 
+16th July 2019 John Back
+    Correct imaginary sign for EvtComplex /= (EvtComplex c) operator.
+
 3rd July 2019 John Back
     Added the EvtLambdacPHH decay model for Lc -> p K pi decays with K*(890), 
     Delta++(1232) and Lambda(1520) resonances, based on the Fermilab E791
