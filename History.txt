@@ -4,6 +4,10 @@
 //
 //===========================================================================
 
+21st August 2019 Michal Kreps
+    Added the EvtDToKpienu decay model for D -> K pi e nu decays from
+    BESIII, courtesy of Liaoyuan Dong.
+
 3rd July 2019 John Back
     Added the EvtLambdacPHH decay model for Lc -> p K pi decays with K*(890), 
     Delta++(1232) and Lambda(1520) resonances, based on the Fermilab E791
