@@ -1,3 +1,24 @@
+//--------------------------------------------------------------------------
+//
+// Environment:
+//      This software is part of the EvtGen package developed jointly
+//      for the BaBar and CLEO collaborations. If you use all or part
+//      of it, please give an appropriate acknowledgement.
+//
+// Copyright Information: See EvtGen/COPYRIGHT
+//      Copyright (C) 2000      Caltech, UCSB
+//
+// Module: EvtDToKpienu.cpp
+//
+// Description: Decay model for D- --> Kpienu decays based on PWA analysis
+//              in Phys. Rev. D94 (2016) 0032001 
+//
+// Modification history:
+//
+// Liaoyuan Dong                     Aug 28 2019    
+//
+//------------------------------------------------------------------------
+
 #include "EvtGenModels/EvtDToKpienu.hh"
 
 #include "EvtGenBase/EvtComplex.hh"
@@ -8,11 +29,6 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-#include <stdlib.h>
-
-EvtDToKpienu::~EvtDToKpienu()
-{
-}
 
 std::string EvtDToKpienu::getName()
 {
@@ -32,7 +48,7 @@ void EvtDToKpienu::init()
   checkSpinDaughter( 0, EvtSpinType::SCALAR );
   checkSpinDaughter( 1, EvtSpinType::SCALAR );
 
-  std::cout << "EvtDToKpienu ==> Initialization !" << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "EvtDToKpienu ==> Initialization !" << std::endl;
   nAmps = 2;
 
   rS            = -11.57;    // S-wave
@@ -83,12 +99,12 @@ void EvtDToKpienu::init()
 
 void EvtDToKpienu::initProbMax()
 {
-  setProbMax( 22750.0 );
-}
-
-void EvtDToKpienu::decay( EvtParticle* p )
-{
   /*
+   * This piece of code could in principle be used to calculate maximum
+   * probablity on fly. But as it uses high number of points and model
+   * deals with single final state, we keep hardcoded number for now rather
+   * than adapting code to work here.
+
      double maxprob = 0.0;
      for(int ir=0;ir<=60000000;ir++){
         p->initializePhaseSpace(getNDaug(),getDaugs());
@@ -105,12 +121,17 @@ void EvtDToKpienu::decay( EvtParticle* p )
         double _prob = calPDF(m2, q2, cosV, cosL, chi);
         if(_prob>maxprob) {
             maxprob=_prob;
-            std::cout << "Max PDF = " << ir << " charm= " << charm << " prob= "
+            EvtGenReport(EVTGEN_INFO,"EvtGen") << "Max PDF = " << ir << " charm= " << charm << " prob= "
      << _prob << std::endl;
         }
      }
-     std::cout << "Max!!!!!!!!!!! " << maxprob<< std::endl;
+     EvtGenReport(EVTGEN_INFO,"EvtGen") << "Max!!!!!!!!!!! " << maxprob<< std::endl;
   */
+  setProbMax( 22750.0 );
+}
+
+void EvtDToKpienu::decay( EvtParticle* p )
+{
 
   p->initializePhaseSpace( getNDaug(), getDaugs() );
   EvtVector4R K  = p->getDaug( 0 )->getP4();
@@ -136,7 +157,7 @@ void EvtDToKpienu::KinVGen( const EvtVector4R& vp4_K, const EvtVector4R& vp4_Pi,
                             const EvtVector4R& vp4_Lep,
                             const EvtVector4R& vp4_Nu, const int charm, double& m2,
                             double& q2, double& cosV, double& cosL,
-                            double& chi )
+                            double& chi ) const
 {
   EvtVector4R vp4_KPi = vp4_K + vp4_Pi;
   EvtVector4R vp4_W   = vp4_Lep + vp4_Nu;
@@ -168,7 +189,7 @@ void EvtDToKpienu::KinVGen( const EvtVector4R& vp4_K, const EvtVector4R& vp4_Pi,
 }
 
 double EvtDToKpienu::calPDF( const double m2, const double q2, const double cosV, const double cosL,
-                             const double chi )
+                             const double chi ) const
 {
   double m = sqrt( m2 );
   double q = sqrt( q2 );
@@ -232,7 +253,7 @@ double EvtDToKpienu::calPDF( const double m2, const double q2, const double cosV
         break;
       }
       default: {
-        std::cout << "No such form factor type!!!" << std::endl;
+        EvtGenReport(EVTGEN_ERROR,"EvtGen") << "No such form factor type!!!" << std::endl;
         break;
       }
     }
@@ -281,7 +302,7 @@ void EvtDToKpienu::ResonanceP( const double m, const double q, const double mV,
                                const double m0, const double width0,
                                const double rBW, double& amplitude,
                                double& delta, EvtComplex& F11, EvtComplex& F21,
-                               EvtComplex& F31 )
+                               EvtComplex& F31 ) const
 {
   double pKPi   = getPStar( mD, m, q );
   double mD2    = mD * mD;
@@ -330,7 +351,7 @@ void EvtDToKpienu::NRS( const double m, const double q, const double rS,
                         const double rS1, const double a_delta,
                         const double b_delta, const double mA, const double m0,
                         const double width0, double& amplitude, double& delta,
-                        EvtComplex& F10 )
+                        EvtComplex& F10 ) const
 {
   static const double tmp = ( mK + mPi ) * ( mK + mPi );
 
@@ -380,7 +401,7 @@ void EvtDToKpienu::ResonanceD( const double m, const double q, const double mV,
                                const double m0, const double width0,
                                const double rBW, double& amplitude,
                                double& delta, EvtComplex& F12, EvtComplex& F22,
-                               EvtComplex& F32 )
+                               EvtComplex& F32 ) const
 {
   double pKPi   = getPStar( mD, m, q );
   double mD2    = mD * mD;
@@ -412,7 +433,7 @@ void EvtDToKpienu::ResonanceD( const double m, const double q, const double mV,
 }
 
 double EvtDToKpienu::getPStar( const double m, const double m1,
-                               const double m2 )
+                               const double m2 ) const
 {
   double s  = m * m;
   double s1 = m1 * m1;
@@ -423,14 +444,14 @@ double EvtDToKpienu::getPStar( const double m, const double m1,
   if ( t > 0.0 ) {
     p = sqrt( t );
   } else {
-    std::cout << " Hello, pstar is less than 0.0" << std::endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << " Hello, pstar is less than 0.0" << std::endl;
     p = 0.04;
   }
   return p;
 }
 
 double EvtDToKpienu::getF1( const double m, const double m0, const double m_c1, const double m_c2,
-                            const double rBW )
+                            const double rBW ) const
 {
   double pStar   = getPStar( m, m_c1, m_c2 );
   double pStar0  = getPStar( m0, m_c1, m_c2 );
@@ -444,7 +465,7 @@ double EvtDToKpienu::getF1( const double m, const double m0, const double m_c1, 
 }
 
 double EvtDToKpienu::getF2( const double m, const double m0, const double m_c1,
-                            const double m_c2, const double rBW )
+                            const double m_c2, const double rBW ) const
 {
   double pStar   = getPStar( m, m_c1, m_c2 );
   double pStar0  = getPStar( m0, m_c1, m_c2 );
@@ -461,7 +482,7 @@ double EvtDToKpienu::getF2( const double m, const double m0, const double m_c1,
 
 double EvtDToKpienu::getWidth0( const double m, const double m0,
                                 const double m_c1, const double m_c2,
-                                const double width0 )
+                                const double width0 ) const
 {
   double pStar  = getPStar( m, m_c1, m_c2 );
   double pStar0 = getPStar( m0, m_c1, m_c2 );
@@ -471,7 +492,7 @@ double EvtDToKpienu::getWidth0( const double m, const double m0,
 
 double EvtDToKpienu::getWidth1( const double m, const double m0,
                                 const double m_c1, const double m_c2,
-                                const double width0, const double rBW )
+                                const double width0, const double rBW ) const
 {
   double pStar  = getPStar( m, m_c1, m_c2 );
   double pStar0 = getPStar( m0, m_c1, m_c2 );
@@ -482,7 +503,7 @@ double EvtDToKpienu::getWidth1( const double m, const double m0,
 
 double EvtDToKpienu::getWidth2( const double m, const double m0,
                                 const double m_c1, const double m_c2,
-                                const double width0, const double rBW )
+                                const double width0, const double rBW ) const
 {
   double pStar  = getPStar( m, m_c1, m_c2 );
   double pStar0 = getPStar( m0, m_c1, m_c2 );
@@ -491,7 +512,7 @@ double EvtDToKpienu::getWidth2( const double m, const double m0,
   return width;
 }
 
-EvtComplex EvtDToKpienu::getCoef( const double rho, const double phi )
+EvtComplex EvtDToKpienu::getCoef( const double rho, const double phi ) const
 {
   EvtComplex coef( rho * cos( phi ), rho * sin( phi ) );
   return coef;
