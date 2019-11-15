@@ -187,6 +187,7 @@
 #include "EvtGenModels/EvtLambdacPHH.hh"
 
 #include "EvtGenModels/EvtDToKpienu.hh"
+#include "EvtGenModels/EvtPsi2JpsiPiPi.hh"
 
 #include "EvtGenModels/EvtModelReg.hh"
 
@@ -360,5 +361,6 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtLambdacPHH);
 
     modelist.registerModel(new EvtDToKpienu);
+    modelist.registerModel(new EvtPsi2JpsiPiPi);
 
 }
