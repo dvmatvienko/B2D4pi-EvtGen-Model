@@ -4,6 +4,12 @@
 //
 //===========================================================================
 
+10th Feb 2020 John Back & Michal Kreps
+     Added EvtPsi2JpsiPiPi model for psi2S -> J/psi pi+ pi- decays based on
+     hep-ph/1507.07985, courtesy of Aleksei Luchinsky (LHCb). Added the
+     EvtDToKpienu decay model for D -> K pi e nu decays from BESIII,
+     courtesy of Liaoyuan Dong.
+
 16th July 2019 John Back
     Correct imaginary sign for EvtComplex /= (EvtComplex c) operator.
 

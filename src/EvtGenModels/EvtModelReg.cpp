@@ -186,7 +186,11 @@
 
 #include "EvtGenModels/EvtLambdacPHH.hh"
 
+#include "EvtGenModels/EvtDToKpienu.hh"
+#include "EvtGenModels/EvtPsi2JpsiPiPi.hh"
+
 #include "EvtGenModels/EvtModelReg.hh"
+
 using std::fstream;
 using std::cout;
 using std::endl;
@@ -355,5 +359,8 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtPhspFlatLifetime);
 
     modelist.registerModel(new EvtLambdacPHH);
+
+    modelist.registerModel(new EvtDToKpienu);
+    modelist.registerModel(new EvtPsi2JpsiPiPi);
 
 }
