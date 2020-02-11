@@ -19,7 +19,6 @@ class EvtPropBreitWignerRel : public EvtPropagator {
 public:
 
   EvtPropBreitWignerRel(double m0, double g0);
-  EvtPropBreitWignerRel(const EvtPropBreitWignerRel& other);
 
   EvtAmplitude<EvtPoint1D>* clone() const override;
 

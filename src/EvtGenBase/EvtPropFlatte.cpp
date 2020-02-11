@@ -26,16 +26,6 @@ EvtPropFlatte::EvtPropFlatte(double m0,
 {}
 
 
-EvtPropFlatte::EvtPropFlatte(const EvtPropFlatte& other) :
-  EvtPropagator(other),
-  _m0a (other._m0a),
-  _m0b (other._m0b),
-  _g1  (other._g1),
-  _m1a (other._m1a),
-  _m1b (other._m1b)
-{}
-
-
 EvtAmplitude<EvtPoint1D>* EvtPropFlatte::clone() const
 {
   return new EvtPropFlatte(*this);

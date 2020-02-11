@@ -21,6 +21,7 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
 #include "EvtGenBase/EvtPDL.hh"

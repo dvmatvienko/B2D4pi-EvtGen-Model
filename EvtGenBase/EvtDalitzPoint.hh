@@ -34,7 +34,6 @@ public:
   EvtDalitzPoint(double mA, double mB, double mC,
 		 EvtCyclic3::Pair i, double qres, double qhel, double qsum);
   EvtDalitzPoint(const EvtDalitzPlot&, const EvtDalitzCoord&);
-  EvtDalitzPoint(const EvtDalitzPoint& other);
 
   EvtDalitzCoord getDalitzPoint(EvtCyclic3::Pair i, EvtCyclic3::Pair j) const;
   EvtDalitzPlot  getDalitzPlot() const;

@@ -59,11 +59,6 @@ EvtDalitzPoint::EvtDalitzPoint(const EvtDalitzPlot& dp, const EvtDalitzCoord& x)
 
 }
 
-EvtDalitzPoint::EvtDalitzPoint(const EvtDalitzPoint& other)
-  : _mA(other._mA), _mB(other._mB), _mC(other._mC),
-    _qAB(other._qAB), _qBC(other._qBC), _qCA(other._qCA)
-{}
-
 double EvtDalitzPoint::q(EvtCyclic3::Pair i) const
 {
   double ret = _qAB;

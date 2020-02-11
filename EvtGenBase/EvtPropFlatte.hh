@@ -21,7 +21,6 @@ public:
   EvtPropFlatte(double m0,
 		double g0, double m0a, double m0b,
 		double g1, double m1a, double m1b);
-  EvtPropFlatte(const EvtPropFlatte& other);
 
   EvtAmplitude<EvtPoint1D>* clone() const override;
 

@@ -22,8 +22,6 @@ public:
 
   EvtTwoBodyKine();
   EvtTwoBodyKine(double mA, double mB, double mAB);
-  EvtTwoBodyKine(const EvtTwoBodyKine& other);
-  ~EvtTwoBodyKine();
 
   // Accessors
 

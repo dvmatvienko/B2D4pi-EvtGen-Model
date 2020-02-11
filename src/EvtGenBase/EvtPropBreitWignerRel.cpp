@@ -17,11 +17,6 @@ EvtPropBreitWignerRel::EvtPropBreitWignerRel(double m0, double g0)
 {}
 
 
-EvtPropBreitWignerRel::EvtPropBreitWignerRel(const EvtPropBreitWignerRel& other)
-  : EvtPropagator(other)
-{}
-
-
 EvtAmplitude<EvtPoint1D>* EvtPropBreitWignerRel::clone() const
 {
   return new EvtPropBreitWignerRel(*this);

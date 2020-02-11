@@ -30,11 +30,7 @@ public:
   EvtPdfMax(Point p, double value) 
     : _value(value), _valueKnown(true),  _locKnown(true), _loc(p) 
   {}
-  EvtPdfMax(const EvtPdfMax& other)     
-    : COPY_MEM(_value), COPY_MEM(_valueKnown),  COPY_MEM(_locKnown), COPY_MEM(_loc)
-  {}
-  ~EvtPdfMax() {}
-  
+
   bool valueKnown() const { return _valueKnown; }
   double value() const { assert(_valueKnown); return _value; }
   bool locKnown() const { return _locKnown; }

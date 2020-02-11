@@ -28,8 +28,6 @@ public:
   EvtDalitzPlot();
   EvtDalitzPlot(double mA, double mB, double mC, double bigM, double ldel = 0., double rdel = 0.);
   EvtDalitzPlot(const EvtDecayMode& mode, double ldel = 0., double rdel = 0.);
-  EvtDalitzPlot(const EvtDalitzPlot& other);
-  ~EvtDalitzPlot();
   bool operator==(const EvtDalitzPlot& other) const;  
   const EvtDalitzPlot* clone() const;
 

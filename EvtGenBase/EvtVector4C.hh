@@ -29,12 +29,6 @@
 
 class EvtVector4C final {
 
-  friend EvtVector4C rotateEuler(const EvtVector4C& e,
-				 double alpha,double beta,double gamma);
-  friend EvtVector4C boostTo(const EvtVector4C& e,
-			     const EvtVector4R p4);
-  friend EvtVector4C boostTo(const EvtVector4C& e,
-			     const EvtVector3R boost);
   inline friend EvtVector4C operator*(double d,const EvtVector4C& v2);
   inline friend EvtVector4C operator*(const EvtComplex& c,const EvtVector4C& v2);
   inline friend EvtVector4C operator*(const EvtVector4C& v2,const EvtComplex& c);
@@ -59,7 +53,6 @@ public:
   inline EvtComplex cont(const EvtVector4C& v4) const;
   inline EvtVector4C conj() const;
   EvtVector3C vec() const;
-  inline EvtVector4C& operator=(const EvtVector4C& v2);
   inline EvtVector4C& operator-=(const EvtVector4C& v2);
   inline EvtVector4C& operator+=(const EvtVector4C& v2);
   inline EvtVector4C& operator*=(const EvtComplex& c);
@@ -74,15 +67,12 @@ private:
 
 };
 
-inline EvtVector4C& EvtVector4C::operator=(const EvtVector4C& v2){
-
-  v[0]=v2.v[0];
-  v[1]=v2.v[1];
-  v[2]=v2.v[2];
-  v[3]=v2.v[3];
-
-  return *this;
-}
+EvtVector4C rotateEuler(const EvtVector4C& e,
+		double alpha,double beta,double gamma);
+EvtVector4C boostTo(const EvtVector4C& e,
+		const EvtVector4R p4);
+EvtVector4C boostTo(const EvtVector4C& e,
+		const EvtVector3R boost);
 
 inline EvtVector4C& EvtVector4C::operator+=(const EvtVector4C& v2){
 
