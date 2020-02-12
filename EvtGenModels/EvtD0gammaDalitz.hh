@@ -28,7 +28,6 @@ private:
   int _d1;
   int _d2;
   int _d3;
-  int _flag;
 
   bool _isKsPiPi;
 

@@ -90,8 +90,7 @@ public:
   }
 
   virtual EvtValError compute_integral() const
-    //make sun happy - return something
-  { printf("Analytic integration of PDF is not defined\n"); assert(0); return compute_integral();}
+  { printf("Analytic integration of PDF is not defined\n"); assert(0); return EvtValError{};}
   virtual EvtValError compute_integral(int) const { return compute_integral(); }
 
   //  Monte Carlo integration.
@@ -254,7 +253,6 @@ EvtValError EvtPdf<T>::compute_mc_integral(const EvtPdf<T>& pc, int N)
 {
   assert(N > 0);
 
-  EvtValError otherItg = pc.getItg();
   EvtPdfDiv<T> pdfdiv(*this,pc);
   EvtPdfUnary<T> unary(pdfdiv);
 

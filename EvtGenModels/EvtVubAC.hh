@@ -30,7 +30,6 @@ public:
 private:
   // Input parameters
   double mB;
-  double lambda2;
 
   double alphaSmZ;
   double alphaSmB;

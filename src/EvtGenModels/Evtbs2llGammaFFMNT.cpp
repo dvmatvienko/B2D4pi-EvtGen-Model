@@ -129,16 +129,16 @@ void Evtbs2llGammaFFMNT::getPhotonFF(int decay_id, double fb,
       Ftv_WA =(16.0/3.0)*(lambda_qu + lambda_qc)*(a1/c7gam)*(fb/mb);
       Ftv = (1.0 + mq/mb)*Ftv - Ftv_WA;
       Fta = (1.0 - mq/mb)*Fta;
-      Fv  = Fv;
-      Fa  = Fa;
+      //Fv  = Fv;
+      //Fa  = Fa;
     break;
     /* q \bar b -> l^+ l^- \gamma transitions */
     case 1:
       Ftv_WA =(16.0/3.0)*conj(lambda_qu+lambda_qc)*(a1/c7gam)*(fb/mb);
       Ftv = (1.0 + mq/mb)*Ftv + Ftv_WA;
       Fta = (1.0 - mq/mb)*Fta;          // The change of the sign
-      Fv  = Fv;                         // is included in the
-      Fa  = Fa;                         // amplitudes definition!
+      //Fv  = Fv;                         // is included in the
+      //Fa  = Fa;                         // amplitudes definition!
 
     break;
   };
