@@ -116,9 +116,9 @@ void EvtbTosllBall::init(){
 
   _ballffmodel = std::make_unique<EvtbTosllBallFF>(theFormFactorModel);
   if (mesontype == EvtSpinType::SCALAR){
-    _calcamp = std::make_unique<EvtbTosllScalarAmp>(-0.313,4.344,-4.669);
+    _calcamp = std::make_unique<EvtbTosllScalarAmp>();
   } else if (mesontype == EvtSpinType::VECTOR){
-    _calcamp = std::make_unique<EvtbTosllVectorAmp>(-0.313,4.344,-4.669);
+    _calcamp = std::make_unique<EvtbTosllVectorAmp>();
   }
 
 }

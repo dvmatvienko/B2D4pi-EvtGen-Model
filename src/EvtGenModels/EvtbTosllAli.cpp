@@ -100,10 +100,10 @@ void EvtbTosllAli::init(){
 
   _aliffmodel = std::make_unique<EvtbTosllAliFF>();
   if (mesontype == EvtSpinType::SCALAR){
-    _calcamp = std::make_unique<EvtbTosllScalarAmp>(-0.313,4.344,-4.669);
+    _calcamp = std::make_unique<EvtbTosllScalarAmp>();
   }
   if (mesontype == EvtSpinType::VECTOR){
-    _calcamp = std::make_unique<EvtbTosllVectorAmp>(-0.313,4.344,-4.669);
+    _calcamp = std::make_unique<EvtbTosllVectorAmp>();
   }
 
 }
