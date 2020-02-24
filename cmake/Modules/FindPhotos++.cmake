@@ -11,14 +11,14 @@
 
 # Enforce a minimal list if none is explicitly requested
 if(NOT PHOTOS++_FIND_COMPONENTS)
-  set(PHOTOS++_FIND_COMPONENTS pp ppHepMC)
+  set(PHOTOS++_FIND_COMPONENTS pp ppHepMC ppHepMC3)
 endif()
 
 foreach(component ${PHOTOS++_FIND_COMPONENTS})
   find_library(PHOTOS++_${component}_LIBRARY NAMES Photos${component}
-               HINTS ${PHOTOS++_ROOT_DIR}/lib
-                     $ENV{PHOTOSPP_ROOT_DIR}/lib
-                     ${PHOTOSPP_ROOT_DIR}/lib)
+               HINTS ${PHOTOS++_ROOT_DIR}/lib $ENV{PHOTOSPP_ROOT_DIR}/lib ${PHOTOSPP_ROOT_DIR}/lib
+                     ${PHOTOS++_ROOT_DIR}/lib64 $ENV{PHOTOSPP_ROOT_DIR}/lib64 ${PHOTOSPP_ROOT_DIR}/lib64
+               )
   if (PHOTOS++_${component}_LIBRARY)
     set(PHOTOS++_${component}_FOUND 1)
     list(APPEND PHOTOS++_LIBRARIES ${PHOTOS++_${component}_LIBRARY})

@@ -10,19 +10,15 @@
 #  TAUOLA++_LIBRARY_DIRS (not cached)
 
 # Enforce a minimal list if none is explicitly requested
-if(NOT Tauola++_FIND_COMPONENTS)
-  set(Tauola++_FIND_COMPONENTS Fortran CxxInterface)
+if(NOT TAUOLA++_FIND_COMPONENTS)
+  set(TAUOLA++_FIND_COMPONENTS Fortran CxxInterface HepMC HepMC3)
 endif()
 
-#message(STATUS "Tauola++ CMAKE_PREFIX_PATH")
-#foreach(_x ${CMAKE_PREFIX_PATH})
-#  message(STATUS "Tauola++ -- ${_x}")
-#endforeach()
-
-foreach(component ${Tauola++_FIND_COMPONENTS})
+foreach(component ${TAUOLA++_FIND_COMPONENTS})
   find_library(TAUOLA++_${component}_LIBRARY NAMES Tauola${component}
-               HINTS ${TAUOLA++_ROOT_DIR}/lib
-                     $ENV{TAUOLAPP_ROOT_DIR}/lib ${TAUOLAPP_ROOT_DIR}/lib)
+               HINTS ${TAUOLA++_ROOT_DIR}/lib $ENV{TAUOLAPP_ROOT_DIR}/lib ${TAUOLAPP_ROOT_DIR}/lib
+                     ${TAUOLA++_ROOT_DIR}/lib64 $ENV{TAUOLAPP_ROOT_DIR}/lib64 ${TAUOLAPP_ROOT_DIR}/lib64
+                      )
   if (TAUOLA++_${component}_LIBRARY)
     set(TAUOLA++_${component}_FOUND 1)
     list(APPEND TAUOLA++_LIBRARIES ${TAUOLA++_${component}_LIBRARY})
