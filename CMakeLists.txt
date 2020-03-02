@@ -41,10 +41,19 @@ include(CompilerFlags)
 option(EVTGEN_PYTHIA "Enable/disable linking with Pythia8" OFF)
 option(EVTGEN_PHOTOS "Enable/disable linking with Photos++" OFF)
 option(EVTGEN_TAUOLA "Enable/disable linking with Tauola++" OFF)
+option(EVTGEN_HEPMC3 "Enable/disable linking with HepMC3" ON)
+if (EVTGEN_HEPMC3)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEVTGEN_HEPMC3")
+find_package(HepMC3 REQUIRED)
+message(STATUS "EvtGen: Linking with HepMC3")
+else()
 message(STATUS "EvtGen: Linking with HepMC2")
-message(STATUS "EvtGen: Optional linking with Pythia8  ${EVTGEN_PYTHIA}")
-message(STATUS "EvtGen: Optional linking with Photos++ ${EVTGEN_PHOTOS}")
-message(STATUS "EvtGen: Optional linking with Tauola++ ${EVTGEN_TAUOLA}")
+endif()
+
+message(STATUS "EvtGen: Optional linking with Pythia8  EVTGEN_PYTHIA ${EVTGEN_PYTHIA}")
+message(STATUS "EvtGen: Optional linking with Photos++ EVTGEN_PHOTOS ${EVTGEN_PHOTOS}")
+message(STATUS "EvtGen: Optional linking with Tauola++ EVTGEN_TAUOLA ${EVTGEN_TAUOLA}")
+message(STATUS "EvtGen: Optional linking with HepMC3 EVTGEN_HEPMC3   ${EVTGEN_HEPMC3}")
 include(ExternalDependencies)
 
 # Now build the library
@@ -58,8 +67,8 @@ configure_file(evt.pdl ${CMAKE_CURRENT_BINARY_DIR}/evt.pdl COPYONLY)
 # Build the executables in the test and validation directories
 option(EVTGEN_BUILD_TESTS       "Enable/disable building of executables in 'test' directory"       OFF)
 option(EVTGEN_BUILD_VALIDATIONS "Enable/disable building of executables in 'validation' directory" OFF)
-message(STATUS "EvtGen: Building of executables in 'test' directory ${EVTGEN_BUILD_TESTS}")
-message(STATUS "EvtGen: Building of executables in 'validation' directory ${EVTGEN_BUILD_VALIDATIONS}")
+message(STATUS "EvtGen: Building of executables in 'test' directory EVTGEN_BUILD_TESTS ${EVTGEN_BUILD_TESTS}")
+message(STATUS "EvtGen: Building of executables in 'validation' directory EVTGEN_BUILD_VALIDATIONS ${EVTGEN_BUILD_VALIDATIONS}")
 if(${EVTGEN_BUILD_TESTS})
     add_subdirectory(test)
 endif()
@@ -74,7 +83,7 @@ install(DIRECTORY EvtGenExternal DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY EvtGenModels   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install the particle properties and decay tables
-install(FILES DECAY.DEC DECAY.XML evt.pdl DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES DECAY.DEC DECAY.XML evt.pdl DESTINATION ${CMAKE_INSTALL_DATADIR})
 
 # Generate CMake config files, which can be used by other projects
 include(CMakePackageConfigHelpers)
@@ -94,11 +103,11 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfigVersion
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
     )
 
 install(
     EXPORT "EvtGenTargets"
     NAMESPACE "EvtGen::"
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
     )

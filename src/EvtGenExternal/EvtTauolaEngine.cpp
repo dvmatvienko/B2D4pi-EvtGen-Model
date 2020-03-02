@@ -30,13 +30,6 @@
 
 #include "Tauola/Log.h"
 #include "Tauola/Tauola.h"
-#include "Tauola/TauolaHepMCEvent.h"
-#include "Tauola/TauolaHepMCParticle.h"
-#include "Tauola/TauolaParticle.h"
-
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
-#include "HepMC/Units.h"
 
 #include <iostream>
 #include <sstream>
@@ -375,15 +368,15 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   // We also consider all other tau particles from the parent decay in the logic below.
   
   // Create the dummy event.
-  HepMC::GenEvent* theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);
+  GenEvent* theEvent = new GenEvent(Units::GEV,Units::MM);
   
   // Create the decay "vertex".
-  HepMC::GenVertex* theVertex = new HepMC::GenVertex();
+  GenVertexPtr theVertex = newGenVertexPtr();
   theEvent->add_vertex(theVertex);
   
   // Get the parent of this tau particle
   EvtParticle* theParent = tauParticle->getParent();
-  HepMC::GenParticle* hepMCParent(0);
+  GenParticlePtr hepMCParent(0);
 
   // Assign the parent particle as the incoming particle to the vertex.
   if (theParent != 0) {
@@ -392,7 +385,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   } else {
     // The tau particle has no parent. Set "itself" as the incoming particle for the first vertex.
     // This is needed, otherwise Tauola warns of momentum non-conservation for this (1st) vertex.    
-    HepMC::GenParticle* tauGenInit = this->createGenParticle(tauParticle);
+    GenParticlePtr tauGenInit = this->createGenParticle(tauParticle);
     theVertex->add_particle_in(tauGenInit);
   }
 
@@ -410,7 +403,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   // Map to store (HepMC,EvtParticle) pairs for each tau candidate from the parent
   // decay. This is needed to find out what EvtParticle corresponds to a given tau HepMC
   // candidate: we do not want to recreate existing EvtParticle pointers.
-  std::map<HepMC::GenParticle*, EvtParticle*> tauMap;
+  std::map<GenParticlePtr, EvtParticle*> tauMap;
 
   // Keep track of the original EvtId of the parent particle, since we may need to set
   // the equivalent HepMCParticle has a gauge boson to let Tauola calculate spin effects
@@ -433,7 +426,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
     
       if (theDaughter != 0) {
         
-	HepMC::GenParticle* hepMCDaughter = this->createGenParticle(theDaughter);
+	GenParticlePtr hepMCDaughter = this->createGenParticle(theDaughter);
 	theVertex->add_particle_out(hepMCDaughter);
 
 	EvtId theId = theDaughter->getId();
@@ -472,7 +465,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   } else {
 
     // We only have the one tau particle. Store only this in the map.
-    HepMC::GenParticle* singleTau = this->createGenParticle(tauParticle);
+    GenParticlePtr singleTau = this->createGenParticle(tauParticle);
     theVertex->add_particle_out(singleTau);
     tauMap[singleTau] = tauParticle;
 
@@ -480,7 +473,11 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   
   // Now pass the event to Tauola for processing
   // Create a Tauola event object
+#ifdef EVTGEN_HEPMC3
+  Tauolapp::TauolaHepMC3Event tauolaEvent(theEvent);
+#else
   Tauolapp::TauolaHepMCEvent tauolaEvent(theEvent);
+#endif
 
   // Run the Tauola algorithm
   tauolaEvent.decayTaus();
@@ -493,12 +490,16 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   // re-decayed since we check at the start of this function if the tau particle has 
   // any daughters before running Tauola decayTaus().
   
+#ifdef EVTGEN_HEPMC3
+  for (auto aParticle: theEvent->particles()) {
+#else
   HepMC::GenEvent::particle_iterator eventIter;
   for (eventIter = theEvent->particles_begin(); eventIter != theEvent->particles_end(); 
        ++eventIter) {
     
     // Check to see if we have a tau particle
     HepMC::GenParticle* aParticle = (*eventIter);
+#endif
     
     if (aParticle != 0 && abs(aParticle->pdg_id()) == _tauPDG) {
       
@@ -514,22 +515,27 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
 	tauP4CM.set(tauP4CM.get(0), -tauP4CM.get(1), -tauP4CM.get(2), -tauP4CM.get(3));
       
 	// Get the decay vertex for the tau particle
-	HepMC::GenVertex* endVertex = aParticle->end_vertex();
-	HepMC::GenVertex::particle_iterator tauIter;
+	GenVertexPtr endVertex = aParticle->end_vertex();
+	
       
 	std::vector<EvtId> daugIdVect;
 	std::vector<EvtVector4R> daugP4Vect;
       
 	// Loop through all descendants
+#ifdef EVTGEN_HEPMC3
+	for (auto tauDaug: HepMC3::Relatives::DESCENDANTS(endVertex)) {
+#else
+	HepMC::GenVertex::particle_iterator tauIter;
+	// Loop through all descendants
 	for (tauIter = endVertex->particles_begin(HepMC::descendants);
 	     tauIter != endVertex->particles_end(HepMC::descendants); ++tauIter) {
 	
 	  HepMC::GenParticle* tauDaug = (*tauIter);
-	
+#endif
 	  // Check to see if this descendant has its own decay vertex, e.g. rho resonance.
 	  // If so, skip this daughter and continue looping through the descendant list
 	  // until we reach the final "stable" products (e.g. pi pi from rho -> pi pi).
-	  HepMC::GenVertex* daugDecayVtx = tauDaug->end_vertex();
+	  GenVertexPtr daugDecayVtx = tauDaug->end_vertex();
 	  if (daugDecayVtx != 0) {continue;}
 	  
 	  // Store the particle id and 4-momentum
@@ -537,7 +543,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
 	  EvtId daugId = EvtPDL::evtIdFromStdHep(tauDaugPDG);
 	  daugIdVect.push_back(daugId);
 	  
-	  HepMC::FourVector tauDaugP4 = tauDaug->momentum();
+	  FourVector tauDaugP4 = tauDaug->momentum();
 	  double tauDaug_px = tauDaugP4.px();
 	  double tauDaug_py = tauDaugP4.py();
 	  double tauDaug_pz = tauDaugP4.pz();
@@ -578,7 +584,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
 
 }
 
-HepMC::GenParticle* EvtTauolaEngine::createGenParticle(EvtParticle* theParticle) {
+GenParticlePtr EvtTauolaEngine::createGenParticle(EvtParticle* theParticle) {
 
   // Method to create an HepMC::GenParticle version of the given EvtParticle.
   if (theParticle == 0) {return 0;}
@@ -592,14 +598,14 @@ HepMC::GenParticle* EvtTauolaEngine::createGenParticle(EvtParticle* theParticle)
   double py = p4.get(2);
   double pz = p4.get(3);
 
-  HepMC::FourVector hepMC_p4(px, py, pz, E);
+  FourVector hepMC_p4(px, py, pz, E);
 
   int PDGInt = EvtPDL::getStdHep(theParticle->getId());
 
   // Set the status flag for the particle.
   int status = Tauolapp::TauolaParticle::HISTORY;
 
-  HepMC::GenParticle* genParticle = new HepMC::GenParticle(hepMC_p4, PDGInt, status);
+  GenParticlePtr genParticle = newGenParticlePtr(hepMC_p4, PDGInt, status);
 
   return genParticle;
 

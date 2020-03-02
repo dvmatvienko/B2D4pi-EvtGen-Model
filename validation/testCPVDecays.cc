@@ -21,10 +21,8 @@
 #include "EvtGenBase/EvtAbsRadCorr.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/SimpleVector.h"
+#include "EvtGenBase/EvtHepMCEvent.hh"
+
 
 #ifdef EVTGEN_EXTERNAL
 #include "EvtGenExternal/EvtExternalGenList.hh"
@@ -55,9 +53,9 @@ TH1F* H_B0bar = new TH1F("B0bar", "", 300, 0.0, 12.0);
 
 int B0Id(511), B0barId(-511);
 
-void storeBFlightTimes(HepMC::GenEvent* theEvent);
+void storeBFlightTimes(GenEvent* theEvent);
 bool checkSignal(std::vector<int>& daugIdVect);
-double calcFlightTime(HepMC::FourVector& BDecayVtx, HepMC::FourVector& B4mtm);
+double calcFlightTime(FourVector& BDecayVtx, FourVector& B4mtm);
 double sineFitFun(double* x, double* p);
 double timeFitFun(double* x, double* p);
 
@@ -149,7 +147,7 @@ int main(int argc, char** argv) {
     EvtHepMCEvent* theEvent = myGenerator.generateDecay(PDGId, pInit, origin, spinDensity);
 
     // Retrieve the HepMC event information
-    HepMC::GenEvent* hepMCEvent = theEvent->getEvent();
+    GenEvent* hepMCEvent = theEvent->getEvent();
     //hepMCEvent->print();
 
     // Fill the B0/B0bar flight time histograms
@@ -225,8 +223,86 @@ int main(int argc, char** argv) {
   return 0;
 
 }
+#ifdef EVTGEN_HEPMC3
+void storeBFlightTimes(GenEvent* theEvent) {
 
-void storeBFlightTimes(HepMC::GenEvent* theEvent) {
+  std::list<GenVertexPtr> allVertices;
+  
+
+  // Loop over vertices in the event
+  for (auto theVertex: theEvent->vertices()) {
+
+    if (theVertex == 0) {continue;}
+
+    // Check to see if the incoming particle is a B candidate.
+    // If so, also look at the outgoing particles to see if we have a signal decay.
+    // For these, get the B decay vertex position and the B 4-momentum to calculate
+    // the B lifetime.
+    
+    bool gotB0(false), gotB0bar(false);
+    FourVector B4mtm;
+    
+    
+    for (auto inParticle: theVertex->particles_in()) {
+      if (inParticle == 0) {continue;}
+      
+      int inPDGId = inParticle->pdg_id();
+      if (inPDGId == B0Id) {
+	gotB0 = true;
+      } else if (inPDGId == B0barId) {
+	gotB0bar = true;
+      }
+      
+      if (gotB0 == true || gotB0bar == true) {
+	B4mtm = inParticle->momentum();
+      }
+      
+    } // Loop over ingoing vertex particles
+    
+    if (gotB0 == true || gotB0bar == true) {
+      
+      // Check outgoing particles
+      std::vector<int> daugIdVect;
+      for (auto outParticle: theVertex->particles_out()) {
+	if (outParticle != 0) {
+	  int outPDGId = outParticle->pdg_id();
+	  daugIdVect.push_back(outPDGId);
+	}
+	
+      } // Loop over outgoing vertex particles
+      
+	// Check if we have the signal decay
+      bool gotSignal = checkSignal(daugIdVect);
+      
+      // Fill the flight time histograms for signal B decays
+      if (gotSignal == true) {
+	
+	FourVector BDecayVtx = theVertex->position();
+	double flightTime = calcFlightTime(BDecayVtx, B4mtm);
+	
+	if (gotB0 == true) {
+	  
+	  H_B0->Fill(flightTime);
+	  H_total->Fill(flightTime);
+	  
+	} else {
+	  
+	  H_B0bar->Fill(flightTime);
+	  H_total->Fill(flightTime);
+	  
+	}
+	
+      } // Got signal B decay (for flight-time histograms)
+      
+    } // Got a B candidate
+    
+  } // Loop over event vertices
+  
+}
+
+#else
+
+void storeBFlightTimes(GenEvent* theEvent) {
 
   std::list<HepMC::GenVertex*> allVertices;
   HepMC::GenEvent::vertex_iterator vertexIter;
@@ -246,7 +322,7 @@ void storeBFlightTimes(HepMC::GenEvent* theEvent) {
     // the B lifetime.
     
     bool gotB0(false), gotB0bar(false);
-    HepMC::FourVector B4mtm;
+    FourVector B4mtm;
     
     HepMC::GenVertex::particles_in_const_iterator inIter;
     for (inIter = theVertex->particles_in_const_begin();
@@ -315,12 +391,22 @@ void storeBFlightTimes(HepMC::GenEvent* theEvent) {
   
 }
 
-double calcFlightTime(HepMC::FourVector& BDecayVtx, HepMC::FourVector& B4mtm) {
+
+#endif
+
+double calcFlightTime(FourVector& BDecayVtx, FourVector& B4mtm) {
 
   double flightTime(0.0);
 
+#ifdef EVTGEN_HEPMC3
+  double distance = BDecayVtx.length()*1e-3; // metres
+  double momentum = B4mtm.length(); // GeV/c
+#else
   double distance = BDecayVtx.rho()*1e-3; // metres
   double momentum = B4mtm.rho(); // GeV/c
+#endif
+
+
   double BMass = 5.2795; // GeV/c^2
   double c0 = 299792458.0; // m/s
 

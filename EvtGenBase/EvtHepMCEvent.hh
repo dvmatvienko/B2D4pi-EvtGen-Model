@@ -23,9 +23,33 @@
 
 #include "EvtGenBase/EvtVector4R.hh"
 
+#ifdef   EVTGEN_HEPMC3
+#include "HepMC3/GenEvent.h"
+#include "HepMC3/GenParticle.h"
+#include "HepMC3/GenVertex.h"
+#include "HepMC3/Print.h"
+#include "HepMC3/Units.h"
+typedef HepMC3::GenParticlePtr GenParticlePtr;
+typedef HepMC3::GenVertexPtr GenVertexPtr;
+typedef HepMC3::GenEvent GenEvent;
+typedef HepMC3::FourVector FourVector;
+typedef HepMC3::Units Units;
+inline GenParticlePtr  newGenParticlePtr( const FourVector &mom=FourVector::ZERO_VECTOR(), int pid=0, int status=0){return std::make_shared<HepMC3::GenParticle>(mom,pid,status);}
+inline GenVertexPtr    newGenVertexPtr( const FourVector &pos=FourVector::ZERO_VECTOR()){return std::make_shared<HepMC3::GenVertex>(pos);}
+#else
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
+#include "HepMC/GenVertex.h"
 #include "HepMC/SimpleVector.h"
+#include "HepMC/Units.h"
+typedef HepMC::GenParticle* GenParticlePtr;
+typedef HepMC::GenVertex* GenVertexPtr;
+typedef HepMC::GenEvent GenEvent;
+typedef HepMC::FourVector FourVector;
+#define Units HepMC::Units
+inline GenParticlePtr  newGenParticlePtr( const FourVector &mom=FourVector(0.0,0.0,0.0,0.0), int pid=0, int status=0){return new HepMC::GenParticle(mom,pid,status);}
+inline GenVertexPtr    newGenVertexPtr( const FourVector &pos=FourVector(0.0,0.0,0.0,0.0)){return new HepMC::GenVertex(pos);}
+#endif
 
 class EvtParticle;
 
@@ -45,17 +69,17 @@ public:
   void constructEvent(EvtParticle* baseParticle);
   void constructEvent(EvtParticle* baseParticle, EvtVector4R& translation);
   
-  HepMC::GenEvent* getEvent() {return _theEvent;}
+  GenEvent* getEvent() {return _theEvent;}
 
   // Methods used to create GenParticles and FourVectors of vertices.
   // Make these public so that other classes may call them if they use EvtHepMCEvent.
 
   // Create a GenParticle using info from the EvtParticle, specifying what frame
   // the 4-momentum is from.
-  HepMC::GenParticle* createGenParticle(EvtParticle* theParticle, int frameType);
+  GenParticlePtr createGenParticle(EvtParticle* theParticle, int frameType);
 
   // Find out the decay vertex position for the given EvtParticle.
-  HepMC::FourVector getVertexCoord(EvtParticle* theParticle);
+  FourVector getVertexCoord(EvtParticle* theParticle);
 
 protected:
 
@@ -67,9 +91,9 @@ private:
   // Add a vertex to the event. This is called by the constructEvent function
   // and is recursive, i.e. it loops through all possible daughter particles and
   // their descendents.
-  void addVertex(EvtParticle* inEvtParticle, HepMC::GenParticle* inGenParticle);
+  void addVertex(EvtParticle* inEvtParticle, GenParticlePtr inGenParticle);
 
-  HepMC::GenEvent* _theEvent;
+  GenEvent* _theEvent;
   EvtVector4R _translation;
 
 };

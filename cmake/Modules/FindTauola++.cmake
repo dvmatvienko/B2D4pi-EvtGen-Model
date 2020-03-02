@@ -1,49 +1,53 @@
 # - Try to find Tauola++
 # Defines:
 #
-#  TAUOLA++_FOUND
-#  TAUOLA++_INCLUDE_DIR
-#  TAUOLA++_INCLUDE_DIRS (not cached)
-#  TAUOLA++_<component>_LIBRARY
-#  TAUOLA++_<component>_FOUND
-#  TAUOLA++_LIBRARIES (not cached)
-#  TAUOLA++_LIBRARY_DIRS (not cached)
+#  Tauola++_FOUND
+#  Tauola++_INCLUDE_DIR
+#  Tauola++_INCLUDE_DIRS (not cached)
+#  Tauola++_<component>_LIBRARY
+#  Tauola++_<component>_FOUND
+#  Tauola++_LIBRARIES (not cached)
+#  Tauola++_LIBRARY_DIRS (not cached)
 
-# Enforce a minimal list if none is explicitly requested
-if(NOT TAUOLA++_FIND_COMPONENTS)
-  set(TAUOLA++_FIND_COMPONENTS Fortran CxxInterface HepMC HepMC3)
+# Check all if none is explicitly requested
+if(NOT Tauola++_FIND_COMPONENTS)
+  set(Tauola++_FIND_COMPONENTS Fortran CxxInterface HepMC HepMC3)
 endif()
-
-foreach(component ${TAUOLA++_FIND_COMPONENTS})
-  find_library(TAUOLA++_${component}_LIBRARY NAMES Tauola${component}
-               HINTS ${TAUOLA++_ROOT_DIR}/lib $ENV{TAUOLAPP_ROOT_DIR}/lib ${TAUOLAPP_ROOT_DIR}/lib
-                     ${TAUOLA++_ROOT_DIR}/lib64 $ENV{TAUOLAPP_ROOT_DIR}/lib64 ${TAUOLAPP_ROOT_DIR}/lib64
+set(Tauola++_FOUND TRUE)
+foreach(component ${Tauola++_FIND_COMPONENTS})
+  find_library(Tauola++_${component}_LIBRARY NAMES Tauola${component}
+               HINTS ${Tauola++_ROOT_DIR}/lib $ENV{TAUOLAPP_ROOT_DIR}/lib ${TAUOLAPP_ROOT_DIR}/lib
+                     ${Tauola++_ROOT_DIR}/lib64 $ENV{TAUOLAPP_ROOT_DIR}/lib64 ${TAUOLAPP_ROOT_DIR}/lib64
                       )
-  if (TAUOLA++_${component}_LIBRARY)
-    set(TAUOLA++_${component}_FOUND 1)
-    list(APPEND TAUOLA++_LIBRARIES ${TAUOLA++_${component}_LIBRARY})
-
-    get_filename_component(libdir ${TAUOLA++_${component}_LIBRARY} PATH)
-    list(APPEND TAUOLA++_LIBRARY_DIRS ${libdir})
+  if (Tauola++_${component}_LIBRARY)
+    set(Tauola++_${component}_FOUND TRUE)
+    list(APPEND Tauola++_LIBRARIES ${Tauola++_${component}_LIBRARY})
+    get_filename_component(libdir ${Tauola++_${component}_LIBRARY} PATH)
+    list(APPEND Tauola++_LIBRARY_DIRS ${libdir})
   else()
-    set(TAUOLA++_${component}_FOUND 0)
+    set(Tauola++_${component}_FOUND FALSE)
+    if (Tauola++_FIND_REQUIRED_${component})
+    set(Tauola++_FOUND FALSE)
+    endif()
   endif()
-  mark_as_advanced(TAUOLA++_${component}_LIBRARY)
+  message(STATUS "EvtGen: Tauola++_${component}_FOUND=${Tauola++_${component}_FOUND}, Tauola++_FIND_REQUIRED_${component}=${Tauola++_FIND_REQUIRED_${component}}  in ${Tauola++_${component}_LIBRARY}")
+  mark_as_advanced(Tauola++_${component}_LIBRARY)
 endforeach()
 
-if(TAUOLA++_LIBRARY_DIRS)
-  list(REMOVE_DUPLICATES TAUOLA++_LIBRARY_DIRS)
+if(Tauola++_LIBRARY_DIRS)
+  list(REMOVE_DUPLICATES Tauola++_LIBRARY_DIRS)
 endif()
 
-find_path(TAUOLA++_INCLUDE_DIR Tauola/Tauola.h
-          HINTS ${TAUOLA++_ROOT_DIR}/include
+find_path(Tauola++_INCLUDE_DIR Tauola/Tauola.h
+          HINTS ${Tauola++_ROOT_DIR}/include
                 $ENV{TAUOLAPP_ROOT_DIR}/include ${TAUOLAPP_ROOT_DIR}/include)
-set(TAUOLA++_INCLUDE_DIRS ${TAUOLA++_INCLUDE_DIR})
-mark_as_advanced(TAUOLA++_INCLUDE_DIR)
+set(Tauola++_INCLUDE_DIRS ${Tauola++_INCLUDE_DIR})
+mark_as_advanced(Tauola++_INCLUDE_DIR)
 
-# handle the QUIETLY and REQUIRED arguments and set TAUOLA++_FOUND to TRUE if
+# handle the QUIETLY and REQUIRED arguments and set Tauola++_FOUND to TRUE if
 # all listed variables are TRUE
+if (Tauola++_FOUND)
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Tauola++ DEFAULT_MSG TAUOLA++_INCLUDE_DIR TAUOLA++_LIBRARIES)
-
-mark_as_advanced(TAUOLA++_FOUND)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Tauola++ DEFAULT_MSG Tauola++_INCLUDE_DIR Tauola++_LIBRARIES)
+endif()
+mark_as_advanced(Tauola++_FOUND)

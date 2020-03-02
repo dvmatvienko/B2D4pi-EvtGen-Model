@@ -1,7 +1,7 @@
 
 # the test executables require ROOT for histogramming etc.
-find_package(ROOT REQUIRED)
-
+find_package(ROOT  QUIET COMPONENTS Hist)
+if (ROOT_FOUND)
 add_library(root_interface INTERFACE IMPORTED)
 target_include_directories(root_interface INTERFACE ${ROOT_INCLUDE_DIRS})
 target_link_libraries(root_interface INTERFACE ${ROOT_LIBRARIES})
@@ -27,3 +27,4 @@ install(DIRECTORY exampleFiles DESTINATION ${CMAKE_INSTALL_PREFIX}/test)
 install(FILES do_tests
 	      DESTINATION ${CMAKE_INSTALL_PREFIX}/test
 	      PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+endif()
