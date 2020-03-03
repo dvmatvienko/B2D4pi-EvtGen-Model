@@ -116,20 +116,20 @@ echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
 if [ "$PYTHIAVER" -lt "8200" ]
 then
-  ./configure 
+  ./configure --enable-shared
 else
   ./configure --with-hepmc3=$INSTALL_BASE/external/HepMC3 --enable-shared
 fi
 make
 
 echo Installing PHOTOS in $INSTALL_BASE/external/PHOTOS
-cd ../PHOTOS
-./configure 
+cd ../PHOTOS 
+./configure --with-hepmc3=$INSTALL_BASE/external/HepMC3
 make
 
 echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
 cd ../TAUOLA
-./configure 
+./configure  --with-hepmc3=$INSTALL_BASE/external/HepMC3
 make
 fi
 

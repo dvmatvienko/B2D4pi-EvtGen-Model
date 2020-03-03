@@ -74,7 +74,7 @@ void EvtHepMCEvent::constructEvent(EvtParticle* baseParticle, EvtVector4R& trans
 GenParticlePtr EvtHepMCEvent::createGenParticle(EvtParticle* theParticle, int frameType) {
 
   // Create an HepMC GenParticle, with the 4-momenta in the frame given by the frameType integer
-  GenParticlePtr genParticle;
+  GenParticlePtr genParticle{nullptr};
 
   if (theParticle != 0) {
 

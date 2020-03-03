@@ -43,8 +43,6 @@ option(EVTGEN_PHOTOS "Enable/disable linking with Photos++" OFF)
 option(EVTGEN_TAUOLA "Enable/disable linking with Tauola++" OFF)
 option(EVTGEN_HEPMC3 "Enable/disable linking with HepMC3" ON)
 if (EVTGEN_HEPMC3)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEVTGEN_HEPMC3")
-find_package(HepMC3 REQUIRED)
 message(STATUS "EvtGen: Linking with HepMC3")
 else()
 message(STATUS "EvtGen: Linking with HepMC2")
@@ -83,7 +81,7 @@ install(DIRECTORY EvtGenExternal DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY EvtGenModels   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install the particle properties and decay tables
-install(FILES DECAY.DEC DECAY.XML evt.pdl DESTINATION ${CMAKE_INSTALL_DATADIR})
+install(FILES DECAY.DEC DECAY.XML evt.pdl DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen)
 
 # Generate CMake config files, which can be used by other projects
 include(CMakePackageConfigHelpers)
