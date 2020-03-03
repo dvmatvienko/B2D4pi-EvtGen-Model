@@ -11,7 +11,7 @@
 
 #  Check all list if none is explicitly requested
 if(NOT Photos++_FIND_COMPONENTS)
-  set(Photos++_FIND_COMPONENTS pp ppHepMC ppHEPEVT ppHepMC3)
+  set(Photos++_FIND_COMPONENTS pp ppHepMC ppHEPEVT ppHepMC3  CxxInterface Fortran)
 endif()
 set(Photos++_FOUND TRUE)
 foreach(component ${Photos++_FIND_COMPONENTS})
