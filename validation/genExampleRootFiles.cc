@@ -18,8 +18,7 @@
 #include "EvtGenExternal/EvtExternalGenList.hh"
 #endif
 
-//#include "EvtGenBase/EvtHepMCEvent.hh"
-#include "HepMC/GenEvent.h"
+#include "EvtGenBase/EvtHepMCEvent.hh"
 
 #include "TFile.h"
 #include "TTree.h"

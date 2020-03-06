@@ -26,14 +26,6 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtRandom.hh"
 
-#include "Photos/Photos.h"
-#include "Photos/PhotosHepMCEvent.h"
-#include "Photos/PhotosHepMCParticle.h"
-#include "Photos/PhotosParticle.h"
-
-#include "HepMC/SimpleVector.h"
-#include "HepMC/Units.h"
-
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -117,14 +109,14 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   if (nDaug == 0 || nDaug >= 10) {return false;}
 
   // Create the dummy event.
-  HepMC::GenEvent* theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);
+  GenEvent* theEvent = new GenEvent(Units::GEV, Units::MM);
 
   // Create the decay "vertex".
-  HepMC::GenVertex* theVertex = new HepMC::GenVertex();
+  GenVertexPtr theVertex = newGenVertexPtr();
   theEvent->add_vertex(theVertex);
 
   // Add the mother particle as the incoming particle to the vertex.
-  HepMC::GenParticle* hepMCMother = this->createGenParticle(theMother, true);
+  GenParticlePtr hepMCMother = this->createGenParticle(theMother, true);
   theVertex->add_particle_in(hepMCMother);
 
   // Find all daughter particles and assign them as outgoing particles to the vertex.
@@ -133,7 +125,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   for (iDaug = 0; iDaug < nDaug; iDaug++) {
 
     EvtParticle* theDaughter = theMother->getDaug(iDaug);
-    HepMC::GenParticle* hepMCDaughter = this->createGenParticle(theDaughter, false);
+    GenParticlePtr hepMCDaughter = this->createGenParticle(theDaughter, false);
     theVertex->add_particle_out(hepMCDaughter);
 
     if (theDaughter) {
@@ -145,7 +137,11 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 
   // Now pass the event to Photos for processing
   // Create a Photos event object
+#ifdef EVTGEN_HEPMC3
+  Photospp::PhotosHepMC3Event photosEvent(theEvent);
+#else
   Photospp::PhotosHepMCEvent photosEvent(theEvent);
+#endif
 
   // Run the Photos algorithm
   photosEvent.process();    
@@ -163,19 +159,23 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
     // to the outgoing particle list
 
     // Get the iterator of outgoing particles for this vertex
+#ifdef EVTGEN_HEPMC3
+    for (auto outParticle: theVertex->particles_out()) {
+#else
     HepMC::GenVertex::particles_out_const_iterator outIter;
     for (outIter = theVertex->particles_out_const_begin();
 	 outIter != theVertex->particles_out_const_end(); ++outIter) {
 
       // Get the next HepMC GenParticle
       HepMC::GenParticle *outParticle = *outIter;
+#endif
 
       // Get the three-momentum Photos result for this particle, and the PDG id
       double px(0.0), py(0.0), pz(0.0);
       int pdgId(0);
 
       if (outParticle != 0) {
-	HepMC::FourVector HepMCP4 = outParticle->momentum();
+	FourVector HepMCP4 = outParticle->momentum();
 	px = HepMCP4.px();
 	py = HepMCP4.py();
 	pz = HepMCP4.pz();
@@ -236,7 +236,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 
 }
 
-HepMC::GenParticle* EvtPhotosEngine::createGenParticle(EvtParticle* theParticle, bool incoming) {
+GenParticlePtr EvtPhotosEngine::createGenParticle(EvtParticle* theParticle, bool incoming) {
 
   // Method to create an HepMC::GenParticle version of the given EvtParticle.
   if (theParticle == 0) {return 0;}
@@ -256,7 +256,7 @@ HepMC::GenParticle* EvtPhotosEngine::createGenParticle(EvtParticle* theParticle,
   double py = p4.get(2);
   double pz = p4.get(3);
 
-  HepMC::FourVector hepMC_p4(px, py, pz, E);
+  FourVector hepMC_p4(px, py, pz, E);
 
   int PDGInt = EvtPDL::getStdHep(theParticle->getId());
 
@@ -265,13 +265,13 @@ HepMC::GenParticle* EvtPhotosEngine::createGenParticle(EvtParticle* theParticle,
   int status = Photospp::PhotosParticle::HISTORY;
   if (incoming == false) {status = Photospp::PhotosParticle::STABLE;}
 
-  HepMC::GenParticle* genParticle = new HepMC::GenParticle(hepMC_p4, PDGInt, status);
+  GenParticlePtr genParticle = newGenParticlePtr(hepMC_p4, PDGInt, status);
 
   return genParticle;
 
 }
 
-int EvtPhotosEngine::getNumberOfPhotons(const HepMC::GenVertex* theVertex) const {
+int EvtPhotosEngine::getNumberOfPhotons(const GenVertexPtr theVertex) const {
 
   // Find the number of photons from the outgoing particle list
 
@@ -280,12 +280,16 @@ int EvtPhotosEngine::getNumberOfPhotons(const HepMC::GenVertex* theVertex) const
   int nPhotons(0);
 
   // Get the iterator of outgoing particles for this vertex
+#ifdef EVTGEN_HEPMC3
+  for (auto outParticle: theVertex->particles_out()){
+#else
   HepMC::GenVertex::particles_out_const_iterator outIter;
   for (outIter = theVertex->particles_out_const_begin();
        outIter != theVertex->particles_out_const_end(); ++outIter) {
 
     // Get the next HepMC GenParticle
     HepMC::GenParticle *outParticle = *outIter;
+#endif
 
     // Get the PDG id
     int pdgId(0);

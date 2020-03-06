@@ -26,9 +26,17 @@
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
+
+#ifdef EVTGEN_HEPMC3
+#include "Photos/PhotosHepMC3Event.h"
+#include "Photos/PhotosHepMC3Particle.h"
+#include "HepMC3/Units.h"
+#else
+#include "Photos/PhotosHepMCEvent.h"
+#include "Photos/PhotosHepMCParticle.h"
+#include "Photos/PhotosParticle.h"
+#endif
+#include "EvtGenBase/EvtHepMCEvent.hh"
 
 #include <string>
 
@@ -53,8 +61,8 @@ private:
   double _mPhoton;
   bool _initialised;
 
-  HepMC::GenParticle* createGenParticle(EvtParticle* theParticle, bool incoming);
-  int getNumberOfPhotons(const HepMC::GenVertex* theVertex) const;
+  GenParticlePtr createGenParticle(EvtParticle* theParticle, bool incoming);
+  int getNumberOfPhotons(const GenVertexPtr theVertex) const;
 
 };
 

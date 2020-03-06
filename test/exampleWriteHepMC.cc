@@ -25,19 +25,37 @@
 #include <string>
 #include <list>
 
-bool filter(HepMC::GenEvent* event)
+#ifdef EVTGEN_HEPMC3
+#include <HepMC3/WriterAsciiHepMC2.h>
+typedef HepMC3::WriterAsciiHepMC2 output_writer;
+#else
+class output_writer: public std::ofstream {
+public:
+output_writer(const char*a):std::ofstream(a){}
+bool write_event(HepMC::GenEvent& e){ (*this)<<e;  return true; }
+};
+#endif
+
+
+
+bool filter(GenEvent* event)
 {
   bool hasLepton = false;
   bool hasCharm = false;
 
+#ifdef EVTGEN_HEPMC3
+  for (auto p: event->particles()) {
+#else
   for (HepMC::GenEvent::particle_iterator it = event->particles_begin(); 
         it != event->particles_end(); ++it)
   {
-    if ( abs((*it)->pdg_id()) == 11 || abs((*it)->pdg_id()) == 13 )
+     GenParticlePtr p=*it;
+#endif
+    if ( abs(p->pdg_id()) == 11 || abs(p->pdg_id()) == 13 )
     {
       hasLepton = true;
     }
-    int id = abs((*it)->pdg_id());
+    int id = abs(p->pdg_id());
     if ( id > 400 && id < 500 )
     {
       hasCharm = true;
@@ -84,7 +102,7 @@ int main(int /*argc*/, char** /*argv*/) {
 
   int nEvents(40000);
 
-  std::ofstream hepmcFile("hepMCtest");
+  output_writer hepmcFile("hepMCtest");
 
   // Loop to create nEvents, starting from an Upsilon(4S)
   int i;
@@ -103,13 +121,9 @@ int main(int /*argc*/, char** /*argv*/) {
     // Write out the results
     EvtHepMCEvent theEvent;
     theEvent.constructEvent(parent);
-    HepMC::GenEvent* genEvent = theEvent.getEvent();
+    GenEvent* genEvent = theEvent.getEvent();
 
-    if ( filter(genEvent) )
-    {
-//      genEvent->print(hepmcFile);
-      hepmcFile<<(*genEvent);
-    }
+    if ( filter(genEvent) ) hepmcFile.write_event(*genEvent);
 
     parent->deleteTree();
 

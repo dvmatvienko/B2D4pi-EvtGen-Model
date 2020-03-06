@@ -23,7 +23,6 @@
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtPDL.hh"
 
-#include "HepMC/Units.h"
 
 EvtHepMCEvent::EvtHepMCEvent() : 
   _theEvent(0), 
@@ -59,23 +58,23 @@ void EvtHepMCEvent::constructEvent(EvtParticle* baseParticle, EvtVector4R& trans
   this->deleteEvent();
   if (baseParticle == 0) {return;}
 
-  _theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);
+  _theEvent = new GenEvent(Units::GEV, Units::MM);
   _translation = translation;
 
   // Use the recursive function addVertex to add a vertex with incoming/outgoing
   // particles. Adds a new vertex for any EvtParticles with decay daughters.
   // All particles are in the rest frame of the base particle ("lab frame").
 
-  HepMC::GenParticle* hepMCGenParticle = this->createGenParticle(baseParticle, EvtHepMCEvent::LAB);
+  GenParticlePtr hepMCGenParticle = this->createGenParticle(baseParticle, EvtHepMCEvent::LAB);
 
   this->addVertex(baseParticle, hepMCGenParticle);
 
 }
 
-HepMC::GenParticle* EvtHepMCEvent::createGenParticle(EvtParticle* theParticle, int frameType) {
+GenParticlePtr EvtHepMCEvent::createGenParticle(EvtParticle* theParticle, int frameType) {
 
   // Create an HepMC GenParticle, with the 4-momenta in the frame given by the frameType integer
-  HepMC::GenParticle* genParticle = 0;
+  GenParticlePtr genParticle{nullptr};
 
   if (theParticle != 0) {
 
@@ -101,12 +100,12 @@ HepMC::GenParticle* EvtHepMCEvent::createGenParticle(EvtParticle* theParticle, i
     double py = p4.get(2);
     double pz = p4.get(3);
 
-    HepMC::FourVector hepMC_p4(px, py, pz, E);
+    FourVector hepMC_p4(px, py, pz, E);
 
     // Get the particle PDG integer id
     int PDGInt = EvtPDL::getStdHep(theParticle->getId());
 
-    genParticle = new HepMC::GenParticle(hepMC_p4, PDGInt, status);
+    genParticle = newGenParticlePtr(hepMC_p4, PDGInt, status);
 
   }
 
@@ -114,7 +113,7 @@ HepMC::GenParticle* EvtHepMCEvent::createGenParticle(EvtParticle* theParticle, i
 
 }
 
-void EvtHepMCEvent::addVertex(EvtParticle* inEvtParticle, HepMC::GenParticle* inGenParticle) {
+void EvtHepMCEvent::addVertex(EvtParticle* inEvtParticle, GenParticlePtr inGenParticle) {
 
   // This is a recursive function that adds GenVertices to the GenEvent for
   // the incoming EvtParticle and its daughters. We use two separate
@@ -128,8 +127,8 @@ void EvtHepMCEvent::addVertex(EvtParticle* inEvtParticle, HepMC::GenParticle* in
   if (_theEvent == 0 || inEvtParticle == 0 || inGenParticle == 0) {return;}
 
   // Create the decay vertex
-  HepMC::FourVector vtxCoord = this->getVertexCoord(inEvtParticle);
-  HepMC::GenVertex* theVertex = new HepMC::GenVertex(vtxCoord);
+  FourVector vtxCoord = this->getVertexCoord(inEvtParticle);
+  GenVertexPtr theVertex = newGenVertexPtr(vtxCoord);
 
   // Add the vertex to the event
   _theEvent->add_vertex(theVertex);
@@ -144,7 +143,7 @@ void EvtHepMCEvent::addVertex(EvtParticle* inEvtParticle, HepMC::GenParticle* in
   for (iDaug = 0; iDaug < nDaug; iDaug++) {
 
     EvtParticle* evtDaughter = inEvtParticle->getDaug(iDaug);
-    HepMC::GenParticle* genDaughter = this->createGenParticle(evtDaughter, EvtHepMCEvent::LAB);
+    GenParticlePtr genDaughter = this->createGenParticle(evtDaughter, EvtHepMCEvent::LAB);
 
     if (genDaughter != 0) {
 
@@ -168,9 +167,9 @@ void EvtHepMCEvent::addVertex(EvtParticle* inEvtParticle, HepMC::GenParticle* in
 
 }
 
-HepMC::FourVector EvtHepMCEvent::getVertexCoord(EvtParticle* theParticle) {
+FourVector EvtHepMCEvent::getVertexCoord(EvtParticle* theParticle) {
 
-  HepMC::FourVector vertexCoord(0.0, 0.0, 0.0, 0.0);
+  FourVector vertexCoord(0.0, 0.0, 0.0, 0.0);
 
   if (theParticle != 0 && theParticle->getNDaug() != 0) {
 

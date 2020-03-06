@@ -1,50 +1,54 @@
 # - Try to find Photos++
 # Defines:
 #
-#  PHOTOS++_FOUND
-#  PHOTOS++_INCLUDE_DIR
-#  PHOTOS++_INCLUDE_DIRS (not cached)
-#  PHOTOS++_<component>_LIBRARY
-#  PHOTOS++_<component>_FOUND
-#  PHOTOS++_LIBRARIES (not cached)
-#  PHOTOS++_LIBRARY_DIRS (not cached)
+#  Photos++_FOUND
+#  Photos++_INCLUDE_DIR
+#  Photos++_INCLUDE_DIRS (not cached)
+#  Photos++_<component>_LIBRARY
+#  Photos++_<component>_FOUND
+#  Photos++_LIBRARIES (not cached)
+#  Photos++_LIBRARY_DIRS (not cached)
 
-# Enforce a minimal list if none is explicitly requested
-if(NOT PHOTOS++_FIND_COMPONENTS)
-  set(PHOTOS++_FIND_COMPONENTS pp ppHepMC)
+#  Check all list if none is explicitly requested
+if(NOT Photos++_FIND_COMPONENTS)
+  set(Photos++_FIND_COMPONENTS pp ppHepMC ppHEPEVT ppHepMC3  CxxInterface Fortran)
 endif()
-
-foreach(component ${PHOTOS++_FIND_COMPONENTS})
-  find_library(PHOTOS++_${component}_LIBRARY NAMES Photos${component}
-               HINTS ${PHOTOS++_ROOT_DIR}/lib
-                     $ENV{PHOTOSPP_ROOT_DIR}/lib
-                     ${PHOTOSPP_ROOT_DIR}/lib)
-  if (PHOTOS++_${component}_LIBRARY)
-    set(PHOTOS++_${component}_FOUND 1)
-    list(APPEND PHOTOS++_LIBRARIES ${PHOTOS++_${component}_LIBRARY})
-
-    get_filename_component(libdir ${PHOTOS++_${component}_LIBRARY} PATH)
-    list(APPEND PHOTOS++_LIBRARY_DIRS ${libdir})
+set(Photos++_FOUND TRUE)
+foreach(component ${Photos++_FIND_COMPONENTS})
+  find_library(Photos++_${component}_LIBRARY NAMES Photos${component}
+               HINTS ${Photos++_ROOT_DIR}/lib $ENV{PHOTOSPP_ROOT_DIR}/lib ${PHOTOSPP_ROOT_DIR}/lib
+                     ${Photos++_ROOT_DIR}/lib64 $ENV{PHOTOSPP_ROOT_DIR}/lib64 ${PHOTOSPP_ROOT_DIR}/lib64
+               )
+  if (Photos++_${component}_LIBRARY)
+    set(Photos++_${component}_FOUND TRUE)
+    list(APPEND Photos++_LIBRARIES ${Photos++_${component}_LIBRARY})
+    get_filename_component(libdir ${Photos++_${component}_LIBRARY} PATH)
+    list(APPEND Photos++_LIBRARY_DIRS ${libdir})
   else()
-    set(PHOTOS++_${component}_FOUND 0)
+    set(Photos++_${component}_FOUND FALSE)
+    if (Photos++_FIND_REQUIRED_${component})
+    set(Photos++_FOUND FALSE)
+    endif()
   endif()
-  mark_as_advanced(PHOTOS++_${component}_LIBRARY)
+  message(STATUS "EvtGen: Photos++_${component}_FOUND=${Photos++_${component}_FOUND}, Photos++_FIND_REQUIRED_${component}=${Photos++_FIND_REQUIRED_${component}}  in ${Photos++_${component}_LIBRARY}")
+  mark_as_advanced(Photos++_${component}_LIBRARY)
 endforeach()
 
-if(PHOTOS++_LIBRARY_DIRS)
-  list(REMOVE_DUPLICATES PHOTOS++_LIBRARY_DIRS)
+if(Photos++_LIBRARY_DIRS)
+  list(REMOVE_DUPLICATES Photos++_LIBRARY_DIRS)
 endif()
 
-find_path(PHOTOS++_INCLUDE_DIR Photos/Photos.h
-          HINTS ${PHOTOS++_ROOT_DIR}/include
+find_path(Photos++_INCLUDE_DIR Photos/Photos.h
+          HINTS ${Photos++_ROOT_DIR}/include
                 $ENV{PHOTOSPP_ROOT_DIR}/include
                 ${PHOTOSPP_ROOT_DIR}/include)
-set(PHOTOS++_INCLUDE_DIRS ${PHOTOS++_INCLUDE_DIR})
-mark_as_advanced(PHOTOS++_INCLUDE_DIR)
+set(Photos++_INCLUDE_DIRS ${Photos++_INCLUDE_DIR} ${Photos++_INCLUDE_DIR}/Photos)
+mark_as_advanced(Photos++_INCLUDE_DIR)
 
-# handle the QUIETLY and REQUIRED arguments and set PHOTOS++_FOUND to TRUE if
+# handle the QUIETLY and REQUIRED arguments and set Photos++_FOUND to TRUE if
 # all listed variables are TRUE
+if (Photos++_FOUND)
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Photos++ DEFAULT_MSG PHOTOS++_INCLUDE_DIR PHOTOS++_LIBRARIES)
-
-mark_as_advanced(PHOTOS++_FOUND)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Photos++ DEFAULT_MSG Photos++_INCLUDE_DIR Photos++_LIBRARIES)
+endif()
+mark_as_advanced(Photos++_FOUND)

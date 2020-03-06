@@ -27,8 +27,18 @@
 #include "EvtGenBase/EvtDecayBase.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
+#ifdef EVTGEN_HEPMC3
+#include "Tauola/TauolaHepMC3Particle.h"
+#include "Tauola/TauolaHepMC3Event.h"
+#include "HepMC3/Units.h"
+#include "HepMC3/Relatives.h"
+#else
+#include "Tauola/TauolaHepMCEvent.h"
+#include "Tauola/TauolaHepMCParticle.h"
+#include "Tauola/TauolaParticle.h"
+#endif
+#include "EvtGenBase/EvtHepMCEvent.hh"
+
 
 #include <vector>
 #include <map>
@@ -52,7 +62,7 @@ private:
   int _tauPDG, _nTauolaModes;    
   int _neutPropType, _posPropType, _negPropType;
 
-  HepMC::GenParticle* createGenParticle(EvtParticle* theParticle);
+  GenParticlePtr createGenParticle(EvtParticle* theParticle);
 
   void setUpPossibleTauModes();
   void setOtherParameters();

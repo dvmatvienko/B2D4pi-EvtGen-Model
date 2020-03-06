@@ -79,8 +79,12 @@ int main(int /*argc*/, char** /*argv*/) {
     // Write out the results
     EvtHepMCEvent theEvent;
     theEvent.constructEvent(parent);
-    HepMC::GenEvent* genEvent = theEvent.getEvent();
+    GenEvent* genEvent = theEvent.getEvent();
+#ifdef EVTGEN_HEPMC3    
+    HepMC3::Print::line(*genEvent);
+#else
     genEvent->print(std::cout);
+#endif
 
     parent->deleteTree();
 

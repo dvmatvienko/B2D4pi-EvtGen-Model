@@ -20,6 +20,8 @@ PYTHIAPKG="pythia"$PYTHIAVER
 PYTHIATAR=$PYTHIAPKG".tgz"
 echo Pythia version set to $PYTHIAVER, package tar name $PYTHIATAR
 
+HEPMCMAJORVERSION="3"
+
 mkdir -p EvtGen
 cd EvtGen
 
@@ -44,13 +46,15 @@ cd external
 
 # Recommended versions of the external packages. HepMC is mandatory.
 # Later versions should be OK as well, assuming their C++ interfaces do not change
-curl -O http://hepmc.web.cern.ch/hepmc/releases/hepmc2.06.09.tgz
+curl -O http://hepmc.web.cern.ch/hepmc/releases/hepmc2.06.10.tgz
+curl -O http://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.2.0.tar.gz
 curl -O http://home.thep.lu.se/~torbjorn/pythia8/$PYTHIATAR
-curl -O http://photospp.web.cern.ch/photospp/resources/PHOTOS.3.61/PHOTOS.3.61.tar.gz
-curl -O http://tauolapp.web.cern.ch/tauolapp/resources/TAUOLA.1.1.6c/TAUOLA.1.1.6c.tar.gz
+curl -O http://photospp.web.cern.ch/photospp/resources/PHOTOS.3.64/PHOTOS.3.64.tar.gz
+curl -O http://tauolapp.web.cern.ch/tauolapp/resources/TAUOLA.1.1.8/TAUOLA.1.1.8.tar.gz
 
 echo Extracting external dependencies
-tar -xzf hepmc2.06.09.tgz
+tar -xzf hepmc2.06.10.tgz
+tar -xzf HepMC3-3.2.0.tar.gz
 tar -xzf $PYTHIATAR
 tar -xzf PHOTOS.3.61.tar.gz
 tar -xzf TAUOLA.1.1.6c.tar.gz
@@ -62,11 +66,20 @@ then
   patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
 fi
 
+
+
+
+
+
+
+
+if [ "$HEPMCMAJORVERSION" -lt "3" ]
+then
 echo Installing HepMC in $INSTALL_BASE/external/HepMC
 mkdir -p HepMC
 mkdir -p HepMC.build
 cd HepMC.build
-cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/external/HepMC $INSTALL_BASE/external/hepmc2.06.09 -Dmomentum:STRING=GEV -Dlength:STRING=MM
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/external/HepMC $INSTALL_BASE/external/hepmc2.06.10 -Dmomentum:STRING=GEV -Dlength:STRING=MM
 make
 make install
 
@@ -74,7 +87,7 @@ echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
 if [ "$PYTHIAVER" -lt "8200" ]
 then
-  ./configure --with-hepmc=$INSTALL_BASE/external/HepMC --with-hepmcversion=2.06.09 --enable-shared
+  ./configure --with-hepmc=$INSTALL_BASE/external/HepMC --with-hepmcversion=2.06.10 --enable-shared
 else
   ./configure --with-hepmc2=$INSTALL_BASE/external/HepMC --enable-shared
 fi
@@ -89,13 +102,48 @@ echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
 cd ../TAUOLA
 ./configure --with-hepmc=$INSTALL_BASE/external/HepMC
 make
+else
+
+echo Installing HepMC3 in $INSTALL_BASE/external/HepMC3
+mkdir -p HepMC3
+mkdir -p HepMC3.build
+cd HepMC3.build
+cmake  -DHEPMC3_ENABLE_ROOTIO=OFF -DHEPMC3_ENABLE_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/external/HepMC3 $INSTALL_BASE/external/HepMC3-3.2.0
+make
+make install
+
+echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
+cd ../$PYTHIAPKG
+if [ "$PYTHIAVER" -lt "8200" ]
+then
+  ./configure --enable-shared
+else
+  ./configure --with-hepmc3=$INSTALL_BASE/external/HepMC3 --enable-shared
+fi
+make
+
+echo Installing PHOTOS in $INSTALL_BASE/external/PHOTOS
+cd ../PHOTOS 
+./configure --with-hepmc3=$INSTALL_BASE/external/HepMC3
+make
+
+echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
+cd ../TAUOLA
+./configure  --with-hepmc3=$INSTALL_BASE/external/HepMC3
+make
+fi
 
 echo Building EvtGen
 cd $INSTALL_BASE
 mkdir -p evtgen.build
 mkdir -p evtgen
 cd evtgen.build
+if [ "$HEPMCMAJORVERSION" -lt "3" ]
+then
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=OFF
+else
 cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON
+fi
 make
 make install
 cd $INSTALL_BASE/evtgen

@@ -3,6 +3,9 @@
 // History file for EvtGen
 //
 //===========================================================================
+Dec 12 2019 
+    Trying to implemment HepMC3 support/Andrii Verbytskyi
+
 
 15th Nov 2019 John Back
     Added EvtPsi2JpsiPiPi model for psi2S -> J/psi pi+ pi- decays based on 
