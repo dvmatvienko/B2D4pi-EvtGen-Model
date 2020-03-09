@@ -28,6 +28,7 @@ public:
 
   virtual ~EvtAbsExternalGen() = default;
   virtual bool doDecay(EvtParticle* theMother) = 0;
+  virtual double getDecayProb(EvtParticle*) {return 1.0;}
   virtual void initialise() = 0;
 
 };
