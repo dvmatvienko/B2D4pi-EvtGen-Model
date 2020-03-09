@@ -3,9 +3,13 @@
 // History file for EvtGen
 //
 //===========================================================================
-Dec 12 2019 
-    Trying to implemment HepMC3 support/Andrii Verbytskyi
 
+9th Mar 2020 John Back
+    Add EvtAbsExternalGen::getDecayProb() to allow external generators to
+    return a probability that can be used in EvtDecayProb (default = 1).
+
+6th Mar 2020 Andrii Verbytskyi and Tom Latham
+    Implement HepMC3 support: EvtHepMCEvent, external engines & cmake files.
 
 15th Nov 2019 John Back
     Added EvtPsi2JpsiPiPi model for psi2S -> J/psi pi+ pi- decays based on 

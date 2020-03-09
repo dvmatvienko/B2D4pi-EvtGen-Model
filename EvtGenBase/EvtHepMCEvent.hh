@@ -34,8 +34,12 @@ typedef HepMC3::GenVertexPtr GenVertexPtr;
 typedef HepMC3::GenEvent GenEvent;
 typedef HepMC3::FourVector FourVector;
 typedef HepMC3::Units Units;
-inline GenParticlePtr  newGenParticlePtr( const FourVector &mom=FourVector::ZERO_VECTOR(), int pid=0, int status=0){return std::make_shared<HepMC3::GenParticle>(mom,pid,status);}
-inline GenVertexPtr    newGenVertexPtr( const FourVector &pos=FourVector::ZERO_VECTOR()){return std::make_shared<HepMC3::GenVertex>(pos);}
+inline GenParticlePtr newGenParticlePtr(const FourVector &mom = FourVector::ZERO_VECTOR(), int pid = 0, int status = 0) {
+  return std::make_shared<HepMC3::GenParticle>(mom,pid,status);
+}
+inline GenVertexPtr newGenVertexPtr(const FourVector &pos = FourVector::ZERO_VECTOR()) {
+  return std::make_shared<HepMC3::GenVertex>(pos);
+}
 #else
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
@@ -47,8 +51,12 @@ typedef HepMC::GenVertex* GenVertexPtr;
 typedef HepMC::GenEvent GenEvent;
 typedef HepMC::FourVector FourVector;
 #define Units HepMC::Units
-inline GenParticlePtr  newGenParticlePtr( const FourVector &mom=FourVector(0.0,0.0,0.0,0.0), int pid=0, int status=0){return new HepMC::GenParticle(mom,pid,status);}
-inline GenVertexPtr    newGenVertexPtr( const FourVector &pos=FourVector(0.0,0.0,0.0,0.0)){return new HepMC::GenVertex(pos);}
+inline GenParticlePtr newGenParticlePtr(const FourVector &mom = FourVector(0.0,0.0,0.0,0.0), int pid = 0, int status = 0) {
+  return new HepMC::GenParticle(mom,pid,status);
+}
+inline GenVertexPtr newGenVertexPtr(const FourVector &pos = FourVector(0.0,0.0,0.0,0.0)) {
+  return new HepMC::GenVertex(pos);
+}
 #endif
 
 class EvtParticle;
