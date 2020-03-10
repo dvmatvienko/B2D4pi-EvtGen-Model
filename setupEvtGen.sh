@@ -12,7 +12,7 @@
 # https://phab.hepforge.org/source/evtgen/browse/master/setupEvtGen.sh?view=raw
 
 # Version or tag number. No extra spaces on this line!
-VERSION=smallerissuesav2
+VERSION=smallerissuesav3
 # Pythia version number with no decimal points, e.g. 8230 corresponds to version 8.230. This
 # follows the naming convention of Pythia install tar files. Again, no extra spaces allowed
 PYTHIAVER=8243
@@ -86,14 +86,7 @@ make install
 
 echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
-if [  "$PYTHIAVER" -lt "8300"  ]
-then
-  ./configure --enable-shared --prefix=$INSTALL_BASE/external/$PYTHIAPKG
-fi
-if [ "$PYTHIAVER" -ge "8300" ]
-then
-  ./configure --enable-shared --prefix=$INSTALL_BASE/external/$PYTHIAPKG
-fi
+./configure --prefix=$INSTALL_BASE/external/$PYTHIAPKG
 
 make
 make install
@@ -122,26 +115,19 @@ make install
 
 echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
-if [ "$PYTHIAVER" -lt "8300"  ]
-then
-  ./configure --enable-shared --prefix=$INSTALL_BASE/external/$PYTHIAPKG
-fi
-if [ "$PYTHIAVER" -ge "8300" ]
-then
-  ./configure --prefix=$INSTALL_BASE/external/$PYTHIAPKG
-fi
-
+./configure --prefix=$INSTALL_BASE/external/$PYTHIAPKG
 make
+make install
 
 echo Installing PHOTOS in $INSTALL_BASE/external/PHOTOS
 cd ../PHOTOS 
-./configure --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/PHOTOS
+./configure --without-hepmc --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/PHOTOS
 make
 make install 
 
 echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
 cd ../TAUOLA
-./configure  --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/TAUOLA
+./configure  --without-hepmc --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/TAUOLA
 make
 make install 
 fi
@@ -153,13 +139,20 @@ mkdir -p evtgen
 cd evtgen.build
 if [ "$HEPMCMAJORVERSION" -lt "3" ]
 then
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_BUILD_TESTS=ON -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=OFF 
+$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=OFF \
+-DHEPMC2_ROOT_DIR=$INSTALL_BASE/external/HepMC \
+-DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
+-DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS \
+-DTAUOLAPP_ROOT_DIR=$INSTALL_BASE/external/TAUOLA 
 else
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_BUILD_TESTS=ON -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=ON -DHepMC3_DIR=$INSTALL_BASE/external/HepMC3/share/HepMC3/cmake/
+$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=ON \
+-DHepMC3_DIR=$INSTALL_BASE/external/HepMC3/share/HepMC3/cmake/ \
+-DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
+-DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS \
+-DTAUOLAPP_ROOT_DIR=$INSTALL_BASE/external/TAUOLA
 fi
 make
 make install
-ctest .
 cd $INSTALL_BASE/evtgen
 
 echo Setup done.

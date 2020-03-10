@@ -101,7 +101,7 @@ set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
 
 configure_package_config_file(cmake/Templates/EvtGenConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
-    INSTALL_DESTINATION cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
     PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR
     )
 
