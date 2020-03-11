@@ -75,16 +75,15 @@ tar -xzf TAUOLA.1.1.8.tar.gz
 # Patch TAUOLA and PHOTOS on Darwin (Mac)
 if [ "$osArch" == "Darwin" ]
 then
-  export CC=clang
-  export CXX=clang++
-  sed -i '' 's/\-lstdc++/-lc++/g' PHOTOS/platform/make.inc.in
-  sed -i '' 's/\-lstdc++/-lc++/g' TAUOLA/platform/make.inc.in
-  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' PHOTOS/platform/make.inc.in
-  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' TAUOLA/platform/make.inc.in
   sed -i '' 's/soname/install_name/g'  PHOTOS/Makefile
   sed -i '' 's/soname/install_name/g'  TAUOLA/Makefile
-#  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
-#  patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
+  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
+  patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
+# Uncomment the lines below to force usage of clang
+#  export CC=clang
+#  export CXX=clang++
+#  sed -i '' 's/\-lstdc++/-lc++/g' PHOTOS/platform/make.inc.in
+#  sed -i '' 's/\-lstdc++/-lc++/g' TAUOLA/platform/make.inc.in
 fi
 
 
@@ -111,11 +110,14 @@ cd ../PHOTOS
 make
 make install
 
+if [ "$osArch" != "Darwin" ]
+then
 echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
 cd ../TAUOLA
 ./configure --without-hepmc3 --with-hepmc=$INSTALL_BASE/external/HepMC  --prefix=$INSTALL_BASE/external/TAUOLA
 make
 make install
+fi
 
 else
 
@@ -139,11 +141,14 @@ cd ../PHOTOS
 make
 make install 
 
+if [ "$osArch" != "Darwin" ]
+then
 echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
 cd ../TAUOLA
 ./configure  --without-hepmc --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/TAUOLA
 make
 make install 
+fi
 fi
 
 echo Building EvtGen
@@ -151,6 +156,25 @@ cd $INSTALL_BASE
 mkdir -p evtgen.build
 mkdir -p evtgen
 cd evtgen.build
+if [ "$osArch" == "Darwin" ]
+then
+
+if [ "$HEPMCMAJORVERSION" -lt "3" ]
+then
+$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=OFF -DEVTGEN_HEPMC3=OFF \
+-DHEPMC2_ROOT_DIR=$INSTALL_BASE/external/HepMC \
+-DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
+-DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS 
+else
+$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=OFF -DEVTGEN_HEPMC3=ON \
+-DHepMC3_DIR=$INSTALL_BASE/external/HepMC3/share/HepMC3/cmake/ \
+-DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
+-DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS 
+fi
+
+
+else
+
 if [ "$HEPMCMAJORVERSION" -lt "3" ]
 then
 $CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=OFF \
@@ -164,6 +188,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEV
 -DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
 -DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS \
 -DTAUOLAPP_ROOT_DIR=$INSTALL_BASE/external/TAUOLA
+fi
 fi
 make
 make install
