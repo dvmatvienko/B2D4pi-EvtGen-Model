@@ -52,6 +52,11 @@ echo Downloading external dependencies
 mkdir -p external
 cd external
 
+if [ "$osArch" == "Darwin" ]
+then
+  export LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+fi
 # Recommended versions of the external packages. HepMC is mandatory.
 # Later versions should be OK as well, assuming their C++ interfaces do not change
 curl -O http://hepmc.web.cern.ch/hepmc/releases/hepmc2.06.10.tgz
@@ -70,8 +75,12 @@ tar -xzf TAUOLA.1.1.8.tar.gz
 # Patch TAUOLA and PHOTOS on Darwin (Mac)
 if [ "$osArch" == "Darwin" ]
 then
-  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' PHOTOS/Makefile
-  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' TAUOLA/Makefile
+  export CC=clang
+  export CXX=clang++
+  sed -i '' 's/\-lstdc++/-lc++/g' PHOTOS/platform/make.inc.in
+  sed -i '' 's/\-lstdc++/-lc++/g' TAUOLA/platform/make.inc.in
+  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' PHOTOS/platform/make.inc.in
+  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' TAUOLA/platform/make.inc.in
   sed -i '' 's/soname/install_name/g'  PHOTOS/Makefile
   sed -i '' 's/soname/install_name/g'  TAUOLA/Makefile
 #  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
