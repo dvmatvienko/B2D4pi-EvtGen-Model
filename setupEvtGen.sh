@@ -29,6 +29,7 @@ else
 CMAKE=cmake
 fi
 
+
 mkdir -p EvtGen
 cd EvtGen
 
@@ -69,8 +70,12 @@ tar -xzf TAUOLA.1.1.8.tar.gz
 # Patch TAUOLA and PHOTOS on Darwin (Mac)
 if [ "$osArch" == "Darwin" ]
 then
-  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
-  patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
+  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' PHOTOS/Makefile
+  sed -i '' 's/\-shared/\-shared\ \-undefined\ dynamic_lookup/g' TAUOLA/Makefile
+  sed -i '' 's/soname/install_name/g'  PHOTOS/Makefile
+  sed -i '' 's/soname/install_name/g'  TAUOLA/Makefile
+#  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
+#  patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
 fi
 
 
@@ -86,7 +91,7 @@ make install
 
 echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
-./configure --prefix=$INSTALL_BASE/external/$PYTHIAPKG
+./configure --enable-shared  --prefix=$INSTALL_BASE/external/$PYTHIAPKG
 
 make
 make install
@@ -115,7 +120,7 @@ make install
 
 echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
 cd ../$PYTHIAPKG
-./configure --prefix=$INSTALL_BASE/external/$PYTHIAPKG
+./configure --enable-shared  --prefix=$INSTALL_BASE/external/$PYTHIAPKG
 make
 make install
 
