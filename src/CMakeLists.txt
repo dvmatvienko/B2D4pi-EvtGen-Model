@@ -43,7 +43,7 @@ endif()
 # Now make the static library from the object files
 add_library(EvtGenStatic STATIC $<TARGET_OBJECTS:objlib>)
 set_target_properties(EvtGenStatic PROPERTIES OUTPUT_NAME EvtGen)
-set_target_properties(EvtGenStatic PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/archive)
+set_target_properties(EvtGenStatic PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 target_compile_definitions(EvtGenStatic PUBLIC EVTGEN_CPP11)
 target_include_directories(EvtGenStatic PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 if(EVTGEN_HEPMC3)
@@ -144,7 +144,7 @@ if( EVTGEN_PYTHIA OR EVTGEN_PHOTOS OR EVTGEN_TAUOLA )
     # Now make the static library from the object files
     add_library(EvtGenExternalStatic STATIC $<TARGET_OBJECTS:objlib_ext>)
     set_target_properties(EvtGenExternalStatic PROPERTIES OUTPUT_NAME EvtGenExternal)
-    set_target_properties(EvtGenExternalStatic PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/archive)
+    set_target_properties(EvtGenExternalStatic PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
     target_compile_definitions(EvtGenExternalStatic PUBLIC EVTGEN_CPP11)
     target_include_directories(EvtGenExternalStatic PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
     if(EVTGEN_PYTHIA)
@@ -203,7 +203,7 @@ install(
     TARGETS EvtGen EvtGenStatic
     EXPORT "EvtGenTargets"
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/archive
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 
 if( EVTGEN_PYTHIA OR EVTGEN_PHOTOS OR EVTGEN_TAUOLA )
@@ -211,6 +211,6 @@ if( EVTGEN_PYTHIA OR EVTGEN_PHOTOS OR EVTGEN_TAUOLA )
         TARGETS EvtGenExternal EvtGenExternalStatic
         EXPORT "EvtGenTargets"
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/archive
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         )
 endif()
