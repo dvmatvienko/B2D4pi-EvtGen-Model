@@ -61,12 +61,22 @@ add_subdirectory(src)
 configure_file(DECAY.DEC ${CMAKE_CURRENT_BINARY_DIR}/DECAY.DEC COPYONLY)
 configure_file(DECAY.XML ${CMAKE_CURRENT_BINARY_DIR}/DECAY.XML COPYONLY)
 configure_file(evt.pdl ${CMAKE_CURRENT_BINARY_DIR}/evt.pdl COPYONLY)
+# Copy the older particle property and decay tables
+configure_file(DECAY_2009.DEC ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2009.DEC COPYONLY)
+configure_file(DECAY_2009.XML ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2009.XML COPYONLY)
+configure_file(DECAY_2010.DEC ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2010.DEC COPYONLY)
+configure_file(DECAY_2010.XML ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2010.XML COPYONLY)
 
 # Build the executables in the test and validation directories
+option(EVTGEN_BUILD_DOC         "Enable/disable building of documentation in 'doc' directory" OFF)
 option(EVTGEN_BUILD_TESTS       "Enable/disable building of executables in 'test' directory"       OFF)
 option(EVTGEN_BUILD_VALIDATIONS "Enable/disable building of executables in 'validation' directory" OFF)
-message(STATUS "EvtGen: Building of executables in 'test' directory       EVTGEN_BUILD_TESTS       ${EVTGEN_BUILD_TESTS}")
+message(STATUS "EvtGen: Building of documentation in 'doc' directory EVTGEN_BUILD_DOC ${EVTGEN_BUILD_DOC}")
+message(STATUS "EvtGen: Building of executables in 'test' directory EVTGEN_BUILD_TESTS ${EVTGEN_BUILD_TESTS}")
 message(STATUS "EvtGen: Building of executables in 'validation' directory EVTGEN_BUILD_VALIDATIONS ${EVTGEN_BUILD_VALIDATIONS}")
+if(${EVTGEN_BUILD_DOC})
+    add_subdirectory(doc)
+endif()
 if(${EVTGEN_BUILD_TESTS})
     add_subdirectory(test)
 endif()
@@ -81,7 +91,7 @@ install(DIRECTORY EvtGenExternal DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY EvtGenModels   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install the particle properties and decay tables
-install(FILES DECAY.DEC DECAY.XML evt.pdl DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen)
+install(FILES DECAY.DEC DECAY.XML evt.pdl DECAY_2010.XML DECAY_2010.DEC DECAY_2009.XML DECAY_2009.DEC  DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen)
 
 # Generate CMake config files, which can be used by other projects
 include(CMakePackageConfigHelpers)
@@ -91,7 +101,7 @@ set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
 
 configure_package_config_file(cmake/Templates/EvtGenConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
-    INSTALL_DESTINATION cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
     PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR
     )
 
