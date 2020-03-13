@@ -22,7 +22,7 @@ if (ROOT_FOUND)
 
     # install the executables
     install(TARGETS compareRootFiles genExampleRootFiles genRootDecayChain testCPVDecays
-        RUNTIME DESTINATION validation
+        RUNTIME DESTINATION validation ${CMAKE_INSTALL_DATADIR}/EvtGen/validation
         )
 
     # install the decay files, macros, scripts, etc.
