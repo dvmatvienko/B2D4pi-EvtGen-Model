@@ -22,7 +22,7 @@ if (ROOT_FOUND)
 
     # install the executables
     install(TARGETS evt_dalitz evtgenlhc_test1 example1 exampleWriteHepMC
-        RUNTIME DESTINATION test
+        RUNTIME DESTINATION test DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/test
         )
 
     # install the decay files, macros, scripts, etc.
