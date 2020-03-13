@@ -26,9 +26,9 @@ if (ROOT_FOUND)
         )
 
     # install the decay files, macros, scripts, etc.
-    install(DIRECTORY exampleFiles DESTINATION ${CMAKE_INSTALL_PREFIX}/test)
+    install(DIRECTORY exampleFiles DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/test)
     install(FILES do_tests
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/test
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/test
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 else()
     message(WARNING "Could not find ROOT, cannot build test executables")
