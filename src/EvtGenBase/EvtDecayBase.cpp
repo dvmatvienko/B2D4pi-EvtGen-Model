@@ -57,12 +57,12 @@ void EvtDecayBase::checkQ() {
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daughter "<< EvtPDL::name(_daug[i]).c_str()<<endl;
       }
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
-      
+
       ::abort();
     }
   }
 }
-    
+
 
 double EvtDecayBase::getProbMax( double prob ) {
 
@@ -73,11 +73,11 @@ double EvtDecayBase::getProbMax( double prob ) {
   if (prob>max_prob) max_prob=prob;
 
 
-  if ( defaultprobmax && ntimes_prob<=500 ) { 
+  if ( defaultprobmax && ntimes_prob<=500 ) {
     //We are building up probmax with this iteration
      ntimes_prob += 1;
      if ( prob > probmax ) { probmax = prob;}
-     if (ntimes_prob==500) { 
+     if (ntimes_prob==500) {
        probmax*=1.2;
      }
      return 1000000.0*prob;
@@ -106,21 +106,21 @@ double EvtDecayBase::getProbMax( double prob ) {
 
 
 double EvtDecayBase::resetProbMax(double prob) {
-  
-  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Reseting prob max\n"; 
+
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Reseting prob max\n";
   EvtGenReport(EVTGEN_INFO,"EvtGen") << "prob > probmax:("<<prob<<">"<<probmax<<")";
   EvtGenReport(EVTGEN_INFO,"") << "("<<_modelname.c_str()<<")";
   EvtGenReport(EVTGEN_INFO,"") << EvtPDL::getStdHep(_parent)<<"->";
-  
+
   for( int i=0;i<_ndaug;i++){
     EvtGenReport(EVTGEN_INFO,"") << EvtPDL::getStdHep(_daug[i]) << " ";
   }
   EvtGenReport(EVTGEN_INFO,"") << endl;
-  
+
   probmax = 0.0;
   defaultprobmax = 0;
   ntimes_prob = 0;
-  
+
   return prob;
 
 }
@@ -179,10 +179,10 @@ void EvtDecayBase::init() {
 void EvtDecayBase::initProbMax() {
 
   //This function is called if the decay does not have a
-  //specialized initialization.  
+  //specialized initialization.
   //The default is to set the maximum
   //probability to 0 and the number of times called to 0
-  //and defaultprobmax to 1 such that the decay will be 
+  //and defaultprobmax to 1 such that the decay will be
   //generated many many times
   //in order to generate a reasonable maximum probability
   //for the decay.
@@ -194,7 +194,7 @@ void EvtDecayBase::initProbMax() {
 } //initProbMax
 
 
-void EvtDecayBase::saveDecayInfo(EvtId ipar, int ndaug, EvtId *daug, 
+void EvtDecayBase::saveDecayInfo(EvtId ipar, int ndaug, EvtId *daug,
 				 int narg,std::vector<std::string>& args,
 				 std::string name,
 				 double brfr) {
@@ -204,29 +204,28 @@ void EvtDecayBase::saveDecayInfo(EvtId ipar, int ndaug, EvtId *daug,
   _brfr=brfr;
   _ndaug=ndaug;
   _narg=narg;
-  _parent=ipar; 
+  _parent=ipar;
 
   _dsum=0;
 
   if (_ndaug>0) {
-    _daug=new EvtId [_ndaug];
+    _daug.resize(_ndaug);
     for(i=0;i<_ndaug;i++){
       _daug[i]=daug[i];
       _dsum+=daug[i].getAlias();
     }
-  }
-  else{
-    _daug=0;
+  } else{
+    _daug.clear();
   }
 
   if (_narg>0) {
-    _args=new std::string[_narg+1];
+    _args.resize(_narg+1);
     for(i=0;i<_narg;i++){
       _args[i]=args[i];
     }
   }
   else{
-     _args = 0;
+     _args.clear();
   }
 
   _modelname=name;
@@ -262,16 +261,13 @@ EvtDecayBase::EvtDecayBase() {
   defaultprobmax=1;
   ntimes_prob = 0;
   probmax = 0.0;
-  
+
   _photos=0;
   _verbose=0;
   _summary=0;
   _parent=EvtId(-1,-1);
   _ndaug=0;
   _narg=0;
-  _daug=0;
-  _args=0;
-  _argsD=0;
   _modelname="**********";
 
   //Default is to check that charge is conserved
@@ -294,7 +290,7 @@ void EvtDecayBase::printSummary() const {
     EvtGenReport(EVTGEN_INFO,"") <<" probmax:"<<probmax<<" max:"<<max_prob<<" : ";
   }
 
-  printInfo();  
+  printInfo();
 }
 
 
@@ -306,23 +302,6 @@ void EvtDecayBase::printInfo() const {
   EvtGenReport(EVTGEN_INFO,"") << " ("<<_modelname.c_str()<<")"<< endl;
 }
 
-
-EvtDecayBase::~EvtDecayBase() {
-
-  if (_daug!=0){
-     delete [] _daug;
-  }
-
-  if (_args!=0){
-     delete [] _args;
-  }
-
-  if (_argsD!=0){
-     delete [] _argsD;
-  }
-
-
-}
 
 void EvtDecayBase::setProbMax(double prbmx){
 
@@ -340,7 +319,7 @@ void EvtDecayBase::noProbMax(){
 
 double EvtDecayBase::findMaxMass(EvtParticle *p) {
 
-  
+
   double maxOkMass=EvtPDL::getMaxMass(p->getId());
 
   //protect against vphotons
@@ -360,7 +339,7 @@ double EvtDecayBase::findMaxMass(EvtParticle *p) {
 	if ( dau->isInitialized() || dau->hasValidP4() )
 	  minDaugMass+=dau->mass();
 	else
-	//give it a bit of phase space 
+	//give it a bit of phase space
 	  minDaugMass+=1.000001*EvtPDL::getMinMass(dau->getId());
       }
     }
@@ -371,7 +350,7 @@ double EvtDecayBase::findMaxMass(EvtParticle *p) {
 
 
 // given list of daughters ( by number ) returns a
-// list of viable masses. 
+// list of viable masses.
 
 void EvtDecayBase::findMass(EvtParticle *p) {
 
@@ -385,7 +364,7 @@ void EvtDecayBase::findMass(EvtParticle *p) {
   double mass;
   bool massOk=false;
   size_t i;
-  while (!massOk) { 
+  while (!massOk) {
     count++;
     if ( count > 10000 ) {
       EvtGenReport(EVTGEN_INFO,"EvtGen") << "Can not find a valid mass for: " << EvtPDL::name(p->getId()).c_str() <<endl;
@@ -403,7 +382,7 @@ void EvtDecayBase::findMass(EvtParticle *p) {
       }
       else  p->printTree();
       EvtGenReport(EVTGEN_INFO,"EvtGen") << "maxokmass=" << maxOkMass << " " << EvtPDL::getMinMass(p->getId()) << " " << EvtPDL::getMaxMass(p->getId())<<endl;
-      if ( p->getNDaug() ) { 
+      if ( p->getNDaug() ) {
 	for (i=0; i<p->getNDaug(); i++) {
 	  EvtGenReport(EVTGEN_INFO,"EvtGen") << p->getDaug(i)->mass()<<" ";
 	}
@@ -413,14 +392,14 @@ void EvtDecayBase::findMass(EvtParticle *p) {
 	EvtGenReport(EVTGEN_INFO,"EvtGen") << "taking a default value\n";
 	p->setMass(maxOkMass);
 	return;
-      } 
+      }
       assert(0);
     }
     mass = EvtPDL::getMass(p->getId());
     //Just need to check that this mass is > than
     //the mass of all daughters
     double massSum=0.;
-    if ( p->getNDaug() ) { 
+    if ( p->getNDaug() ) {
       for (i=0; i<p->getNDaug(); i++) {
 	massSum+= p->getDaug(i)->mass();
       }
@@ -430,18 +409,18 @@ void EvtDecayBase::findMass(EvtParticle *p) {
     if ( p->getParent() ) {
       if ( p->getParent()->getNDaug()==1 ) massOk=true;
     }
-    if ( !massOk ) { 
+    if ( !massOk ) {
       if (massSum < mass) massOk=true;
       if ( mass> maxOkMass) massOk=false;
     }
   }
 
   p->setMass(mass);
-  
+
 }
 
 
-void EvtDecayBase::findMasses(EvtParticle *p, int ndaugs, 
+void EvtDecayBase::findMasses(EvtParticle *p, int ndaugs,
 				 EvtId daugs[10], double masses[10]) {
 
   int i;
@@ -462,7 +441,7 @@ void EvtDecayBase::findMasses(EvtParticle *p, int ndaugs,
       masses[0]=p->mass();
       return;
     }
-    
+
     //until we get a combo whose masses are less than _parent mass.
     do {
       mass_sum = 0.0;
@@ -470,28 +449,28 @@ void EvtDecayBase::findMasses(EvtParticle *p, int ndaugs,
       for (i = 0; i < ndaugs; i++ ) {
         masses[i] = EvtPDL::getMass(daugs[i]);
         mass_sum = mass_sum + masses[i];
-      } 
+      }
 
       count++;
 
-     
+
       if(count==10000) {
         EvtGenReport(EVTGEN_ERROR,"EvtGen") <<"Decaying particle:"<<
 	  EvtPDL::name(p->getId()).c_str()<<" (m="<<p->mass()<<")"<<endl;
         EvtGenReport(EVTGEN_ERROR,"EvtGen") <<"To the following daugthers"<<endl;
         for (i = 0; i < ndaugs; i++ ) {
-          EvtGenReport(EVTGEN_ERROR,"EvtGen") <<  
+          EvtGenReport(EVTGEN_ERROR,"EvtGen") <<
 	    EvtPDL::name(daugs[i]).c_str() << endl;
-        } 
+        }
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Has been rejected "<<count
 			       << " times, will now take minimal masses "
 			       << " of daugthers"<<endl;
-        
+
 	mass_sum=0.;
 	for (i = 0; i < ndaugs; i++ ) {
 	  masses[i] = EvtPDL::getMinMass(daugs[i]);
 	  mass_sum = mass_sum + masses[i];
-	} 
+	}
 	if (mass_sum > p->mass()){
 	  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Parent mass="<<p->mass()
 				 << "to light for daugthers."<<endl
@@ -505,45 +484,45 @@ void EvtDecayBase::findMasses(EvtParticle *p, int ndaugs,
       }
     } while ( mass_sum > p->mass());
   } //else
-  
+
   return;
-}       
+}
 
 void EvtDecayBase::checkNArg(int a1, int a2, int a3, int a4) {
 
   if ( _narg != a1 && _narg != a2 && _narg != a3 && _narg != a4 ) {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str() << " generator expected "<<endl;
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << a1<<endl;; 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << a1<<endl;;
     if ( a2>-1) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a2<<endl; 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a2<<endl;
     }
     if ( a3>-1) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a3<<endl; 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a3<<endl;
     }
     if ( a4>-1) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a4<<endl; 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << a4<<endl;
     }
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << " arguments but found:"<< _narg << endl;
     printSummary();
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
 
-  } 
+  }
 
 }
 void EvtDecayBase::checkNDaug(int d1, int d2){
 
   if ( _ndaug != d1 && _ndaug != d2 ) {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str() << " generator expected ";
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << d1; 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << d1;
     if ( d2>-1) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << d2; 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << " or " << d2;
     }
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << " daughters but found:"<< _ndaug << endl;
     printSummary();
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
-  } 
+  }
 
 }
 
@@ -551,12 +530,12 @@ void EvtDecayBase::checkSpinParent(EvtSpinType::spintype sp) {
 
   EvtSpinType::spintype parenttype = EvtPDL::getSpinType(getParentId());
   if ( parenttype != sp ) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str() 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str()
 			   << " did not get the correct parent spin\n";
     printSummary();
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
-  } 
+  }
 
 }
 
@@ -564,31 +543,29 @@ void EvtDecayBase::checkSpinDaughter(int d1, EvtSpinType::spintype sp) {
 
   EvtSpinType::spintype parenttype = EvtPDL::getSpinType(getDaug(d1));
   if ( parenttype != sp ) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str() 
-			   << " did not get the correct daughter spin d=" 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << _modelname.c_str()
+			   << " did not get the correct daughter spin d="
 			   << d1 << endl;
     printSummary();
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
-  } 
+  }
 
 }
 
 double* EvtDecayBase::getArgs() {
 
-  if ( _argsD ) return _argsD;
-  //The user has asked for a list of doubles - the arguments 
+  if ( !_argsD.empty() ) return _argsD.data();
+  //The user has asked for a list of doubles - the arguments
   //better all be doubles...
-  if ( _narg==0 ) return _argsD;
+  if ( _narg==0 ) return _argsD.data();
 
-  _argsD = new double[_narg];
-
-  int i;
-  char * tc;
-  for(i=0;i<_narg;i++) { 
+  _argsD.resize(_narg);
+  for(int i=0;i<_narg;i++) {
+    char * tc;
     _argsD[i] =  strtod(_args[i].c_str(),&tc);
   }
-  return _argsD;
+  return _argsD.data();
 }
 
 double EvtDecayBase::getArg(unsigned int j) {
@@ -596,7 +573,7 @@ double EvtDecayBase::getArg(unsigned int j) {
   // Verify string
 
   if (getParentId().getId() == 25) {
-    int i = 0 ; 
+    int i = 0 ;
     ++i;
   }
 
@@ -610,8 +587,8 @@ double EvtDecayBase::getArg(unsigned int j) {
     }
     i++;
   }
-  
-  char** tc=0; 
+
+  char** tc=0;
   double result = strtod(_args[j].c_str(),tc);
 
   if (_storedArgs.size() < j+1 ){  // then store the argument's value
@@ -629,7 +606,7 @@ bool EvtDecayBase::matchingDecay(const EvtDecayBase &other) const {
 
   if ( _ndaug != other._ndaug) return false;
   if ( _parent != other._parent) return false;
-  
+
   std::vector<int> useDs;
   for ( int i=0; i<_ndaug; i++) useDs.push_back(0);
 

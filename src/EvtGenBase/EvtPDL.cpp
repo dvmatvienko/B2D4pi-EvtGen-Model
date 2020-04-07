@@ -17,7 +17,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <fstream>
@@ -42,7 +42,7 @@ std::map<std::string,int> EvtPDL::_particleNameLookup;
 
 EvtPDL::EvtPDL() {
 
-  if (first!=0) { 
+  if (first!=0) {
     first=0;
     _nentries=0;
     _firstAlias=999999;
@@ -50,10 +50,6 @@ EvtPDL::EvtPDL() {
 
 }
 
-
-EvtPDL::~EvtPDL(){
-  
-}
 
 void EvtPDL::read(const char* fname)
 {
@@ -64,7 +60,7 @@ void EvtPDL::readPDT(const std::string fname){
 
 
   ifstream indec;
-  
+
   indec.open(fname.c_str());
 
   char cmnd[100];
@@ -75,7 +71,7 @@ void EvtPDL::readPDT(const std::string fname){
   double mass;
   double pwidth;
   double pmaxwidth;
-  int    chg3;  
+  int    chg3;
   int    spin2;
   double ctau;
   int    lundkc;
@@ -92,7 +88,7 @@ void EvtPDL::readPDT(const std::string fname){
 
     do{
 
-      indec.get(ch);  
+      indec.get(ch);
       if (ch=='\n') indec.get(ch);
       if (ch!='*') {
 	indec.putback(ch);
@@ -115,7 +111,7 @@ void EvtPDL::readPDT(const std::string fname){
         indec >> mass;
         indec >> pwidth;
         indec >> pmaxwidth;
-        indec >> chg3;  
+        indec >> chg3;
         indec >> spin2;
         indec >> ctau;
         indec >> lundkc;
@@ -126,8 +122,8 @@ void EvtPDL::readPDT(const std::string fname){
 	EvtPartProp tmp;
 
 	tmp.setSpinType(EvtSpinType::SCALAR);
-	
-	
+
+
 	if (spin2==0) tmp.setSpinType(EvtSpinType::SCALAR);
 	if (spin2==1) tmp.setSpinType(EvtSpinType::DIRAC);
 	if (spin2==2) tmp.setSpinType(EvtSpinType::VECTOR);
@@ -139,17 +135,17 @@ void EvtPDL::readPDT(const std::string fname){
 	if (spin2==8) tmp.setSpinType(EvtSpinType::SPIN4);
 	if (spin2==2 && mass < 0.0001 ) tmp.setSpinType(EvtSpinType::PHOTON);
 	if (spin2==1 && mass < 0.0001 ) tmp.setSpinType(EvtSpinType::NEUTRINO);
-	
-	
+
+
 	if (!strcmp(pname,"string")){
 	  tmp.setSpinType(EvtSpinType::STRING);
 	}
-	
+
 	if (!strcmp(pname,"vpho")){
 	  tmp.setSpinType(EvtSpinType::VECTOR);
 	}
-	
-	
+
+
 	tmp.setId(i);
 	tmp.setIdChgConj(EvtId(-1,-1));
 	tmp.setStdHep(stdhepid);
@@ -164,7 +160,7 @@ void EvtPDL::readPDT(const std::string fname){
 	_particleNameLookup[std::string(pname)]=_nentries;
 	tmp.setctau(ctau);
 	tmp.setChg3(chg3);
-	
+
 	tmp.initLineShape(mass,pwidth,pmaxwidth);
 
 
@@ -186,7 +182,7 @@ void EvtPDL::readPDT(const std::string fname){
     }
 
   }while(strcmp(cmnd,"end"));
-  
+
   setUpConstsPdt();
 
 }
@@ -199,7 +195,7 @@ void EvtPDL::aliasChgConj(EvtId a,EvtId abar){
 
     EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Can't charge conjugate the two aliases:"
 			  <<EvtPDL::name(a).c_str()<<" and "<<EvtPDL::name(abar).c_str()<<endl;
-      
+
     ::abort();
 
   }
@@ -221,7 +217,7 @@ EvtId EvtPDL::chargeConj(EvtId id){
 
   if (id.getId()!=id.getAlias()){
     if (chargeConj(EvtId(id.getId(),id.getId()))==EvtId(id.getId(),id.getId())){
-    
+
       partlist()[id.getAlias()].setIdChgConj(id);
       return id;
     }
@@ -231,7 +227,7 @@ EvtId EvtPDL::chargeConj(EvtId id){
 
     EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Trying to charge conjugate alias particle:"
 			  <<name(id).c_str()<<" without defining the alias!"<<endl;
-      
+
     ::abort();
 
   }
@@ -242,10 +238,10 @@ EvtId EvtPDL::chargeConj(EvtId id){
       return partlist()[i].getId();
     }
   }
-  
+
   partlist()[id.getId()].setIdChgConj(id);
   return id;
-  
+
 }
 
 EvtId EvtPDL::evtIdFromStdHep(int stdhep){
@@ -254,15 +250,15 @@ EvtId EvtPDL::evtIdFromStdHep(int stdhep){
     if (partlist()[i].getStdHep()==stdhep)
       return partlist()[i].getId();
   }
-  
+
   return EvtId(-1,-1);
-  
+
 }
 
 
 
 void EvtPDL::alias(EvtId num,const std::string& newname){
-  
+
   if ( _firstAlias < partlist().size() ) {
     for(size_t i=_firstAlias;i<partlist().size();i--){
       if (newname==partlist()[i].getName()){
@@ -297,7 +293,7 @@ EvtId EvtPDL::getId(const std::string& name ){
   if (it==_particleNameLookup.end()) return EvtId(-1,-1);
 
   return partlist()[it->second].getId();
-  
+
 }
 
 void EvtPDL::setUpConstsPdt(){
@@ -305,7 +301,7 @@ void EvtPDL::setUpConstsPdt(){
 }
 
 
-// Function to get EvtId from LundKC ( == Pythia Hep Code , KF ) 
+// Function to get EvtId from LundKC ( == Pythia Hep Code , KF )
 EvtId EvtPDL::evtIdFromLundKC(int pythiaId){
 
   unsigned int i;
@@ -314,28 +310,28 @@ EvtId EvtPDL::evtIdFromLundKC(int pythiaId){
     if (partlist()[i].getLundKC()==pythiaId)
       return partlist()[i].getId();
   }
-  
+
   return EvtId(-1,-1);
-  
+
 }
- 
-double EvtPDL::getMeanMass(EvtId i ) { 
-  return partlist()[i.getId()].getMass(); 
+
+double EvtPDL::getMeanMass(EvtId i ) {
+  return partlist()[i.getId()].getMass();
 }
 
 double EvtPDL::getMass(EvtId i ) {
   return partlist()[i.getId()].rollMass();
 }
 
-double EvtPDL::getRandMass(EvtId i, EvtId *parId, int nDaug, EvtId *dauId, 
-                           EvtId *othDaugId,double maxMass, 
+double EvtPDL::getRandMass(EvtId i, EvtId *parId, int nDaug, EvtId *dauId,
+                           EvtId *othDaugId,double maxMass,
                            double *dauMasses ) {
   return partlist()[i.getId()].getRandMass(parId,nDaug,dauId,
                                           othDaugId,maxMass,dauMasses);
 }
 
-double EvtPDL::getMassProb(EvtId i, double mass, double massPar, int nDaug, 
-                           double *massDau) { 
+double EvtPDL::getMassProb(EvtId i, double mass, double massPar, int nDaug,
+                           double *massDau) {
   return partlist()[i.getId()].getMassProb(mass,massPar,nDaug,massDau);
 }
 
@@ -343,7 +339,7 @@ double EvtPDL::getMaxMass(EvtId i ) {
   return partlist()[i.getId()].getMassMax();
 }
 
-double EvtPDL::getMinMass(EvtId i ) { 
+double EvtPDL::getMinMass(EvtId i ) {
   return partlist()[i.getId()].getMassMin();
 }
 
@@ -351,7 +347,7 @@ double EvtPDL::getMaxRange(EvtId i ) {
   return partlist()[i.getId()].getMaxRange();
 }
 
-double EvtPDL::getWidth(EvtId i ) { 
+double EvtPDL::getWidth(EvtId i ) {
   return partlist()[i.getId()].getWidth();
 }
 
@@ -375,11 +371,11 @@ EvtSpinType::spintype EvtPDL::getSpinType(EvtId i ) {
   return partlist()[i.getId()].getSpinType();
 }
 
-std::string EvtPDL::name(EvtId i) { 
+std::string EvtPDL::name(EvtId i) {
   return partlist()[i.getAlias()].getName();
 }
 
-size_t EvtPDL::entries() { 
+size_t EvtPDL::entries() {
   return partlist().size();
 }
 
@@ -391,15 +387,15 @@ void EvtPDL::reSetMass(EvtId i, double mass) {
   partlist()[i.getId()].reSetMass(mass);
 }
 
-void EvtPDL::reSetWidth(EvtId i, double width) { 
+void EvtPDL::reSetWidth(EvtId i, double width) {
   partlist()[i.getId()].reSetWidth(width);
 }
 
-void EvtPDL::reSetMassMin(EvtId i, double mass) { 
+void EvtPDL::reSetMassMin(EvtId i, double mass) {
   partlist()[i.getId()].reSetMassMin(mass);
 }
 
-void EvtPDL::reSetMassMax(EvtId i,double mass) { 
+void EvtPDL::reSetMassMax(EvtId i,double mass) {
   partlist()[i.getId()].reSetMassMax(mass);
 }
 
@@ -419,14 +415,14 @@ void EvtPDL::includeDecayFactor(EvtId i,bool yesno) {
   partlist()[i.getId()].includeDecayFactor(yesno);
 }
 
-void EvtPDL::changeLS(EvtId i, std::string &newLS ) { 
+void EvtPDL::changeLS(EvtId i, std::string &newLS ) {
   partlist()[i.getId()].newLineShape(newLS);
 }
 
-void EvtPDL::setPWForDecay(EvtId i, int spin, EvtId d1, EvtId d2) {  
+void EvtPDL::setPWForDecay(EvtId i, int spin, EvtId d1, EvtId d2) {
   partlist()[i.getId()].setPWForDecay(spin,d1,d2);
 }
 
-void EvtPDL::setPWForBirthL(EvtId i, int spin, EvtId par, EvtId othD) {  
+void EvtPDL::setPWForBirthL(EvtId i, int spin, EvtId par, EvtId othD) {
   partlist()[i.getId()].setPWForBirthL(spin,par,othD);
 }

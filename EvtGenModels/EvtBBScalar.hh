@@ -54,11 +54,11 @@ class EvtBBScalar : public EvtDecayAmp {
 
 public:
     EvtBBScalar();
-    std::string getName();
-    EvtDecayBase* clone();
-    void decay(EvtParticle* p);
-    void init();
-    void initProbMax();
+    std::string getName() override;
+    EvtBBScalar* clone() override;
+    void decay(EvtParticle* p) override;
+    void init() override;
+    void initProbMax() override;
 
 private:
     // used values of constants
@@ -87,13 +87,13 @@ private:
     // only consider F1+F2 here
     std::bitset<nBaryons> _baryonCombination;
     void setKnownBaryonTypes(const EvtId& baryon);
-    
+
     double B_pi_f1(double t) const ;
     double B_pi_f0(double t) const ;
     double baryonF1F2(double t) const ;
     double G_p(double t) const ;
     double G_n(double t) const ;
-    
+
     double baryon_gA(double t) const;
     double baryon_hA(double t) const;
     double baryon_gP(double t) const ;

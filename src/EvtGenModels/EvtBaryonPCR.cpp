@@ -11,9 +11,9 @@
 // Module: EvtBaryonVminusA.cc
 //
 // Description: Routine to implement semileptonic decays using realistic
-//              dynamics.  The form factors are from 
+//              dynamics.  The form factors are from
 //              M.Pervin,S.Capstick,W. Roberts, Phys.Rev. C72 035201(2005).
-//              
+//
 //
 // Modification history:
 //
@@ -39,53 +39,41 @@ using namespace std;
 #ifdef D0
 #undef D0
 #endif
-EvtBaryonPCR::EvtBaryonPCR():
-  baryonpcrffmodel(0)
-  ,calcamp(0)
-{}
-
-
-EvtBaryonPCR::~EvtBaryonPCR() {
-  delete baryonpcrffmodel;
-  baryonpcrffmodel=0;
-  delete calcamp;
-  calcamp=0;
-}
 
 std::string EvtBaryonPCR::getName(){
-  
-  return "BaryonPCR";     
-  
+
+  return "BaryonPCR";
+
 }
 
 
 
-EvtDecayBase* EvtBaryonPCR::clone(){
-  
+EvtBaryonPCR* EvtBaryonPCR::clone(){
+
   return new EvtBaryonPCR;
-  
+
 }
 
 void EvtBaryonPCR::decay( EvtParticle *p ){
-  
+
   //This is a kludge to avoid warnings because the K_2* mass becomes to large.
   static EvtIdSet regenerateMasses("K_2*+","K_2*-","K_2*0","anti-K_2*0",
 				   "K_1+","K_1-","K_10","anti-K_10",
 				   "D'_1+","D'_1-","D'_10","anti-D'_10");
-  
+
   if (regenerateMasses.contains(getDaug(0))){
     p->resetFirstOrNot();
   }
-  
+
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  
+
   EvtComplex r00(getArg(0), 0.0 );
   EvtComplex r01(getArg(1), 0.0 );
   EvtComplex r10(getArg(2), 0.0 );
   EvtComplex r11(getArg(3), 0.0 );
 
-  calcamp->CalcAmp(p,_amp2,baryonpcrffmodel, r00, r01, r10, r11);
-  
+  calcamp->CalcAmp(p,_amp2,baryonpcrffmodel.get(), r00, r01, r10, r11);
+
 }
 
 void EvtBaryonPCR::initProbMax() {
@@ -106,30 +94,30 @@ void EvtBaryonPCR::initProbMax() {
   static EvtId LAMC2M=EvtPDL::getId("anti-Lambda_c(2625)-");
   static EvtId LAMB=EvtPDL::getId("Lambda_b0");
   static EvtId LAMBB=EvtPDL::getId("anti-Lambda_b0");
-  
+
   EvtId parnum,barnum,lnum;
-  
+
   parnum = getParentId();
   barnum = getDaug(0);
   lnum = getDaug(1);
 
   if( parnum==LAMB || parnum==LAMBB ) {
-    if( barnum==LAMCP|| barnum==LAMCM 
+    if( barnum==LAMCP|| barnum==LAMCM
 	|| barnum==LAMC1P || barnum==LAMC1M || barnum==LAMC2P || barnum==LAMC2M
-	|| barnum==SIGC0 || barnum==SIGC0B || barnum==SIGCP || barnum==SIGCM 
+	|| barnum==SIGC0 || barnum==SIGC0B || barnum==SIGCP || barnum==SIGCM
 	|| barnum==SIGCPP || barnum==SIGCMM ) {
       setProbMax(22000.0);
       return;
     }
   }
-  
+
   //This is a real cludge.. (ryd)
   setProbMax(0.0);
-  
+
 }
 
 void EvtBaryonPCR::init(){
-  
+
   //if (getNArg()!=0) {
   if (getNArg()!=4) {
 
@@ -142,15 +130,15 @@ void EvtBaryonPCR::init(){
   }
 
   if ( getNDaug()!=3 ) {
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
-       << "Wrong number of daughters in EvtBaryonPCR.cc " 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
+       << "Wrong number of daughters in EvtBaryonPCR.cc "
        << " 3 daughters expected but found: "<<getNDaug()<<endl;
      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
      ::abort();
   }
 
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   EvtSpinType::spintype parenttype=EvtPDL::getSpinType(getParentId());
@@ -180,20 +168,20 @@ void EvtBaryonPCR::init(){
     ::abort();
   }
 
-  baryonpcrffmodel = new EvtBaryonPCRFF;
-  
-  if ( baryontype==EvtSpinType::DIRAC 
-       || baryontype==EvtSpinType::RARITASCHWINGER) { 
-    calcamp = new EvtSemiLeptonicBaryonAmp; 
+  baryonpcrffmodel = std::make_unique< EvtBaryonPCRFF> ();
+
+  if ( baryontype==EvtSpinType::DIRAC
+       || baryontype==EvtSpinType::RARITASCHWINGER) {
+    calcamp = std::make_unique< EvtSemiLeptonicBaryonAmp> ();
   }
   else {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") 
-      << "Wrong baryon spin type in EvtBaryonPCR.cc " 
-      << "Expected spin type " << EvtSpinType::DIRAC 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")
+      << "Wrong baryon spin type in EvtBaryonPCR.cc "
+      << "Expected spin type " << EvtSpinType::DIRAC
       << ", found spin type " << baryontype <<endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" <<endl;
      ::abort();
   }
-  
+
 }
 

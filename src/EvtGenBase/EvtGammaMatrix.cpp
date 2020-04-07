@@ -17,7 +17,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <math.h>
@@ -82,7 +82,7 @@ ostream& operator<<(ostream& s, const EvtGammaMatrix& g){
 
 EvtGammaMatrix::EvtGammaMatrix(const EvtGammaMatrix& gm){
   int i,j;
-  
+
   for(i=0;i<4;i++){
     for(j=0;j<4;j++){
       _gamma[i][j]=gm._gamma[i][j];
@@ -90,11 +90,9 @@ EvtGammaMatrix::EvtGammaMatrix(const EvtGammaMatrix& gm){
   }
 }
 
-EvtGammaMatrix::~EvtGammaMatrix() {}
-
 EvtGammaMatrix& EvtGammaMatrix::operator=(const EvtGammaMatrix& gm){
   int i,j;
-  
+
   for(i=0;i<4;i++){
     for(j=0;j<4;j++){
       _gamma[i][j]=gm._gamma[i][j];
@@ -234,7 +232,7 @@ const EvtGammaMatrix& EvtGammaMatrix::va3(){
   }
 
   return g;
-  
+
 }
 
 
@@ -251,13 +249,13 @@ const EvtGammaMatrix& EvtGammaMatrix::g0(){
     first=0;
 
     int i,j;
-  
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][0]=EvtComplex(1.0,0.0);
     g._gamma[1][1]=EvtComplex(1.0,0.0);
     g._gamma[2][2]=EvtComplex(-1.0,0.0);
@@ -279,19 +277,19 @@ const EvtGammaMatrix& EvtGammaMatrix::g1(){
   if (first){
     first=0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][3]=EvtComplex(1.0,0.0);
     g._gamma[1][2]=EvtComplex(1.0,0.0);
     g._gamma[2][1]=EvtComplex(-1.0,0.0);
     g._gamma[3][0]=EvtComplex(-1.0,0.0);
   }
-  
+
   return g;
 
 }
@@ -307,19 +305,19 @@ const EvtGammaMatrix& EvtGammaMatrix::g2(){
   if (first){
     first=0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][3]=EvtComplex(0.0,-1.0);
     g._gamma[1][2]=EvtComplex(0.0,1.0);
     g._gamma[2][1]=EvtComplex(0.0,1.0);
     g._gamma[3][0]=EvtComplex(0.0,-1.0);
   }
-  
+
   return g;
 
 }
@@ -336,13 +334,13 @@ const EvtGammaMatrix& EvtGammaMatrix::g3(){
   if (first){
     first=0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][2]=EvtComplex(1.0,0.0);
     g._gamma[1][3]=EvtComplex(-1.0,0.0);
     g._gamma[2][0]=EvtComplex(-1.0,0.0);
@@ -364,13 +362,13 @@ const EvtGammaMatrix& EvtGammaMatrix::g5(){
   if (first){
     first = 0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][2]=EvtComplex(1.0,0.0);
     g._gamma[1][3]=EvtComplex(1.0,0.0);
     g._gamma[2][0]=EvtComplex(1.0,0.0);
@@ -412,13 +410,13 @@ const EvtGammaMatrix& EvtGammaMatrix::v0(){
   if (first){
     first = 0;
     int i,j;
-  
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][0]=EvtComplex(1.0,0.0);
     g._gamma[1][1]=EvtComplex(1.0,0.0);
     g._gamma[2][2]=EvtComplex(1.0,0.0);
@@ -441,13 +439,13 @@ const EvtGammaMatrix& EvtGammaMatrix::v1(){
   if (first){
     first = 0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][3]=EvtComplex(1.0,0.0);
     g._gamma[1][2]=EvtComplex(1.0,0.0);
     g._gamma[2][1]=EvtComplex(1.0,0.0);
@@ -475,7 +473,7 @@ const EvtGammaMatrix& EvtGammaMatrix::v2(){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][3]=EvtComplex(0.0,-1.0);
     g._gamma[1][2]=EvtComplex(0.0,1.0);
     g._gamma[2][1]=EvtComplex(0.0,-1.0);
@@ -497,13 +495,13 @@ const EvtGammaMatrix& EvtGammaMatrix::v3(){
   if (first){
     first = 0;
     int i,j;
-  
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][2]=EvtComplex(1.0,0.0);
     g._gamma[1][3]=EvtComplex(-1.0,0.0);
     g._gamma[2][0]=EvtComplex(1.0,0.0);
@@ -526,13 +524,13 @@ const EvtGammaMatrix& EvtGammaMatrix::id(){
   if (first){
     first = 0;
     int i,j;
-    
+
     for(i=0;i<4;i++){
       for(j=0;j<4;j++){
 	g._gamma[i][j]=EvtComplex(0.0,0.0);
       }
     }
-    
+
     g._gamma[0][0]=EvtComplex(1.0,0.0);
     g._gamma[1][1]=EvtComplex(1.0,0.0);
     g._gamma[2][2]=EvtComplex(1.0,0.0);
@@ -549,7 +547,7 @@ const EvtGammaMatrix& EvtGammaMatrix::id(){
 EvtGammaMatrix& EvtGammaMatrix::operator+=(const EvtGammaMatrix &g){
 
   int i,j;
-  
+
   for(i=0;i<4;i++){
     for(j=0;j<4;j++){
       _gamma[i][j]+=g._gamma[i][j];
@@ -565,7 +563,7 @@ EvtGammaMatrix& EvtGammaMatrix::operator+=(const EvtGammaMatrix &g){
 EvtGammaMatrix& EvtGammaMatrix::operator-=(const EvtGammaMatrix &g){
 
   int i,j;
-  
+
   for(i=0;i<4;i++){
     for(j=0;j<4;j++){
       _gamma[i][j]-=g._gamma[i][j];
@@ -604,22 +602,20 @@ EvtDiracSpinor operator*(const EvtGammaMatrix& g,const EvtDiracSpinor& d){
 
   int i,j;
   EvtDiracSpinor temp;
-  
+
    for(i=0;i<4;i++){
      temp.set_spinor(i,EvtComplex(0.0,0.0));
      for(j=0;j<4;j++){
        temp.set_spinor(i,temp.get_spinor(i)+g._gamma[i][j]*d.get_spinor(j));
      }
    }
-   
+
    return temp;
 }
 
 // upper index
 const EvtGammaMatrix& EvtGammaMatrix::sigmaUpper(unsigned int mu, unsigned int nu)
 {
-    EvtGammaMatrix a, b;
-    static const EvtTensor4C eta = EvtTensor4C::g(); //metric
     static EvtGammaMatrix sigma[4][4];
     static bool hasBeenCalled = false;
     if (!hasBeenCalled)
@@ -627,7 +623,7 @@ const EvtGammaMatrix& EvtGammaMatrix::sigmaUpper(unsigned int mu, unsigned int n
         EvtComplex I(0, 1);
         for (int i=0; i<4; ++i)
             sigma[i][i].init(); // set to 0
-        
+
         EvtGammaMatrix s01 = I/2 * (g0()*g1() - g1()*g0());
         EvtGammaMatrix s02 = I/2 * (g0()*g2() - g2()*g0());
         EvtGammaMatrix s03 = I/2 * (g0()*g3() - g3()*g0());
@@ -648,14 +644,14 @@ const EvtGammaMatrix& EvtGammaMatrix::sigmaUpper(unsigned int mu, unsigned int n
         sigma[3][2] = -1*s23;
     }
     hasBeenCalled = true;
-        
+
     if (mu > 3 || nu > 3)
     {
         EvtGenReport(EVTGEN_ERROR, "EvtSigmaTensor") << "Expected index between 0 and 3, but found " << nu << "!" << endl;
         assert(0);
     }
     return sigma[mu][nu];
-    
+
 }
 
 const EvtGammaMatrix& EvtGammaMatrix::sigmaLower(unsigned int mu, unsigned int nu)
@@ -665,7 +661,7 @@ const EvtGammaMatrix& EvtGammaMatrix::sigmaLower(unsigned int mu, unsigned int n
     static EvtGammaMatrix sigma[4][4];
     static bool hasBeenCalled = false;
     static const EvtTensor4C eta = EvtTensor4C::g();
-    
+
     if (!hasBeenCalled) // has to be initialized only at the first call
     {
         // lower index
@@ -679,22 +675,22 @@ const EvtGammaMatrix& EvtGammaMatrix::sigmaLower(unsigned int mu, unsigned int n
             }
         }
     }
-    return sigma[mu][nu];    
+    return sigma[mu][nu];
 }
 
 
 EvtGammaMatrix EvtGenFunctions::slash(const EvtVector4C& p)
 {
-    return EvtGammaMatrix::g0()*p.get(0) + 
-      EvtGammaMatrix::g1()*p.get(1) + 
-      EvtGammaMatrix::g2()*p.get(2) + 
+    return EvtGammaMatrix::g0()*p.get(0) +
+      EvtGammaMatrix::g1()*p.get(1) +
+      EvtGammaMatrix::g2()*p.get(2) +
       EvtGammaMatrix::g3()*p.get(3);
 }
 
 EvtGammaMatrix EvtGenFunctions::slash(const EvtVector4R& p)
 {
-  return EvtGammaMatrix::g0()*p.get(0) + 
-    EvtGammaMatrix::g1()*p.get(1) + 
-    EvtGammaMatrix::g2()*p.get(2) + 
+  return EvtGammaMatrix::g0()*p.get(0) +
+    EvtGammaMatrix::g1()*p.get(1) +
+    EvtGammaMatrix::g2()*p.get(2) +
     EvtGammaMatrix::g3()*p.get(3);
 }

@@ -12,7 +12,7 @@
 //
 // Description:Implementation of the Lb2Baryonlnu model
 // Class to handle semileptonic Lb -> p l nu decays using the using form factor predictions based on the quark model.  Here baryon can be Lc+, p, Lc*+, N*+.
-// 
+//
 //
 // Modification history:
 //
@@ -34,14 +34,14 @@ class EvtLb2Baryonlnu:public  EvtDecayAmp  {
 public:
 
   EvtLb2Baryonlnu();
-  virtual ~EvtLb2Baryonlnu();
+  ~EvtLb2Baryonlnu();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
   EvtSemiLeptonicFF *ffmodel;

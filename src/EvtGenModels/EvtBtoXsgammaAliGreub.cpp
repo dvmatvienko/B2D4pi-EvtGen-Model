@@ -26,7 +26,7 @@
 //    Mark Ian Williams       Sept 07, 2000       Tidied up the code
 //    Mark Ian Williams       Sept 10, 2000       Updated parameters
 //    Mark Ian Williams       Sept 11, 2000       Finalised code
-//    Jane Tinslay            March 21, 2000      Separated from EvtBtoXsgamma 
+//    Jane Tinslay            March 21, 2000      Separated from EvtBtoXsgamma
 //                                                class to allow choice of input models.
 //------------------------------------------------------------------------
 //
@@ -44,20 +44,18 @@
 using std::endl;
 
 
-EvtBtoXsgammaAliGreub::~EvtBtoXsgammaAliGreub(){}
-
 void EvtBtoXsgammaAliGreub::init(int nArg, double* /*args*/){
- 
+
   if ((nArg - 1) != 0) {
-    
+
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
-			   << "EvtBtoXsgammaAliGreub expected " 
+			   << "EvtBtoXsgammaAliGreub expected "
 			   << "zero arguments but found: "<<nArg-1<<endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
-  
+
   }
- 
+
 }
 
 double EvtBtoXsgammaAliGreub::GetMass(int Xscode) {
@@ -65,7 +63,7 @@ double EvtBtoXsgammaAliGreub::GetMass(int Xscode) {
   // The special lineshape for strange hadrons X_s in b -> s gamma:
   // An 18 parameter function fitted to the theoretical mass spectrum
   // of Ali & Greub for a B meson mass of 5.279 GeV; top quark mass of
-  // 174.3 GeV; strange quark mass of 0.48 GeV (tuned to give minimum 
+  // 174.3 GeV; strange quark mass of 0.48 GeV (tuned to give minimum
   // M_Xs of 0.64 GeV) and Fermi momentum of 265 MeV for spectator quark
   // mass of 150 MeV (from CLEO fit). Truncated at max on high side
   // and min (just above K pi or KK thresold) on low side.
@@ -75,7 +73,7 @@ double EvtBtoXsgammaAliGreub::GetMass(int Xscode) {
   double mass=0.0;
 
   double par[18];
-  if ((Xscode == 30343) || (Xscode == -30343) || 
+  if ((Xscode == 30343) || (Xscode == -30343) ||
       (Xscode == 30353) || (Xscode == -30353)) { // Xsu or Xsd
     min=0.6373; //  Just above K pi threshold for Xsd/u
     //min=0.6333; //  K pi threshold for neutral Xsd

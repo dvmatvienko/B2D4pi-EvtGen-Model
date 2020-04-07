@@ -19,9 +19,9 @@
 //    RYD       March 14, 1999       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
+#include <vector>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
@@ -34,15 +34,9 @@
 using std::endl;
 
 
-EvtHelAmp::~EvtHelAmp() {
-
-  delete _evalHelAmp;
-
-}
-
 std::string EvtHelAmp::getName(){
 
-  return "HELAMP";     
+  return "HELAMP";
 
 }
 
@@ -79,9 +73,9 @@ void EvtHelAmp::init(){
   }
 
   //allocate memory
-  int* _lambdaA2=new int[_nA];
-  int* _lambdaB2=new int[_nB];
-  int* _lambdaC2=new int[_nC];
+  std::vector<int> _lambdaA2(_nA);
+  std::vector<int> _lambdaB2(_nB);
+  std::vector<int> _lambdaC2(_nC);
 
   EvtComplexPtr* _HBC=new EvtComplexPtr[_nB];
   for(int ib=0;ib<_nB;ib++){
@@ -91,9 +85,9 @@ void EvtHelAmp::init(){
   int i;
   //find the allowed helicities (actually 2*times the helicity!)
 
-  fillHelicity(_lambdaA2,_nA,_JA2,getParentId());
-  fillHelicity(_lambdaB2,_nB,_JB2,getDaug(0));
-  fillHelicity(_lambdaC2,_nC,_JC2,getDaug(1));
+  fillHelicity(_lambdaA2.data(),_nA,_JA2,getParentId());
+  fillHelicity(_lambdaB2.data(),_nB,_JB2,getDaug(0));
+  fillHelicity(_lambdaC2.data(),_nC,_JC2,getDaug(1));
 
   if (verbose()){
     EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Helicity states of particle A:"<<endl;
@@ -140,16 +134,13 @@ void EvtHelAmp::init(){
     }
   }
 
-  _evalHelAmp=new EvtEvalHelAmp(getParentId(),
+  _evalHelAmp=std::make_unique< EvtEvalHelAmp >(getParentId(),
 				getDaug(0),
 				getDaug(1),
 				_HBC);
 
   // Note: these are not class data members but local variables.
-  delete [] _lambdaA2;
-  delete [] _lambdaB2;
-  delete [] _lambdaC2;
-  for(int ib=0;ib<_nB;ib++){    
+  for(int ib=0;ib<_nB;ib++){
     delete [] _HBC[ib];
   }
   delete [] _HBC;  // _HBC is copied in ctor of EvtEvalHelAmp above.
@@ -176,16 +167,14 @@ void EvtHelAmp::decay( EvtParticle *p){
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
   _evalHelAmp->evalAmp(p,_amp2);
-    
-  return ;
 
 }
 
 
 void EvtHelAmp::fillHelicity(int* lambda2,int n,int J2, EvtId id){
-  
+
   int i;
-  
+
   //photon is special case!
   if (n==2&&J2==2) {
     lambda2[0]=2;

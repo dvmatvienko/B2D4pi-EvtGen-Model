@@ -28,7 +28,6 @@ private:
   int _d1;
   int _d2;
   int _d3;
-  int _flag;
 
   bool _isKsPiPi;
 
@@ -81,16 +80,14 @@ private:
   EvtComplex dalitzKsKK  ( const EvtDalitzPoint& point ) const;
 
 public:
-  EvtD0gammaDalitz();
-  virtual ~EvtD0gammaDalitz();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void init();
-  void initProbMax();
+  void init() override;
+  void initProbMax() override;
 
-  void decay( EvtParticle* p );
+  void decay( EvtParticle* p ) override;
 };
 
 #endif

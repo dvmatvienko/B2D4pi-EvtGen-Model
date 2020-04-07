@@ -17,7 +17,7 @@
 //    RYD       Febuary 27,1998       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <math.h>
@@ -25,29 +25,6 @@
 #include "EvtGenBase/EvtStringParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtReport.hh"
-
-
-EvtStringParticle::~EvtStringParticle(){
-
-  if (_npartons!=0){
-    
-    delete [] _p4partons;
-    delete [] _idpartons;
-    
-  }
-
-}
-
-
-EvtStringParticle::EvtStringParticle(){
-
-  _p4partons=0;
-  _idpartons=0;
-  _npartons=0;
-
-  return;
-  
-}
 
 void EvtStringParticle::init(EvtId id, const EvtVector4R& p4){
 
@@ -57,29 +34,21 @@ void EvtStringParticle::init(EvtId id, const EvtVector4R& p4){
 
 }
 
-
 void EvtStringParticle::initPartons(int npartons,
 			      EvtVector4R* p4partons,EvtId* idpartons){
 
-  _p4partons = new EvtVector4R[npartons];
-  _idpartons = new EvtId[npartons];
-
-  int i;
-
-  _npartons=npartons;
-
-  for(i=0;i<npartons;i++){
-
+  _p4partons.resize(npartons);
+  _idpartons.resize(npartons);
+  for(int i=0;i<npartons;i++){
     _p4partons[i]=p4partons[i];
     _idpartons[i]=idpartons[i];
-
   }
 
 }
 
 int EvtStringParticle::getNPartons(){
 
-  return _npartons;
+  return _p4partons.size();
 
 }
 
@@ -94,11 +63,11 @@ EvtVector4R EvtStringParticle::getP4Parton(int i){
   return _p4partons[i];
 
 }
-  
+
 EvtSpinDensity EvtStringParticle::rotateToHelicityBasis() const{
 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis not implemented for strin particle."; 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution."; 
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis not implemented for strin particle.";
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution.";
 
   ::abort();
 
@@ -111,8 +80,8 @@ EvtSpinDensity EvtStringParticle::rotateToHelicityBasis(double,
 							double,
 							double) const{
 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis(alpha,beta,gamma) not implemented for string particle."; 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution."; 
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis(alpha,beta,gamma) not implemented for string particle.";
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution.";
 
   ::abort();
 
@@ -120,5 +89,3 @@ EvtSpinDensity EvtStringParticle::rotateToHelicityBasis(double,
   return rho;
 
 }
-
-

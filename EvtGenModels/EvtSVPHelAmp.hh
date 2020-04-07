@@ -40,21 +40,18 @@ class EvtSVPHelAmp:public  EvtDecayAmp  {
 
 public:
 
-  EvtSVPHelAmp() {}
-  virtual ~EvtSVPHelAmp();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
 
-  void decay(EvtParticle *p); 
-  
   static void SVPHel(EvtParticle *parent, EvtAmp& amp, EvtId n_v1, EvtId n_ph,
 		     const EvtComplex& hp, const EvtComplex& hm);
 
-  
+
 };
 
 #endif

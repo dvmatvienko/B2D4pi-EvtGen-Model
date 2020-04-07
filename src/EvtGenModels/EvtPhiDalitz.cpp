@@ -1,5 +1,5 @@
 #include "EvtGenBase/EvtPatches.hh"
- 
+
 #include <stdlib.h>
 #include <math.h>
 #include "EvtGenBase/EvtVector4R.hh"
@@ -14,12 +14,10 @@
 // PL B561: 55-60 (2003) + Erratum B609:449-450 (2005)
 // or hep-ex/0303016v2
 
- 
-EvtPhiDalitz::~EvtPhiDalitz() {}
 
 std::string EvtPhiDalitz::getName(){
 
-  return "PHI_DALITZ";     
+  return "PHI_DALITZ";
 
 }
 
@@ -60,15 +58,15 @@ void EvtPhiDalitz::init(){
   }
   if ( _locPip == -1 || _locPim == -1 || _locPi0 == -1 ) {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << getModelName() << "generator expects daughters to be pi+ pi- pi0\n";
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Found " << EvtPDL::name(getDaug(0)) << " " 
-			   << EvtPDL::name(getDaug(1)) << " " 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Found " << EvtPDL::name(getDaug(0)) << " "
+			   << EvtPDL::name(getDaug(1)) << " "
 			   << EvtPDL::name(getDaug(2)) << std::endl;
 
   }
 
 
 }
-    
+
 
 
 
@@ -87,7 +85,7 @@ void EvtPhiDalitz::decay( EvtParticle *p){
   EvtVector4R Qp = (Ppim + Ppi0);
   EvtVector4R Qm = (Ppip + Ppi0);
   EvtVector4R Q0 = (Ppip + Ppim);
-  double m2_pip = pow(EvtPDL::getMeanMass(PIP),2); 
+  double m2_pip = pow(EvtPDL::getMeanMass(PIP),2);
   double m2_pim = pow(EvtPDL::getMeanMass(PIM),2);
   double m2_pi0 = pow(EvtPDL::getMeanMass(PIZ),2);
   double M2rhop = pow(_mRho,2);
@@ -99,7 +97,7 @@ void EvtPhiDalitz::decay( EvtParticle *p){
   double Wrhom = _gRho;
   double Wrho0 = _gRho;
   double Womega = EvtPDL::getWidth(OMEGA);
-    
+
   EvtComplex Atot(0,0);
 
   //Rho+ Risonance Amplitude
@@ -116,9 +114,9 @@ void EvtPhiDalitz::decay( EvtParticle *p){
   double G0 = Wrho0*pow(((Q0.mass2()-m2_pip-m2_pim)/2-M2rho0/4)/(M2rho0/4-(m2_pip+m2_pim)/2),3/2)*(M2rho0/Q0.mass2());
   EvtComplex Drho0((Q0.mass2()-M2rho0),Q0.mass()*G0);
   EvtComplex A3(M2rho0/Drho0);
- 
+
   //Omega Risonance Amplitude
-  EvtComplex OmegaPhase(0,_phiOmega);    
+  EvtComplex OmegaPhase(0,_phiOmega);
   EvtComplex DOmega((Q0.mass2()-M2omega),Q0.mass()*Womega);
   EvtComplex A4(_aOmega*M2omega*exp(OmegaPhase)/DOmega);
 
@@ -133,7 +131,7 @@ void EvtPhiDalitz::decay( EvtParticle *p){
   vertex(2,Atot);
 
   return ;
-   
+
 }
 
 

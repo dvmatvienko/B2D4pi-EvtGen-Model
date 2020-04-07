@@ -40,7 +40,7 @@ Evtbs2llGammaMNT::~Evtbs2llGammaMNT() {
 
 // The module name specification 
 std::string Evtbs2llGammaMNT::getName(){
-  return "BSTOGLLMNT";     
+  return "BSTOGLLMNT";
 }
 
 
@@ -97,7 +97,7 @@ void Evtbs2llGammaMNT::init(){
   _mntffmodel = new Evtbs2llGammaFFMNT();
   _wilscoeff = new EvtbTosllWilsCoeffNLO();
   if (photontype == EvtSpinType::PHOTON){
-    _calcamp = new Evtbs2llGammaAmp(); 
+    _calcamp = new Evtbs2llGammaAmp();
   }
   else{
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "The init()-function in the Evtbs2llGammaMNT generator:"
@@ -124,20 +124,20 @@ void Evtbs2llGammaMNT::initProbMax(){
   int            Nf = (int) getArg(1);  // number of "effective" flavors
   int      res_swch = (int) getArg(2);  // resonant switching parametr
   int           ias = (int) getArg(3);  // switching parametr for \alpha_s(M_Z)
-  double Egamma_max = getArg(4);   	// photon energy cut				
-  double      CKM_A = getArg(5); 
-  double CKM_lambda = getArg(6); 
-  double CKM_barrho = getArg(7); 
+  double Egamma_max = getArg(4);   	// photon energy cut		
+  double      CKM_A = getArg(5);
+  double CKM_lambda = getArg(6);
+  double CKM_barrho = getArg(7);
   double CKM_bareta = getArg(8);
 
 
-  mymaxprob = _calcamp->CalcMaxProb(parnum, photnum, l1num, l2num, 
-                                    _mntffmodel, _wilscoeff, mu, Nf, res_swch, ias, 
+  mymaxprob = _calcamp->CalcMaxProb(parnum, photnum, l1num, l2num,
+                                    _mntffmodel, _wilscoeff, mu, Nf, res_swch, ias,
                                     Egamma_max, CKM_A, CKM_lambda, CKM_barrho, CKM_bareta);
 
 
   if(mymaxprob <= 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "The function void Evtbs2llGammaMNT::initProbMax()" 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "The function void Evtbs2llGammaMNT::initProbMax()"
        << "\n Unexpected value of the probability maximum!"
        << "\n mymaxprob = " << mymaxprob
        <<std::endl;
@@ -156,17 +156,17 @@ void Evtbs2llGammaMNT::decay( EvtParticle *p ){
   int            Nf = (int) getArg(1);  // number of "effective" flavors
   int      res_swch = (int) getArg(2);  // resonant switching parametr
   int           ias = (int) getArg(3);  // switching parametr for \alpha_s(M_Z)
-  double Egamma_max = getArg(4);   	// photon energy cut				
-  double      CKM_A = getArg(5); 
-  double CKM_lambda = getArg(6); 
-  double CKM_barrho = getArg(7); 
+  double Egamma_max = getArg(4);   	// photon energy cut
+  double      CKM_A = getArg(5);
+  double CKM_lambda = getArg(6);
+  double CKM_barrho = getArg(7);
   double CKM_bareta = getArg(8);
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
   // The class "Evtbs2llGammaFFMNT" is the derived class of the 
   // class  "Evtbs2llGammaFF" (see the file "Evtbs2llGammaFF.hh") 
-  _calcamp->CalcAmp(p,_amp2,_mntffmodel, _wilscoeff, mu, Nf, res_swch, ias,  
+  _calcamp->CalcAmp(p,_amp2,_mntffmodel, _wilscoeff, mu, Nf, res_swch, ias,
                        Egamma_max, CKM_A,CKM_lambda,CKM_barrho,CKM_bareta);
 
 //  EvtGenReport(EVTGEN_NOTICE,"EvtGen") << "\n " 
@@ -182,3 +182,4 @@ void Evtbs2llGammaMNT::decay( EvtParticle *p ){
 //                          << "\n "
 //                          << std::endl;
 }
+

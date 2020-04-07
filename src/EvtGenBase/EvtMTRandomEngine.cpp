@@ -1,4 +1,3 @@
-#ifdef EVTGEN_CPP11
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -11,7 +10,6 @@
 // Module: EvtMTRandomEngine
 //
 // Generate random numbers using the Mersenne-Twister MT19937. 
-// This requires c++11 features, hence the EVTGEN_CPP11 preprocessor.
 //
 // Modification history:
 //
@@ -41,5 +39,3 @@ double EvtMTRandomEngine::random() {
     return distribution_(engine_);
 
 }
-
-#endif

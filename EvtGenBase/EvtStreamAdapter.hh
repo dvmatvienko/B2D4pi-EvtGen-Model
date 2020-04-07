@@ -7,9 +7,9 @@
  * Copyright (C) 2002 Caltech
  *******************************************************************************/
 
-// Stream adapters are used to convert a stream-like input (for example, 
-// a file containing N entries) to an STL like iterator interface. There 
-// must be a way to get point from the stream, and also an indicator of the 
+// Stream adapters are used to convert a stream-like input (for example,
+// a file containing N entries) to an STL like iterator interface. There
+// must be a way to get point from the stream, and also an indicator of the
 // end of the stream.
 
 #ifndef EVT_STREAM_ADAPTER_HH
@@ -38,17 +38,17 @@ public:
     : _gen(gen), _count(count)
   {}
 
-  virtual ~EvtGenStreamAdapter() 
+  virtual ~EvtGenStreamAdapter()
   {}
 
-  virtual EvtStreamAdapter<Point>* clone() const 
-  { 
-    return new EvtGenStreamAdapter(*this); 
+  EvtStreamAdapter<Point>* clone() const override
+  {
+    return new EvtGenStreamAdapter(*this);
   }
-  virtual Point currentValue() { return _gen(); }
-  virtual bool pastEnd() { return (_count <= 0); }
-  virtual void advance() { _count--; }
-  
+  Point currentValue() override { return _gen(); }
+  bool pastEnd() override { return (_count <= 0); }
+  void advance() override { _count--; }
+
 private:
   Generator _gen;
   int _count;   // also serves as past the end indicator
@@ -67,19 +67,19 @@ public:
   {}
 
   virtual EvtStreamAdapter<Point>* clone() const
-  { 
-    return new EvtPredStreamAdapter(*this); 
+  {
+    return new EvtPredStreamAdapter(*this);
   }
-  virtual Point currentValue() { 
+  virtual Point currentValue() {
     Point value;
     while(!pastEnd()) {
-      
+
       value = *_it;
       if(_pred(value)) break;
       _it++;
     }
     return value;
-  }   
+  }
 
   virtual bool pastEnd() { return _it == _end; }
   virtual void advance() { _it++; }

@@ -10,7 +10,7 @@
 //
 // Module: EvtSVVCP.cc
 //
-// Description: The decay of a scalar to two vector particles are 
+// Description: The decay of a scalar to two vector particles are
 //              performed with CP violation. E.g. B->J/psi K*.
 //
 // Modification history:
@@ -32,11 +32,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVVCP::~EvtSVVCP() {}
-
 std::string EvtSVVCP::getName(){
 
-  return "SVV_CP";     
+  return "SVV_CP";
 
 }
 
@@ -104,12 +102,12 @@ void EvtSVVCP::decay( EvtParticle *p){
      cG1M=-G1M*(cdmt-(1.0/lambda_km)*EvtComplex(0.0,getArg(2)*sdmt));
 
    }
- 
+
    EvtComplex A0,AP,AM;
 
    A0=cG0P/sqrt(2.0);
-   AP=(cG1P+cG1M)/sqrt(2.0); 
-   AM=(cG1P-cG1M)/sqrt(2.0); 
+   AP=(cG1P+cG1M)/sqrt(2.0);
+   AM=(cG1P-cG1M)/sqrt(2.0);
 
    EvtSVVHelAmp::SVVHel(p,_amp2,getDaug(0),getDaug(1),AP,A0,AM);
 

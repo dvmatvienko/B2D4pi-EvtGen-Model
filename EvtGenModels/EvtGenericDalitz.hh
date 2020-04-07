@@ -33,18 +33,15 @@ class EvtGenericDalitz:public  EvtDecayAmp  {
 
 public:
 
-  EvtGenericDalitz() {}
-  virtual ~EvtGenericDalitz() {}
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override {};//prob max will be set in init
 
-  void init();
-  void initProbMax() {};//prob max will be set in init
+  void decay(EvtParticle *p) override;
 
-  void decay(EvtParticle *p); 
-
-  std::string getParamName(int i);
+  std::string getParamName(int i) override;
 
 private:
 

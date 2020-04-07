@@ -8,34 +8,30 @@
 #include "EvtGenModels/EvtBCVFF.hh"
 
 #include "EvtGenModels/EvtWnPi.hh"
+#include <memory>
 
 
 using std::endl;
-using std::fstream;
-using std::ifstream;
-using std::cout;
 using std::string;
 
 class EvtBcVNpi:public  EvtDecayAmp  {
 public:
-    EvtBcVNpi() {  };
-    virtual ~EvtBcVNpi();
-    std::string getName();
-    EvtDecayBase* clone();
-    void initProbMax();
-    void init();
-    void decay(EvtParticle *p); 
+    std::string getName() override;
+    EvtDecayBase* clone() override;
+    void initProbMax() override;
+    void init() override;
+    void decay(EvtParticle *p) override;
 protected:
   int nCall;
   int whichfit, idVector;
-  EvtBCVFF *ffmodel;
-  EvtWnPi *wcurr;
+  std::unique_ptr<EvtBCVFF> ffmodel;
+  std::unique_ptr<EvtWnPi> wcurr;
 
   EvtComplex Fpi( EvtVector4R q1, EvtVector4R q2);
   EvtComplex BWa( EvtVector4R q);
   EvtComplex BWf( EvtVector4R q);
   EvtComplex BWr( EvtVector4R q);
-  EvtVector4C JB(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4, EvtVector4R q5); 
+  EvtVector4C JB(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4, EvtVector4R q5);
 
 };
 #endif

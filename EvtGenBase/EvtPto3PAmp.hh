@@ -23,30 +23,30 @@ class EvtComplex;
 class EvtBlattWeisskopf;
 
 class EvtPto3PAmp : public EvtAmplitude<EvtDalitzPoint> {
-  
+
 
 public:
 
   // Numerator type
   enum NumType {NBW=0, RBW_ZEMACH=1, RBW_KUEHN=2, RBW_CLEO=3, FLATTE, GAUSS, DOUBLE_GAUSS,
-		NONRES, NONRES_LIN, NONRES_EXP, NONRES_EXP_ADD, NONRES_CCS, NONRES_LAURA, 
+		NONRES, NONRES_LIN, NONRES_EXP, NONRES_EXP_ADD, NONRES_CCS, NONRES_LAURA,
 		LASS, LASS_ELASTIC, LASS_RESONANT, GS};
 
 
-  EvtPto3PAmp(EvtDalitzPlot dp, EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes,  
-	      EvtSpinType::spintype spin, 
+  EvtPto3PAmp(EvtDalitzPlot dp, EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes,
+	      EvtSpinType::spintype spin,
 	      const EvtPropagator& prop, NumType typeN);
-  
+
 
   EvtPto3PAmp(const EvtPto3PAmp& other);
 
   ~EvtPto3PAmp();
 
-  virtual EvtAmplitude<EvtDalitzPoint>* clone() const
+  EvtAmplitude<EvtDalitzPoint>* clone() const override
   { return new EvtPto3PAmp(*this); }
 
 
-  virtual EvtComplex amplitude(const EvtDalitzPoint& p) const;
+  EvtComplex amplitude(const EvtDalitzPoint& p) const override;
   EvtComplex numerator(const EvtDalitzPoint& p) const;
   double angDep(const EvtDalitzPoint& p) const;
 
@@ -62,12 +62,12 @@ private:
 
   // Pairing indices:
 
-  EvtCyclic3::Pair _pairAng;    // angular  
+  EvtCyclic3::Pair _pairAng;    // angular
   EvtCyclic3::Pair _pairRes;    // resonance
 
   // Spin
 
-  EvtSpinType::spintype _spin;                                  
+  EvtSpinType::spintype _spin;
 
   // Numerator type
 
@@ -76,7 +76,7 @@ private:
 
   // _Owned_ pointer to propagator factor
 
-  EvtPropagator* _prop;                  
+  EvtPropagator* _prop;
   double _g0; // nominal width
   double _min; //min and max values on which
   double _max; //the resonance is defined

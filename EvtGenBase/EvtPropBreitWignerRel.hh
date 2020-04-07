@@ -18,15 +18,13 @@
 class EvtPropBreitWignerRel : public EvtPropagator {
 public:
 
-  EvtPropBreitWignerRel(double m0, double g0); 
-  EvtPropBreitWignerRel(const EvtPropBreitWignerRel& other); 
-  ~EvtPropBreitWignerRel(); 
+  EvtPropBreitWignerRel(double m0, double g0);
 
-  EvtAmplitude<EvtPoint1D>* clone() const;
+  EvtAmplitude<EvtPoint1D>* clone() const override;
 
 protected:
 
-  EvtComplex amplitude(const EvtPoint1D& x) const;
+  EvtComplex amplitude(const EvtPoint1D& x) const override;
 };
 
 #endif

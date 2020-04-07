@@ -70,35 +70,27 @@ EvtExternalGenFactory* EvtExternalGenFactory::getInstance() {
 
 }
 
-void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, 
-						  bool convertPhysCodes,
-						  bool useEvtGenRandom) {
+void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, bool convertPhysCodes, bool useEvtGenRandom) {
 
   // Only define the generator if we have the external ifdef variable set
 #ifdef EVTGEN_PYTHIA
 
   int genId = EvtExternalGenFactory::PythiaGenId;
 
-  EvtAbsExternalGen* pythiaGenerator = _extGenMap[genId];
-  if (!pythiaGenerator) {
-
-      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtPythiaEngine: data tables defined in "
-					<<xmlDir<<endl;
-
-      if (convertPhysCodes == true) {
-	  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Pythia 6 codes in decay files will be converted to Pythia 8 codes"<<endl;
-      } else {
-	  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Pythia 8 codes need to be used in decay files"<<endl;
-      }
-
-      if (useEvtGenRandom == true) {
-	  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Using EvtGen random engine for Pythia 8 as well"<<endl;
-      }
-
-      pythiaGenerator = new EvtPythiaEngine(xmlDir, convertPhysCodes, useEvtGenRandom);
-      _extGenMap[genId] = pythiaGenerator;
-
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtPythiaEngine: data tables defined in "
+				    <<xmlDir<<endl;
+  if (convertPhysCodes == true) {
+      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Pythia 6 codes in decay files will be converted to Pythia 8 codes"<<endl;
+  } else {
+      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Pythia 8 codes need to be used in decay files"<<endl;
   }
+
+  if (useEvtGenRandom == true) {
+      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Using EvtGen random engine for Pythia 8 as well"<<endl;
+  }
+
+  EvtAbsExternalGen* pythiaGenerator = new EvtPythiaEngine(xmlDir, convertPhysCodes, useEvtGenRandom);
+  _extGenMap[genId] = pythiaGenerator;
 
 #endif
 
@@ -110,14 +102,10 @@ void EvtExternalGenFactory::definePhotosGenerator(std::string photonType, bool u
 
   int genId = EvtExternalGenFactory::PhotosGenId;
 
-  EvtAbsExternalGen* photosGenerator = _extGenMap[genId];
-  if (!photosGenerator) {
-
-      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtPhotosEngine using photonType = "<<photonType<<endl;
-
-      photosGenerator = new EvtPhotosEngine(photonType, useEvtGenRandom);
-      _extGenMap[genId] = photosGenerator;
-  }
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtPhotosEngine using photonType = "<<photonType<<endl;
+      
+  EvtAbsExternalGen* photosGenerator = new EvtPhotosEngine(photonType, useEvtGenRandom);
+  _extGenMap[genId] = photosGenerator;
 
 #endif
 
@@ -129,14 +117,10 @@ void EvtExternalGenFactory::defineTauolaGenerator(bool useEvtGenRandom) {
 
   int genId = EvtExternalGenFactory::TauolaGenId;
 
-  EvtAbsExternalGen* tauolaGenerator = _extGenMap[genId];
-  if (!tauolaGenerator) {
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtTauolaEngine."<<endl;
 
-      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtTauolaEngine."<<endl;
-
-      tauolaGenerator = new EvtTauolaEngine(useEvtGenRandom);
-      _extGenMap[genId] = tauolaGenerator;
-  }
+  EvtAbsExternalGen* tauolaGenerator = new EvtTauolaEngine(useEvtGenRandom);
+  _extGenMap[genId] = tauolaGenerator;
 
 #endif
 
@@ -152,6 +136,11 @@ EvtAbsExternalGen* EvtExternalGenFactory::getGenerator(int genId) {
 
     // Retrieve the external generator engine
     theGenerator = iter->second;
+
+  } else {
+
+      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"EvtAbsExternalGen::getGenerator: could not find generator for genId = "
+					<<genId<<endl;
 
   }
 

@@ -104,15 +104,14 @@ public:
 		     _isKsPiPi( false ), _isRBWmodel( true )
   {}
 
-  virtual ~EvtD0mixDalitz() {};
 
   // One-line inline functions.
-  std::string   getName() { return "D0MIXDALITZ";      }
-  EvtDecayBase* clone()   { return new EvtD0mixDalitz; }
-  void initProbMax()      { setProbMax( 5200. );       }
+  std::string   getName() override { return "D0MIXDALITZ";      }
+  EvtDecayBase* clone()   override { return new EvtD0mixDalitz; }
+  void initProbMax()      override { setProbMax( 5200. );       }
 
-  void init();
-  void decay( EvtParticle* p );
+  void init() override;
+  void decay( EvtParticle* p ) override;
 };
 
 #endif

@@ -29,16 +29,13 @@ class EvtSVSCPiso:public  EvtDecayAmp  {
 
 public:
 
-  EvtSVSCPiso() {}
-  virtual ~EvtSVSCPiso();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  void init();
-  void initProbMax();  
-
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 };
 

@@ -26,12 +26,7 @@ public:
     assert(m0 > 0);
     assert(g0 >= 0);
   }
-  EvtPropagator(const EvtPropagator& other)
-    : EvtAmplitude<EvtPoint1D>(other), _m0(other._m0), _g0(other._g0)
-  {}
-  virtual ~EvtPropagator()
-  {}
-  
+
   // Accessors 
 
   inline double m0() const  { return _m0; }

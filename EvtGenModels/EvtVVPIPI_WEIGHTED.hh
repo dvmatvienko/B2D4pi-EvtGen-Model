@@ -31,15 +31,12 @@ class EvtVVPIPI_WEIGHTED:public  EvtDecayAmp  {
 
 public:
 
-  EvtVVPIPI_WEIGHTED() {}
-  virtual ~EvtVVPIPI_WEIGHTED();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
 
 };
 

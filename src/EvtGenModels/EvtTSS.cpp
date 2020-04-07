@@ -18,7 +18,7 @@
 //
 //------------------------------------------------------------------------
 //
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtVector4C.hh"
@@ -30,11 +30,9 @@
 #include "EvtGenModels/EvtTSS.hh"
 #include <string>
 
-EvtTSS::~EvtTSS() {}
-
 std::string EvtTSS::getName(){
 
-  return "TSS";     
+  return "TSS";
 
 }
 
@@ -64,13 +62,13 @@ void EvtTSS::initProbMax() {
 
    setProbMax(1.0);
 
-}      
+}
 
 void EvtTSS::decay( EvtParticle *p){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
-  EvtVector4R moms1 = p->getDaug(0)->getP4(); 
+  EvtVector4R moms1 = p->getDaug(0)->getP4();
 
   double norm = 1.0/(moms1.d3mag()*moms1.d3mag());
 

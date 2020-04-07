@@ -17,7 +17,7 @@
 //    SHY       April 28, 1997       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSSSCPT::~EvtSSSCPT() {}
-
 std::string EvtSSSCPT::getName(){
 
-  return "SSS_CPT";     
+  return "SSS_CPT";
 
 }
 
@@ -77,10 +75,10 @@ void EvtSSSCPT::decay( EvtParticle *p){
   Q=EvtComplex(cos(getArg(0)),sin(getArg(0)));
   D=EvtComplex(getArg(6)*cos(getArg(7)),getArg(6)*sin(getArg(7)));
   Im=EvtComplex(0.0,1.0);
-  
+
   A=EvtComplex(getArg(2)*cos(getArg(3)),getArg(2)*sin(getArg(3)));
   Abar=EvtComplex(getArg(4)*cos(getArg(5)),getArg(4)*sin(getArg(5)));
-  
+
   if (other_b==B0B){
     amp=A*cos(getArg(1)*t/(2*EvtConst::c))+
       Im*sin(getArg(1)*t/(2*EvtConst::c))*
@@ -91,9 +89,9 @@ void EvtSSSCPT::decay( EvtParticle *p){
       Im*sin(getArg(1)*t/(2*EvtConst::c))*
       (P/Q*A - 2.0*D*Abar);
   }
-  
+
   vertex(amp);
-  
+
   return ;
 }
 

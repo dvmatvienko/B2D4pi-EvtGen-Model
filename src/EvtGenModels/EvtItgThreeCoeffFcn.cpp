@@ -11,7 +11,7 @@
 // Module: EvtItgThreeCoeffFcn.cc
 //
 // Description:
-//      Class describing a function with three vectors of coefficients. 
+//      Class describing a function with three vectors of coefficients.
 //
 // Modification history:
 //
@@ -33,13 +33,9 @@ EvtItgThreeCoeffFcn::EvtItgThreeCoeffFcn( double (*theFunction)(double, const st
   EvtItgAbsFunction(lowerRange, upperRange),
   _myFunction(theFunction),
   _coeffs1(coeffs1),
-  _coeffs2(coeffs2), 
+  _coeffs2(coeffs2),
   _coeffs3(coeffs3)
 {}
-
-EvtItgThreeCoeffFcn::~EvtItgThreeCoeffFcn( )
-{}
-
 
 double
 EvtItgThreeCoeffFcn::myFunction(double x) const{

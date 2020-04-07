@@ -43,17 +43,6 @@ const EvtCyclic3::Pair& EvtD0gammaDalitz::_AC = EvtCyclic3::AC;
 const EvtCyclic3::Pair& EvtD0gammaDalitz::_BC = EvtCyclic3::BC;
 
 
-EvtD0gammaDalitz::EvtD0gammaDalitz()
-{
-  /* Empty constructor. */
-}
-
-
-EvtD0gammaDalitz::~EvtD0gammaDalitz()
-{
-  /* Empty destructor. */
-}
-
 
 std::string EvtD0gammaDalitz::getName()
 {

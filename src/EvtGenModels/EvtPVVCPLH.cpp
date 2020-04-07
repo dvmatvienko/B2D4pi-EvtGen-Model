@@ -10,7 +10,7 @@
 //
 // Module: EvtPVVCPLH.cc
 //
-// Description: The decay of a scalar to two vector particles are 
+// Description: The decay of a scalar to two vector particles are
 //              performed with CP violation and different widths for
 //              the CP-even and CP-odd states. E.g. Bs->J/psi phi.
 //
@@ -39,10 +39,8 @@
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtRandom.hh"
 
-EvtPVVCPLH::~EvtPVVCPLH() {}
-
 std::string EvtPVVCPLH::getName() {
-  return "PVV_CPLH";     
+  return "PVV_CPLH";
 }
 
 
@@ -97,7 +95,7 @@ void EvtPVVCPLH::decay( EvtParticle *p){
   //So we take the longest living component (for positive deltaGamma: tauH)
   //The double exponent will be taken care of later, by the amplitudes
   //Tristan
-  
+
   static double Gamma = EvtConst::c/(EvtPDL::getctau(BS0));
   static double deltaGamma = EvtCPUtil::getInstance()->getDeltaGamma(BS0);
   static double ctauLong = EvtConst::c/(Gamma-fabs(deltaGamma)/2);
@@ -112,7 +110,7 @@ void EvtPVVCPLH::decay( EvtParticle *p){
   }
 
   //These should be filled with the transversity amplitudes at t=0 //Tristan
-  EvtComplex G0P,G1P,G1M;  
+  EvtComplex G0P,G1P,G1M;
   G1P=EvtComplex(getArg(2)*cos(getArg(3)),getArg(2)*sin(getArg(3)));
   G0P=EvtComplex(getArg(4)*cos(getArg(5)),getArg(4)*sin(getArg(5)));
   G1M=EvtComplex(getArg(6)*cos(getArg(7)),getArg(6)*sin(getArg(7)));
@@ -121,7 +119,7 @@ void EvtPVVCPLH::decay( EvtParticle *p){
 
   //deltaMs is no argument anymore
   //Tristan
-  
+
   static double deltaMs = EvtCPUtil::getInstance()->getDeltaM(BS0);
 
   EvtComplex cG0P,cG1P,cG1M;
@@ -163,7 +161,7 @@ void EvtPVVCPLH::decay( EvtParticle *p){
   A0=cG0P;
   AP=(cG1P+cG1M)/sqrt(2.0);
   AM=(cG1P-cG1M)/sqrt(2.0);
-  
+
   EvtSVVHelAmp::SVVHel(p,_amp2,getDaug(0),getDaug(1),AP,A0,AM);
 
   return ;

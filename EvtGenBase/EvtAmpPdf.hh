@@ -16,24 +16,24 @@
 
 template <class T>
 
-class EvtAmpPdf : public EvtPdf<T> {  
+class EvtAmpPdf : public EvtPdf<T> {
 public:
 
   EvtAmpPdf() {}
   EvtAmpPdf(const EvtAmplitude<T>& amp) : EvtPdf<T>(), _amp(amp.clone()) {}
   EvtAmpPdf(const EvtAmpPdf<T>& other) : EvtPdf<T>(other), COPY_PTR(_amp) {}
   virtual ~EvtAmpPdf() { delete _amp; }
-  
-  virtual EvtAmpPdf<T>* clone() const { return new EvtAmpPdf(*this); }
-  
-  virtual double pdf(const T& p) const
+
+  EvtAmpPdf<T>* clone() const override { return new EvtAmpPdf(*this); }
+
+  double pdf(const T& p) const override
   {
     EvtComplex amp = _amp->evaluate(p);
     return real(amp)*real(amp) + imag(amp)*imag(amp);
   }
-  
+
 private:
-  
+
   EvtAmplitude<T>* _amp;
 };
 

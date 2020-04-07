@@ -48,18 +48,17 @@ class EvtTauolaEngine : public EvtAbsExternalGen {
 public:
 
   EvtTauolaEngine(bool useEvtGenRandom = true);
-  virtual ~EvtTauolaEngine();
 
-  virtual bool doDecay(EvtParticle* theMother);
+  bool doDecay(EvtParticle* theMother) override;
 
-  virtual void initialise();
+  void initialise() override;
 
 protected:
 
 private:
 
   bool _initialised;
-  int _tauPDG, _nTauolaModes;    
+  int _tauPDG, _nTauolaModes;
   int _neutPropType, _posPropType, _negPropType;
 
   GenParticlePtr createGenParticle(EvtParticle* theParticle);

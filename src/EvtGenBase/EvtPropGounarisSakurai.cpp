@@ -3,7 +3,7 @@
  * Project: BaBar detector at the SLAC PEP-II B-factory
  * Package: EvtGenBase
  *    File: $Id: EvtPropGounarisSakurai.cpp,v 1.1 2009-03-16 16:47:03 robbep Exp $
- *  Author: Matt Graham 
+ *  Author: Matt Graham
  *  modified from EvtPropBreitWignerRel...this should be used for rho's
  *******************************************************************************/
 
@@ -11,8 +11,8 @@
 #include "EvtGenBase/EvtPropGounarisSakurai.hh"
 
 
-EvtPropGounarisSakurai::EvtPropGounarisSakurai(EvtDalitzPlot *dp, 
-              EvtCyclic3::Pair pair, double m0, double g0) 
+EvtPropGounarisSakurai::EvtPropGounarisSakurai(EvtDalitzPlot *dp,
+              EvtCyclic3::Pair pair, double m0, double g0)
   : EvtPropagator(m0,g0),_pair(pair),_gbase(g0)
 {
   _dalitzSpace = dp;
@@ -21,21 +21,9 @@ EvtPropGounarisSakurai::EvtPropGounarisSakurai(EvtDalitzPlot *dp,
 }
 
 
-EvtPropGounarisSakurai::EvtPropGounarisSakurai(const EvtPropGounarisSakurai& other) 
-  : EvtPropagator(other), _pair(other._pair), _gbase(other._gbase), 
-    _m1(other._m1), _m2(other._m2)
-{
-_dalitzSpace = other._dalitzSpace;
-}
-
-
-EvtPropGounarisSakurai::~EvtPropGounarisSakurai() 
-{}
-  
-
 EvtAmplitude<EvtPoint1D>* EvtPropGounarisSakurai::clone() const
-{ 
-  return new EvtPropGounarisSakurai(*this); 
+{
+  return new EvtPropGounarisSakurai(*this);
 }
 
 
@@ -68,9 +56,9 @@ double EvtPropGounarisSakurai::fsFun( double s ) const
   EvtTwoBodyKine vR(_m1,_m2,_m0);
   double k_s   = vd.p();
   double k_Am2 = vR.p();
-  //  
+  //
   double f     = _gbase * m2 / pow( k_Am2, 3 )
-                   * ( 
+                   * (
                        pow( k_s, 2 ) * (hFun( s ) - hFun( m2 ))
                        + (m2 - s) * pow( k_Am2, 2 ) * dh_dsFun( m2 )
                      );
@@ -90,10 +78,10 @@ double EvtPropGounarisSakurai::hFun( double s ) const
 }
 
 double EvtPropGounarisSakurai::dh_dsFun( double s ) const
-{  
+{
   EvtTwoBodyKine vd(_m1,_m2,sqrt(s));
   double k_s   = vd.p();
- 
+
   return hFun(s) * ( 1/(8*pow( k_s, 2)) - 1/(2*s) ) + 1/(2*EvtConst::pi*s);
 }
 
@@ -106,7 +94,7 @@ double EvtPropGounarisSakurai::dFun( double s ) const
   double k_m2   = vd.p();
   double _pi=EvtConst::pi;
 
-  return 3.0/_pi * sm24/pow( k_m2, 2 ) * log( (m + 2*k_m2)/sm ) 
+  return 3.0/_pi * sm24/pow( k_m2, 2 ) * log( (m + 2*k_m2)/sm )
          + m/(2*_pi*k_m2) - sm24*m/(_pi * pow( k_m2, 3 ));
 }
 

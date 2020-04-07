@@ -31,22 +31,22 @@ public:
   EvtMelikhovFF(double par1);
   void getvectorff( EvtId parent, EvtId daught,
                        double t, double mass, double *a1f,
-                       double *a2f, double *vf, double *a0f );
+                       double *a2f, double *vf, double *a0f ) override;
 
-  void getscalarff(EvtId, EvtId, double, double, double*, 
-		   double*);
+  void getscalarff(EvtId, EvtId, double, double, double*,
+		   double*) override;
 
-  void gettensorff(EvtId, EvtId, double, double, double*, 
-		   double*, double*, double*);
+  void gettensorff(EvtId, EvtId, double, double, double*,
+		   double*, double*, double*) override;
 
-  void getbaryonff(EvtId, EvtId, double, double, double*, 
-		   double*, double*, double*);
+  void getbaryonff(EvtId, EvtId, double, double, double*,
+		   double*, double*, double*) override;
 
   void getdiracff(EvtId, EvtId, double, double, double*, double*,
-                  double*, double*, double*, double*);
+                  double*, double*, double*, double*) override;
 
-  void getraritaff(EvtId, EvtId, double, double, double*, double*, 
-		   double*, double*, double*, double*, double*, double*);
+  void getraritaff(EvtId, EvtId, double, double, double*, double*,
+		   double*, double*, double*, double*, double*, double*) override;
 
 private:
   int whichfit;

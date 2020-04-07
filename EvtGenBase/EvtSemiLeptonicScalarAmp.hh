@@ -32,7 +32,7 @@ class EvtSemiLeptonicScalarAmp : public EvtSemiLeptonicAmp {
   //Daughters are initialized and have been added to the parent.
   //No need to carry around the daughters seperately!
   void CalcAmp( EvtParticle *parent, EvtAmp& amp,
-		EvtSemiLeptonicFF *FormFactors );
+		EvtSemiLeptonicFF *FormFactors ) override;
 
 };
 

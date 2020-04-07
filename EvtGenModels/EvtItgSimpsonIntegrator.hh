@@ -11,12 +11,12 @@
 // Module: EvtItgSimpsonIntegrator.hh
 //
 // Description:
-//      Simpson integrator (Stolen and modified from 
+//      Simpson integrator (Stolen and modified from
 //      the BaBar IntegrationUtils package - author: Phil Strother).
 //
 // Modification history:
 //
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
+//    Jane Tinslay                March 21, 2001       Module adapted for use in
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
@@ -35,24 +35,21 @@ extern "C" {
 class EvtItgSimpsonIntegrator: public EvtItgAbsIntegrator {
 
 public:
-  
+
   EvtItgSimpsonIntegrator(const EvtItgAbsFunction &, double precision=1.0e-5, int maxLoop=20);
 
-  virtual ~EvtItgSimpsonIntegrator( );
-  
 protected:
-  
-  virtual double evaluateIt(double , double) const;
-  
+
+  double evaluateIt(double , double) const override;
+
 private:
-  
+
   double _precision;
   double _maxLoop;
 
-  EvtItgSimpsonIntegrator();
-  EvtItgSimpsonIntegrator( const EvtItgSimpsonIntegrator& );                //// Copy Constructor
-  EvtItgSimpsonIntegrator& operator= ( const EvtItgSimpsonIntegrator& );    // Assignment op
-  
+    //EvtItgSimpsonIntegrator( const EvtItgSimpsonIntegrator& );                //// Copy Constructor
+    //EvtItgSimpsonIntegrator& operator= ( const EvtItgSimpsonIntegrator& );    // Assignment op
+
 };
 
 

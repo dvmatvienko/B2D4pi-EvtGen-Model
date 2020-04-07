@@ -41,7 +41,7 @@ class EvtDecayBase{
   virtual EvtDecayBase* clone()=0;
 
 
-  //These virtual methods can be implemented by the 
+  //These virtual methods can be implemented by the
   //derived class to implement nontrivial functionality.
   virtual void init();
   virtual void initProbMax();
@@ -55,7 +55,7 @@ class EvtDecayBase{
   double resetProbMax( double prob );
 
   EvtDecayBase();
-  virtual ~EvtDecayBase();
+  virtual ~EvtDecayBase() = default;
 
   virtual bool matchingDecay(const EvtDecayBase &other) const;
 
@@ -64,7 +64,7 @@ class EvtDecayBase{
   void disableCheckQ() {_chkCharge=0;};
   void checkQ();
   int getNDaug() const {return _ndaug;}
-  EvtId* getDaugs() {return _daug;}
+  EvtId* getDaugs() {return _daug.data();}
   EvtId getDaug(int i) const {return _daug[i];}
   int getNArg() const {return _narg;}
   int getPHOTOS() const {return _photos;}
@@ -72,8 +72,8 @@ class EvtDecayBase{
   void setVerbose() {_verbose=1;}
   void setSummary() {_summary=1;}
   double* getArgs();
-  std::string* getArgsStr() {return _args;}
-  double getArg(unsigned int j) ; 
+  std::string* getArgsStr() {return _args.data();}
+  double getArg(unsigned int j) ;
   double getStoredArg(int j) const {return _storedArgs.at(j);}
   double getNStoredArg() const {return _storedArgs.size();}
   std::string getArgStr(int j) const {return _args[j];}
@@ -83,14 +83,14 @@ class EvtDecayBase{
   int verbose() const {return _verbose; }
 
   void saveDecayInfo(EvtId ipar, int ndaug,EvtId *daug,
-		     int narg, std::vector<std::string>& args, 
+		     int narg, std::vector<std::string>& args,
 		     std::string name, double brfr);
   void printSummary() const ;
   void printInfo() const ;
 
-  
+
   //Does not really belong here but I don't have a better place.
-  static void findMasses(EvtParticle *p, int ndaugs, 
+  static void findMasses(EvtParticle *p, int ndaugs,
                             EvtId daugs[10], double masses[10]);
   static void findMass(EvtParticle *p);
   static double findMaxMass(EvtParticle *p);
@@ -123,9 +123,9 @@ private:
   EvtId _parent;
   int _narg;
   std::vector<double> _storedArgs;
-  EvtId *_daug;
-  double *_argsD;
-  std::string *_args;
+  std::vector<EvtId>  _daug;
+  std::vector<double> _argsD;
+  std::vector<std::string> _args;
   std::string _modelname;
   double _brfr;
   int _dsum;
@@ -137,7 +137,7 @@ private:
   double probmax;
   int ntimes_prob;
 
-  //Should charge conservation be checked when model is 
+  //Should charge conservation be checked when model is
   //created? 1=yes 0 no.
   int _chkCharge;
 

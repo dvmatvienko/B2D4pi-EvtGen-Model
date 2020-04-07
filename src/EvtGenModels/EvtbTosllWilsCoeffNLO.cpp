@@ -1040,7 +1040,7 @@ double EvtbTosllWilsCoeffNLO::ReC9eff(int decay_id, int res_swch, int ias, int N
 	    };
  
 
-//           EvtGenReport(NOTICE,"EvtGen") 
+//           EvtGenReport(EVTGEN_NOTICE,"EvtGen") 
 //             << "\n =============================================================="
 //             << "\n =============================================================="
 //             << "\n\n The function EvtbTosllWilsCoeffNLO::ReC9eff(...) passed."

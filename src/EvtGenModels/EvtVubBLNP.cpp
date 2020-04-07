@@ -32,9 +32,6 @@
 using std::cout;
 using std::endl;
 
-EvtVubBLNP::~EvtVubBLNP() {
-}
-
 std::string EvtVubBLNP::getName(){
   return "VUB_BLNP";
 }
@@ -48,7 +45,7 @@ EvtDecayBase *EvtVubBLNP::clone() {
 void EvtVubBLNP::init() {
 
   // get parameters (declared in the header file)
-  
+
   // Input parameters
   mBB = 5.2792;
   lambda2 = 0.12;
@@ -73,7 +70,7 @@ void EvtVubBLNP::init() {
   mb = 4.61;
 
 
-  // hidden parameter what and SF stuff   
+  // hidden parameter what and SF stuff
   const double xlow = 0;
   const double xhigh = mBB;
   const int aSize = 10000;
@@ -89,7 +86,7 @@ void EvtVubBLNP::init() {
   }
   for (size_t i=0; i<_pf.size(); i++) {
     _pf[i]/=_pf[_pf.size()-1];
-  } 
+  }
 
 
 
@@ -162,16 +159,16 @@ void EvtVubBLNP::initProbMax() {
 void EvtVubBLNP::decay(EvtParticle *Bmeson) {
 
   int j;
-  
+
   EvtParticle *xuhad(0), *lepton(0), *neutrino(0);
   EvtVector4R p4;
   double Pp, Pm, Pl, pdf, EX, sh, ml, mpi, ratemax;
   double El(0.);
-  
+
   double xhigh, xlow, what;
-  
+
   Bmeson->initializePhaseSpace(getNDaug(), getDaugs());
-  
+
   xuhad = Bmeson->getDaug(0);
   lepton = Bmeson->getDaug(1);
   neutrino = Bmeson ->getDaug(2);
@@ -179,25 +176,25 @@ void EvtVubBLNP::decay(EvtParticle *Bmeson) {
   mBB = Bmeson->mass();
   ml = lepton->mass();
 
-  
-  
-  //  get SF value 
+
+
+  //  get SF value
   xlow = 0;
-  xhigh = mBB;    
-  // the case for alphas = 0 is not considered 
+  xhigh = mBB;
+  // the case for alphas = 0 is not considered
   what = 2*xhigh;
   while( what > xhigh || what < xlow ) {
-    what = findBLNPWhat(); 
+    what = findBLNPWhat();
     what = xlow + what*(xhigh-xlow);
   }
-  
-  
-  
+
+
+
   bool tryit = true;
-  
+
   while (tryit) {
-    
-    // generate pp between 0 and 
+
+    // generate pp between 0 and
     // Flat(min, max) gives R(max - min) + min, where R = random btwn 0 and 1
 
     Pp = EvtRandom::Flat(0, mBB); // P+ = EX - |PX|
@@ -208,7 +205,7 @@ void EvtVubBLNP::decay(EvtParticle *Bmeson) {
     EX = 0.5*(Pm + Pp);
     El = 0.5*(mBB - Pl);
 
-    // Need maximum rate.  Waiting for Mr. Paz to give it to me. 
+    // Need maximum rate.  Waiting for Mr. Paz to give it to me.
     // Meanwhile, use this.
     ratemax = 3.0;  // From trial and error - most events below 3.0
 
@@ -222,46 +219,46 @@ void EvtVubBLNP::decay(EvtParticle *Bmeson) {
       if (pdf >= testRan) tryit = false;
     }
   }
-  // o.k. we have the three kineamtic variables 
-  // now calculate a flat cos Theta_H [-1,1] distribution of the 
-  // hadron flight direction w.r.t the B flight direction 
+  // o.k. we have the three kineamtic variables
+  // now calculate a flat cos Theta_H [-1,1] distribution of the
+  // hadron flight direction w.r.t the B flight direction
   // because the B is a scalar and should decay isotropic.
-  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction 
-  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the 
+  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction
+  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the
   // W flight direction.
-  
+
   double ctH = EvtRandom::Flat(-1,1);
   double phH = EvtRandom::Flat(0,2*M_PI);
   double phL = EvtRandom::Flat(0,2*M_PI);
 
   // now compute the four vectors in the B Meson restframe
-    
+
   double ptmp,sttmp;
   // calculate the hadron 4 vector in the B Meson restframe
-  
+
   sttmp = sqrt(1-ctH*ctH);
   ptmp = sqrt(EX*EX-sh);
   double pHB[4] = {EX,ptmp*sttmp*cos(phH),ptmp*sttmp*sin(phH),ptmp*ctH};
   p4.set(pHB[0],pHB[1],pHB[2],pHB[3]);
   xuhad->init( getDaug(0), p4);
-  
+
 
   bool _storeWhat(true);
-  
+
   if (_storeWhat ) {
-    // cludge to store the hidden parameter what with the decay; 
+    // cludge to store the hidden parameter what with the decay;
     // the lifetime of the Xu is abused for this purpose.
     // tau = 1 ps corresponds to ctau = 0.3 mm -> in order to
     // stay well below BaBars sensitivity we take what/(10000 GeV).
     // To extract what back from the StdHepTrk its necessary to get
     // delta_ctau = Xu->decayVtx()->point().distanceTo(XuDaughter->decayVtx()->point());
     //
-    // what = delta_ctau * 100000 * Mass_Xu/Momentum_Xu     
+    // what = delta_ctau * 100000 * Mass_Xu/Momentum_Xu
     //
     xuhad->setLifetime(what/10000.);
   }
-  
-  
+
+
   // calculate the W 4 vector in the B Meson restrframe
 
   double apWB = ptmp;
@@ -275,7 +272,7 @@ void EvtVubBLNP::decay(EvtParticle *Bmeson) {
   double gamma = pWB[0]/sqrt(mW2);
 
   double pLW[4];
-    
+
   ptmp = (mW2-ml*ml)/2/sqrt(mW2);
   pLW[0] = sqrt(ml*ml + ptmp*ptmp);
 
@@ -288,37 +285,37 @@ void EvtVubBLNP::decay(EvtParticle *Bmeson) {
   double xW[3] = {-pWB[2],pWB[1],0};
   // eZ' = eW
   double zW[3] = {pWB[1]/apWB,pWB[2]/apWB,pWB[3]/apWB};
-  
+
   double lx = sqrt(xW[0]*xW[0]+xW[1]*xW[1]);
-  for (j=0;j<2;j++) 
+  for (j=0;j<2;j++)
     xW[j] /= lx;
 
   // eY' = eZ' x eX'
   double yW[3] = {-pWB[1]*pWB[3],-pWB[2]*pWB[3],pWB[1]*pWB[1]+pWB[2]*pWB[2]};
   double ly = sqrt(yW[0]*yW[0]+yW[1]*yW[1]+yW[2]*yW[2]);
-  for (j=0;j<3;j++) 
+  for (j=0;j<3;j++)
     yW[j] /= ly;
 
   // p_lep = |p_lep| * (  sin(Theta) * cos(Phi) * eX'
   //                    + sin(Theta) * sin(Phi) * eY'
   //                    + cos(Theta) *            eZ')
   for (j=0;j<3;j++)
-    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j] 
+    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j]
       +        sttmp*sin(phL)*ptmp*yW[j]
       +          ctL         *ptmp*zW[j];
 
   double apLW = ptmp;
-    
+
   // boost them back in the B Meson restframe
-  
+
   double appLB = beta*gamma*pLW[0] + gamma*ctL*apLW;
- 
+
   ptmp = sqrt(El*El-ml*ml);
   double ctLL = appLB/ptmp;
 
   if ( ctLL >  1 ) ctLL =  1;
   if ( ctLL < -1 ) ctLL = -1;
-    
+
   double pLB[4] = {El,0,0,0};
   double pNB[4] = {pWB[0]-El,0,0,0};
 
@@ -398,7 +395,7 @@ double EvtVubBLNP::F1(double Pp, double Pm, double muh, double mui, double mubar
 }
 
 double EvtVubBLNP::F2(double Pp, double Pm, double muh, double /*mui*/, double mubar, double done3) {
-  
+
   std::vector<double> vars(12);
   vars[0] = Pp;
   vars[1] = Pm;
@@ -425,7 +422,7 @@ double EvtVubBLNP::F3(double Pp, double Pm, double /*muh*/, double /*mui*/, doub
   vars[0] = Pp;
   vars[1] = Pm;
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
-  
+
   double y = (Pm - Pp)/(mBB - Pp);
   double lambda1 = -mupisq;
   double abar = CF*alphas(mubar, vars)/4/M_PI;
@@ -445,16 +442,13 @@ double EvtVubBLNP::DoneJS(double Pp, double Pm, double /*mui*/) {
   vars[0] = Pp;
   vars[1] = Pm;
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
-  
+
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&IntJS, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&IntJS, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -468,12 +462,9 @@ double EvtVubBLNP::Done1(double Pp, double Pm, double /*mui*/) {
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int1, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int1, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{ func, precision, maxLoop };
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -487,12 +478,9 @@ double EvtVubBLNP::Done2(double Pp, double Pm, double /*mui*/) {
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int2, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int2, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -504,14 +492,11 @@ double EvtVubBLNP::Done3(double Pp, double Pm, double /*mui*/) {
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
 
   double lowerlim = 0.001*Pp;
-  double upperlim = (1.0-0.001)*Pp;  
+  double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int3, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int3, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -528,14 +513,14 @@ double EvtVubBLNP::Int3(double what, const std::vector<double> &vars) {
 }
 
 double EvtVubBLNP::IntJS(double what, const std::vector<double> &vars) {
-  
+
   double Pp = vars[0];
   double Pm = vars[1];
   double mui = vars[2];
   double mBB = vars[5];
   double mb = vars[6];
   double y = (Pm - Pp)/(mBB - Pp);
-  
+
   return 1/(Pp-what)*(Shat(what, vars) - Shat(Pp, vars))*(4*log(y*mb*(Pp-what)/(mui*mui)) - 3);
 }
 
@@ -713,7 +698,7 @@ double EvtVubBLNP::myfunctionBIK(double w, double Lbar, double /*mom2*/) {
 
 }
 
-double EvtVubBLNP::dU1nlo(double muh, double mui) { 
+double EvtVubBLNP::dU1nlo(double muh, double mui) {
 
   double ai = alphas(mui, gvars);
   double ah = alphas(muh, gvars);
@@ -724,7 +709,7 @@ double EvtVubBLNP::dU1nlo(double muh, double mui) {
   double q4 = beta1*beta1*Gamma0*(-1.0 + ai/ah)/(4*pow(beta0,3));
   double q5 = -beta2*Gamma0*(1.0 + ai/ah) + beta1*Gamma1*(3 - ai/ah);
   double q6 = beta1*beta1*Gamma0*(ah - ai)/beta0 - beta2*Gamma0*ah + beta1*Gamma1*ai;
-  
+
   double answer = q1*(q2 - q3/4/beta0 + q4 + q5/(4*beta0*beta0)) + 1/(8*M_PI*beta0*beta0*beta0)*log(ai/ah)*q6;
   return answer;
 }
@@ -772,7 +757,7 @@ double EvtVubBLNP::aGamma(double mu1, double mu2, double epsilon) {
   return answer;
 }
 
-double EvtVubBLNP::agp(double mu1, double mu2, double epsilon) { 
+double EvtVubBLNP::agp(double mu1, double mu2, double epsilon) {
   double a1 = alphas(mu1, gvars);
   double a2 = alphas(mu2, gvars);
   double answer = gp0/(2*beta0)*log(a2/a1) + epsilon*(a2-a1)/(8.0*M_PI)*(gp1/beta0 - beta1*gp0/(beta0*beta0));
@@ -797,12 +782,12 @@ double EvtVubBLNP::alphas(double mu, const std::vector<double> &vars) {
   double beta0 = vars[8];
   double beta1 = vars[9];
   double beta2 = vars[10];
-  
+
   double Lambda4 = 0.298791;
   double lg = 2*log(mu/Lambda4);
   double answer = 4*M_PI/(beta0*lg)*( 1 - beta1*log(lg)/(beta0*beta0*lg) + beta1*beta1/(beta0*beta0*beta0*beta0*lg*lg)*( (log(lg) - 0.5)*(log(lg) - 0.5) - 5.0/4.0 + beta2*beta0/(beta1*beta1)));
   return answer;
-    
+
 }
 
 double EvtVubBLNP::PolyLog(double v, double z) {
@@ -810,7 +795,7 @@ double EvtVubBLNP::PolyLog(double v, double z) {
   if (z >= 1) cout << "Error in EvtVubBLNP: 2nd argument to PolyLog is >= 1." << endl;
 
   double sum = 0.0;
-  for (int k=1; k<101; k++) { 
+  for (int k=1; k<101; k++) {
     sum = sum + pow(z,k)/pow(k,v);
   }
   return sum;
@@ -831,15 +816,15 @@ double EvtVubBLNP::Gamma(double a, double x)
     if(x<0.0) x=0.0;
     if(a<=0.0)a=1.e-50;
     LogGamma = lgamma(a);
-    if (x < (a+1.0)) 
+    if (x < (a+1.0))
         return gamser(a,x,LogGamma);
-    else 
+    else
         return 1.0-gammcf(a,x,LogGamma);
 }
 
 /* ------------------Incomplete gamma function-----------------*/
 /* ------------------via its series representation-------------*/
-              
+
 double EvtVubBLNP::gamser(double a, double x, double LogGamma)
 {
     double n;
@@ -854,15 +839,15 @@ double EvtVubBLNP::gamser(double a, double x, double LogGamma)
         if (fabs(del) < fabs(sum)*EPS) return sum*exp(-x + a*log(x) - LogGamma);
     }
     raise(SIGFPE);
-    
+
     return 0.0;
-}        
+}
 
 /* ------------------Incomplete gamma function complement------*/
 /* ------------------via its continued fraction representation-*/
 
 double EvtVubBLNP::gammcf(double a, double x, double LogGamma) {
-  
+
     double an,b,c,d,del,h;
     int i;
 
@@ -880,7 +865,7 @@ double EvtVubBLNP::gammcf(double a, double x, double LogGamma) {
         d = 1.0/d;
         del=d*c;
         h *= del;
-        if (fabs(del-1.0) < EPS) return exp(-x+a*log(x)-LogGamma)*h;  
+        if (fabs(del-1.0) < EPS) return exp(-x+a*log(x)-LogGamma)*h;
     }
     raise(SIGFPE);
 
@@ -896,7 +881,7 @@ double EvtVubBLNP::findBLNPWhat() {
   int nBinsBelow = 0;	  // largest k such that I[k] is known to be <= rand
   int nBinsAbove = _pf.size();  // largest k such that I[k] is known to be >  rand
   int middle;
-  
+
   while (nBinsAbove > nBinsBelow+1) {
     middle = (nBinsAbove + nBinsBelow+1)>>1;
     if (ranNum >= _pf[middle]) {
@@ -904,20 +889,20 @@ double EvtVubBLNP::findBLNPWhat() {
     } else {
       nBinsAbove = middle;
     }
-  } 
+  }
 
   double bSize = _pf[nBinsAbove] - _pf[nBinsBelow];
-  // binMeasure is always aProbFunc[nBinsBelow], 
-  
-  if ( bSize == 0 ) { 
+  // binMeasure is always aProbFunc[nBinsBelow],
+
+  if ( bSize == 0 ) {
     // rand lies right in a bin of measure 0.  Simply return the center
-    // of the range of that bin.  (Any value between k/N and (k+1)/N is 
+    // of the range of that bin.  (Any value between k/N and (k+1)/N is
     // equally good, in this rare case.)
     return (nBinsBelow + .5) * oOverBins;
   }
-  
+
   double bFract = (ranNum - _pf[nBinsBelow]) / bSize;
-  
+
   return (nBinsBelow + bFract) * oOverBins;
-  
-} 
+
+}

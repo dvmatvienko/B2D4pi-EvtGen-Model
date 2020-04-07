@@ -37,22 +37,22 @@ class EvtDecayBase;
 class EvtPythia: public  EvtDecayIncoherent  {
 
 public:
-  
+
   EvtPythia();
-  virtual ~EvtPythia();
+  ~EvtPythia();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *p);
+  void decay(EvtParticle *p) override;
 
-  std::string commandName();
-  void command(std::string);
+  std::string commandName() override;
+  void command(std::string) override;
 
 protected:
 

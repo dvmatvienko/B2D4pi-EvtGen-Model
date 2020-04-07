@@ -8,7 +8,7 @@
 // Copyright Information: See EvtGen/COPYRIGHT
 //      Copyright (C) 1998      Caltech, UCSB
 //
-// Module: 
+// Module:
 // Description: Form factors for b->sll according to Ali '02 et al.
 //              PRD 66 34002
 //
@@ -32,15 +32,11 @@ public:
 
   EvtbTosllAliFF();
 
-  void getScalarFF(EvtId parent, EvtId daught,double t, double mass, 
-		   double& fp,double& f0,double& ft);
-  void getVectorFF(EvtId parent, EvtId daught,double t, double mass, 
+  void getScalarFF(EvtId parent, EvtId daught,double t, double mass,
+		   double& fp,double& f0,double& ft) override;
+  void getVectorFF(EvtId parent, EvtId daught,double t, double mass,
 		   double& a1,double& a2,double& a0, double& v,
-		   double& t1, double& t2, double& t3 );
-
-
-
-private:
+		   double& t1, double& t2, double& t3 ) override;
 
 };
 

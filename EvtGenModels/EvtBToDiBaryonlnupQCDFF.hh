@@ -30,11 +30,8 @@ class EvtBToDiBaryonlnupQCDFF {
 
 public:
 
-    class FormFactors {
+    class FormFactors final {
     public:
-	FormFactors() {;}
-
-	virtual ~FormFactors() {;}
 
 	double F1, F2, F3, F4, F5;
 	double G1, G2, G3, G4, G5;
@@ -62,5 +59,3 @@ private:
 };
 
 #endif
-
-

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtDecayMode.cpp,v 1.3 2009-03-16 15:53:27 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -16,7 +16,7 @@
 #include "EvtGenBase/EvtPatches.hh"
 
 // Parses a decay string to identify the name
-// of the mother and of the daughters. The string should 
+// of the mother and of the daughters. The string should
 // be in standard format e.g. "B+ -> pi+ pi+ pi-"
 
 #include "EvtGenBase/EvtPatches.hh"
@@ -47,9 +47,9 @@ EvtDecayMode::EvtDecayMode(const EvtDecayMode& other)
 
 EvtDecayMode::EvtDecayMode(const char* decay)
 {
-  // Parse the decay string, it should be in a standard 
+  // Parse the decay string, it should be in a standard
   // format, e.g. "B+ -> pi+ pi+ pi-" with all spaces
-  
+
   string s(decay);
 
   // mother
@@ -64,7 +64,7 @@ EvtDecayMode::EvtDecayMode(const char* decay)
   }
 
   if(j == string::npos) {
-    
+
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "No space before -> found" << endl;
     assert(0);
   }
@@ -95,10 +95,6 @@ EvtDecayMode::EvtDecayMode(const char* decay)
   }
 }
 
-
-
-EvtDecayMode::~EvtDecayMode()
-{}
 
 
 const char* EvtDecayMode::mother() const

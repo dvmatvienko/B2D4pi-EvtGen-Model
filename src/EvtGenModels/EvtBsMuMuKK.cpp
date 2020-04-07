@@ -38,6 +38,11 @@ const double pi    = EvtConst::pi;
 const EvtComplex I = EvtComplex(0.0,1.0);
 const double sq2   = sqrt(2.0);
 
+std::string EvtBsMuMuKK::getName() 
+{ 
+    return "BS_MUMUKK";
+}
+
 EvtDecayBase* EvtBsMuMuKK::clone() 
 {
     return new EvtBsMuMuKK; 

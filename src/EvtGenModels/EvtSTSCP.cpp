@@ -18,7 +18,7 @@
 //    RYD       June 19, 1997       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -33,11 +33,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSTSCP::~EvtSTSCP() {}
-
 std::string EvtSTSCP::getName(){
 
-  return "STS_CP";     
+  return "STS_CP";
 
 }
 
@@ -104,7 +102,7 @@ void EvtSTSCP::decay( EvtParticle *p){
    }
    if (other_b==B0){
      amp=A*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-       EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+       EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
        getArg(2)*Abar*cos(getArg(1)*t/(2*EvtConst::c));
    }
 
@@ -113,8 +111,8 @@ void EvtSTSCP::decay( EvtParticle *p){
   p4_parent=momt+moms;
 
   double norm=masst*masst/(m_parent*momt.d3mag()*momt.d3mag());
- 
-   
+
+
    vertex(0,amp*norm*t1->epsTensorParent(0).cont1(p4_parent)*p4_parent);
    vertex(1,amp*norm*t1->epsTensorParent(1).cont1(p4_parent)*p4_parent);
    vertex(2,amp*norm*t1->epsTensorParent(2).cont1(p4_parent)*p4_parent);

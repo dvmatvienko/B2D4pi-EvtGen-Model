@@ -17,7 +17,7 @@
 //    Ryd       March 20, 2004       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
@@ -29,12 +29,10 @@
 #include "EvtGenModels/EvtVPHOtoVISR.hh"
 #include <string>
 
-EvtVPHOtoVISR::~EvtVPHOtoVISR() {}
-
 std::string EvtVPHOtoVISR::getName(){
 
-  return "VPHOTOVISR"; 
-    
+  return "VPHOTOVISR";
+
 }
 
 
@@ -62,13 +60,13 @@ void EvtVPHOtoVISR::initProbMax() {
 
   //setProbMax(100000.0);
 
-}      
+}
 
 void EvtVPHOtoVISR::decay( EvtParticle *p){
 
   //take photon along z-axis, either forward or backward.
-  //Implement this as generating the photon momentum along 
-  //the z-axis uniformly 
+  //Implement this as generating the photon momentum along
+  //the z-axis uniformly
 
   double w=p->mass();
   double s=w*w;
@@ -77,7 +75,7 @@ void EvtVPHOtoVISR::decay( EvtParticle *p){
   double alpha=1/137.0;
   double beta=(L-1)*2.0*alpha/EvtConst::pi;
 
-  //This uses the fact that there is a daughter of the 
+  //This uses the fact that there is a daughter of the
   //psi(3770)
   assert(p->getDaug(0)->getDaug(0)!=0);
   double md=EvtPDL::getMeanMass(p->getDaug(0)->getDaug(0)->getId());
@@ -140,7 +138,7 @@ void EvtVPHOtoVISR::decay( EvtParticle *p){
   double GammaTot=Gamma*(pp*pp*pp/(1+pp*pp*rp*rp)+p0*p0*p0/(1+p0*p0*r0*r0))/
     (ppnorm*ppnorm*ppnorm/(1+ppnorm*ppnorm*rp*rp)+
      p0norm*p0norm*p0norm/(1+p0norm*p0norm*r0*r0));
-  
+
 
   sigma*=pd*pd*pd/((mres-m)*(mres-m)+0.25*GammaTot*GammaTot);
 

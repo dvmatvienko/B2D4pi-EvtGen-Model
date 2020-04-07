@@ -9,15 +9,15 @@
 
 /*
  * Pole compensating function for terms that exibit a resonant structure
- * in one dimension only. 
- * 
+ * in one dimension only.
+ *
  * f =  1    g*m0
  *     --  ------------------
  *     pi  (q-q0)^2 + g^2m0^2
  *
  * m is the mass of the resonance, g is its width. The approximation works well for a narrow
  * resonance. It is also readily integrable over the Dalitz plot coordinate to produce
- * 
+ *
  * Int = 1/pi atan((q-q0)/(g*m0))
  */
 
@@ -33,19 +33,17 @@ class EvtDalitzResPdf : public EvtPdf<EvtDalitzPoint> {
 public:
 
   EvtDalitzResPdf(const EvtDalitzPlot& dp,double m0, double g0, EvtCyclic3::Pair pairRes);
-  EvtDalitzResPdf(const EvtDalitzResPdf& other);
-  virtual ~EvtDalitzResPdf();
-  
-  
-  EvtPdf<EvtDalitzPoint>* clone() const { return new EvtDalitzResPdf(*this); }
-  
-  virtual EvtValError compute_integral(int N) const;
-  virtual EvtDalitzPoint randomPoint();
+
+  EvtPdf<EvtDalitzPoint>* clone() const override { return new EvtDalitzResPdf(*this); }
+
+  using EvtPdf<EvtDalitzPoint>::compute_integral;
+  EvtValError compute_integral(int N) const override;
+  EvtDalitzPoint randomPoint() override;
   double pdfMaxValue() const;
 
 protected:
 
-  virtual double pdf(const EvtDalitzPoint&) const; 
+  double pdf(const EvtDalitzPoint&) const override;
 
 private:
 

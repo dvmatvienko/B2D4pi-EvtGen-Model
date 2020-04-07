@@ -10,7 +10,7 @@
 //
 // Module: EvtbTosllBall.cc
 //
-// Description: Routine to implement b->sll decays according to Ball et al. 
+// Description: Routine to implement b->sll decays according to Ball et al.
 //
 // Modification history:
 //
@@ -18,7 +18,7 @@
 //
 //    jjhollar October 7, 2005       Option to select form factors at runtime
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -34,14 +34,10 @@
 #include <string>
 using std::endl;
 
-EvtbTosllBall::~EvtbTosllBall() {
-  delete _calcamp;
-  delete _ballffmodel;
-}
 
 std::string EvtbTosllBall::getName(){
 
-  return "BTOSLLBALL";     
+  return "BTOSLLBALL";
 }
 
 
@@ -56,24 +52,24 @@ void EvtbTosllBall::decay( EvtParticle *p ){
   setWeight(p->initializePhaseSpace(getNDaug(),getDaugs(),false,
                                     _poleSize,1,2));
 
-  _calcamp->CalcAmp(p,_amp2,_ballffmodel);
-  
+  _calcamp->CalcAmp(p,_amp2,_ballffmodel.get());
+
 }
 
 
 void EvtbTosllBall::initProbMax(){
 
   EvtId parnum,mesnum,l1num,l2num;
-  
+
   parnum = getParentId();
   mesnum = getDaug(0);
   l1num = getDaug(1);
   l2num = getDaug(2);
-  
+
   //This routine sets the _poleSize.
   double mymaxprob = _calcamp->CalcMaxProb(parnum,mesnum,
 					   l1num,l2num,
-					   _ballffmodel,_poleSize);
+					   _ballffmodel.get(),_poleSize);
 
   setProbMax(mymaxprob);
 
@@ -99,7 +95,7 @@ void EvtbTosllBall::init(){
 
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton+ lepton-
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -118,11 +114,11 @@ void EvtbTosllBall::init(){
   checkSpinDaughter(1,EvtSpinType::DIRAC);
   checkSpinDaughter(2,EvtSpinType::DIRAC);
 
-  _ballffmodel = new EvtbTosllBallFF(theFormFactorModel);
+  _ballffmodel = std::make_unique<EvtbTosllBallFF>(theFormFactorModel);
   if (mesontype == EvtSpinType::SCALAR){
-    _calcamp = new EvtbTosllScalarAmp(-0.313,4.344,-4.669); 
+    _calcamp = std::make_unique<EvtbTosllScalarAmp>();
   } else if (mesontype == EvtSpinType::VECTOR){
-    _calcamp = new EvtbTosllVectorAmp(-0.313,4.344,-4.669); 
+    _calcamp = std::make_unique<EvtbTosllVectorAmp>();
   }
 
 }

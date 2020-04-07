@@ -32,11 +32,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtSll::~EvtSll() {}
-
 std::string EvtSll::getName(){
 
-  return "SLL";     
+  return "SLL";
 
 }
 
@@ -72,7 +70,7 @@ void EvtSll::decay(EvtParticle *p){
   p4_p.set(p->mass(),0.0,0.0,0.0);
 
   EvtVector4C l11, l12, l21, l22;
-  
+
   l11=EvtLeptonVACurrent(l1->spParent(0),l2->spParent(0));
   l12=EvtLeptonVACurrent(l1->spParent(0),l2->spParent(1));
   l21=EvtLeptonVACurrent(l1->spParent(1),l2->spParent(0));
@@ -82,7 +80,7 @@ void EvtSll::decay(EvtParticle *p){
   vertex(0,1,p4_p*l12);
   vertex(1,0,p4_p*l21);
   vertex(1,1,p4_p*l22);
-  
+
   return;
 
 }

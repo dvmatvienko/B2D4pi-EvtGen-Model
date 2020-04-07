@@ -7,7 +7,7 @@
  * Copyright (C) 2002 Caltech
  *******************************************************************************/
 
-// Value and its associated error. E.g. this could be interval size and 
+// Value and its associated error. E.g. this could be interval size and
 // the error associated with numerical integration.
 
 #ifndef EVT_VAL_ERROR_HH
@@ -17,7 +17,7 @@
 #include <assert.h>
 #include <math.h>
 
-class EvtValError {
+class EvtValError final {
 
 public:
 
@@ -25,7 +25,6 @@ public:
   EvtValError(double val);
   EvtValError(double val, double err);
   EvtValError(const EvtValError& other);
-  ~EvtValError();
 
   inline int valueKnown() const { return _valKnown; }
   inline double value() const { assert(_valKnown); return _val; }
@@ -67,7 +66,7 @@ EvtValError accept_reject(InputIterator it, InputIterator end, Predicate pred)
   int itsTried = 0;
   int itsPassed = 0;
   while(it != end) {
-    
+
     itsTried++;
     if(pred(*it++)) itsPassed++;
   }

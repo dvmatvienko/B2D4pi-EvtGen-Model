@@ -18,7 +18,7 @@
 //    DJL       April 23, 1998       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include "EvtGenBase/EvtSemiLeptonicBaryonAmp.hh"
 #include <string>
 
-EvtKKLambdaC::~EvtKKLambdaC() {}
-
 std::string EvtKKLambdaC::getName(){
 
-  return "KK_LAMBDAC_SL";     
+  return "KK_LAMBDAC_SL";
 
 }
 
@@ -49,8 +47,7 @@ void EvtKKLambdaC::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
-  _calcamp->CalcAmp(p,_amp2,_ffmodel);
-  return;
+  _calcamp->CalcAmp(p,_amp2,_ffmodel.get());
 }
 
 void EvtKKLambdaC::initProbMax(){
@@ -64,14 +61,14 @@ nunum = getDaug(2);
 
 //double mymaxprob = _calcamp->CalcMaxProb(parnum,mesnum,
 //                           lnum,nunum,_ffmodel);
- double mymaxprob=100.; 
+ double mymaxprob=100.;
 setProbMax(mymaxprob);
 
 }
 
 
 void EvtKKLambdaC::init(){
-  
+
   checkNDaug(3);
 
   //We expect the parent to be a dirac
@@ -82,9 +79,9 @@ void EvtKKLambdaC::init(){
   checkSpinDaughter(1,EvtSpinType::DIRAC);
   checkSpinDaughter(2,EvtSpinType::NEUTRINO);
 
-  _ffmodel = new EvtKKLambdaCFF(getNArg(),getArgs());
+  _ffmodel = std::make_unique<EvtKKLambdaCFF>(getNArg(),getArgs());
 
-  _calcamp = new EvtSemiLeptonicBaryonAmp; 
-  
+  _calcamp = std::make_unique<EvtSemiLeptonicBaryonAmp>();
+
 }
 

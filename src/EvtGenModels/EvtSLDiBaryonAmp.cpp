@@ -35,8 +35,6 @@
 
 #include "EvtGenModels/EvtSLDiBaryonAmp.hh"
 
-using std::endl;
-
 EvtSLDiBaryonAmp::EvtSLDiBaryonAmp(const EvtBToDiBaryonlnupQCDFF& formFactors) :
     ffModel_(formFactors)
 {
@@ -131,7 +129,7 @@ void EvtSLDiBaryonAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp) const {
 
     } else {
 
-        EvtGenReport(EVTGEN_ERROR,"EvtSLDiBaryonAmp") << "Wrong lepton number"<<endl;
+        EvtGenReport(EVTGEN_ERROR,"EvtSLDiBaryonAmp") << "Wrong lepton number"<< std::endl;
 
     }
 

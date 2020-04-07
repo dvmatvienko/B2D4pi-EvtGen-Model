@@ -28,15 +28,12 @@ class EvtBcBsStarNPi : public EvtBcToNPi {
 public:
 
   EvtBcBsStarNPi();
+  void init() override;
 
-  virtual ~EvtBcBsStarNPi();
+  void initProbMax() override;
 
-  virtual void init();
-  
-  virtual void initProbMax();
-	
-  virtual std::string getName();
-  virtual EvtDecayBase* clone();
+  std::string getName() override;
+  EvtBcBsStarNPi* clone() override;
 
 };
 

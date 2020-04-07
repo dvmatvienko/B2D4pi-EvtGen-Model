@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtOmegaDalitz.hh
 //
-// Description:Class to handle the omega -> pi pi pi dalitz decay. 
+// Description:Class to handle the omega -> pi pi pi dalitz decay.
 
 //
 // Modification history:
@@ -31,14 +31,13 @@ class EvtOmegaDalitz:public  EvtDecayAmp  {
 public:
 
   EvtOmegaDalitz() {}
-  virtual ~EvtOmegaDalitz();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void init();
-  void decay(EvtParticle *p); 
-  void initProbMax();
+  void init() override;
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
 
 };
 

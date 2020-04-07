@@ -12,12 +12,12 @@
 //
 // Description:
 //      Abstraction of a generic function for use in integration methods elsewhere
-//      in this package. (Stolen and modified from 
+//      in this package. (Stolen and modified from
 //      the BaBar IntegrationUtils package - author: Phil Strother).
 //
 // Modification history:
 //
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
+//    Jane Tinslay                March 21, 2001       Module adapted for use in
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
@@ -53,16 +53,9 @@ EvtItgSimpsonIntegrator::EvtItgSimpsonIntegrator(const EvtItgAbsFunction &theFun
 {}
 
 
-//--------------
-// Destructor --
-//--------------
-
-EvtItgSimpsonIntegrator::~EvtItgSimpsonIntegrator()
-{}
-
 double
 EvtItgSimpsonIntegrator::evaluateIt(double lower, double higher) const{
-  
+
   // EvtGenReport(EVTGEN_INFO,"EvtGen")<<"in evaluate"<<endl;
   int j;
   double result(0.0);
@@ -78,22 +71,22 @@ EvtItgSimpsonIntegrator::evaluateIt(double lower, double higher) const{
   s = (4.0 * st - ost)/3.0;
 
   if (fabs(s - olds) < _precision*fabs(olds) || (s==0.0 && olds==0.0))     return s;
-  
+
   ost=st;
 
   for (j=5;j<_maxLoop;j++){
 
     st = trapezoid(lower, higher, j, result);
     s = (4.0 * st - ost)/3.0;
-    
+
     if (fabs(s - olds) < _precision*fabs(olds) || (s==0.0 && olds==0.0))    return s;
     olds=s;
     ost=st;
   }
-  
+
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Severe error in EvtItgSimpsonIntegrator.  Failed to converge after loop with 2**"
 		 << _maxLoop << " calls to the integrand in." << endl;
-  
+
   return 0.0;
-    
+
 }

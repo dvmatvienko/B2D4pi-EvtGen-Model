@@ -21,6 +21,7 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
 #include "EvtGenBase/EvtPDL.hh"
@@ -29,8 +30,6 @@
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtConst.hh"
 #include <string>
-
-EvtBTo4piCP::~EvtBTo4piCP() {}
 
 
 EvtComplex EvtAmpA2(const EvtVector4R& p4pi1,const EvtVector4R& p4pi2,
@@ -69,7 +68,7 @@ EvtComplex EvtAmpA2(const EvtVector4R& p4pi1,const EvtVector4R& p4pi2,
 
   //  EvtComplex amp_a1,amp_a2;
   EvtComplex amp_a2;
- 
+
   //  double bwm_a1=EvtPDL::getMeanMass(A1M);
   //  double gamma_a1=EvtPDL::getWidth(A1M);
   double bwm_a2=EvtPDL::getMeanMass(A2M);
@@ -127,7 +126,7 @@ EvtComplex EvtAmpA1(const EvtVector4R& p4pi1,const EvtVector4R& p4pi2,
   t.set(1.0,0.0,0.0,0.0);
 
   EvtComplex amp_a1;
- 
+
   double bwm_a1=EvtPDL::getMeanMass(A1M);
   double gamma_a1=EvtPDL::getWidth(A1M);
   //  double bwm_a2=EvtPDL::getMeanMass(A2M);
@@ -147,13 +146,13 @@ EvtComplex EvtAmpA1(const EvtVector4R& p4pi1,const EvtVector4R& p4pi2,
 
 
 std::string EvtBTo4piCP::getName(){
- 
-  return "BTO4PI_CP";     
+
+  return "BTO4PI_CP";
 
 }
 
 
-EvtDecayBase* EvtBTo4piCP::clone(){
+EvtBTo4piCP* EvtBTo4piCP::clone(){
 
   return new EvtBTo4piCP;
 
@@ -184,7 +183,7 @@ void EvtBTo4piCP::decay( EvtParticle *p){
   EvtId other_b;
 
   EvtCPUtil::getInstance()->OtherB(p,t,other_b,0.5);
-  
+
   p->initializePhaseSpace(getNDaug(),getDaugs());
   EvtVector4R mom1 = p->getDaug(0)->getP4();
   EvtVector4R mom2 = p->getDaug(1)->getP4();
@@ -248,10 +247,10 @@ void EvtBTo4piCP::decay( EvtParticle *p){
    }
    if (other_b==B0){
      amp=A*EvtComplex(cos(2.0*getArg(0)),sin(2.0*getArg(0)))*
-       EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+       
+       EvtComplex(0.0,1.0)*sin(getArg(1)*t/(2*EvtConst::c))+
        getArg(2)*Abar*cos(getArg(1)*t/(2*EvtConst::c));
    }
- 
+
    vertex(amp);
 
    return ;

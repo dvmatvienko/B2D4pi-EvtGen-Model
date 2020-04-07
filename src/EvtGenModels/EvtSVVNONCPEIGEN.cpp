@@ -10,10 +10,10 @@
 //
 // Module: EvtSVVNONCPEIGEN.cc
 //
-// Description: Routine to decay scalar -> vector vector 
+// Description: Routine to decay scalar -> vector vector
 //              and has CP violation.
 //
-//              This model does all the ckm-suppressed decays and mixing for you. It randomly 'overwrites' 
+//              This model does all the ckm-suppressed decays and mixing for you. It randomly 'overwrites'
 //              any reco or tagging state as set in the Y(4S) decay model (VSS_(B)MIX) with its own generated states.
 //
 //              As such, the corresponding dec file requires only one decay-mode description, for example:
@@ -26,34 +26,34 @@
 //
 //              There are 15 or 27 arguments. The first three are dm, phase1
 //              and phase2. dm is the B0-B0bar mass difference. Phases 1
-//              and 2 are the CKM weak phases relevant for the particular mode, 
+//              and 2 are the CKM weak phases relevant for the particular mode,
 //              eg for B-->DstRho phase1 is beta and phase2 is gamma.
 //
-//              The next arguments are the 2 amplitudes (= 12 input parameters) 
-//              in the order: A_f, Abar_f. In the example above, the 'A_f' amplitude now 
+//              The next arguments are the 2 amplitudes (= 12 input parameters)
+//              in the order: A_f, Abar_f. In the example above, the 'A_f' amplitude now
 //              stands for the ckm-favored decay 'B0->D*-rho+', and 'Abar_f' stands for 'B0bar->D*-rho+'
 //
-//              Each amplitude has its 3 helicity states in the order +, 0, -, which are each 
+//              Each amplitude has its 3 helicity states in the order +, 0, -, which are each
 //              specified by a magnitude and a strong phase.
 //
-//              The last 2 arguments A_fbar and Abar_fbar (=12 input parameters) are not necessary, 
+//              The last 2 arguments A_fbar and Abar_fbar (=12 input parameters) are not necessary,
 //              but can included if one wants to set them differently from A_f, Abar_f.
 //
 //              Mind you that Hbar_+- = H_-+ (ignoring the weak phase, which flips sign).
 //              It is custumary to select one set of helicity states (eg H_+-) and to adopt these for
 //              the CP-conjugate decays as well (ie. depict Hbar_-+ with H_+-), which is the interpretation
-//              we use for the input-parameters above. 
+//              we use for the input-parameters above.
 //              However, the angular decay in EvtGen is just a formula in which helicity amplitudes are 'plugged' in,
-//              making no difference between B0 or B0bar decays. In the model below we (thus) account for the +- 
+//              making no difference between B0 or B0bar decays. In the model below we (thus) account for the +-
 //              flipping between B0 and B0bar.
-//              
+//
 //
 // Modification history:
 //    Ajit Kurup 9 March 2001        Module created (from EvtSVSNONCPEIGEN)
 //    Max Baak 01/16/2004            Fix of Helicity amplitude ordering.
 //                                   Decay also works for B0bar decays.
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -68,11 +68,9 @@
 #include "EvtGenModels/EvtSVVHelAmp.hh"
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVVNONCPEIGEN::~EvtSVVNONCPEIGEN() {}
-
 std::string EvtSVVNONCPEIGEN::getName(){
 
-  return "SVV_NONCPEIGEN";     
+  return "SVV_NONCPEIGEN";
 
 }
 
@@ -95,10 +93,10 @@ void EvtSVVNONCPEIGEN::init(){
   //  The ordering of A_f is :
   //  A_f[0-2] = A_f
   //  A_f[3-5] = Abar_f
-  //  A_f[6-8] = A_fbar 
+  //  A_f[6-8] = A_fbar
   //  A_f[9-11] = Abar_fbar
-  //  
-  //  Each of the 4 amplitudes include the 3 different helicity states in 
+  //
+  //  Each of the 4 amplitudes include the 3 different helicity states in
   //  the order +, 0, -. See more about helicity amplitude ordering in ::decay
 
   int i=0;
@@ -124,7 +122,7 @@ void EvtSVVNONCPEIGEN::initProbMax() {
     probMax += amp * amp;
   }
 
-  setProbMax(probMax); 
+  setProbMax(probMax);
 }
 
 void EvtSVVNONCPEIGEN::decay( EvtParticle *p){
@@ -174,11 +172,11 @@ void EvtSVVNONCPEIGEN::decay( EvtParticle *p){
       // At t=0 we have a B0
 
       // M.Baak 01/16/2004
-      // Note: \bar{H}+- = H-+ 
-      // If one wants to use the correct helicities for B0 and B0bar decays but the same formula-notation (as done in EvtSVV_HelAmp), 
+      // Note: \bar{H}+- = H-+
+      // If one wants to use the correct helicities for B0 and B0bar decays but the same formula-notation (as done in EvtSVV_HelAmp),
       // count the B0bar helicities backwards. (Equivalently, one could flip the chi angle.)
 
-      for(int i=0; i<3; ++i) { 
+      for(int i=0; i<3; ++i) {
 	amp[i] = _A_f[8-i]*cos(dmt2) + eMinusIPhi*EvtComplex(0.0,sin(dmt2))*_A_f[11-i];
       }
     }
@@ -189,7 +187,7 @@ void EvtSVVNONCPEIGEN::decay( EvtParticle *p){
       }
     }
   }
-  
+
   EvtSVVHelAmp::SVVHel(p,_amp2,daugs[0],daugs[1],amp[0],amp[1],amp[2]);
 
   return ;

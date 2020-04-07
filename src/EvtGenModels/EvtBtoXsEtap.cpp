@@ -33,11 +33,9 @@
 #include "EvtGenBase/EvtConst.hh"
 using std::endl;
 
-EvtBtoXsEtap::~EvtBtoXsEtap() {}
-
 std::string EvtBtoXsEtap::getName(){
 
-  return "BTOXSETAP";     
+  return "BTOXSETAP";
 
 }
 
@@ -76,7 +74,7 @@ void EvtBtoXsEtap::decay( EvtParticle *p ){
   EvtParticle *pdaug[MAX_DAUG];
 
   for(i=0;i<getNDaug();i++){
-     pdaug[i]=p->getDaug(i);   
+     pdaug[i]=p->getDaug(i);
   }
 
   static EvtVector4R p4[MAX_DAUG];
@@ -98,7 +96,7 @@ void EvtBtoXsEtap::decay( EvtParticle *p ){
 
   //  double par[18];
   double par[6];
-  if ((Xscode == 30343) || (Xscode == -30343) || 
+  if ((Xscode == 30343) || (Xscode == -30343) ||
       (Xscode == 30353) || (Xscode == -30353)) { // Xsu or Xsd
     min=0.6373; //  Just above K pi threshold for Xsd/u
     //min=0.6333; //  K pi threshold for neutral Xsd
@@ -140,7 +138,7 @@ void EvtBtoXsEtap::decay( EvtParticle *p ){
     ybox=EvtRandom::Flat(boxheight);
     if (xbox<par[2]) {
 
-      hichfit=(1/sqrt(TwoPi*par[1]))*exp(-0.5*pow((xbox-par[0])/par[1],2));      
+      hichfit=(1/sqrt(TwoPi*par[1]))*exp(-0.5*pow((xbox-par[0])/par[1],2));
       //      alifit=par[0]+par[1]*xbox+par[2]*pow(xbox,2);
       //    } else if (xbox<par[7]) {
       //      alifit=par[4]+par[5]*xbox+par[6]*pow(xbox,2);

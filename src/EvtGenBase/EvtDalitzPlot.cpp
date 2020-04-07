@@ -57,17 +57,6 @@ EvtDalitzPlot::EvtDalitzPlot(const EvtDecayMode& mode, double ldel, double rdel 
   sanityCheck();
 }
 
-
-EvtDalitzPlot::EvtDalitzPlot(const EvtDalitzPlot& other) 
-  : _mA(other._mA), _mB(other._mB), _mC(other._mC), _bigM(other._bigM),
-    _ldel(other._ldel), _rdel(other._rdel)
-{}
-
-
-EvtDalitzPlot::~EvtDalitzPlot()
-{}
-
-
 bool EvtDalitzPlot::operator==(const EvtDalitzPlot& other) const
 {
   bool ret = false;

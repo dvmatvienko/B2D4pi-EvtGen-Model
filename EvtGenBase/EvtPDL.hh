@@ -1,20 +1,20 @@
 //--------------------------------------------------------------------------
-// 
-// Environment: 
-// This software is part of the EvtGen package developed jointly 
-// for the BaBar and CLEO collaborations.  If you use all or part 
-// of it, please give an appropriate acknowledgement.
-// 
-// Copyright Information: See EvtGen/COPYRIGHT 
-// Copyright (C) 1998 Caltech, UCSB 
-// 
-// Module: EvtGen/EvtPDL.hh 
-// 
-// Description:Class to keep track of particle properties.  
-// 
-// Modification history: 
 //
-// DJL/RYD September 25, 1996 Module created 
+// Environment:
+// This software is part of the EvtGen package developed jointly
+// for the BaBar and CLEO collaborations.  If you use all or part
+// of it, please give an appropriate acknowledgement.
+//
+// Copyright Information: See EvtGen/COPYRIGHT
+// Copyright (C) 1998 Caltech, UCSB
+//
+// Module: EvtGen/EvtPDL.hh
+//
+// Description:Class to keep track of particle properties.
+//
+// Modification history:
+//
+// DJL/RYD September 25, 1996 Module created
 //
 //------------------------------------------------------------------------
 
@@ -30,18 +30,17 @@
 
 const int SPIN_NAME_LENGTH = 100;
 
-class EvtPDL {
+class EvtPDL final {
 
 public:
 
-  EvtPDL();  
+  EvtPDL();
 
-  ~EvtPDL();
 
   void read(const char* fname);
   void readPDT(const std::string fname);
 
-  
+
   static double getMeanMass(EvtId i );
   static double getMass(EvtId i );
   static double getRandMass(EvtId i, EvtId *parId, int nDaug, EvtId *dauId, EvtId *othDaugId,double maxMass, double *dauMasses );
@@ -56,7 +55,7 @@ public:
   static int getStdHep(EvtId id );
   static int getLundKC(EvtId id );
 
-  // Function to retrieve EvtId from PythiaID  
+  // Function to retrieve EvtId from PythiaID
   static EvtId evtIdFromLundKC(int pythiaId );
   static EvtId evtIdFromStdHep(int stdhep );
   static EvtId chargeConj(EvtId id );
@@ -92,7 +91,7 @@ private:
   }
 
   static std::map<std::string, int> _particleNameLookup;
-  
+
 }; // EvtPDL.h
 
 #endif

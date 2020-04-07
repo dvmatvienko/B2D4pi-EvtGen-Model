@@ -24,9 +24,6 @@ EvtPoint1D::EvtPoint1D(double value)
 
 EvtPoint1D::EvtPoint1D(double min, double max, double value)
   : _min(min), _max(max), _value(value), _valid((_min <= _value && _value <= _max) ? true : false)
-{} 
-  
-EvtPoint1D::~EvtPoint1D()
 {}
 
 void EvtPoint1D::print() const

@@ -18,7 +18,7 @@
 //    DJL     April 20, 1998        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include <string>
 
-EvtMelikhov::~EvtMelikhov() {}
-
 std::string EvtMelikhov::getName(){
 
-  return "MELIKHOV";     
+  return "MELIKHOV";
 }
 
 
@@ -47,7 +45,7 @@ EvtDecayBase* EvtMelikhov::clone(){
 void EvtMelikhov::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,Melikhovffmodel);
+  calcamp->CalcAmp(p,_amp2,Melikhovffmodel.get());
 }
 
 
@@ -56,7 +54,7 @@ void EvtMelikhov::init(){
   checkNArg(1);
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -66,8 +64,8 @@ void EvtMelikhov::init(){
   checkSpinDaughter(2,EvtSpinType::NEUTRINO);
 
 
-  Melikhovffmodel = new EvtMelikhovFF(getArg(0));
-  calcamp = new EvtSemiLeptonicVectorAmp; 
-  
+  Melikhovffmodel = std::make_unique< EvtMelikhovFF >(getArg(0));
+  calcamp = std::make_unique< EvtSemiLeptonicVectorAmp >();
+
 }
 

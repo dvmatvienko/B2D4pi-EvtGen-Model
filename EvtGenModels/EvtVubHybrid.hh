@@ -7,7 +7,7 @@
 //
 // Copyright Information: See EvtGen/COPYRIGHT
 //      Copyright (C) 1998      Caltech, UCSB
-// 
+//
 // Module: EvtGen/EvtVubHybrid.hh
 //
 // Description:
@@ -34,29 +34,27 @@
 #define EVTVUBHYBRID_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+#include "EvtGenModels/EvtVubdGamma.hh"
 
 #include <vector>
+#include <memory>
 
 class EvtParticle;
-class EvtVubdGamma;
 class RandGeneral;
 
 class EvtVubHybrid:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVubHybrid();
-  virtual ~EvtVubHybrid();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
   void readWeights(int startArg=0);
 
@@ -66,24 +64,21 @@ private:
   double findPFermi();
 
   enum { nParameters = 3, nVariables = 3 };
-  
-  bool _noHybrid;
-  bool _storeQplus;
 
-  double _mb;     // the b-quark pole mass in GeV (try 4.65 to 4.9)
-  double _a;      // Parameter for the Fermi Motion (1.29 is good)
-  double _alphas; // Strong Coupling at m_b (around 0.24)
-  double _dGMax;  // max dGamma*p2 value;
-  int    _nbins_mX;
-  int    _nbins_q2;
-  int    _nbins_El;
-  int    _nbins;
-  double _masscut;
-  double * _bins_mX;
-  double * _bins_q2;
-  double * _bins_El;
-  double * _weights;
-  EvtVubdGamma *_dGamma; // calculates the decay rate
+  bool _noHybrid = false;  // _noHybrid will be set TRUE if the DECAY.DEC file has no binning or weights
+  bool _storeQplus = true; // _storeQplus should alwasy be TRUE: writes out Fermi motion parameter
+
+  double _mb = 4.62;     // the b-quark pole mass in GeV (try 4.65 to 4.9)
+  double _a = 2.27;      // Parameter for the Fermi Motion (1.29 is good)
+  double _alphas = 0.22; // Strong Coupling at m_b (around 0.24)
+  double _dGMax = 3.;    // max dGamma*p2 value;
+  int    _nbins = 0;
+  double _masscut = 0.28;
+  std::vector<double> _bins_mX;
+  std::vector<double> _bins_q2;
+  std::vector<double> _bins_El;
+  std::vector<double> _weights;
+  std::unique_ptr<EvtVubdGamma> _dGamma; // calculates the decay rate
   std::vector<double> _pf;
 };
 

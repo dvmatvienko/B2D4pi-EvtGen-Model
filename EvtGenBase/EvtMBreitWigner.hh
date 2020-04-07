@@ -9,9 +9,9 @@ class EvtMBreitWigner : public EvtMLineShape {
         EvtMBreitWigner( const EvtId& id, const vector<string>& args );
         ~EvtMBreitWigner( ) {};
 
-        EvtComplex shape( const vector<EvtVector4R>& product ) const;
-        
-        EvtMLineShape * duplicate() const;
+        EvtComplex shape( const vector<EvtVector4R>& product ) const override;
+
+        EvtMLineShape * duplicate() const override;
 
     private:
         EvtId _id;

@@ -17,7 +17,7 @@
 //    NK     September 3, 1997         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -37,11 +37,9 @@
 
 using std::endl;
 
-EvtDDalitz::~EvtDDalitz() {}
-
 std::string EvtDDalitz::getName(){
-  
-  return "D_DALITZ";     
+
+  return "D_DALITZ";
 
 }
 
@@ -62,8 +60,8 @@ bool isNeutralKaon(const EvtId& theId) {
     static EvtId KL = EvtPDL::getId("K_L0");
     static EvtId KS = EvtPDL::getId("K_S0");
 
-    // Compare EvtId integers, which are unique for each particle type, 
-    // corresponding to the order particles appear in the "evt.pdl" table. 
+    // Compare EvtId integers, which are unique for each particle type,
+    // corresponding to the order particles appear in the "evt.pdl" table.
     // Aliased particles will have the same ids (but different "alias" values)
     if (theId == KB || theId == K0 || theId == KL || theId == KS) {
 	result = true;
@@ -79,7 +77,7 @@ bool compareIds(const std::pair<EvtId, int> &left,
   // Compare id numbers to achieve the ordering KB/K0/KS/KL, KM, PIM, PI0, PIP, KP, i.e.
   // neutral kaon first, then normal PDG id ordering for the other particles.
 
-  // The current 12 decay modes do not use two or more neutral kaons. If in the future 
+  // The current 12 decay modes do not use two or more neutral kaons. If in the future
   // such modes are added, the ordering will be KM, KB, PIM, PI0, KL, PIP, KS, K0, KP
 
   bool result(false);
@@ -148,10 +146,10 @@ void EvtDDalitz::init(){
   /*
    * To decide which decay we have, we take the list of daughters (or charge
    * conjugate of daughters for D-, D0B or Ds-), sort these in the order
-   * KB/K0/KS/KL, KM, PIM, PI0, PIP, KP, keeping track which daughter is which, 
-   * and at the end have a single if statement picking up the decay and assigning 
-   * the correct order for the daughters (same condition used for charm and anti-charm). 
-   * If we have two or more neutral kaons in the daughter list, then the compareIds() 
+   * KB/K0/KS/KL, KM, PIM, PI0, PIP, KP, keeping track which daughter is which,
+   * and at the end have a single if statement picking up the decay and assigning
+   * the correct order for the daughters (same condition used for charm and anti-charm).
+   * If we have two or more neutral kaons in the daughter list, then the compareIds()
    * ordering will simply follow ascending PDG ids: KM, KB, PIM, PI0, KL, PIP, KS, K0, KP
    */
 
@@ -315,18 +313,18 @@ void EvtDDalitz::init(){
   }
 
   /*
-  EvtGenReport(EVTGEN_INFO,"EvtGen") << "DDALITZ ordering for " << parnum.getName() 
-				     << " with mode = " << _flag << ": "
-				     << getDaug(_d1).getName() << " "
-				     << getDaug(_d2).getName() << " "
-				     << getDaug(_d3).getName() << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "DDALITZ ordering for " << parnum.getName()
+			<< " with mode = " << _flag << ": "
+			<< getDaug(_d1).getName() << " "
+			<< getDaug(_d2).getName() << " "
+			<< getDaug(_d3).getName() << std::endl;
   */
 
 }
 
 void EvtDDalitz::initProbMax() {
 
-  // probmax different for different modes!  
+  // probmax different for different modes!
 
   if ( _flag==1 ) {setProbMax(2500.0);}
   if ( _flag==2 ) {setProbMax(150.0);}
@@ -345,23 +343,23 @@ void EvtDDalitz::initProbMax() {
 
 void EvtDDalitz::decay( EvtParticle *p){
 
-  static EvtId BP = EvtPDL::getId("B+");                                       
-  static EvtId BM = EvtPDL::getId("B-");                                       
-  static EvtId B0 = EvtPDL::getId("B0");                                       
-  static EvtId B0B = EvtPDL::getId("anti-B0");         
+  static EvtId BP = EvtPDL::getId("B+");
+  static EvtId BM = EvtPDL::getId("B-");
+  static EvtId B0 = EvtPDL::getId("B0");
+  static EvtId B0B = EvtPDL::getId("anti-B0");
 
   static EvtId D0=EvtPDL::getId("D0");
 
   double oneby2 = 0.707106782;
 
-  bool isBToDK=false; 
-  if ( p -> getParent () ) {                                                   
-    EvtId parId = p -> getParent()->getId ();                              
-    if ( ( BP == parId ) || ( BM == parId ) || ( B0 == parId ) ||              
+  bool isBToDK=false;
+  if ( p -> getParent () ) {
+    EvtId parId = p -> getParent()->getId ();
+    if ( ( BP == parId ) || ( BM == parId ) || ( B0 == parId ) ||
 	               ( B0B == parId ) )
-      if (EvtDecayTable::getInstance()->getDecayFunc(p->getParent())->getName() == "BTODDALITZCPK") isBToDK=true;   
-  }                                                                            
-  
+      if (EvtDecayTable::getInstance()->getDecayFunc(p->getParent())->getName() == "BTODDALITZCPK") isBToDK=true;
+  }
+
 
 //same structure for all of these decays
 
@@ -379,77 +377,77 @@ void EvtDDalitz::decay( EvtParticle *p){
 
 //data from Anjos et al, Phys.Rev.D 1993, v.48,num.1,p.56 (E691 resuls)
 //for D+ -> K- pi+ pi+, and from Adler et al, Phys.Lett. B196 (1987), 107
-//(Mark III results) for D+ -> K0bar pi+ pi0. 
+//(Mark III results) for D+ -> K0bar pi+ pi0.
   //CLEO results for D0->k-pi+pi0
 
   if ( _flag==1) {
 
    // D+ -> K- pi+ pi+ decay, or charge conjugate
 
-//     //Anjos etal e691 - Phys Rev D48, 56 (1993) 
+//     //Anjos etal e691 - Phys Rev D48, 56 (1993)
     // EvtResonance DplusRes11(p4_p,moms1,moms2,0.78,-60.0,0.0498,0.89610,1);
 //     EvtResonance DplusRes12(p4_p,moms3,moms1,0.78,-60.0,0.0498,0.89610,1);//K*(892)
-    
+
 //     EvtResonance DplusRes21(p4_p,moms1,moms2,0.53,132.0,0.287,1.429,0);
 //     EvtResonance DplusRes22(p4_p,moms3,moms1,0.53,132.0,0.287,1.429,0);//K*(1430)
-    
+
 //     EvtResonance DplusRes31(p4_p,moms1,moms2,0.47,-51.0,0.323,1.714,1);
 //     EvtResonance DplusRes32(p4_p,moms3,moms1,0.47,-51.0,0.323,1.714,1);//K*(1680)
-    
+
 //     amp = amp + oneby2*(-DplusRes11.resAmpl()+DplusRes12.resAmpl()) + oneby2*(DplusRes21.resAmpl() + DplusRes22.resAmpl()) + oneby2*(-DplusRes31.resAmpl()+ DplusRes32.resAmpl());
- 
+
 
 //    EvtResonance DplusRes11(p4_p,moms1,moms2,amp,phase,width,mass,L);
-    //CLEO-c p15,arxiv:0802.4214v2 
+    //CLEO-c p15,arxiv:0802.4214v2
     EvtResonance2 DplusRes11(p4_p,moms1,moms2,1.0, 0.0, 0.0503, 0.896, 1, true);
     EvtResonance2 DplusRes12(p4_p,moms3,moms1,1.0, 0.0, 0.0503, 0.896, 1, true);//K*(892)
     EvtResonance2 DplusRes21(p4_p,moms1,moms2,3.0, 49.7-180.0, 0.164, 1.463, 0);
     EvtResonance2 DplusRes22(p4_p,moms3,moms1,3.0, 49.7-180.0, 0.164, 1.463, 0);//K*(1430)
-    EvtResonance2 DplusRes31(p4_p, moms1, moms2, 0.96, -29.9+180.0, 0.109, 1.4324, 2, true);     
+    EvtResonance2 DplusRes31(p4_p, moms1, moms2, 0.96, -29.9+180.0, 0.109, 1.4324, 2, true);
     EvtResonance2 DplusRes32(p4_p, moms3, moms1, 0.96, -29.9+180.0, 0.109, 1.4324, 2, true);// K*_2(1430)
     EvtResonance2 DplusRes41(p4_p,moms1,moms2, 6.5, 29.0, 0.323, 1.717, 1, true);
     EvtResonance2 DplusRes42(p4_p,moms3,moms1, 6.5, 29.0, 0.323, 1.717, 1, true);//K*(1680)
     EvtResonance2 DplusRes51(p4_p,moms1,moms2, 5.01, -163.7+180.0, 0.470, 0.809, 0);
     EvtResonance2 DplusRes52(p4_p,moms3,moms1, 5.01, -163.7+180.0, 0.470, 0.809, 0);//kappa(800)
-    double pi180inv = 1.0/EvtConst::radToDegrees;  
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(7.4*cos((-18.4+180.0)*pi180inv),7.4*sin((-18.4+180.0)*pi180inv))+ oneby2*(-DplusRes11.resAmpl()+DplusRes12.resAmpl()) + oneby2*(DplusRes21.resAmpl() + DplusRes22.resAmpl()) + oneby2*(DplusRes31.resAmpl()+ DplusRes32.resAmpl()) + oneby2*(-DplusRes41.resAmpl()+ DplusRes42.resAmpl()) + oneby2*(DplusRes51.resAmpl()+ DplusRes52.resAmpl());
     //amp = amp+oneby2*(-DplusRes11.resAmpl()+DplusRes12.resAmpl());
-    
+
  }
-  
+
   if ( _flag==2) {
 
-//have a D+ -> K0bar pi+ pi0 decay 
-//adler etal MarkIII - Phys Lett B196, 107 (1987)    
+//have a D+ -> K0bar pi+ pi0 decay
+//adler etal MarkIII - Phys Lett B196, 107 (1987)
 // Results in this paper:
 //   Kbar rho+    FitFraction = 68+/-8+/-12    Phase   0
 //   Kbar* pi+                  19+/-6+/-6            43+/-23
-//   nonres                     13+/-7+/-8           250+/-19   
+//   nonres                     13+/-7+/-8           250+/-19
 // These numbers below seem not to be exactly the same
 // the phases are equiv to -106=254 and 41
-// 
-    EvtResonance DplusKpipi0Res1(p4_p,moms2,moms3,1.00,0.00,0.1512,0.7699,1); //rho+  
+//
+    EvtResonance DplusKpipi0Res1(p4_p,moms2,moms3,1.00,0.00,0.1512,0.7699,1); //rho+
     EvtResonance DplusKpipi0Res2(p4_p,moms3,moms1,0.8695,0.7191,0.0498,0.89159,1); //K*0
-    
+
     amp = 0.9522*EvtComplex(cos(-1.8565),sin(-1.8565)) + 1.00*DplusKpipi0Res1.relBrWig(0) + 0.8695*EvtComplex(cos(0.7191),sin(0.7191))*DplusKpipi0Res2.relBrWig(1);
-    
+
   }
 
   if(_flag==3) {
 
-    // D0 -> K0bar pi- pi+ & CC                                                                       
-    // If it does not come from a B->DK, decay it as D0 or D0bar separately                         
-    // if p4_p is D0, moms1 is K0, moms2 is pi-, moms3 is pi+                                      
-    // if p4_p is D0bar, moms1 is K0, moms2 is pi+, moms3 is pi-                                   
+    // D0 -> K0bar pi- pi+ & CC
+    // If it does not come from a B->DK, decay it as D0 or D0bar separately
+    // if p4_p is D0, moms1 is K0, moms2 is pi-, moms3 is pi+
+    // if p4_p is D0bar, moms1 is K0, moms2 is pi+, moms3 is pi-
 
     if ( isBToDK ) {
-      // Gamma angle in rad.                                                                       
+      // Gamma angle in rad.
       double gamma = EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 0 )  ;
-      // Strong phase in rad.                                                                      
+      // Strong phase in rad.
       double delta =  EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 1 )  ;
-      // Ratio between B->D0K and B->D0barK                                                        
+      // Ratio between B->D0K and B->D0barK
       double A     =  EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 2 )  ;
 
@@ -458,15 +456,15 @@ void EvtDDalitz::decay( EvtParticle *p){
 
       if ( ( p->getParent()->getId() == BP ) ||
            ( p->getParent()->getId() == B0 ) ) {
-        // the ratio D/Dbar                                                                        
+        // the ratio D/Dbar
         Factor = Factor * EvtComplex( cos ( gamma ) , sin ( gamma ) ) ;
         if ( p->getId() == D0 ) {
-          // the flavor of the particle has no meaning. But we need                                
-          // it to know which daughter is pi+ or pi-                                               
-          // M( B+ or B0 ) = f(Dbar) + factor * f(D)                                               
-          // f(Dbar) = amplDtoK0PiPi(pD, K0, pi+, pi-)                                             
-          // f(D)    = amplDtoK0PiPi(pD, K0, pi-, pi+)                                             
-          // Then ...                                                
+          // the flavor of the particle has no meaning. But we need
+          // it to know which daughter is pi+ or pi-
+          // M( B+ or B0 ) = f(Dbar) + factor * f(D)
+          // f(Dbar) = amplDtoK0PiPi(pD, K0, pi+, pi-)
+          // f(D)    = amplDtoK0PiPi(pD, K0, pi-, pi+)
+          // Then ...
           amp = amplDtoK0PiPi( p4_p , moms1 , moms3 , moms2 ) +
             Factor * amplDtoK0PiPi( p4_p , moms1 , moms2 , moms3 ) ;
         }
@@ -478,7 +476,7 @@ void EvtDDalitz::decay( EvtParticle *p){
       else if ( ( p->getParent() -> getId() == BM ) ||
                 ( p->getParent() -> getId() == B0B ) ) {
         Factor = Factor * EvtComplex( cos ( gamma ) , - sin ( gamma ) ) ;
-        // here M( B- or B0bar ) = f(D) + factor * f(Dbar) then ...                                
+        // here M( B- or B0bar ) = f(D) + factor * f(Dbar) then ...
         if ( p->getId() == D0 ) {
           amp = amplDtoK0PiPi( p4_p , moms1 , moms2 , moms3 ) +
             Factor * amplDtoK0PiPi( p4_p , moms1 , moms3 , moms2 ) ;
@@ -494,46 +492,46 @@ void EvtDDalitz::decay( EvtParticle *p){
     }
   }
 
-  
+
   if(_flag==4) {
 
     // D0 to K- pi+ pi0
     EvtResonance2 DKpipi0Res1(p4_p,moms2,moms3,1.0  ,0.0   ,0.1507,0.770 ,1); //rho
     EvtResonance2 DKpipi0Res2(p4_p,moms1,moms2,0.39, -0.2  ,0.0505,0.8961,1); //k*0
     EvtResonance2 DKpipi0Res3(p4_p,moms1,moms3,0.44, 163.0 ,0.050 ,0.8915,1); //k*-
-    
+
     EvtResonance2 DKpipi0Res4(p4_p,moms1,moms3,0.77 ,55.5  ,0.294 ,1.412 ,0); //k01430-
     EvtResonance2 DKpipi0Res5(p4_p,moms1,moms2,0.85 ,166.0 ,0.294 ,1.412 ,0); //k01430bar
     EvtResonance2 DKpipi0Res6(p4_p,moms2,moms3,2.5  ,171.0 ,0.240 ,1.700 ,1); //rho1700
     EvtResonance2 DKpipi0Res7(p4_p,moms1,moms3,2.5  ,103.0 ,0.322 ,1.717 ,1); //K*1680-
-    
-    
-    
+
+
+
     double pi180inv = 1.0/EvtConst::radToDegrees;
-    
-    amp = EvtComplex(1.75*cos(31.2*pi180inv),1.75*sin(31.2*pi180inv)) 
+
+    amp = EvtComplex(1.75*cos(31.2*pi180inv),1.75*sin(31.2*pi180inv))
       + DKpipi0Res1.resAmpl() + DKpipi0Res2.resAmpl() + DKpipi0Res3.resAmpl()
-      + DKpipi0Res4.resAmpl() + DKpipi0Res5.resAmpl() 
+      + DKpipi0Res4.resAmpl() + DKpipi0Res5.resAmpl()
       + DKpipi0Res6.resAmpl()
       + DKpipi0Res7.resAmpl();
-    
+
   }
- 
+
   if(_flag==5) {
 
-    // D0 -> K0bar K+ K- & CC                                                                         
-    // If it does not come from a B->DK, decay it as D0 or D0bar separately                         
-    // if p4_p is D0, moms1 is K0, moms2 is pi-, moms3 is pi+                                      
-    // if p4_p is D0bar, moms1 is K0, moms2 is pi+, moms3 is pi-                                   
+    // D0 -> K0bar K+ K- & CC
+    // If it does not come from a B->DK, decay it as D0 or D0bar separately
+    // if p4_p is D0, moms1 is K0, moms2 is pi-, moms3 is pi+
+    // if p4_p is D0bar, moms1 is K0, moms2 is pi+, moms3 is pi-
 
     if ( isBToDK ){
-      // Gamma angle in rad.                                                                       
+      // Gamma angle in rad.
       double gamma = EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 0 )  ;
-      // Strong phase in rad.                                                                      
+      // Strong phase in rad.
       double delta =  EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 1 )  ;
-      // Ratio between B->D0K and B->D0barK                                                        
+      // Ratio between B->D0K and B->D0barK
       double A     =  EvtDecayTable::getInstance()->getDecayFunc( p->getParent() )
         -> getArg( 2 )  ;
 
@@ -542,15 +540,15 @@ void EvtDDalitz::decay( EvtParticle *p){
 
       if ( ( p->getParent()->getId() == BP ) ||
            ( p->getParent()->getId() == B0 ) ) {
-        // the ratio D/Dbar                                                                        
+        // the ratio D/Dbar
         Factor = Factor * EvtComplex( cos ( gamma ) , sin ( gamma ) ) ;
         if ( p->getId() == D0 ) {
-          // the flavor of the particle has no meaning. But we need                                
-          // it to know which daughter is pi+ or pi-                                               
-          // M( B+ or B0 ) = f(Dbar) + factor * f(D)                                               
-          // f(Dbar) = amplDtoK0PiPi(pD, K0, K+, K-)                                               
-          // f(D)    = amplDtoK0PiPi(pD, K0, K-, K+)                                               
-          // Then ...                                                                              
+          // the flavor of the particle has no meaning. But we need
+          // it to know which daughter is pi+ or pi-
+          // M( B+ or B0 ) = f(Dbar) + factor * f(D)
+          // f(Dbar) = amplDtoK0PiPi(pD, K0, K+, K-)
+          // f(D)    = amplDtoK0PiPi(pD, K0, K-, K+)
+          // Then ...
           amp = amplDtoK0KK( p4_p , moms1 , moms3 , moms2 ) +
             Factor * amplDtoK0KK( p4_p , moms1 , moms2 , moms3 ) ;
         }
@@ -562,7 +560,7 @@ void EvtDDalitz::decay( EvtParticle *p){
       else if ( ( p->getParent() -> getId() == BM ) ||
                 ( p->getParent() -> getId() == B0B ) ) {
         Factor = Factor * EvtComplex( cos ( gamma ) , - sin ( gamma ) ) ;
-        // here M( B- or B0bar ) = f(D) + factor * f(Dbar) then ...                                
+        // here M( B- or B0bar ) = f(D) + factor * f(Dbar) then ...
         if ( p->getId() == D0 ) {
           amp = amplDtoK0KK( p4_p , moms1 , moms2 , moms3 ) +
             Factor * amplDtoK0KK( p4_p , moms1 , moms3 , moms2 ) ;
@@ -603,13 +601,13 @@ void EvtDDalitz::decay( EvtParticle *p){
     EvtResonance2 DpKKpiRes3(p4_p, moms1, moms2, 1.189, -179.0+180.0, 0.00426, 1.019455, 1, true); // phi(1020)
     EvtResonance2 DpKKpiRes4(p4_p, moms1, moms2, 1.72, 123., 0.265, 1.474, 0); // a_0(1450)
     EvtResonance2 DpKKpiRes5(p4_p, moms1, moms2, 1.9, -52.0+180.0, 0.15, 1.68, 1, true); // phi(1680)
-    EvtResonance2 DpKKpiRes6(p4_p, moms3, moms1, 6.4, 150., 0.109, 1.4324, 2, true); // K*_2(1430)    
-    double pi180inv = 1.0/EvtConst::radToDegrees;    
+    EvtResonance2 DpKKpiRes6(p4_p, moms3, moms1, 6.4, 150., 0.109, 1.4324, 2, true); // K*_2(1430)
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(5.1*cos((53.0)*pi180inv),5.1*sin((53.0)*pi180inv)) +
       DpKKpiRes1.resAmpl() + DpKKpiRes2.resAmpl() + DpKKpiRes3.resAmpl()
       + DpKKpiRes4.resAmpl() + DpKKpiRes5.resAmpl() + DpKKpiRes6.resAmpl();
   }
-  
+
   //D+ -> pi- pi+ K+ WS (DCS)
   //FOCUS PLB 601 10 (2004) ; amplitudes there are individually normalized (although not explicit in the paper)
   // thus the magnitudes appearing below come from dividing the ones appearing in the paper by the sqrt of the
@@ -637,7 +635,7 @@ void EvtDDalitz::decay( EvtParticle *p){
     EvtResonance2 DsKpipiCSRes3(p4_p, moms3, moms1, 2.711, 145.2, 0.232, 1.414, 1, true); // K*(1410)
     EvtResonance2 DsKpipiCSRes4(p4_p, moms3, moms1, 1.7549, 59.3, 0.270, 1.425, 0); // K*0(1430)
     EvtResonance2 DsKpipiCSRes5(p4_p, moms1, moms2, 7.0589, -151.7, 0.400, 1.465, 1, true); // rho(1450)
-    double pi180inv = 1.0/EvtConst::radToDegrees; 
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(3.98*cos(43.1*pi180inv),3.98*sin(43.1*pi180inv)) + DsKpipiCSRes1.resAmpl()
          + DsKpipiCSRes2.resAmpl() + DsKpipiCSRes3.resAmpl() + DsKpipiCSRes4.resAmpl()
          + DsKpipiCSRes5.resAmpl();
@@ -660,7 +658,7 @@ void EvtDDalitz::decay( EvtParticle *p){
     EvtResonance2 DppipipiRes52(p4_p, moms3, moms1, 0.7888,  105.4, 0.173, 1.434, 0); // f0(1370)
     EvtResonance2 DppipipiRes61(p4_p, moms1, moms2, 0.7363,  319.1, 0.310, 1.465, 1, true); // rho(1450)
     EvtResonance2 DppipipiRes62(p4_p, moms3, moms1, 0.7363,  319.1, 0.310, 1.465, 1, true); // rho(1450)
-    double pi180inv = 1.0/EvtConst::radToDegrees;  
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(-3.98*cos(57.3*pi180inv),-3.98*sin(57.3*pi180inv))
         +  (DppipipiRes11.resAmpl() - DppipipiRes12.resAmpl())  //spin1
         +  (DppipipiRes21.resAmpl() + DppipipiRes22.resAmpl()) + (DppipipiRes31.resAmpl() + DppipipiRes32.resAmpl())
@@ -683,14 +681,14 @@ void EvtDDalitz::decay( EvtParticle *p){
     EvtResonance2 DspipipiRes42(p4_p, moms3, moms1, 2.225, 198., 0.173, 1.434, 0); // f0(1370)
     EvtResonance2 DspipipiRes51(p4_p, moms1, moms2, 1.107, 162., 0.310, 1.465, 1, true); // rho(1450)
     EvtResonance2 DspipipiRes52(p4_p, moms3, moms1, 1.107, 162., 0.310, 1.465, 1, true); // rho(1450)
-    double pi180inv = 1.0/EvtConst::radToDegrees;  
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(-0.723*cos(181.*pi180inv),-0.723*sin(181.*pi180inv))
         +  (DspipipiRes11.resAmpl() - DspipipiRes12.resAmpl())  //spin1
         +  (DspipipiRes21.resAmpl() + DspipipiRes22.resAmpl()) + (DspipipiRes31.resAmpl() + DspipipiRes32.resAmpl())
         +  (DspipipiRes41.resAmpl() + DspipipiRes42.resAmpl())
         +  (DspipipiRes51.resAmpl() - DspipipiRes52.resAmpl());  //spin1
-  } 
-  
+  }
+
   //D0 -> pi- pi+ pi0
   //PRL 99, 251801 (2007)
   //arXiv:hep-ex/0703037
@@ -710,23 +708,23 @@ void EvtDDalitz::decay( EvtParticle *p){
     EvtResonance2 DpipipiRes7(p4_p, moms1, moms2, 0.112, 51.0, 0.135, 1.720, 0);//f0(1720)
     EvtResonance2 DpipipiRes8(p4_p, moms1, moms2, 1.04, -171.0, 0.185, 1.275, 2, true);//f2(1270)
     EvtResonance2 DpipipiRes9(p4_p, moms1, moms2, 0.069, 8.0, 0.600, 0.400, 0);//sigma(400)
-    
-    double pi180inv = 1.0/EvtConst::radToDegrees;  
+
+    double pi180inv = 1.0/EvtConst::radToDegrees;
     amp = EvtComplex(0.57*cos(-11.0*pi180inv),0.57*sin(-11.0*pi180inv))
       + DpipipiRes1p.resAmpl() + DpipipiRes1.resAmpl() + DpipipiRes1m.resAmpl()
       + DpipipiRes2p.resAmpl() + DpipipiRes2.resAmpl() + DpipipiRes2m.resAmpl()
       + DpipipiRes3p.resAmpl() + DpipipiRes3.resAmpl() + DpipipiRes3m.resAmpl()
       + DpipipiRes4.resAmpl() + DpipipiRes5.resAmpl() + DpipipiRes6.resAmpl()
       + DpipipiRes7.resAmpl() + DpipipiRes8.resAmpl() + DpipipiRes9.resAmpl();
-    
-  } 
-  
+
+  }
+
   vertex(amp);
 
   return ;
 }
 
-EvtComplex EvtDDalitz::amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1, 
+EvtComplex EvtDDalitz::amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1,
                                      EvtVector4R moms2, EvtVector4R moms3) {
 
     //K*(892)-
@@ -739,7 +737,7 @@ EvtComplex EvtDDalitz::amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1,
     EvtResonance2 DK2piRes4(p4_p,moms1,moms2,5.091,-166.0,0.322 ,1.717  ,1);
     //DCS K*(892)+
     EvtResonance2 DK2piRes5(p4_p,moms1,moms3,0.100, -19.0,0.0508,0.89166,1);
-    
+
     //Rho0
     EvtResonance2 DK2piRes6(p4_p,moms3,moms2,0.909,-340.0,0.1502,0.7693,1);
     //Omega
@@ -750,12 +748,12 @@ EvtComplex EvtDDalitz::amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1,
     EvtResonance2 DK2piRes9(p4_p,moms3,moms2,1.636,-255.0,0.272,1.31,0);
     //f2(1270)
     EvtResonance2 DK2piRes10(p4_p,moms3,moms2,0.636,-32.0,0.1851,1.2754,2);
-    
-    return EvtComplex(1.0,0.0) + 
+
+    return EvtComplex(1.0,0.0) +
       DK2piRes1.resAmpl() + DK2piRes2.resAmpl() +
-      DK2piRes3.resAmpl() + DK2piRes4.resAmpl() + 
-      DK2piRes5.resAmpl() + DK2piRes6.resAmpl() + 
-      DK2piRes7.resAmpl() + DK2piRes8.resAmpl() + 
+      DK2piRes3.resAmpl() + DK2piRes4.resAmpl() +
+      DK2piRes5.resAmpl() + DK2piRes6.resAmpl() +
+      DK2piRes7.resAmpl() + DK2piRes8.resAmpl() +
       DK2piRes9.resAmpl() + DK2piRes10.resAmpl();
 }
 
@@ -767,9 +765,9 @@ EvtComplex EvtDDalitz::amplDtoK0PiPi(EvtVector4R p4_p,  EvtVector4R moms1,
 // moms2 is K+
 // moms3 is K-
 // Amplitudes and phases are taken from BaBar hep-ex/0207089
-// with convention : Non Resonant = Amp 1. / Phase 0. 
+// with convention : Non Resonant = Amp 1. / Phase 0.
 
-EvtComplex EvtDDalitz::amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1, 
+EvtComplex EvtDDalitz::amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1,
                                      EvtVector4R moms2, EvtVector4R moms3) {
 
     //phi
@@ -779,7 +777,7 @@ EvtComplex EvtDDalitz::amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1,
     EvtResonance DK0KKRes2( p4_p, moms2, moms3, 152.25, 69.0, 0.1196 , 0.9847,
                             0 ) ;
     //f0(980)
-    EvtResonance DK0KKRes3( p4_p, moms2, moms3, 30.5, -201.0, 0.05, 0.980 , 
+    EvtResonance DK0KKRes3( p4_p, moms2, moms3, 30.5, -201.0, 0.05, 0.980 ,
                             0 ) ;
     //a0(980)+
     EvtResonance DK0KKRes4( p4_p, moms1, moms2, 85.75, -93.0, 0.1196 , 0.9847,
@@ -790,7 +788,7 @@ EvtComplex EvtDDalitz::amplDtoK0KK(EvtVector4R p4_p,  EvtVector4R moms1,
 
     return EvtComplex(1.0,0.0) +
       DK0KKRes1.resAmpl() + DK0KKRes2.resAmpl() +
-      DK0KKRes3.resAmpl() + DK0KKRes4.resAmpl() + 
+      DK0KKRes3.resAmpl() + DK0KKRes4.resAmpl() +
       DK0KKRes5.resAmpl() ;
 
 }

@@ -33,8 +33,6 @@
 #include <stdio.h>
 #include <string.h>
 
-EvtLb2Lll::~EvtLb2Lll() {}
-
 EvtDecayBase* EvtLb2Lll::clone(){
   return new EvtLb2Lll;
 }
@@ -257,7 +255,7 @@ void EvtLb2Lll::initProbMax(){
       if ( i != 100 ) {
         p4lambda.set(elambda,0,0,-sqrt(elambda*elambda-mL*mL));
       } else {
-        p4lambda.set(mL,0,0,0); 
+        p4lambda.set(mL,0,0,0);
       }
       for(j=0;j<=45;j++){
         theta = j*EvtConst::pi/45;
@@ -295,7 +293,7 @@ void EvtLb2Lll::decay(EvtParticle* parent){
   //setWeight(parent->initializePhaseSpace(getNDaug(),getDaugs(),m_poleSize,1,2));
   parent->initializePhaseSpace(getNDaug(),getDaugs());
   calcAmp(&_amp2,parent);
-  
+
 }
 
 void EvtLb2Lll::calcAmp(EvtAmp *amp,EvtParticle *parent){
@@ -541,7 +539,7 @@ void EvtLb2Lll::calcAmp(EvtAmp *amp,EvtParticle *parent){
     //std::cout << "Matrix = " << Matrix[j/2][j%2][i/2][i%2] << std::endl;
     Matrix[j/2][j%2][i/2][i%2] += lbar_Gmu_l[i/2][i%2]    * (A1*hbar_GmuPlusG5_h[j/2][j%2]+B1*hbar_GmuMinusG5_h[j/2][j%2]);
     //std::cout << "Matrix = " << Matrix[j/2][j%2][i/2][i%2] << std::endl;
-    //std::cout << "A1: " << A1 << " B1: " << B1 << " lbar_Gmu_l: " << lbar_Gmu_l[i/2][i%2] << 
+    //std::cout << "A1: " << A1 << " B1: " << B1 << " lbar_Gmu_l: " << lbar_Gmu_l[i/2][i%2] <<
     //             " hbar_GmuPlusG5_h: " << hbar_GmuPlusG5_h[j/2][j%2] << " hbar_GmuMinusG5_h: " << hbar_GmuMinusG5_h[j/2][j%2] <<
     //	           " sp1: " << parent->getDaug(1)->spParent(i/2) << " sp2: " << parent->getDaug(1)->spParent(i%2) << std::endl;
     Matrix[j/2][j%2][i/2][i%2] += lbar_Gmu_l[i/2][i%2]    * (i1*A2*(hbar_SmunuPlusG5_h[j/2][j%2].cont2(q_mu))+B2*(hbar_SmunuMinusG5_h[j/2][j%2].cont2(q_mu)));
@@ -560,8 +558,8 @@ void EvtLb2Lll::calcAmp(EvtAmp *amp,EvtParticle *parent){
     //std::cout << "Matrix = " << Matrix[j/2][j%2][i/2][i%2] << std::endl;
     Matrix[j/2][j%2][i/2][i%2] += cont(lbar_Smunu_l[i/2][i%2]  , 4*C_T*f_T*hbar_Smunu_h[j/2][j%2]);
     //std::cout << "Matrix = " << Matrix[j/2][j%2][i/2][i%2] << std::endl;
-    Matrix[j/2][j%2][i/2][i%2] += 
-      cont(lbar_Smunu_l[i/2][i%2]  , 
+    Matrix[j/2][j%2][i/2][i%2] +=
+      cont(lbar_Smunu_l[i/2][i%2]  ,
            -4*C_T*f_TV*i1*(EvtGenFunctions::directProd(q_mu,hbar_Gmu_h[j/2][j%2])-
                            EvtGenFunctions::directProd(hbar_Gmu_h[j/2][j%2],q_mu)));
     //std::cout << "Matrix = " << Matrix[j/2][j%2][i/2][i%2] << std::endl;

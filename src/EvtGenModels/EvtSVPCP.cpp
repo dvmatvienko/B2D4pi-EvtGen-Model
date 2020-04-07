@@ -17,7 +17,7 @@
 //    Maurizio pierini   Nov 11, 2003       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -35,11 +35,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVPCP::~EvtSVPCP() {}
-
 std::string EvtSVPCP::getName(){
 
-  return "SVP_CP";     
+  return "SVP_CP";
 
 }
 
@@ -83,20 +81,20 @@ void EvtSVPCP::decay( EvtParticle *p ){
   EvtComplex G1P,G1M, G1_T_even, G1_T_odd;
 
   double norm = getArg(3)*getArg(3)+getArg(5)*getArg(5);
-  
+
   G1P=EvtComplex(getArg(3)*cos(getArg(4))/norm,getArg(3)*sin(getArg(4))/norm);
   G1M=EvtComplex(getArg(5)*cos(getArg(6))/norm,getArg(5)*sin(getArg(6))/norm);
 
   G1_T_even = (G1P+G1M)/sqrt(2.0);
   G1_T_odd  = (G1P-G1M)/sqrt(2.0);
-  
+
   EvtComplex lambda_km =EvtComplex(cos(-2*getArg(0)),sin(-2*getArg(0)));
-  
+
   double cdmt=cos(getArg(1)*t/(2*EvtConst::c));
   double sdmt=sin(getArg(1)*t/(2*EvtConst::c));
 
   EvtComplex cG1_T_even,cG1_T_odd;
-  
+
   if (other_b==B0B){
     cG1_T_even = G1_T_even*(cdmt+lambda_km*EvtComplex(0.0,getArg(2)*sdmt));
     cG1_T_odd  = G1_T_odd*(cdmt-lambda_km*EvtComplex(0.0,getArg(2)*sdmt));
@@ -105,14 +103,14 @@ void EvtSVPCP::decay( EvtParticle *p ){
     cG1_T_even = G1_T_even*(cdmt+(1.0/lambda_km)*EvtComplex(0.0,getArg(2)*sdmt));
     cG1_T_odd  =-G1_T_odd*(cdmt-(1.0/lambda_km)*EvtComplex(0.0,getArg(2)*sdmt));
   }
-  
+
   EvtComplex hp, hm, h0;
 
   // This part is adopted from EvtSVVHel and since there is
-  // a photon that can not have helicity 0 this is put in by 
+  // a photon that can not have helicity 0 this is put in by
   // setting the h0 amplitude to 0.
-  hm=(cG1_T_even-cG1_T_odd)/sqrt(2.0); 
-  hp=(cG1_T_even+cG1_T_odd)/sqrt(2.0); 
+  hm=(cG1_T_even-cG1_T_odd)/sqrt(2.0);
+  hp=(cG1_T_even+cG1_T_odd)/sqrt(2.0);
   h0=EvtComplex(0.0,0.0);
 
   EvtParticle *v1,*ph;
@@ -130,33 +128,33 @@ void EvtSVPCP::decay( EvtParticle *p ){
   EvtVector4R v,vp;
 
   v=momv1/momv1.d3mag();
-  vp=(momv1+momph)/(momv1+momph).mass();   
+  vp=(momv1+momph)/(momv1+momph).mass();
 
   d=((1.0/sqrt(3.0))*(h0-(hp+hm))*(-1.0/sqrt(3.0)))*g+
     ((1.0/sqrt(2.0))*(hp-hm)*EvtComplex(0.0,1.0)*(sqrt(1.0/2.0)))*dual(EvtGenFunctions::directProd(v,vp))+
     (sqrt(2.0/3.0)*(h0+0.5*(hp+hm))*sqrt(3.0/2.0))*(EvtGenFunctions::directProd(v,v)+(1.0/3.0)*g);
 
-  EvtVector4C ep0,ep1,ep2;  
-  
+  EvtVector4C ep0,ep1,ep2;
+
   ep0=d.cont1(v1->eps(0).conj());
   ep1=d.cont1(v1->eps(1).conj());
   ep2=d.cont1(v1->eps(2).conj());
 
   EvtVector4C ep20,ep21,ep22;
 
-  ep20=ph->epsParentPhoton(0).conj();  
-  ep21=ph->epsParentPhoton(1).conj();  
+  ep20=ph->epsParentPhoton(0).conj();
+  ep21=ph->epsParentPhoton(1).conj();
 
   vertex(0,0,ep0*ep20);
   vertex(0,1,ep0*ep21);
-  
+
   vertex(1,0,ep1*ep20);
   vertex(1,1,ep1*ep21);
-   
+
   vertex(2,0,ep2*ep20);
   vertex(2,1,ep2*ep21);
 
-				 
+
   return ;
 
 }

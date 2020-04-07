@@ -28,8 +28,6 @@ class EvtVector3R;
 
 class EvtVector4R {
 
-  
-
   inline friend EvtVector4R operator*(double d,const EvtVector4R& v2); 
   inline friend EvtVector4R operator*(const EvtVector4R& v2,double d); 
   inline friend EvtVector4R operator/(const EvtVector4R& v2,double d); 
@@ -44,7 +42,6 @@ public:
   inline void set(double e,double px,double py ,double pz);
   inline EvtVector4R& operator*=(double c);
   inline EvtVector4R& operator/=(double c);
-  inline EvtVector4R& operator=(const EvtVector4R& v2);
   inline EvtVector4R& operator+=(const EvtVector4R& v2);
   inline EvtVector4R& operator-=(const EvtVector4R& v2);
   inline double get(int i) const;
@@ -76,21 +73,11 @@ private:
 };
 
 EvtVector4R rotateEuler(const EvtVector4R& rs,
-				 double alpha,double beta,double gamma);
+			double alpha,double beta,double gamma);
 EvtVector4R boostTo(const EvtVector4R& rs,
-		     const EvtVector4R& p4, bool inverse = false);
+		    const EvtVector4R& p4, bool inverse = false);
 EvtVector4R boostTo(const EvtVector4R& rs,
-		     const EvtVector3R& boost, bool inverse = false);
-
-inline EvtVector4R& EvtVector4R::operator=(const EvtVector4R& v2){
-
-  v[0]=v2.v[0];
-  v[1]=v2.v[1];
-  v[2]=v2.v[2];
-  v[3]=v2.v[3];
-  
-  return *this; 
-}
+		    const EvtVector3R& boost, bool inverse = false);
 
 inline EvtVector4R& EvtVector4R::operator+=(const EvtVector4R& v2){
 

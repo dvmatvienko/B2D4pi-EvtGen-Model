@@ -17,7 +17,7 @@
 //    Ryd       March 20, 2004       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
@@ -31,12 +31,10 @@
 
 using std::endl;
 
-EvtVPHOtoVISRHi::~EvtVPHOtoVISRHi() {}
-
 std::string EvtVPHOtoVISRHi::getName(){
 
-  return "VPHOTOVISRHI"; 
-    
+  return "VPHOTOVISRHI";
+
 }
 
 
@@ -64,12 +62,12 @@ void EvtVPHOtoVISRHi::initProbMax() {
 
    setProbMax(20.0);
 
-}      
+}
 
 void EvtVPHOtoVISRHi::decay( EvtParticle *p){
   //take photon along z-axis, either forward or backward.
-  //Implement this as generating the photon momentum along 
-  //the z-axis uniformly 
+  //Implement this as generating the photon momentum along
+  //the z-axis uniformly
    double power=1;
    if (getNArg()==1) power=getArg(0);
    // define particle names
@@ -102,14 +100,14 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
      double md3 = EvtPDL::getMeanMass(p->getDaug(0)->getDaug(2)->getId());
      minResMass = minResMass + md3;
   }
-  
+
   // calculate the maximum energy of the ISR photon
   double pgmax=(s-minResMass*minResMass)/(2.0*w);
   double pgz=0.99*pgmax*exp(log(EvtRandom::Flat(1.0))/(beta*power));
   if (EvtRandom::Flat(1.0)<0.5) pgz=-pgz;
-  
+
   double k=fabs(pgz);
-  // print of ISR energy 
+  // print of ISR energy
   // std::cout << "Energy ISR :"<< k <<std::endl;
   EvtVector4R p4g(k,0.0,0.0,pgz);
 
@@ -121,7 +119,7 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
   p->getDaug(0)->init(getDaug(0),p4res);
   p->getDaug(1)->init(getDaug(1),p4g);
 
-  
+
   // determine XS - langbw
   // very crude way of determining XS just a simple straight line Approx.
   // this was determined by eye.
@@ -132,40 +130,40 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
   bool sigmacomputed(false);
 
   // DETERMINE XS FOR D*D*
-  if (p->getDaug(0)->getNDaug() == 2 
-      &&((p->getDaug(0)->getDaug(0)->getId()==D0S 
+  if (p->getDaug(0)->getNDaug() == 2
+      &&((p->getDaug(0)->getDaug(0)->getId()==D0S
           && p->getDaug(0)->getDaug(1)->getId()==D0BS)
-         ||(p->getDaug(0)->getDaug(0)->getId()==DPS 
+         ||(p->getDaug(0)->getDaug(0)->getId()==DPS
             && p->getDaug(0)->getDaug(1)->getId()==DMS))){
      if(mres>4.18) {
         sigma*=5./9.*(1.-1.*sqrt((4.18-mres)*(4.18-mres))/(4.3-4.18));
-     }  
+     }
      else if(mres>4.07 && mres<=4.18) {
      sigma*=5./9.;
-     }  
+     }
      else if (mres<=4.07&&mres>4.03)
      {
-        sigma*=(5./9. - 1.5/9.*sqrt((4.07-mres)*(4.07-mres))/(4.07-4.03)); 
+        sigma*=(5./9. - 1.5/9.*sqrt((4.07-mres)*(4.07-mres))/(4.07-4.03));
      }
      else if (mres<=4.03&& mres>=4.013)
      {
-        sigma*=(3.5/9. - 3.5/9.*sqrt((4.03-mres)*(4.03-mres))/(4.03-4.013)); 
+        sigma*=(3.5/9. - 3.5/9.*sqrt((4.03-mres)*(4.03-mres))/(4.03-4.013));
      }
-     else{     
-        sigma=0.00001; 
+     else{
+        sigma=0.00001;
      }
      sigmacomputed = true;
 //     std::cout << "DSDSXS "<<sigma<< " " <<  mres<<std::endl;
   }
-  
+
   // DETERMINE XS FOR D*D
-  if(p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==D0S 
+  if(p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==D0S
                                          && p->getDaug(0)->getDaug(1)->getId()==D0B)
-                                        ||(p->getDaug(0)->getDaug(0)->getId()==DPS 
-                                           && p->getDaug(0)->getDaug(1)->getId()==DM) 
+                                        ||(p->getDaug(0)->getDaug(0)->getId()==DPS
+                                           && p->getDaug(0)->getDaug(1)->getId()==DM)
                                         ||(p->getDaug(0)->getDaug(0)->getId()==D0BS
                                            && p->getDaug(0)->getDaug(1)->getId()==D0)
-                                        ||(p->getDaug(0)->getDaug(0)->getId()==DMS 
+                                        ||(p->getDaug(0)->getDaug(0)->getId()==DMS
                                            && p->getDaug(0)->getDaug(1)->getId()==DP)) )
   {
      if(mres>=4.2){
@@ -173,28 +171,28 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
      }
      else if( mres>4.06 && mres<4.2){
         sigma*=((1.5/9.+2.5/9.*sqrt((4.2-mres)*(4.2-mres))/(4.2-4.06)));
-     }  
+     }
      else if(mres>=4.015 && mres<4.06){
         sigma*=((4./9.+3./9.*sqrt((4.06-mres)*(4.06-mres))/(4.06-4.015)));
-     }  
+     }
      else if (mres<4.015 && mres>=3.9){
-        sigma*=((7./9.-7/9.*sqrt((4.015-mres)*(4.015-mres))/(4.015-3.9))); 
-     } 
-     else { 
-        sigma = 0.00001; 
+        sigma*=((7./9.-7/9.*sqrt((4.015-mres)*(4.015-mres))/(4.015-3.9)));
+     }
+     else {
+        sigma = 0.00001;
      }
      sigmacomputed = true;
 //     std::cout << "DSDXS "<<sigma<< " " <<  mres<<std::endl;
   }
-     
+
   // DETERMINE XS FOR Ds*Ds*
   if (((p->getDaug(0)->getDaug(0)->getId()==DSPS && p->getDaug(0)->getDaug(1)->getId()==DSMS)))
   {
      if(mres>(2.112+2.112)){
-      sigma=0.4; 
+      sigma=0.4;
      }
      else  {
-//      sigma=0.4; 
+//      sigma=0.4;
 //      sigma = 0 surely below Ds*Ds* threshold? - ponyisi
         sigma=0.00001;
      }
@@ -203,46 +201,46 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
   }
 
   // DETERMINE XS FOR Ds*Ds
-  if (p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==DSPS 
+  if (p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==DSPS
                                           && p->getDaug(0)->getDaug(1)->getId()==DSM)
                                          || (p->getDaug(0)->getDaug(0)->getId()==DSMS
                                              && p->getDaug(0)->getDaug(1)->getId()==DSP)))
   {
      if(mres>4.26){
-        sigma=0.05; 
-     } 
+        sigma=0.05;
+     }
      else if (mres>4.18 && mres<=4.26){
         sigma*=1./9.*(0.05+0.95*sqrt((4.26-mres)*(4.26-mres))/(4.26-4.18));
-     } 
+     }
      else if (mres>4.16 && mres<=4.18){
-        sigma*=1/9.; 
-     } 
+        sigma*=1/9.;
+     }
      else if (mres<=4.16 && mres>4.08){
-        sigma*=1/9.*(1-sqrt((4.16-mres)*(4.16-mres))/(4.16-4.08)); 
+        sigma*=1/9.*(1-sqrt((4.16-mres)*(4.16-mres))/(4.16-4.08));
      }
      else if (mres<=(4.08)){
-        sigma=0.00001; 
+        sigma=0.00001;
      }
      sigmacomputed = true;
 //     std::cout << "DsSDsXS "<<sigma<< " " <<  mres<<std::endl;
   }
 
   // DETERMINE XS FOR DD
-  if (p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==D0 
+  if (p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==D0
                                           && p->getDaug(0)->getDaug(1)->getId()==D0B)
-                                         ||(p->getDaug(0)->getDaug(0)->getId()==DP 
-                                            && p->getDaug(0)->getDaug(1)->getId()==DM))){ 
-     sigma*=0.4/9.;  
+                                         ||(p->getDaug(0)->getDaug(0)->getId()==DP
+                                            && p->getDaug(0)->getDaug(1)->getId()==DM))){
+     sigma*=0.4/9.;
      sigmacomputed = true;
 //     std::cout << "DDXS "<<sigma<< " " <<  mres<<std::endl;
-  } 
-  
+  }
+
   // DETERMINE XS FOR DsDs
   if (p->getDaug(0)->getNDaug() == 2 && ((p->getDaug(0)->getDaug(0)->getId()==DSP && p->getDaug(0)->getDaug(1)->getId()==DSM))){
      sigma*=0.2/9.;
      sigmacomputed = true;
 //     std::cout << "DsDsXS "<<sigma<< " " <<  mres<<std::endl;
-  } 
+  }
 
   // DETERMINE XS FOR MULTIBODY
   if (p->getDaug(0)->getNDaug() == 3){
@@ -250,7 +248,7 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
         sigma*=0.5/9.;
      }
      else {
-        sigma=0.00001; 
+        sigma=0.00001;
      }
      sigmacomputed = true;
 //     std::cout << "DSDpiXS "<<sigma<< " " <<  mres<<std::endl;
@@ -282,44 +280,44 @@ void EvtVPHOtoVISRHi::decay( EvtParticle *p){
 //   if (sigma>sigmax){
 //      sigmax=sigma;
 //   }
-  
+
   static int count=0;
-  
+
   count++;
-  
+
 //   if (count%10000==0){
 //      std::cout << "sigma :"<<sigma<<std::endl;
 //      std::cout << "sigmax:"<<sigmax<<std::endl;
 //   }
-  
+
   double norm=sqrt(sigma);
-  
+
 //  EvtParticle* d=p->getDaug(0);
-  
-  
+
+
   vertex(0,0,0,norm*p->eps(0)*p->epsParent(0).conj());
   vertex(1,0,0,norm*p->eps(1)*p->epsParent(0).conj());
   vertex(2,0,0,norm*p->eps(2)*p->epsParent(0).conj());
-  
+
   vertex(0,1,0,norm*p->eps(0)*p->epsParent(1).conj());
   vertex(1,1,0,norm*p->eps(1)*p->epsParent(1).conj());
   vertex(2,1,0,norm*p->eps(2)*p->epsParent(1).conj());
-  
+
   vertex(0,2,0,norm*p->eps(0)*p->epsParent(2).conj());
   vertex(1,2,0,norm*p->eps(1)*p->epsParent(2).conj());
   vertex(2,2,0,norm*p->eps(2)*p->epsParent(2).conj());
-  
+
   vertex(0,0,1,norm*p->eps(0)*p->epsParent(0).conj());
   vertex(1,0,1,norm*p->eps(1)*p->epsParent(0).conj());
   vertex(2,0,1,norm*p->eps(2)*p->epsParent(0).conj());
-  
+
   vertex(0,1,1,norm*p->eps(0)*p->epsParent(1).conj());
   vertex(1,1,1,norm*p->eps(1)*p->epsParent(1).conj());
   vertex(2,1,1,norm*p->eps(2)*p->epsParent(1).conj());
-  
+
   vertex(0,2,1,norm*p->eps(0)*p->epsParent(2).conj());
   vertex(1,2,1,norm*p->eps(1)*p->epsParent(2).conj());
   vertex(2,2,1,norm*p->eps(2)*p->epsParent(2).conj());
-  
+
   return;
 }

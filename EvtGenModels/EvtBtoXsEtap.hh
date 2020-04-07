@@ -29,21 +29,17 @@ class EvtParticle;
 class EvtBtoXsEtap:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtBtoXsEtap() {}
-  virtual ~EvtBtoXsEtap();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 };
 
 #endif
-

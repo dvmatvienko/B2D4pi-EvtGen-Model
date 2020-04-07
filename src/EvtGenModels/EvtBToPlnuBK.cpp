@@ -35,43 +35,32 @@ using std::cout;
 using std::endl;
 
 
-EvtBToPlnuBK::EvtBToPlnuBK():
-  BKmodel(0)
-  ,calcamp(0)
-{}
-
-EvtBToPlnuBK::~EvtBToPlnuBK(){  
-  delete BKmodel;
-  BKmodel=0;
-  delete calcamp;
-  calcamp=0;
-}
 
 std::string EvtBToPlnuBK::getName(){
-  
+
   return "BTOPLNUBK";
 
 }
 
-EvtDecayBase* EvtBToPlnuBK::clone(){
-  
+EvtBToPlnuBK* EvtBToPlnuBK::clone(){
+
   return new EvtBToPlnuBK;
-  
+
 }
 
 
 void EvtBToPlnuBK::initProbMax(){
-  
+
   EvtId parnum,mesnum,lnum,nunum;
-  
+
   parnum = getParentId();
   mesnum = getDaug(0);
   lnum = getDaug(1);
   nunum = getDaug(2);
-  
+
   double mymaxprob = calcamp->CalcMaxProb(parnum,mesnum,
-					  lnum,nunum,BKmodel);
-  
+					  lnum,nunum,BKmodel.get());
+
   setProbMax(mymaxprob);
 
 }
@@ -80,7 +69,7 @@ void EvtBToPlnuBK::init(){
 
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
   checkSpinParent(EvtSpinType::SCALAR);
 
@@ -90,8 +79,8 @@ void EvtBToPlnuBK::init(){
   EvtSpinType::spintype d1type = EvtPDL::getSpinType(getDaug(0));
   if ( d1type==EvtSpinType::SCALAR) {
     checkNArg(2);
-    BKmodel = new EvtBToPlnuBKFF(getArg(0),getArg(1));
-    calcamp = new EvtSemiLeptonicScalarAmp; 
+    BKmodel = std::make_unique< EvtBToPlnuBKFF >(getArg(0),getArg(1));
+    calcamp = std::make_unique< EvtSemiLeptonicScalarAmp >();
   }
   else{
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "BK model handles only scalar meson daughters. Sorry."<<endl;
@@ -103,7 +92,7 @@ void EvtBToPlnuBK::init(){
 void  EvtBToPlnuBK::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,BKmodel);
+  calcamp->CalcAmp(p,_amp2,BKmodel.get());
 
 }
 

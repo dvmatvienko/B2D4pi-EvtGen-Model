@@ -76,7 +76,7 @@ std::string EvtBBScalar::getName(){
     return "B_TO_2BARYON_SCALAR";
 }
 
-EvtDecayBase* EvtBBScalar::clone(){
+EvtBBScalar* EvtBBScalar::clone(){
     return new EvtBBScalar;
 }
 
@@ -266,7 +266,7 @@ void EvtBBScalar::init() {
     EvtId baryon2 = getDaug(1);
     EvtId scalar = getDaug(2);
     int scalarId = EvtPDL::getStdHep(scalar);
-    
+
     // Different form factors for the B-pi or B-K transition.
     if (   scalarId == EvtPDL::getStdHep(EvtPDL::getId("pi+"))
         or scalarId == EvtPDL::getStdHep(EvtPDL::getId("pi-"))
@@ -307,7 +307,7 @@ void EvtBBScalar::decay(EvtParticle* p) {
     EvtVector4R scalarMomentum = theScalar->getP4Lab();
 
     // The amplitude consists of three matrix elements. These will be calculated one by one here.
-    
+
     // loop over all possible spin states
     for (int i=0; i<2; ++i) {
     EvtDiracSpinor lambdaPol = theLambda->spParent(i);
@@ -319,7 +319,7 @@ void EvtBBScalar::decay(EvtParticle* p) {
                 amplitude += theAmplitudePartA.get(index)
                         * ( const_B*amp_B(theLambda, lambdaPol, theAntiP, antiP_Pol, index)
                           + const_C*amp_C(theLambda, lambdaPol, theAntiP, antiP_Pol, index) );
-            }       
+            }
             vertex(i, j, amplitude);
         }
     }
@@ -389,7 +389,7 @@ EvtBBScalar::amp_B_vectorPart(const EvtDiracParticle* baryon1, const EvtDiracSpi
     EvtDiracSpinor Adjb1Pol = b1Pol.adjoint() ;
     EvtDiracSpinor gammaA = gamma * A ;
     return Adjb1Pol * gammaA ;
-    //    return b1Pol.adjoint()*(gamma*(EvtComplex(baryonF1F2(t))*b2Pol));     
+    //    return b1Pol.adjoint()*(gamma*(EvtComplex(baryonF1F2(t))*b2Pol));
 }
 
 const EvtComplex

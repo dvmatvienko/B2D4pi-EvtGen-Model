@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtSSDCP.hh
 //
-// Description: This module is part of the unification of simulation of CP violation in 
+// Description: This module is part of the unification of simulation of CP violation in
 //              B decays. This model handles decays of the type B->SD where D is either
 //              a spin 0, 1, or 2 particle. See long writeup for more information.
 //
@@ -31,18 +31,15 @@ class EvtSSDCP:public  EvtDecayAmp  {
 
 public:
 
-  EvtSSDCP() {}
-  virtual ~EvtSSDCP();
-  
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
-  void init();
-  void decay(EvtParticle *p); 
+  void initProbMax() override;
+  void init() override;
+  void decay(EvtParticle *p) override;
 
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
+  std::string getParamName(int i) override;
+  std::string getParamDefault(int i) override;
 
 private:
 
@@ -57,11 +54,11 @@ private:
   EvtComplex _z;  //FS CPTV parameter
 
   // FS commented next line becuse not used
-  //  int _cp; 
+  //  int _cp;
 
   EvtComplex _A_f;
   EvtComplex _Abar_f;
-  
+
   EvtComplex _A_fbar;
   EvtComplex _Abar_fbar;
 

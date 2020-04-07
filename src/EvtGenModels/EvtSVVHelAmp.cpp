@@ -18,7 +18,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -34,11 +34,9 @@
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 
-EvtSVVHelAmp::~EvtSVVHelAmp() {}
-
 std::string EvtSVVHelAmp::getName(){
 
-  return "SVV_HELAMP";     
+  return "SVV_HELAMP";
 
 }
 
@@ -76,7 +74,7 @@ void EvtSVVHelAmp::decay( EvtParticle *p){
 	 EvtComplex(getArg(0)*cos(getArg(1)),getArg(0)*sin(getArg(1))),
 	 EvtComplex(getArg(2)*cos(getArg(3)),getArg(2)*sin(getArg(3))),
 	 EvtComplex(getArg(4)*cos(getArg(5)),getArg(4)*sin(getArg(5))));
-				 
+
   return ;
 
 }
@@ -88,7 +86,7 @@ void EvtSVVHelAmp::SVVHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
 
   //  Routine to decay a vector into a vector and scalar.  Started
   //  by ryd on Oct 17, 1996.
-    
+
   int tndaug = 2;
   EvtId tdaug[2];
   tdaug[0] = n_v1;

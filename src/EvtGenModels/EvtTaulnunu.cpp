@@ -31,11 +31,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtTaulnunu::~EvtTaulnunu() {}
-
 std::string EvtTaulnunu::getName(){
 
-  return "TAULNUNU";     
+  return "TAULNUNU";
 
 }
 
@@ -76,7 +74,7 @@ void EvtTaulnunu::decay(EvtParticle *p){
   l = p->getDaug(0);
   nul = p->getDaug(1);
   nut = p->getDaug(2);
-  
+
   EvtVector4C l1, l2, tau1, tau2;
 
   if (p->getId()==TAUM) {
@@ -98,7 +96,7 @@ void EvtTaulnunu::decay(EvtParticle *p){
   vertex(0,1,tau1*l2);
   vertex(1,0,tau2*l1);
   vertex(1,1,tau2*l2);
-  
+
   return;
 
 }

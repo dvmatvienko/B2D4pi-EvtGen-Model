@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtBtoKD3P.cpp,v 1.2 2009-04-02 15:22:28 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -31,36 +31,19 @@
 using std::endl;
 
 //------------------------------------------------------------------
-EvtBtoKD3P::EvtBtoKD3P() :
-  _model1(0),
-  _model2(0),
-  _decayedOnce(false)
-{
+EvtDecayBase * EvtBtoKD3P::clone(){
+  return new EvtBtoKD3P();
 }
-
-//------------------------------------------------------------------
-EvtBtoKD3P::EvtBtoKD3P(const EvtBtoKD3P & other) : 
-    EvtDecayAmp( other ){
-}
-
-//------------------------------------------------------------------
-EvtBtoKD3P::~EvtBtoKD3P(){
-}
-
-//------------------------------------------------------------------
-EvtDecayBase * EvtBtoKD3P::clone(){ 
-  return new EvtBtoKD3P(); 
-} 
 
 //------------------------------------------------------------------
 std::string EvtBtoKD3P::getName(){
-  return "BTOKD3P";     
+  return "BTOKD3P";
 }
 
 //------------------------------------------------------------------
 void EvtBtoKD3P::init(){
   checkNArg(2); // r, phase
-  checkNDaug(3); // K, D0(allowed), D0(suppressed). 
+  checkNDaug(3); // K, D0(allowed), D0(suppressed).
                  // The last two daughters are really one particle
 
   // check that the mother and all daughters are scalars:
@@ -94,20 +77,20 @@ void EvtBtoKD3P::decay(EvtParticle *p){
   const int D1IND = 1;
   const int D2IND = 2;
 
-  // generate kinematics of daughters (K and D): 
+  // generate kinematics of daughters (K and D):
   EvtId tempDaug[2] = {getDaug(KIND), getDaug(D1IND)};
-  p->initializePhaseSpace(2, tempDaug);  
+  p->initializePhaseSpace(2, tempDaug);
 
   // Get the D daughter particle and the decay models of the allowed
   // and suppressed D modes:
-  EvtParticle * theD = p->getDaug(D1IND); 
+  EvtParticle * theD = p->getDaug(D1IND);
   EvtPto3P * model1 = (EvtPto3P*)(EvtDecayTable::getInstance()->getDecayFunc(theD));
 
   // for the suppressed mode, re-initialize theD as the suppressed D alias:
   theD->init(getDaug(D2IND), theD->getP4());
   EvtPto3P * model2 = (EvtPto3P*)(EvtDecayTable::getInstance()->getDecayFunc(theD));
 
-  // on the first call: 
+  // on the first call:
   if (false == _decayedOnce) {
     _decayedOnce = true;
 
@@ -121,18 +104,18 @@ void EvtBtoKD3P::decay(EvtParticle *p){
     std::string name2=model2->getName();
 
     if (name1 != "PTO3P") {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen")
 	<< "D daughters of EvtBtoKD3P decay must decay via the \"PTO3P\" model"
 	<< endl
-	<< "    but found to decay via " << name1.c_str() 
-	<< " or " << name2.c_str() 
+	<< "    but found to decay via " << name1.c_str()
+	<< " or " << name2.c_str()
 	<< ". Will terminate execution!" << endl;
       assert(0);
     }
 
     EvtId * daugs1 = model1->getDaugs();
     EvtId * daugs2 = model2->getDaugs();
-    
+
     bool idMatch = true;
     int d;
     for (d = 0; d < 2; ++d) {
@@ -141,7 +124,7 @@ void EvtBtoKD3P::decay(EvtParticle *p){
       }
     }
     if (false == idMatch) {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen")
 	<< "D daughters of EvtBtoKD3P decay must decay to the same final state"
 	<< endl
 	<< "   particles in the same order (not CP-conjugate order)," << endl
@@ -155,19 +138,19 @@ void EvtBtoKD3P::decay(EvtParticle *p){
       }
       EvtGenReport(EVTGEN_ERROR,"") << endl << ". Will terminate execution!" << endl;
       assert(0);
-    }      
+    }
 
     // estimate the probmax. Need to know the probmax's of the 2
     // models for this:
-    setProbMax(model1->getProbMax(0) 
+    setProbMax(model1->getProbMax(0)
 	       + _r * _r * model2->getProbMax(0)
 	       + 2 * _r * sqrt(model1->getProbMax(0) * model2->getProbMax(0)));
 
   } // end of things to do on the first call
-  
+
   // make sure the models haven't changed since the first call:
   if (_model1 != model1 || _model2 != model2) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")
       << "D daughters of EvtBtoKD3P decay should have only 1 decay modes, "
       << endl
       << "    but a new decay mode was found after the first call" << endl
@@ -199,26 +182,26 @@ void EvtBtoKD3P::decay(EvtParticle *p){
 
   double comp = sqrt(pc.evaluate (x));
   vertex (amp/comp);
-  
+
   // Make the daughters of theD:
   bool massTreeOK = theD->generateMassTree();
   if (massTreeOK == false) {return;}
 
   // Now generate the p4's of the daughters of theD:
-  std::vector<EvtVector4R> v = model2->initDaughters(x);  
-  
-  if(v.size() != theD->getNDaug()) {    
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") 
-      << "Number of daughters " << theD->getNDaug() 
-      << " != " << "Momentum vector size " << v.size() 
+  std::vector<EvtVector4R> v = model2->initDaughters(x);
+
+  if(v.size() != theD->getNDaug()) {
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")
+      << "Number of daughters " << theD->getNDaug()
+      << " != " << "Momentum vector size " << v.size()
       << endl
       << "     Terminating execution." << endl;
     assert(0);
   }
-  
+
   // Apply the new p4's to the daughters:
   for(unsigned int i=0; i<theD->getNDaug(); ++i){
     theD->getDaug(i)->init(model2->getDaugs()[i], v[i]);
-  }    
+  }
 }
 

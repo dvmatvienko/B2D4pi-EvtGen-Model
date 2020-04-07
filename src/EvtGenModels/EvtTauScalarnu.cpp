@@ -31,11 +31,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtTauScalarnu::~EvtTauScalarnu() {}
-
 std::string EvtTauScalarnu::getName(){
 
-  return "TAUSCALARNU";     
+  return "TAUSCALARNU";
 
 }
 
@@ -69,13 +67,13 @@ void EvtTauScalarnu::decay(EvtParticle *p){
 
   static EvtId TAUM=EvtPDL::getId("tau-");
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  
+
   EvtParticle *nut;
   nut = p->getDaug(1);
   EvtVector4R momscalar = p->getDaug(0)->getP4();
- 
+
   EvtVector4C tau1, tau2;
-  
+
   if (p->getId()==TAUM) {
     tau1=EvtLeptonVACurrent(nut->spParentNeutrino(),p->sp(0));
     tau2=EvtLeptonVACurrent(nut->spParentNeutrino(),p->sp(1));
@@ -84,7 +82,7 @@ void EvtTauScalarnu::decay(EvtParticle *p){
     tau1=EvtLeptonVACurrent(p->sp(0),nut->spParentNeutrino());
     tau2=EvtLeptonVACurrent(p->sp(1),nut->spParentNeutrino());
   }
-  
+
   vertex(0,tau1*momscalar);
   vertex(1,tau2*momscalar);
 

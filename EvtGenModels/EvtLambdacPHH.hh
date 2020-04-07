@@ -33,12 +33,12 @@ public:
 
   EvtLambdacPHH();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *p);
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *p) override;
 
 protected:
 

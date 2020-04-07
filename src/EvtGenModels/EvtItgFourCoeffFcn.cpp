@@ -10,7 +10,7 @@
 // Module: EvtItgFourCoeffFcn.cc
 //
 // Description:
-//      Class describing a function with four vectors of coefficients. 
+//      Class describing a function with four vectors of coefficients.
 //
 // Modification history:
 //
@@ -30,14 +30,10 @@ EvtItgFourCoeffFcn::EvtItgFourCoeffFcn( double (*theFunction)(double, const std:
   EvtItgAbsFunction(lowerRange, upperRange),
   _myFunction(theFunction),
   _coeffs1(coeffs1),
-  _coeffs2(coeffs2), 
+  _coeffs2(coeffs2),
   _coeffs3(coeffs3),
   _coeffs4(coeffs4)
 {}
-
-EvtItgFourCoeffFcn::~EvtItgFourCoeffFcn( )
-{}
-
 
 double
 EvtItgFourCoeffFcn::myFunction(double x) const{

@@ -19,6 +19,9 @@
     Added the EvtDToKpienu decay model for D -> K pi e nu decays from
     BESIII, courtesy of Liaoyuan Dong.
 
+16th July 2019 John Back
+    Correct imaginary sign for EvtComplex /= (EvtComplex c) operator.
+
 3rd July 2019 John Back
     Added the EvtLambdacPHH decay model for Lc -> p K pi decays with K*(890), 
     Delta++(1232) and Lambda(1520) resonances, based on the Fermilab E791
@@ -45,8 +48,14 @@
 15th March 2019 Tom Latham
     Implement cmake build system, replacing the old config method.
 
+30th Jan 2019 John Back
+    Fix modernization compiler errors and warnings.
+
 29th Jan 2019 Michal Kreps
     Allow reading decay files which are missing end-of-line before end-of-file.
+
+21st December 2018 John Back
+    Imported C++ modernization changes from Gerhard Raven (LHCb).
 
 7th December 2018 John Back
     Added the EvtBLLNuL (BLLNUL) model that generates rare B -> ell ell nu ell 

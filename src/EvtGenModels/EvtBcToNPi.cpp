@@ -36,12 +36,9 @@ EvtBcToNPi::EvtBcToNPi(bool printAuthorInfo) {
   if (printAuthorInfo == true) {this->printAuthorInfo();}
 }
 
-EvtBcToNPi::~EvtBcToNPi() { 
-}
-
 std::string EvtBcToNPi::getName(){
 
-  return "EvtBcToNPi";     
+  return "EvtBcToNPi";
 
 }
 
@@ -61,7 +58,7 @@ void EvtBcToNPi::init(){
 	// the others are scalar
 	for (int i=1; i<=(getNDaug()-1);i++) {
 		checkSpinDaughter(i,EvtSpinType::SCALAR);
-	}
+	};
 
 	_beta=-0.108; _mRho=0.775; _gammaRho=0.149;
 	_mRhopr=1.364; _gammaRhopr=0.400; _mA1=1.23; _gammaA1=0.4;
@@ -98,16 +95,16 @@ void EvtBcToNPi::init(){
 	else {
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Have not yet implemented this final state in BCPSINPI model" << endl;
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ndaug="<<getNDaug() << endl;
-		for ( int id=0; id<(getNDaug()-1); id++ ) 
+		for ( int id=0; id<(getNDaug()-1); id++ )
 			EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daug " << id << " "<<EvtPDL::name(getDaug(id)).c_str() << endl;
 		return;
 
-	}
+	};
 
 	if(getNDaug()<2 || getNDaug()>4) {
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Have not yet implemented this final state in BCPSINPI model" << endl;
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ndaug="<<getNDaug() << endl;
-		for ( int id=0; id<(getNDaug()-1); id++ ) 
+		for ( int id=0; id<(getNDaug()-1); id++ )
 			EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daug " << id << " "<<EvtPDL::name(getDaug(id)).c_str() << endl;
 		return;
 	}
@@ -142,8 +139,8 @@ void EvtBcToNPi::initProbMax(){
                         p->getDaug(1)->setP4( EvtVector4R( _ee(M,m2,m1), 0., 0., -__pp) );
                 }
                 else if( getNDaug()==3) {
-                        double M=EvtPDL::getMass(id), 
-                                m1=EvtPDL::getMass(getDaug(0)), 
+                        double M=EvtPDL::getMass(id),
+                                m1=EvtPDL::getMass(getDaug(0)),
                                 m2=EvtPDL::getMass(getDaug(1)),
                                 m3=EvtPDL::getMass(getDaug(2));
                         double __ppRho=_pp(M,m1,_mRho), __ppPi=_pp(_mRho,m2,m3);
@@ -156,8 +153,8 @@ void EvtBcToNPi::initProbMax(){
 
                 }
                 else if( getNDaug()==4) {
-                        double M=EvtPDL::getMass(id), 
-                                m1=EvtPDL::getMass(getDaug(0)), 
+                        double M=EvtPDL::getMass(id),
+                                m1=EvtPDL::getMass(getDaug(0)),
                                 m2=EvtPDL::getMass(getDaug(1)),
                                 m3=EvtPDL::getMass(getDaug(2)),
                                 m4=EvtPDL::getMass(getDaug(3));
@@ -175,12 +172,12 @@ void EvtBcToNPi::initProbMax(){
                         p->getDaug(1)->setP4(_p2);
                         EvtVector4R _p3( _ee(_mRho, m2, m3), 0, 0, -__ppPi); _p2.applyBoostTo(_pRho);
                         p->getDaug(2)->setP4(_p3);
-                }
+                };
 
 
                 _amp2.init(p->getId(),getNDaug(),getDaugs());
 
-		decay(p); 	
+		decay(p);
 
                 EvtSpinDensity rho=_amp2.getSpinDensity();
 
@@ -189,7 +186,7 @@ void EvtBcToNPi::initProbMax(){
                 if(prob>0) setProbMax(0.9*prob);
 
 
-	}
+	};
 }
 
 void EvtBcToNPi::decay( EvtParticle *root_particle ){
@@ -205,7 +202,7 @@ void EvtBcToNPi::decay( EvtParticle *root_particle ){
 		p(root_particle->mass(), 0., 0., 0.),                  // Bc momentum
 		k=root_particle->getDaug(0)->getP4(),     		   // J/psi momenta
 		Q=p-k;
-	
+
 	double Q2=Q.mass2();
 
 
@@ -236,14 +233,14 @@ void EvtBcToNPi::decay( EvtParticle *root_particle ){
 		EvtVector4R p1=root_particle->getDaug(samePi1)->getP4();
 		EvtVector4R p2=root_particle->getDaug(samePi2)->getP4();
 		EvtVector4R p3=root_particle->getDaug(diffPi)->getP4();
-		
+
 		EvtComplex BA1;
 		double GA1=_gammaA1*pi3G(Q2,samePi1)/pi3G(_mA1*_mA1,samePi1);
 		EvtComplex denBA1(_mA1*_mA1 - Q.mass2(),-1.*_mA1*GA1);
 		BA1 = _mA1*_mA1 / denBA1;
 
 		hardCur = BA1*( (p1-p3) - (Q*(Q*(p1-p3))/Q2)*Fpi(p2,p3) +
-				(p2-p3) - (Q*(Q*(p2-p3))/Q2)*Fpi(p1,p3) ); 
+				(p2-p3) - (Q*(Q*(p2-p3))/Q2)*Fpi(p1,p3) );
 		foundHadCurr=true;
 	}
 
@@ -251,10 +248,10 @@ void EvtBcToNPi::decay( EvtParticle *root_particle ){
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Have not yet implemented this final state in BCNPI model" << endl;
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ndaug="<<getNDaug() << endl;
 		int id;
-		for ( id=0; id<(getNDaug()-1); id++ ) 
+		for ( id=0; id<(getNDaug()-1); id++ )
 		EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Daug " << id << " "<<EvtPDL::name(getDaug(id)).c_str() << endl;
 		::abort();
-	}
+	};
 
  	EvtTensor4C H;
 	double amp2=0.;
@@ -283,7 +280,7 @@ void EvtBcToNPi::decay( EvtParticle *root_particle ){
 		EvtComplex amp=H*hardCur;
 		vertex(amp);
 		amp2+=pow( abs(amp),2);
-	}
+	};
 	if(amp2>maxAmp2) maxAmp2=amp2;
 
   return ;
@@ -292,29 +289,29 @@ void EvtBcToNPi::decay( EvtParticle *root_particle ){
 EvtComplex EvtBcToNPi::Fpi( EvtVector4R q1, EvtVector4R q2) {
 	double m1=q1.mass();
 	double m2=q2.mass();
-	
+
 	EvtVector4R Q = q1 + q2;
 	double mQ2= Q*Q;
-	
+
 	// momenta in the rho->pipi decay
 	double dRho= _mRho*_mRho - m1*m1 - m2*m2;
 	double pPiRho = (1.0/_mRho)*sqrt((dRho*dRho)/4.0 - m1*m1*m2*m2);
-	
+
 	double dRhopr= _mRhopr*_mRhopr - m1*m1 - m2*m2;
 	double pPiRhopr = (1.0/_mRhopr)*sqrt((dRhopr*dRhopr)/4.0 - m1*m1*m2*m2);
-	
+
 	double dQ= mQ2 - m1*m1 - m2*m2;
 	double pPiQ = (1.0/sqrt(mQ2))*sqrt((dQ*dQ)/4.0 - m1*m1*m2*m2);
-	
-	
+
+
 	double gammaRho = _gammaRho*_mRho/sqrt(mQ2)*pow((pPiQ/pPiRho),3);
 	EvtComplex BRhoDem(_mRho*_mRho - mQ2,-1.0*_mRho*gammaRho);
 	EvtComplex BRho= _mRho*_mRho / BRhoDem;
-	
+
 	double gammaRhopr = _gammaRhopr*_mRhopr/sqrt(mQ2)*pow((pPiQ/pPiRhopr),3);
 	EvtComplex BRhoprDem(_mRhopr*_mRhopr - mQ2,-1.0*_mRho*gammaRhopr);
 	EvtComplex BRhopr= _mRhopr*_mRhopr / BRhoprDem;
-	
+
 	return (BRho + _beta*BRhopr)/(1+_beta);
 }
 
@@ -330,7 +327,7 @@ double EvtBcToNPi::pi3G(double m2,int dupD) {
 }
 
 void EvtBcToNPi::printAuthorInfo() {
-  
+
   EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Defining EvtBcToNPi model: Bc -> V + npi and Bc -> P + npi decays\n"
 		       <<"from A.V. Berezhnoy, A.K. Likhoded, A.V. Luchinsky: "
 		       <<"Phys.Rev.D 82, 014012 (2010) and arXiV:1104.0808."<<endl;

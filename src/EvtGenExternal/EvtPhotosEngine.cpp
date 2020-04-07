@@ -42,7 +42,7 @@ EvtPhotosEngine::EvtPhotosEngine(std::string photonType, bool useEvtGenRandom) {
   EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Setting up PHOTOS."<<endl;
 
   if (useEvtGenRandom == true) {
-      
+
     EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Using EvtGen random number engine also for Photos++"<<endl;
 
     Photospp::Photos::setRandomGenerator(EvtRandom::Flat);
@@ -64,10 +64,6 @@ EvtPhotosEngine::EvtPhotosEngine(std::string photonType, bool useEvtGenRandom) {
 
 }
 
-EvtPhotosEngine::~EvtPhotosEngine() {
-
-}
-
 void EvtPhotosEngine::initialise() {
 
   if (_initialised == false) {
@@ -84,7 +80,7 @@ void EvtPhotosEngine::initialise() {
     _mPhoton = EvtPDL::getMeanMass(_gammaId);
 
     _initialised = true;
- 
+
   }
 
 }
@@ -99,7 +95,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   // assigned as the incoming particle and its daughters as outgoing particles.
   // We then pass this event to Photos for processing.
   // It will return a modified version of the event, updating the momentum of
-  // the original particles and will contain any new photon particles. 
+  // the original particles and will contain any new photon particles.
   // We add these extra photons to the mother particle daughter list.
 
   // Skip running Photos if the particle has no daughters, since we can't add FSR.
@@ -144,7 +140,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 #endif
 
   // Run the Photos algorithm
-  photosEvent.process();    
+  photosEvent.process();
 
   // Find the number of (outgoing) photons in the event
   int nPhotons = this->getNumberOfPhotons(theVertex);
@@ -192,7 +188,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 	if (daugParticle != 0) {
 
 	  // Keep the original particle mass, but set the three-momentum
-	  // according to what Photos has modified. However, this will 
+	  // according to what Photos has modified. However, this will
 	  // violate energy conservation (from what Photos has provided).
 	  double mass = daugParticle->mass();
 	  double energy = sqrt(mass*mass + px*px + py*py + pz*pz);
@@ -224,7 +220,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
       // Increment the loop counter for detecting additional photon particles
       iLoop++;
 
-    }    
+    }
 
   }
 
@@ -249,7 +245,7 @@ GenParticlePtr EvtPhotosEngine::createGenParticle(EvtParticle* theParticle, bool
   } else {
     p4 = theParticle->getP4();
   }
-  
+
   // Convert this to the HepMC 4-momentum
   double E = p4.get(0);
   double px = p4.get(1);
@@ -260,7 +256,7 @@ GenParticlePtr EvtPhotosEngine::createGenParticle(EvtParticle* theParticle, bool
 
   int PDGInt = EvtPDL::getStdHep(theParticle->getId());
 
-  // Set the status flag for the particle. This is required, otherwise Photos++ 
+  // Set the status flag for the particle. This is required, otherwise Photos++
   // will crash from out-of-bounds array index problems.
   int status = Photospp::PhotosParticle::HISTORY;
   if (incoming == false) {status = Photospp::PhotosParticle::STABLE;}
@@ -294,7 +290,7 @@ int EvtPhotosEngine::getNumberOfPhotons(const GenVertexPtr theVertex) const {
     // Get the PDG id
     int pdgId(0);
     if (outParticle != 0) {pdgId = outParticle->pdg_id();}
-    
+
     // Keep track of how many photons there are
     if (pdgId == _gammaPDG) {nPhotons++;}
 

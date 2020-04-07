@@ -23,7 +23,9 @@
 #define EVTPARTWAVE_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+#include "EvtGenBase/EvtEvalHelAmp.hh"
 #include "EvtGenBase/EvtId.hh"
+#include <memory>
 
 class EvtParticle;
 class EvtEvalHelAmp;
@@ -32,23 +34,20 @@ class EvtPartWave:public  EvtDecayAmp{
 
 public:
 
-  EvtPartWave() : _evalHelAmp(0) {}
-  virtual ~EvtPartWave();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  void init();
-  void initProbMax();
-
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 
 private:
 
   void fillHelicity(int* lambda2,int n,int J2);
 
-  EvtEvalHelAmp* _evalHelAmp;
+  std::unique_ptr<EvtEvalHelAmp> _evalHelAmp;
 
 };
 

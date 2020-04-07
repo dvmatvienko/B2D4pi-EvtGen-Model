@@ -31,17 +31,15 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtBTo3piCP::~EvtBTo3piCP() {}
-
 
 std::string EvtBTo3piCP::getName(){
 
-  return "BTO3PI_CP";     
+  return "BTO3PI_CP";
 
 }
 
 
-EvtDecayBase* EvtBTo3piCP::clone(){
+EvtBTo3piCP* EvtBTo3piCP::clone(){
 
   return new EvtBTo3piCP;
 
@@ -125,11 +123,11 @@ void EvtBTo3piCP::decay( EvtParticle *p){
   }
   else {
     pip->init( getDaug(0), p4[1] );
-    pim->init( getDaug(1), p4[0] );  
+    pim->init( getDaug(1), p4[0] );
   }
 
    pi0->init( getDaug(2), p4[2] );
-   
+
    EvtComplex amp;
 
    EvtComplex A(realA,imgA);

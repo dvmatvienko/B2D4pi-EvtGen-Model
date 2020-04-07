@@ -36,8 +36,6 @@
 
 #include <cmath>
 
-EvtTVP::~EvtTVP() { }
-
 std::string EvtTVP::getName()
 {
   return "TVP";
@@ -78,8 +76,7 @@ void EvtTVP::init()
   }
 }
 
-void EvtTVP::initProbMax()
-{
+void EvtTVP::initProbMax() {
 
   if (getNDaug() == 2) {
     const EvtId parId  = getParentId();
@@ -88,7 +85,7 @@ void EvtTVP::initProbMax()
     } else {
       setProbMax(2.0);
     }
-    
+
   } else if (getNDaug() == 3) {
 
     double dSq = delta*delta;
@@ -115,6 +112,7 @@ void EvtTVP::initProbMax()
       } else if (parId == EvtPDL::getId("chi_b2")) {
 	setProbMax(ffCor * 2.6e4);
       }
+
     }
   }
 }
@@ -217,3 +215,6 @@ void EvtTVP::decay_3body(EvtParticle* root)
     }
   }
 }
+
+
+

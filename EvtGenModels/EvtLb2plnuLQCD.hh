@@ -12,7 +12,7 @@
 //
 // Description:Implementation of the Lb2plnuLQCD model
 // Class to handle semileptonic Lb -> p l nu decays using the using form factor predictions from Lattice QCD.
-// 
+//
 //
 // Modification history:
 //
@@ -34,14 +34,14 @@ class EvtLb2plnuLQCD:public  EvtDecayAmp  {
 public:
 
   EvtLb2plnuLQCD();
-  virtual ~EvtLb2plnuLQCD();
+  ~EvtLb2plnuLQCD();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
   EvtSemiLeptonicFF *ffmodel;

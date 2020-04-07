@@ -20,7 +20,6 @@ public:
 
   EvtBlattWeisskopf(int LL, double R, double p0);
   EvtBlattWeisskopf(const EvtBlattWeisskopf&);
-  ~EvtBlattWeisskopf();
 
   double operator()(double p) const;
 

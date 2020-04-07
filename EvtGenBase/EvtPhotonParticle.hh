@@ -30,21 +30,20 @@ class EvtId;
 class EvtPhotonParticle: public EvtParticle {
 
 public:
-
-  EvtPhotonParticle();
-  virtual ~EvtPhotonParticle();
+  EvtPhotonParticle() = default;
 
   void init(EvtId part_n,double e,double px,double py,double pz);
-  void init(EvtId part_n,const EvtVector4R& p4);
+  void init(EvtId part_n,const EvtVector4R& p4) override;
 
   //Return polarization vectors
-  EvtVector4C epsParentPhoton(int i); 
-  EvtVector4C epsPhoton(int i); 
+  EvtVector4C epsParentPhoton(int i) override;
+  EvtVector4C epsPhoton(int i) override;
 
-  EvtSpinDensity rotateToHelicityBasis() const;
+
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
+				       double gamma) const override;
 
 private:
 

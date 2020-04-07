@@ -35,8 +35,8 @@ using EvtCyclic3::Pair;
 
 
 // single Breit-Wigner
-EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes, 
-			     EvtSpinType::spintype spin, double m0, double g0, NumType typeN, double f_b, double f_d) 
+EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes,
+			     EvtSpinType::spintype spin, double m0, double g0, NumType typeN, double f_b, double f_d)
   : _dp(dp),
     _pairAng(pairAng),
     _pairRes(pairRes),
@@ -51,7 +51,7 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes
     _a(0.),_r(0.),_Blass(0.),_phiB(0.),_R(0.),_phiR(0.),_cutoff(-1.), _scaleByMOverQ(false),
     _alpha(0.)
 {
-  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin); 
+  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin);
   _vd = EvtTwoBodyVertex(_massFirst,_massSecond,_m0,_spin);
   _vb.set_f( _f_b ); // Default values for Blatt-Weisskopf factors are 0.0 and 1.5.
   _vd.set_f( _f_d );
@@ -60,9 +60,9 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes
 
 
 // Breit-Wigner with electromagnetic mass mixing
-EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes, 
+EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes,
 			     EvtSpinType::spintype spin, double m0, double g0, NumType typeN,
-			     double m0_mix, double g0_mix, double delta_mix, EvtComplex amp_mix) 
+			     double m0_mix, double g0_mix, double delta_mix, EvtComplex amp_mix)
   : _dp(dp),
     _pairAng(pairAng),
     _pairRes(pairRes),
@@ -77,7 +77,7 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes
     _a(0.),_r(0.),_Blass(0.),_phiB(0.),_R(0.),_phiR(0.),_cutoff(-1.), _scaleByMOverQ(false),
     _alpha(0.)
 {
-  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin); 
+  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin);
   _vd = EvtTwoBodyVertex(_massFirst,_massSecond,_m0,_spin);
   _vb.set_f( 0.0 ); // Default values for Blatt-Weisskopf factors.
   _vd.set_f( 1.5 );
@@ -86,7 +86,7 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes
 }
 
 // coupled Breit-Wigner
-EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes, 
+EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes,
 			     EvtSpinType::spintype spin, double m0, NumType typeN, double g1, double g2, CouplingType coupling2)
   : _dp(dp),
     _pairAng(pairAng),
@@ -102,20 +102,20 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairAng, Pair pairRes
     _a(0.),_r(0.),_Blass(0.),_phiB(0.),_R(0.),_phiR(0.),_cutoff(-1.), _scaleByMOverQ(false),
     _alpha(0.)
 {
-  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin);   
+  _vb = EvtTwoBodyVertex(_m0,_dp.m(EvtCyclic3::other(_pairRes)),_dp.bigM(),_spin);
   _vd = EvtTwoBodyVertex(_massFirst,_massSecond,_m0,_spin);
   _vb.set_f( 0.0 ); // Default values for Blatt-Weisskopf factors.
   _vd.set_f( 1.5 );
   assert(_coupling2 != Undefined);
   assert(_typeN != K_MATRIX && _typeN != K_MATRIX_I && _typeN != K_MATRIX_II); // coupled BW cannot be K-matrix
   assert(_typeN != LASS);     // coupled BW cannot be LASS
-  assert(_typeN != NBW);      // for coupled BW, only relativistic BW 
+  assert(_typeN != NBW);      // for coupled BW, only relativistic BW
 }
 
 
 // K-Matrix (A&S)
 EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairRes, std::string nameIndex, NumType typeN,
-			     EvtComplex fr12prod, EvtComplex fr13prod, EvtComplex fr14prod, EvtComplex fr15prod, double s0prod) 
+			     EvtComplex fr12prod, EvtComplex fr13prod, EvtComplex fr14prod, EvtComplex fr15prod, double s0prod)
   : _dp(dp),
     _pairRes(pairRes),
     _typeN(typeN),
@@ -141,8 +141,8 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairRes, std::string 
 
 
 // LASS parameterization
-EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairRes, 
-			     double m0, double g0, double a, double r, double B, double phiB, double R, double phiR, double cutoff, bool scaleByMOverQ) 
+EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, Pair pairRes,
+			     double m0, double g0, double a, double r, double B, double phiB, double R, double phiR, double cutoff, bool scaleByMOverQ)
   : _dp(dp),
     _pairRes(pairRes),
     _typeN(LASS),
@@ -179,7 +179,7 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzPlot& dp, EvtCyclic3::Pair pairRes, 
 }
 
 
-EvtDalitzReso::EvtDalitzReso(const EvtDalitzReso& other) 
+EvtDalitzReso::EvtDalitzReso(const EvtDalitzReso& other)
   : _dp(other._dp),
     _pairAng(other._pairAng),
     _pairRes(other._pairRes),
@@ -200,15 +200,11 @@ EvtDalitzReso::EvtDalitzReso(const EvtDalitzReso& other)
 {}
 
 
-EvtDalitzReso::~EvtDalitzReso()
-{}
-
-
-EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x) 
+EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x)
 {
   double m = sqrt(x.q(_pairRes));
 
-  if (_typeN==NON_RES) 
+  if (_typeN==NON_RES)
     return EvtComplex(1.0,0.0);
 
   if (_typeN==NON_RES_LIN)
@@ -234,7 +230,7 @@ EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x)
     _vb.set_f(_f_b);
   }
   EvtTwoBodyKine vb(m,x.m(EvtCyclic3::other(_pairRes)),x.bigM());
-  EvtTwoBodyKine vd(_massFirst,_massSecond,m);   
+  EvtTwoBodyKine vd(_massFirst,_massSecond,m);
 
   EvtComplex prop(0,0);
   if (_typeN==NBW) {
@@ -242,7 +238,7 @@ EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x)
   } else if (_typeN==GAUSS_CLEO || _typeN==GAUSS_CLEO_ZEMACH) {
     prop = propGauss(_m0,_g0,m);
   } else {
-    if (_coupling2==Undefined) {  
+    if (_coupling2==Undefined) {
       // single BW
       double g = (_g0<=0. || _vd.pD()<=0.)? -_g0 : _g0*_vd.widthFactor(vd);  // running width
       if (_typeN==GS_CLEO || _typeN==GS_CLEO_ZEMACH) {
@@ -252,10 +248,10 @@ EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x)
 	// standard relativistic BW
 	prop = propBreitWignerRel(_m0,g,m);
       }
-    } else {    
+    } else {
       // coupled width BW
       EvtComplex G1,G2;
-      switch (_coupling2) { 
+      switch (_coupling2) {
       case PicPic: {
 	G1 = _g1*_g1*psFactor(_massFirst,_massSecond,m);
 	static double mPic = EvtPDL::getMass( EvtPDL::getId( "pi+" ) );
@@ -326,16 +322,16 @@ EvtComplex EvtDalitzReso::evaluate(const EvtDalitzPoint& x)
       // calculate standard couple BW propagator
       if (_coupling2 != WA76)
 	prop = _g1*propBreitWignerRelCoupled(_m0,G1,G2,m);
-    } 
+    }
   }
   amp *= prop;
 
   // Compute form-factors (Blatt-Weisskopf penetration factor)
-  amp *= _vb.formFactor(vb);  
-  amp *= _vd.formFactor(vd);  
+  amp *= _vb.formFactor(vb);
+  amp *= _vd.formFactor(vd);
 
   // Compute numerator (angular distribution)
-  amp *= numerator(x,vb,vd);  
+  amp *= numerator(x,vb,vd);
 
   // Compute electromagnetic mass mixing factor
   if (_m0_mix>0.) {
@@ -359,10 +355,10 @@ EvtComplex EvtDalitzReso::psFactor(double & ma, double & mb, double& m)
   if (m>(ma+mb)) {
     EvtTwoBodyKine vd(ma,mb,m);
     return EvtComplex(0,2*vd.p()/m);
-  } else { 
+  } else {
     // analytical continuation
     double s = m*m;
-    double phaseFactor_analyticalCont = -0.5*(sqrt(4*ma*ma/s-1)+sqrt(4*mb*mb/s-1)); 
+    double phaseFactor_analyticalCont = -0.5*(sqrt(4*ma*ma/s-1)+sqrt(4*mb*mb/s-1));
     return EvtComplex(phaseFactor_analyticalCont,0);
   }
 }
@@ -374,7 +370,7 @@ EvtComplex EvtDalitzReso::psFactor(double & ma1,double & mb1, double & ma2, doub
 }
 
 
-EvtComplex EvtDalitzReso::propGauss(const double& m0, const double& s0, const double& m) 
+EvtComplex EvtDalitzReso::propGauss(const double& m0, const double& s0, const double& m)
 {
   // Gaussian
   double gauss = 1./sqrt(EvtConst::twoPi)/s0*exp(-(m-m0)*(m-m0)/2./(s0*s0));
@@ -382,14 +378,14 @@ EvtComplex EvtDalitzReso::propGauss(const double& m0, const double& s0, const do
 }
 
 
-EvtComplex EvtDalitzReso::propBreitWigner(const double& m0, const double& g0, const double& m) 
+EvtComplex EvtDalitzReso::propBreitWigner(const double& m0, const double& g0, const double& m)
 {
   // non-relativistic BW
   return sqrt(g0/EvtConst::twoPi)/(m-m0-EvtComplex(0.0,g0/2.));
 }
 
 
-EvtComplex EvtDalitzReso::propBreitWignerRel(const double& m0, const double& g0, const double& m) 
+EvtComplex EvtDalitzReso::propBreitWignerRel(const double& m0, const double& g0, const double& m)
 {
   // relativistic BW with real width
   return 1./(m0*m0-m*m-EvtComplex(0.,m0*g0));
@@ -397,7 +393,7 @@ EvtComplex EvtDalitzReso::propBreitWignerRel(const double& m0, const double& g0,
 
 
 
-EvtComplex EvtDalitzReso::propBreitWignerRel(const double& m0, const EvtComplex& g0, const double& m) 
+EvtComplex EvtDalitzReso::propBreitWignerRel(const double& m0, const EvtComplex& g0, const double& m)
 {
   // relativistic BW with complex width
   return 1./(m0*m0-m*m-EvtComplex(0.,m0)*g0);
@@ -411,15 +407,15 @@ EvtComplex EvtDalitzReso::propBreitWignerRelCoupled(const double& m0, const EvtC
 }
 
 EvtComplex EvtDalitzReso::propGounarisSakurai(const double& m0, const double& g0, const double& k0,
-					    const double& m, const double& g, const double& k) 
+					    const double& m, const double& g, const double& k)
 {
   // Gounaris-Sakurai parameterization of pi+pi- P wave. PRD, Vol61, 112002. PRL, Vol21, 244.
-  // Expressions taken from BAD637v4, after fixing the imaginary part of the BW denominator: i M_R Gamma_R(s) --> i sqrt(s) Gamma_R(s) 
+  // Expressions taken from BAD637v4, after fixing the imaginary part of the BW denominator: i M_R Gamma_R(s) --> i sqrt(s) Gamma_R(s)
   return (1.+GS_d(m0,k0)*g0/m0)/(m0*m0-m*m-EvtComplex(0.,m*g)+GS_f(m0,g0,k0,m,k));
 }
 
 
-inline double EvtDalitzReso::GS_f(const double& m0, const double& g0, const double& k0, const double& m, const double& k) 
+inline double EvtDalitzReso::GS_f(const double& m0, const double& g0, const double& k0, const double& m, const double& k)
 {
   // m: sqrt(s)
   // m0: nominal resonance mass
@@ -428,18 +424,18 @@ inline double EvtDalitzReso::GS_f(const double& m0, const double& g0, const doub
   return g0*m0*m0/(k0*k0*k0)*( k*k*(GS_h(m,k)-GS_h(m0,k0)) + (m0*m0-m*m)*k0*k0*GS_dhods(m0,k0) );
 }
 
-inline double EvtDalitzReso::GS_h(const double& m, const double& k) 
+inline double EvtDalitzReso::GS_h(const double& m, const double& k)
 {return 2./EvtConst::pi*k/m*log((m+2.*k)/(2.*_massFirst)) ;}
 
-inline double EvtDalitzReso::GS_dhods(const double& m0, const double& k0)  
+inline double EvtDalitzReso::GS_dhods(const double& m0, const double& k0)
 {return GS_h(m0,k0)*( 0.125/(k0*k0) - 0.5/(m0*m0) ) + 0.5/(EvtConst::pi*m0*m0) ;}
 
-inline double EvtDalitzReso::GS_d(const double& m0, const double& k0) 
-{return 3./EvtConst::pi*_massFirst*_massFirst/(k0*k0)*log((m0+2.*k0)/(2.*_massFirst)) + 
+inline double EvtDalitzReso::GS_d(const double& m0, const double& k0)
+{return 3./EvtConst::pi*_massFirst*_massFirst/(k0*k0)*log((m0+2.*k0)/(2.*_massFirst)) +
    m0/(2.*EvtConst::pi*k0) - _massFirst*_massFirst*m0/(EvtConst::pi*k0*k0*k0) ;}
 
 
-EvtComplex EvtDalitzReso::numerator(const EvtDalitzPoint& x, const EvtTwoBodyKine& vb, const EvtTwoBodyKine& vd) 
+EvtComplex EvtDalitzReso::numerator(const EvtDalitzPoint& x, const EvtTwoBodyKine& vb, const EvtTwoBodyKine& vd)
 {
   EvtComplex ret(0.,0.);
 
@@ -467,9 +463,9 @@ EvtComplex EvtDalitzReso::numerator(const EvtDalitzPoint& x, const EvtTwoBodyKin
   // Kuehn-Santamaria normalization:
   else if(RBW_KUEHN == _typeN) {
     ret = _m0*_m0 * angDep(x);
-  }  
+  }
 
-  // CLEO amplitude 
+  // CLEO amplitude
   else if( ( RBW_CLEO        == _typeN ) || ( GS_CLEO           == _typeN ) ||
 	   ( RBW_CLEO_ZEMACH == _typeN ) || ( GS_CLEO_ZEMACH    == _typeN ) ||
 	   ( GAUSS_CLEO      == _typeN ) || ( GAUSS_CLEO_ZEMACH == _typeN)) {
@@ -477,7 +473,7 @@ EvtComplex EvtDalitzReso::numerator(const EvtDalitzPoint& x, const EvtTwoBodyKin
     Index iA = other(_pairAng);           // A = other(BC)
     Index iB = common(_pairRes,_pairAng); // B = common(AB,BC)
     Index iC = other(_pairRes);           // C = other(AB)
-    
+
     double M = x.bigM();
     double mA = x.m(iA);
     double mB = x.m(iB);
@@ -491,40 +487,40 @@ EvtComplex EvtDalitzReso::numerator(const EvtDalitzPoint& x, const EvtTwoBodyKin
     double mA2 = mA*mA;
     double mB2 = mB*mB;
     double mC2 = mC*mC;
-    
+
     if (_spin == EvtSpinType::SCALAR) ret = EvtComplex(1.,0.);
     else if(_spin == EvtSpinType::VECTOR) {
       ret = qCA - qBC + (M2 - mC2)*(mB2 - mA2)/m02;
     } else if(_spin == EvtSpinType::TENSOR) {
-      double x1 = qBC - qCA + (M2 - mC2)*(mA2 - mB2)/m02;       
-      double x2 = M2 - mC2;      
-      double x3 = qAB - 2*M2 - 2*mC2 + x2*x2/m02;      
+      double x1 = qBC - qCA + (M2 - mC2)*(mA2 - mB2)/m02;
+      double x2 = M2 - mC2;
+      double x3 = qAB - 2*M2 - 2*mC2 + x2*x2/m02;
       double x4 = mA2 - mB2;
       double x5 = qAB - 2*mB2 - 2*mA2 + x4*x4/m02;
       ret = x1*x1 - x3*x5/3.;
     } else assert(0);
   }
-  
+
   return ret;
 }
 
 
-double EvtDalitzReso::angDep(const EvtDalitzPoint& x)  
-{ 
-  // Angular dependece for factorizable amplitudes  
+double EvtDalitzReso::angDep(const EvtDalitzPoint& x)
+{
+  // Angular dependece for factorizable amplitudes
   // unphysical cosines indicate we are in big trouble
   double cosTh = x.cosTh(_pairAng,_pairRes);  // angle between common(reso,ang) and other(reso)
   if(fabs(cosTh) > 1.) {
-    EvtGenReport(EVTGEN_INFO,"EvtGen") << "cosTh " << cosTh << std::endl; 
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "cosTh " << cosTh << std::endl;
     assert(0);
   }
-  
+
   // in units of half-spin
   return EvtdFunction::d(EvtSpinType::getSpin2(_spin),2*0,2*0,acos(cosTh));
 }
 
 
-EvtComplex EvtDalitzReso::mixFactor(EvtComplex prop, EvtComplex prop_mix) 
+EvtComplex EvtDalitzReso::mixFactor(EvtComplex prop, EvtComplex prop_mix)
 {
   double Delta = _delta_mix*(_m0+_m0_mix);
   return 1/(1-Delta*Delta*prop*prop_mix)*(1+_amp_mix*Delta*prop_mix);
@@ -544,12 +540,12 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
   //i=3 --> eta eta
   //i=4 --> eta eta'
   //The first index is the resonace-pole index
-      
+
   double g[5][5]; // Coupling constants. The first index is the pole index. The second index is the decay channel
   double ma[5];   // Pole masses. The unit is in GeV
 
   int solution = (_typeN==K_MATRIX)? 3 : (    (_typeN==K_MATRIX_I)? 1 : ( (_typeN==K_MATRIX_II)? 2 : 0 )    ) ;
-  if (solution==0) { std::cout << "EvtDalitzReso::Fvector() error. Kmatrix solution incorrectly chosen ! " << std::endl; abort(); } 
+  if (solution==0) { std::cout << "EvtDalitzReso::Fvector() error. Kmatrix solution incorrectly chosen ! " << std::endl; abort(); }
 
   if (solution == 3 ) {
 
@@ -586,14 +582,14 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
     g[4][4]=0.22358;
 
     // Pole masses
-    ma[0]=0.651;      
+    ma[0]=0.651;
     ma[1]=1.20360;
     ma[2]=1.55817;
     ma[3]=1.21000;
     ma[4]=1.82206;
 
-  } else if (solution == 1) { // solnI.txt 
-    
+  } else if (solution == 1) { // solnI.txt
+
     // coupling constants
     //pi+pi- channel
     g[0][0]=0.31896;
@@ -633,8 +629,8 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
     ma[3]=1.21900;
     ma[4]=1.74932;
 
-  } else if (solution == 2) { // solnIIa.txt 
-    
+  } else if (solution == 2) { // solnIIa.txt
+
     // coupling constants
     //pi+pi- channel
     g[0][0]=0.26014;
@@ -673,7 +669,7 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
     ma[2]=1.57896;
     ma[3]=1.21900;
     ma[4]=1.86602;
-  } 
+  }
 
   //Now define the K-matrix pole
   double  rho1sq,rho2sq,rho4sq,rho5sq;
@@ -685,10 +681,10 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
   double mK=0.493677;     //using charged K value
   double meta=0.54775;    //using PDG value
   double metap=0.95778;   //using PDG value
-    
+
   //Initialize the matrix to value zero
   EvtComplex K[5][5];
-  for(int i=0;i<5;i++) { 
+  for(int i=0;i<5;i++) {
     for(int j=0;j<5;j++) {
       K[i][j]=EvtComplex(0,0);
       f[i][j]=0;
@@ -696,13 +692,13 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
   }
 
   //Input the _f[i][j] scattering data
-  double s_scatt=0.0 ; 
-  if (solution == 3) 
-    s_scatt=-3.92637; 
-  else if (solution == 1) 
+  double s_scatt=0.0 ;
+  if (solution == 3)
+    s_scatt=-3.92637;
+  else if (solution == 1)
     s_scatt= -5.0 ;
-  else if (solution == 2) 
-    s_scatt= -5.0 ; 
+  else if (solution == 2)
+    s_scatt= -5.0 ;
   double sa=1.0;
   double sa_0=-0.15;
   if (solution == 3) {
@@ -723,7 +719,7 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
     f[0][2]=-0.35445;
     f[0][3]=0.31596;
     f[0][4]=0.42483;
-  }   
+  }
   f[1][0]=f[0][1];
   f[2][0]=f[0][2];
   f[3][0]=f[0][3];
@@ -735,7 +731,7 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
   if( rho1sq >= 0 )
     rho[ 0 ] = EvtComplex( sqrt( rho1sq ), 0 );
   else
-    rho[ 0 ] = EvtComplex( 0, sqrt( -rho1sq ) );  
+    rho[ 0 ] = EvtComplex( 0, sqrt( -rho1sq ) );
 
   rho2sq = 1. - pow( mK + mK, 2 ) / s;
   if( rho2sq >= 0 )
@@ -775,8 +771,8 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
 
   //now sum all the pole
   //equation (3) in the E791 K-matrix paper
-  for(int i=0;i<5;i++) { 
-    for(int j=0;j<5;j++) {  
+  for(int i=0;i<5;i++) {
+    for(int j=0;j<5;j++) {
       for (int pole_index=0;pole_index<5;pole_index++) {
 	double A=g[pole_index][i]*g[pole_index][j];
 	double B=ma[pole_index]*ma[pole_index]-s;
@@ -790,7 +786,7 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
   }
 
   //now add the SVT part
-  for(int i=0;i<5;i++) { 
+  for(int i=0;i<5;i++) {
     for(int j=0;j<5;j++) {
       double C=f[i][j]*(1.0-s_scatt);
       double D=(s-s_scatt);
@@ -800,10 +796,10 @@ EvtComplex EvtDalitzReso::Fvector( double s, int index )
 
   //Fix the bug in the FOCUS paper
   //Include the Alder zero term:
-  for(int i=0;i<5;i++) { 
+  for(int i=0;i<5;i++) {
     for(int j=0;j<5;j++) {
       double E=(s-(sa*mpi*mpi*0.5))*(1.0-sa_0);
-      double F=(s-sa_0);    
+      double F=(s-sa_0);
       K[ i ][ j ] *= EvtComplex(E/F,0);
     }
   }
@@ -895,7 +891,7 @@ EvtComplex EvtDalitzReso::flatte(const double& m) {
     double g = (*param).g();
     w += (g*g*sqrtCplx((1-((m1-m2)*(m1-m2))/(m*m))*(1-((m1+m2)*(m1+m2))/(m*m))));
   }
-  
+
   EvtComplex denom = _m0*_m0 - m*m - EvtComplex(0,1)*w;
 
   return EvtComplex(1.0,0.0)/denom;

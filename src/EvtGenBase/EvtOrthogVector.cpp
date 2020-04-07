@@ -1,18 +1,18 @@
 //--------------------------------------------------------------------------
-// 
-// Environment: 
-// This software is part of the EvtGen package developed jointly 
-// for the BaBar and CLEO collaborations.  If you use all or part 
+//
+// Environment:
+// This software is part of the EvtGen package developed jointly
+// for the BaBar and CLEO collaborations.  If you use all or part
 // of it, please give an appropriate acknowledgement.
-// 
-// Copyright Information: See EvtGen/COPYRIGHT 
+//
+// Copyright Information: See EvtGen/COPYRIGHT
 // Copyright (C) 2000 Caltech, LLNL
-// 
+//
 // Module: EvtGen/EvtOrthogVector.hh
-// 
+//
 // Description:
-// 
-// Modification history: 
+//
+// Modification history:
 //
 // Lange August 11, 2000 Created
 //
@@ -33,7 +33,7 @@ EvtOrthogVector::EvtOrthogVector(int n, std::vector<double> *vectors){
   _holder.resize(n);
 
   std::vector<int> temp;
-  
+
   int i;
   for (i=0;i<n;i++) {
     _orthogVector.push_back(0.);
@@ -44,10 +44,8 @@ EvtOrthogVector::EvtOrthogVector(int n, std::vector<double> *vectors){
 
 }
 
-EvtOrthogVector::~EvtOrthogVector(){
-}
 
-void EvtOrthogVector::findOrthog(int dim, std::vector<int> invect, 
+void EvtOrthogVector::findOrthog(int dim, std::vector<int> invect,
 			    std::vector<double> *vectors) {
 
 
@@ -64,10 +62,10 @@ void EvtOrthogVector::findOrthog(int dim, std::vector<int> invect,
       addition*=sign;
       _orthogVector[_holder[0]]+=addition;
     }
-    
+
     _holder[0]=invect[1];
     _holder[1]=invect[0];
-    
+
     {
       double addition=1;
       int i;
@@ -77,7 +75,7 @@ void EvtOrthogVector::findOrthog(int dim, std::vector<int> invect,
       addition*=sign;
       _orthogVector[_holder[0]]-=addition;
     }
-    
+
     return;
   }
   else{
@@ -93,10 +91,10 @@ void EvtOrthogVector::findOrthog(int dim, std::vector<int> invect,
 
       int j;
       for (j=0; j<(dim-1); j++) tempDim[j]=temp[j+i];
-      findOrthog(dim-1, tempDim, vectors); 
+      findOrthog(dim-1, tempDim, vectors);
     }
   }
- 
+
   return;
 }
 
@@ -122,7 +120,7 @@ int EvtOrthogVector::findEvenOddSwaps() {
   nSwap-= (nSwap/2)*2;
 
   if ( nSwap ) return -1;
-  
+
   return 1;
 
 }

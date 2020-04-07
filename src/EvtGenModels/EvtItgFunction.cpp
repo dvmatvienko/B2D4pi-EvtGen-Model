@@ -39,14 +39,6 @@ EvtItgFunction::EvtItgFunction( double (*theFunction)(double), double lowerRange
 {}
 
 
-//--------------
-// Destructor --
-//--------------
-
-EvtItgFunction::~EvtItgFunction( )
-{}
-
-
 double
 EvtItgFunction::myFunction(double x) const{
   return _myFunction(x);

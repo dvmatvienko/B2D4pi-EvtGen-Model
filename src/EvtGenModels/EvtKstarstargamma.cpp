@@ -17,7 +17,7 @@
 //    Ryd       November 15, 2002       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -36,12 +36,10 @@
 #include "EvtGenBase/EvtPropBreitWignerRel.hh"
 #include "EvtGenBase/EvtTwoBodyVertex.hh"
 
-EvtKstarstargamma::~EvtKstarstargamma() {}
-
 std::string EvtKstarstargamma::getName(){
 
-  return "KSTARSTARGAMMA"; 
-    
+  return "KSTARSTARGAMMA";
+
 }
 
 
@@ -70,7 +68,7 @@ void EvtKstarstargamma::initProbMax() {
 
   //setProbMax(1.0);
 
-}      
+}
 
 void EvtKstarstargamma::decay( EvtParticle * /*p*/){
 
@@ -86,11 +84,11 @@ void EvtKstarstargamma::decay( EvtParticle * /*p*/){
 
 
   EvtComplexPtrPtr Hd1=new EvtComplexPtr[5];
-  Hd1[0]=new EvtComplex[2]; 
-  Hd1[1]=new EvtComplex[2]; 
-  Hd1[2]=new EvtComplex[2]; 
-  Hd1[3]=new EvtComplex[2]; 
-  Hd1[4]=new EvtComplex[2]; 
+  Hd1[0]=new EvtComplex[2];
+  Hd1[1]=new EvtComplex[2];
+  Hd1[2]=new EvtComplex[2];
+  Hd1[3]=new EvtComplex[2];
+  Hd1[4]=new EvtComplex[2];
 
   Hd1[0][0]=0.0;
   Hd1[0][1]=0.0;
@@ -126,23 +124,23 @@ void EvtKstarstargamma::decay( EvtParticle * /*p*/){
   d1.evalAmp(&theB,amp1);
 
   EvtComplexPtrPtr Hd2=new EvtComplexPtr[1];
-  Hd2[0]=new EvtComplex[1]; 
+  Hd2[0]=new EvtComplex[1];
 
   Hd2[0][0]=1.0;
 
 
   EvtEvalHelAmp d2(EvtSpinType::TENSOR,EvtSpinType::SCALAR,
 		   EvtSpinType::SCALAR,Hd2);
-  
-  
+
+
   EvtVector4R theKstarP4boost(theKstarP4.get(0),-theKstarP4.get(1),-theKstarP4.get(2),-theKstarP4.get(3));
-  
+
   EvtScalarParticle theKaon;
   theKaon.init(EvtPDL::getId(std::string("K+")),boostTo(kaon->getP4(),theKstarP4boost));
 
   EvtScalarParticle thePion;
   thePion.init(EvtPDL::getId(std::string("pi+")),boostTo(pion->getP4(),theKstarP4boost));
-  	    
+
   theKaon.addDaug(&theKstar);
   thePion.addDaug(&theKstar);
 
@@ -177,7 +175,7 @@ void EvtKstarstargamma::decay( EvtParticle * /*p*/){
            amp1._amp[9]*amp2._amp[4]));
 
 */
-	   
+
   return;
 }
 

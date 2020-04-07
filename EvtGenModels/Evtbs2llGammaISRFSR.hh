@@ -35,12 +35,12 @@ public:
   Evtbs2llGammaISRFSR() {}
   virtual ~Evtbs2llGammaISRFSR();
 
-  virtual std::string getName();
-  virtual EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual void init();
-  virtual void initProbMax();
-  virtual void decay(EvtParticle *p);
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *p) override;
 
 private:
   Evtbs2llGammaFF *_mntffmodel;

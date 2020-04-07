@@ -17,7 +17,7 @@
 //    RYD     November 24, 1996        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include <string>
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtGoityRoberts::~EvtGoityRoberts() {}
-
 std::string EvtGoityRoberts::getName(){
 
-  return "GOITY_ROBERTS";     
+  return "GOITY_ROBERTS";
 
 }
 
@@ -62,7 +60,7 @@ void EvtGoityRoberts::init(){
 void EvtGoityRoberts::initProbMax() {
 
    setProbMax( 3000.0);
-}      
+}
 
 void EvtGoityRoberts::decay( EvtParticle *p){
 
@@ -107,7 +105,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   static EvtId MUP=EvtPDL::getId("mu+");
 
   EvtParticle *dstar, *pion, *lepton, *neutrino;
-  
+
   // pb->makeDaughters(getNDaug(),getDaugs());
   dstar=pb->getDaug(0);
   pion=pb->getDaug(1);
@@ -115,10 +113,10 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   neutrino=pb->getDaug(3);
 
   EvtVector4C l1, l2, et0, et1, et2;
-  
+
   EvtVector4R v,vp,p4_pi;
   double w;
-  
+
   v.set(1.0,0.0,0.0,0.0);       //4-velocity of B meson
   vp=(1.0/dstar->getP4().mass())*dstar->getP4();  //4-velocity of D*
   p4_pi=pion->getP4();
@@ -141,10 +139,10 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   double alpha2 = -0.140;
   double f0 = 0.093;      // The pion decay constants set to 93 MeV
 
-  EvtComplex dmt3(0.563,-0.5*0.191); // Mass splitting = dmt - iGamma/2  
+  EvtComplex dmt3(0.563,-0.5*0.191); // Mass splitting = dmt - iGamma/2
   EvtComplex dmt1(0.392,-0.5*1.040);
   EvtComplex dmt2(0.709,-0.5*0.405);
-                   
+
   double betas=0.285;      // magic number for meson wave function ground state
   double betap=0.280;      // magic number for meson wave function state "1"
   double betad=0.260;      // magic number for meson wave function state "2"
@@ -190,7 +188,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
 
   knr = (g*xi/(2*f0))*((p4_pi*(vp-w*v))/(EvtComplex(p4_pi*v,0.0)+dmb) +
                  EvtComplex((p4_pi*(v-w*vp))/(p4_pi*vp),0.0));
-  
+
   g1nr = EvtComplex(0.0);
   g2nr = EvtComplex(0.0);
   g3nr = EvtComplex(0.0);
@@ -201,7 +199,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   h1r = -alpha1*rho1*(p4_pi*v)/(f0*mb*md*(EvtComplex(p4_pi*v,0.0)+dmt1)) +
         alpha2*rho2*(p4_pi*(v+2.0*w*v-vp))
         /(3*f0*mb*md*(EvtComplex(p4_pi*v,0.0)+dmt2)) -
-        alpha3*xi1*(p4_pi*v)/(f0*mb*md*EvtComplex(p4_pi*v,0.0)+dmt3); 
+        alpha3*xi1*(p4_pi*v)/(f0*mb*md*EvtComplex(p4_pi*v,0.0)+dmt3);
   h2r = -alpha2*(1+w)*rho2/(3*f0*mb*(EvtComplex(p4_pi*v,0.0)+dmt2)) -
         alpha3*xi1/(f0*mb*(EvtComplex(p4_pi*v,0.0)+dmt3));
   h3r = alpha2*rho2*(1+w)/(3*f0*md*(EvtComplex(p4_pi*v,0.0)+dmt2)) -
@@ -223,7 +221,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
        alpha2*rho2*(w-1.0)*(p4_pi*(vp-w*v))
        /(3*f0*(EvtComplex(p4_pi*v,0.0)+dmt2)) +
        alpha3*xi1*(p4_pi*(vp-w*v))/(2*f0*(EvtComplex(p4_pi*v,0.0)+dmt3));
-  
+
   g1r = EvtComplex(0.0);
   g2r = EvtComplex(0.0);
   g3r = -g2r;
@@ -243,7 +241,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   f6 = f6nr + f6r;
 
   k = knr+kr;
-  
+
   g1 = g1nr + g1r;
   g2 = g2nr + g2r;
   g3 = g3nr + g3r;
@@ -253,7 +251,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
   EvtTensor4C g_metric;
   g_metric.setdiag(1.0,-1.0,-1.0,-1.0);
 
-  if (nlep==EM||nlep==MUM){ 
+  if (nlep==EM||nlep==MUM){
     omega=EvtComplex(0.0,0.5)*dual(h1*mb*md*EvtGenFunctions::directProd(v,vp)+
                              h2*mb*EvtGenFunctions::directProd(v,p4_pi)+
                              h3*md*EvtGenFunctions::directProd(vp,p4_pi))+
@@ -269,7 +267,7 @@ void EvtGoityRoberts::DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
    l2=EvtLeptonVACurrent(lepton->spParent(1),neutrino->spParentNeutrino());
   }
   else{
-    if (nlep==EP||nlep==MUP){ 
+    if (nlep==EP||nlep==MUP){
       omega=EvtComplex(0.0,-0.5)*dual(h1*mb*md*EvtGenFunctions::directProd(v,vp)+
                              h2*mb*EvtGenFunctions::directProd(v,p4_pi)+
                                       h3*md*EvtGenFunctions::directProd(vp,p4_pi))+
@@ -325,15 +323,15 @@ void EvtGoityRoberts::DecayBDpilnuGR(EvtParticle *pb,EvtId nd,
   neutrino=pb->getDaug(3);
 
   EvtVector4C l1, l2, et0, et1, et2;
- 
+
   EvtVector4R v,vp,p4_pi;
   double w;
-  
+
   v.set(1.0,0.0,0.0,0.0);       //4-velocity of B meson
   vp=(1.0/d->getP4().mass())*d->getP4();  //4-velocity of D
   p4_pi=pion->getP4();                  //4-momentum of pion
   w=v*vp;                       //four velocity transfer.
-  
+
   double mb=EvtPDL::getMeanMass(pb->getId());     //B mass
   double md=EvtPDL::getMeanMass(nd);   //D* mass
   EvtComplex dmb(0.0460,-0.5*0.00001);   //B mass splitting ?
@@ -347,10 +345,10 @@ void EvtGoityRoberts::DecayBDpilnuGR(EvtParticle *pb,EvtId nd,
   double alpha2 = -0.140;
   double f0=0.093;        // The pion decay constant set to 93 MeV
 
-  EvtComplex dmt3(0.563,-0.5*0.191); // Mass splitting = dmt - iGamma/2  
+  EvtComplex dmt3(0.563,-0.5*0.191); // Mass splitting = dmt - iGamma/2
   EvtComplex dmt1(0.392,-0.5*1.040);
   EvtComplex dmt2(0.709,-0.5*0.405);
-                   
+
   double betas=0.285;      // magic number for meson wave function ground state
   double betap=0.280;      // magic number for meson wave function state "1"
   double betad=0.260;      // magic number for meson wave function state "2"

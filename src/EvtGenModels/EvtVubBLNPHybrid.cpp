@@ -33,21 +33,6 @@
 using std::cout;
 using std::endl;
 
-EvtVubBLNPHybrid::EvtVubBLNPHybrid() 
-  : _noHybrid(false), _storeWhat(true),
-    _nbins_mX(0), _nbins_q2(0), _nbins_El(0), _nbins(0),
-    _masscut(0.28), _bins_mX(0), _bins_q2(0), _bins_El(0),
-    _weights(0)
-{}
-
-
-EvtVubBLNPHybrid::~EvtVubBLNPHybrid() {
-  delete [] _bins_mX;
-  delete [] _bins_q2;
-  delete [] _bins_El;
-  delete [] _weights;
-}
-
 std::string EvtVubBLNPHybrid::getName(){
   return "VUB_BLNPHYBRID";
 }
@@ -59,30 +44,30 @@ EvtDecayBase *EvtVubBLNPHybrid::clone() {
 }
 
 void EvtVubBLNPHybrid::init() {
-  
+
   // check that there are at least 3 arguments
   if (getNArg() < EvtVubBLNPHybrid::nParameters) {
     EvtGenReport(EVTGEN_ERROR,"EvtVubBLNPHybrid") << "EvtVubBLNPHybrid generator expected "
 				     << "at least " << EvtVubBLNPHybrid::nParameters
 				     << " arguments but found: " << getNArg()
 				     << "\nWill terminate execution!"<<endl;
-    ::abort(); 
+    ::abort();
   } else if (getNArg() == EvtVubBLNPHybrid::nParameters) {
-    EvtGenReport(EVTGEN_WARNING,"EvtVubBLNPHybrid") << "EvtVubBLNPHybrid: generate B -> Xu l nu events " 
-				   << "without using the hybrid reweighting." 
+    EvtGenReport(EVTGEN_WARNING,"EvtVubBLNPHybrid") << "EvtVubBLNPHybrid: generate B -> Xu l nu events "
+				   << "without using the hybrid reweighting."
 				   << endl;
     _noHybrid = true;
   } else if (getNArg() < EvtVubBLNPHybrid::nParameters+EvtVubBLNPHybrid::nVariables) {
     EvtGenReport(EVTGEN_ERROR,"EvtVubBLNPHybrid") << "EvtVubBLNPHybrid could not read number of bins for "
 				     << "all variables used in the reweighting\n"
 				     << "Will terminate execution!" << endl;
-    ::abort();    
+    ::abort();
   }
-  
 
-  
+
+
   // get parameters (declared in the header file)
-  
+
   // Input parameters
   mBB = 5.2792;
   lambda2 = 0.12;
@@ -107,7 +92,7 @@ void EvtVubBLNPHybrid::init() {
   mb = 4.61;
 
 
-  // hidden parameter what and SF stuff   
+  // hidden parameter what and SF stuff
   const double xlow = 0;
   const double xhigh = mBB;
   const int aSize = 10000;
@@ -123,7 +108,7 @@ void EvtVubBLNPHybrid::init() {
   }
   for (size_t i=0; i<_pf.size(); i++) {
     _pf[i]/=_pf[_pf.size()-1];
-  }  
+  }
 
 
 
@@ -187,49 +172,35 @@ void EvtVubBLNPHybrid::init() {
   checkNDaug(3);
   // A. Volk: check for number of arguments is not necessary
   //checkNArg(10);
-  
+
   if (_noHybrid) return;	// Without hybrid weighting, nothing else to do
- 
-  _nbins_mX = abs((int)getArg(10));
-  _nbins_q2 = abs((int)getArg(11));
-  _nbins_El = abs((int)getArg(12));
+
+  _bins_mX  = std::vector<double>(abs((int)getArg(10)));
+  _bins_q2  = std::vector<double>(abs((int)getArg(11)));
+  _bins_El  = std::vector<double>(abs((int)getArg(12)));
 
   int nextArg = EvtVubBLNPHybrid::nParameters + EvtVubBLNPHybrid::nVariables;
 
-  _nbins = _nbins_mX*_nbins_q2*_nbins_El;	// Binning of weight table
+  _nbins = _bins_mX.size()*_bins_q2.size()*_bins_El.size();	// Binning of weight table
 
-  int expectArgs = nextArg + _nbins_mX +_nbins_q2 + _nbins_El + _nbins;
-  
+  int expectArgs = nextArg + _bins_mX.size() +_bins_q2.size() + _bins_El.size() + _nbins;
+
   if (getNArg() < expectArgs) {
     EvtGenReport(EVTGEN_ERROR,"EvtVubBLNPHybrid")
       << " finds " << getNArg() << " arguments, expected " << expectArgs
       << ".  Something is wrong with the tables of weights or thresholds."
       << "\nWill terminate execution!" << endl;
-    ::abort();        
+    ::abort();
   }
 
   // read bin boundaries from decay.dec
-  int i;
-
-  _bins_mX  = new double[_nbins_mX];
-  for (i = 0; i < _nbins_mX; i++,nextArg++) {
-    _bins_mX[i] = getArg(nextArg);
-  }
+  for (auto& b : _bins_mX) b = getArg(nextArg++);
   _masscut = _bins_mX[0];
-  
-  _bins_q2  = new double[_nbins_q2];
-  for (i = 0; i < _nbins_q2; i++,nextArg++) {
-    _bins_q2[i] = getArg(nextArg);    
-  }
-  
-  _bins_El  = new double[_nbins_El];
-  for (i = 0; i < _nbins_El; i++,nextArg++) {
-    _bins_El[i] = getArg(nextArg);    
-  }
-  
+  for (auto& b : _bins_q2) b = getArg(nextArg++);
+  for (auto &b : _bins_El) b = getArg(nextArg++);
+
   // read in weights (and rescale to range 0..1)
-  readWeights(nextArg); 
-  
+  readWeights(nextArg);
 }
 
 void EvtVubBLNPHybrid::initProbMax() {
@@ -239,22 +210,22 @@ void EvtVubBLNPHybrid::initProbMax() {
 void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
 
   int j;
-  
-  EvtParticle *xuhad(0), *lepton(0), *neutrino(0);
+
+  EvtParticle *xuhad(nullptr), *lepton(nullptr), *neutrino(nullptr);
   EvtVector4R p4;
   double EX(0.), sh(0.), El(0.), ml(0.);
   double Pp, Pm, Pl, pdf, qsq, mpi, ratemax;
-  
+
 
   double xhigh, xlow, what;
   double mX;
- 
-  
+
+
   bool rew(true);
   while(rew){
 
     Bmeson->initializePhaseSpace(getNDaug(), getDaugs());
-    
+
     xuhad = Bmeson->getDaug(0);
     lepton = Bmeson->getDaug(1);
     neutrino = Bmeson ->getDaug(2);
@@ -262,25 +233,25 @@ void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
     mBB = Bmeson->mass();
     ml = lepton->mass();
 
-  
-  
-    //  get SF value 
+
+
+    //  get SF value
     xlow = 0;
-    xhigh = mBB;    
-    // the case for alphas = 0 is not considered 
+    xhigh = mBB;
+    // the case for alphas = 0 is not considered
     what = 2*xhigh;
     while( what > xhigh || what < xlow ) {
-      what = findBLNPWhat(); 
+      what = findBLNPWhat();
       what = xlow + what*(xhigh-xlow);
     }
-  
-  
-  
+
+
+
     bool tryit = true;
-  
+
     while (tryit) {
-      
-      // generate pp between 0 and 
+
+      // generate pp between 0 and
       // Flat(min, max) gives R(max - min) + min, where R = random btwn 0 and 1
 
       Pp = EvtRandom::Flat(0, mBB); // P+ = EX - |PX|
@@ -291,74 +262,73 @@ void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
       EX = 0.5*(Pm + Pp);
       qsq = (mBB - Pp)*(mBB - Pm);
       El = 0.5*(mBB - Pl);
-      
-      // Need maximum rate.  Waiting for Mr. Paz to give it to me. 
+
+      // Need maximum rate.  Waiting for Mr. Paz to give it to me.
       // Meanwhile, use this.
       ratemax = 3.0;  // From trial and error - most events below 3.0
 
       // kinematic bounds (Eq. 2)
       mpi = 0.14;
       if ((Pp > 0)&&(Pp <= Pl)&&(Pl <= Pm)&&(Pm < mBB)&&(El > ml)&&(sh > 4*mpi*mpi)) {
-	
-	// Probability of pass proportional to PDF
-	pdf = rate3(Pp, Pl, Pm);
-	double testRan = EvtRandom::Flat(0., ratemax);
-	if (pdf >= testRan) tryit = false;
+
+        // Probability of pass proportional to PDF
+        pdf = rate3(Pp, Pl, Pm);
+        double testRan = EvtRandom::Flat(0., ratemax);
+        if (pdf >= testRan) tryit = false;
       }
     }
-    
+
     // compute all kinematic variables needed for reweighting
     mX = sqrt(sh);
-    
-    // Reweighting in bins of mX, q2, El 
+
+    // Reweighting in bins of mX, q2, El
     if (_nbins>0) {
       double xran1 = EvtRandom::Flat();
       double w = 1.0;
-      if (!_noHybrid) w = getWeight(mX, qsq, El); 
+      if (!_noHybrid) w = getWeight(mX, qsq, El);
       if ( w >= xran1 ) rew = false;
-    } 
-    else {
+    } else {
       rew = false;
     }
   }
-  // o.k. we have the three kineamtic variables 
-  // now calculate a flat cos Theta_H [-1,1] distribution of the 
-  // hadron flight direction w.r.t the B flight direction 
+  // o.k. we have the three kineamtic variables
+  // now calculate a flat cos Theta_H [-1,1] distribution of the
+  // hadron flight direction w.r.t the B flight direction
   // because the B is a scalar and should decay isotropic.
-  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction 
-  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the 
+  // Then chose a flat Phi_H [0,2Pi] w.r.t the B flight direction
+  // and and a flat Phi_L [0,2Pi] in the W restframe w.r.t the
   // W flight direction.
-  
+
   double ctH = EvtRandom::Flat(-1,1);
   double phH = EvtRandom::Flat(0,2*M_PI);
   double phL = EvtRandom::Flat(0,2*M_PI);
 
   // now compute the four vectors in the B Meson restframe
-    
+
   double ptmp,sttmp;
   // calculate the hadron 4 vector in the B Meson restframe
-  
+
   sttmp = sqrt(1-ctH*ctH);
   ptmp = sqrt(EX*EX-sh);
   double pHB[4] = {EX,ptmp*sttmp*cos(phH),ptmp*sttmp*sin(phH),ptmp*ctH};
   p4.set(pHB[0],pHB[1],pHB[2],pHB[3]);
   xuhad->init( getDaug(0), p4);
-  
+
 
   if (_storeWhat ) {
-    // cludge to store the hidden parameter what with the decay; 
+    // cludge to store the hidden parameter what with the decay;
     // the lifetime of the Xu is abused for this purpose.
     // tau = 1 ps corresponds to ctau = 0.3 mm -> in order to
     // stay well below BaBars sensitivity we take what/(10000 GeV).
     // To extract what back from the StdHepTrk its necessary to get
     // delta_ctau = Xu->decayVtx()->point().distanceTo(XuDaughter->decayVtx()->point());
     //
-    // what = delta_ctau * 100000 * Mass_Xu/Momentum_Xu     
+    // what = delta_ctau * 100000 * Mass_Xu/Momentum_Xu
     //
     xuhad->setLifetime(what/10000.);
   }
-  
-  
+
+
   // calculate the W 4 vector in the B Meson restrframe
 
   double apWB = ptmp;
@@ -372,7 +342,7 @@ void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
   double gamma = pWB[0]/sqrt(mW2);
 
   double pLW[4];
-    
+
   ptmp = (mW2-ml*ml)/2/sqrt(mW2);
   pLW[0] = sqrt(ml*ml + ptmp*ptmp);
 
@@ -385,37 +355,35 @@ void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
   double xW[3] = {-pWB[2],pWB[1],0};
   // eZ' = eW
   double zW[3] = {pWB[1]/apWB,pWB[2]/apWB,pWB[3]/apWB};
-  
+
   double lx = sqrt(xW[0]*xW[0]+xW[1]*xW[1]);
-  for (j=0;j<2;j++) 
-    xW[j] /= lx;
+  for (j=0;j<2;j++) xW[j] /= lx;
 
   // eY' = eZ' x eX'
   double yW[3] = {-pWB[1]*pWB[3],-pWB[2]*pWB[3],pWB[1]*pWB[1]+pWB[2]*pWB[2]};
   double ly = sqrt(yW[0]*yW[0]+yW[1]*yW[1]+yW[2]*yW[2]);
-  for (j=0;j<3;j++) 
-    yW[j] /= ly;
+  for (j=0;j<3;j++) yW[j] /= ly;
 
   // p_lep = |p_lep| * (  sin(Theta) * cos(Phi) * eX'
   //                    + sin(Theta) * sin(Phi) * eY'
   //                    + cos(Theta) *            eZ')
   for (j=0;j<3;j++)
-    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j] 
+    pLW[j+1] = sttmp*cos(phL)*ptmp*xW[j]
       +        sttmp*sin(phL)*ptmp*yW[j]
       +          ctL         *ptmp*zW[j];
 
   double apLW = ptmp;
-    
+
   // boost them back in the B Meson restframe
-  
+
   double appLB = beta*gamma*pLW[0] + gamma*ctL*apLW;
- 
+
   ptmp = sqrt(El*El-ml*ml);
   double ctLL = appLB/ptmp;
 
   if ( ctLL >  1 ) ctLL =  1;
   if ( ctLL < -1 ) ctLL = -1;
-    
+
   double pLB[4] = {El,0,0,0};
   double pNB[4] = {pWB[0]-El,0,0,0};
 
@@ -429,9 +397,6 @@ void EvtVubBLNPHybrid::decay(EvtParticle *Bmeson) {
 
   p4.set(pNB[0],pNB[1],pNB[2],pNB[3]);
   neutrino->init( getDaug(2), p4);
-
-  return ;
-
 }
 
 double EvtVubBLNPHybrid::rate3(double Pp, double Pl, double Pm) {
@@ -495,7 +460,7 @@ double EvtVubBLNPHybrid::F1(double Pp, double Pm, double muh, double mui, double
 }
 
 double EvtVubBLNPHybrid::F2(double Pp, double Pm, double muh, double /* mui */, double mubar, double done3) {
-  
+
   std::vector<double> vars(12);
   vars[0] = Pp;
   vars[1] = Pm;
@@ -522,7 +487,7 @@ double EvtVubBLNPHybrid::F3(double Pp, double Pm, double /*muh*/, double /* mui 
   vars[0] = Pp;
   vars[1] = Pm;
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
-  
+
   double y = (Pm - Pp)/(mBB - Pp);
   double lambda1 = -mupisq;
   double abar = CF*alphas(mubar, vars)/4/M_PI;
@@ -542,16 +507,13 @@ double EvtVubBLNPHybrid::DoneJS(double Pp, double Pm, double /* mui */) {
   vars[0] = Pp;
   vars[1] = Pm;
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
-  
+
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&IntJS, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&IntJS, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -565,12 +527,9 @@ double EvtVubBLNPHybrid::Done1(double Pp, double Pm, double /* mui */) {
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int1, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int1, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -584,12 +543,9 @@ double EvtVubBLNPHybrid::Done2(double Pp, double Pm, double /* mui */ ) {
   double lowerlim = 0.001*Pp;
   double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int2, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int2, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -601,14 +557,11 @@ double EvtVubBLNPHybrid::Done3(double Pp, double Pm, double /* mui */) {
   for (int j=2;j<12;j++) {vars[j] = gvars[j];}
 
   double lowerlim = 0.001*Pp;
-  double upperlim = (1.0-0.001)*Pp;  
+  double upperlim = (1.0-0.001)*Pp;
 
-  EvtItgPtrFunction *func = new EvtItgPtrFunction(&Int3, lowerlim, upperlim, vars);
-  EvtItgSimpsonIntegrator *integ = new EvtItgSimpsonIntegrator(*func, precision, maxLoop);
-  double myintegral = integ->evaluate(lowerlim, upperlim);
-  delete integ;
-  delete func;
-  return myintegral;
+  auto func = EvtItgPtrFunction{&Int3, lowerlim, upperlim, vars};
+  auto integ = EvtItgSimpsonIntegrator{func, precision, maxLoop};
+  return integ.evaluate(lowerlim, upperlim);
 
 }
 
@@ -625,14 +578,14 @@ double EvtVubBLNPHybrid::Int3(double what, const std::vector<double> &vars) {
 }
 
 double EvtVubBLNPHybrid::IntJS(double what, const std::vector<double> &vars) {
-  
+
   double Pp = vars[0];
   double Pm = vars[1];
   double mui = vars[2];
   double mBB = vars[5];
   double mb = vars[6];
   double y = (Pm - Pp)/(mBB - Pp);
-  
+
   return 1/(Pp-what)*(Shat(what, vars) - Shat(Pp, vars))*(4*log(y*mb*(Pp-what)/(mui*mui)) - 3);
 }
 
@@ -810,7 +763,7 @@ double EvtVubBLNPHybrid::myfunctionBIK(double w, double Lbar, double /* mom2 */)
 
 }
 
-double EvtVubBLNPHybrid::dU1nlo(double muh, double mui) { 
+double EvtVubBLNPHybrid::dU1nlo(double muh, double mui) {
 
   double ai = alphas(mui, gvars);
   double ah = alphas(muh, gvars);
@@ -821,7 +774,7 @@ double EvtVubBLNPHybrid::dU1nlo(double muh, double mui) {
   double q4 = beta1*beta1*Gamma0*(-1.0 + ai/ah)/(4*pow(beta0,3));
   double q5 = -beta2*Gamma0*(1.0 + ai/ah) + beta1*Gamma1*(3 - ai/ah);
   double q6 = beta1*beta1*Gamma0*(ah - ai)/beta0 - beta2*Gamma0*ah + beta1*Gamma1*ai;
-  
+
   double answer = q1*(q2 - q3/4/beta0 + q4 + q5/(4*beta0*beta0)) + 1/(8*M_PI*beta0*beta0*beta0)*log(ai/ah)*q6;
   return answer;
 }
@@ -869,7 +822,7 @@ double EvtVubBLNPHybrid::aGamma(double mu1, double mu2, double epsilon) {
   return answer;
 }
 
-double EvtVubBLNPHybrid::agp(double mu1, double mu2, double epsilon) { 
+double EvtVubBLNPHybrid::agp(double mu1, double mu2, double epsilon) {
   double a1 = alphas(mu1, gvars);
   double a2 = alphas(mu2, gvars);
   double answer = gp0/(2*beta0)*log(a2/a1) + epsilon*(a2-a1)/(8.0*M_PI)*(gp1/beta0 - beta1*gp0/(beta0*beta0));
@@ -894,12 +847,12 @@ double EvtVubBLNPHybrid::alphas(double mu, const std::vector<double> &vars) {
   double beta0 = vars[8];
   double beta1 = vars[9];
   double beta2 = vars[10];
-  
+
   double Lambda4 = 0.298791;
   double lg = 2*log(mu/Lambda4);
   double answer = 4*M_PI/(beta0*lg)*( 1 - beta1*log(lg)/(beta0*beta0*lg) + beta1*beta1/(beta0*beta0*beta0*beta0*lg*lg)*( (log(lg) - 0.5)*(log(lg) - 0.5) - 5.0/4.0 + beta2*beta0/(beta1*beta1)));
   return answer;
-    
+
 }
 
 double EvtVubBLNPHybrid::PolyLog(double v, double z) {
@@ -907,7 +860,7 @@ double EvtVubBLNPHybrid::PolyLog(double v, double z) {
   if (z >= 1) cout << "Error in EvtVubBLNPHybrid: 2nd argument to PolyLog is >= 1." << endl;
 
   double sum = 0.0;
-  for (int k=1; k<101; k++) { 
+  for (int k=1; k<101; k++) {
     sum = sum + pow(z,k)/pow(k,v);
   }
   return sum;
@@ -928,15 +881,15 @@ double EvtVubBLNPHybrid::Gamma(double a, double x)
     if(x<0.0) x=0.0;
     if(a<=0.0)a=1.e-50;
     LogGamma = lgamma(a);
-    if (x < (a+1.0)) 
+    if (x < (a+1.0))
         return gamser(a,x,LogGamma);
-    else 
+    else
         return 1.0-gammcf(a,x,LogGamma);
 }
 
 /* ------------------Incomplete gamma function-----------------*/
 /* ------------------via its series representation-------------*/
-              
+
 double EvtVubBLNPHybrid::gamser(double a, double x, double LogGamma)
 {
     double n;
@@ -953,13 +906,13 @@ double EvtVubBLNPHybrid::gamser(double a, double x, double LogGamma)
     raise(SIGFPE);
 
     return 0.0;
-}        
+}
 
 /* ------------------Incomplete gamma function complement------*/
 /* ------------------via its continued fraction representation-*/
 
 double EvtVubBLNPHybrid::gammcf(double a, double x, double LogGamma) {
-  
+
     double an,b,c,d,del,h;
     int i;
 
@@ -977,7 +930,7 @@ double EvtVubBLNPHybrid::gammcf(double a, double x, double LogGamma) {
         d = 1.0/d;
         del=d*c;
         h *= del;
-        if (fabs(del-1.0) < EPS) return exp(-x+a*log(x)-LogGamma)*h;  
+        if (fabs(del-1.0) < EPS) return exp(-x+a*log(x)-LogGamma)*h;
     }
     raise(SIGFPE);
 
@@ -993,7 +946,7 @@ double EvtVubBLNPHybrid::findBLNPWhat() {
   int nBinsBelow = 0;	  // largest k such that I[k] is known to be <= rand
   int nBinsAbove = _pf.size();  // largest k such that I[k] is known to be >  rand
   int middle;
-  
+
   while (nBinsAbove > nBinsBelow+1) {
     middle = (nBinsAbove + nBinsBelow+1)>>1;
     if (ranNum >= _pf[middle]) {
@@ -1001,23 +954,23 @@ double EvtVubBLNPHybrid::findBLNPWhat() {
     } else {
       nBinsAbove = middle;
     }
-  } 
+  }
 
   double bSize = _pf[nBinsAbove] - _pf[nBinsBelow];
-  // binMeasure is always aProbFunc[nBinsBelow], 
-  
-  if ( bSize == 0 ) { 
+  // binMeasure is always aProbFunc[nBinsBelow],
+
+  if ( bSize == 0 ) {
     // rand lies right in a bin of measure 0.  Simply return the center
-    // of the range of that bin.  (Any value between k/N and (k+1)/N is 
+    // of the range of that bin.  (Any value between k/N and (k+1)/N is
     // equally good, in this rare case.)
     return (nBinsBelow + .5) * oOverBins;
   }
-  
+
   double bFract = (ranNum - _pf[nBinsBelow]) / bSize;
-  
+
   return (nBinsBelow + bFract) * oOverBins;
-  
-} 
+
+}
 
 double EvtVubBLNPHybrid::getWeight(double mX, double q2, double El) {
 
@@ -1025,20 +978,20 @@ double EvtVubBLNPHybrid::getWeight(double mX, double q2, double El) {
   int ibin_q2 = -1;
   int ibin_El = -1;
 
-  for (int i = 0; i < _nbins_mX; i++) {
+  for (unsigned i = 0; i < _bins_mX.size(); i++) {
     if (mX >= _bins_mX[i]) ibin_mX = i;
   }
-  for (int i = 0; i < _nbins_q2; i++) {
+  for (unsigned i = 0; i < _bins_q2.size(); i++) {
     if (q2 >= _bins_q2[i]) ibin_q2 = i;
   }
-  for (int i = 0; i < _nbins_El; i++) {
+  for (unsigned i = 0; i < _bins_El.size(); i++) {
     if (El >= _bins_El[i]) ibin_El = i;
   }
-  int ibin = ibin_mX + ibin_q2*_nbins_mX + ibin_El*_nbins_mX*_nbins_q2;
+  int ibin = ibin_mX + ibin_q2*_bins_mX.size() + ibin_El*_bins_mX.size()*_bins_q2.size();
 
   if ( (ibin_mX < 0) || (ibin_q2 < 0) || (ibin_El < 0) ) {
     EvtGenReport(EVTGEN_ERROR,"EvtVubHybrid") << "Cannot determine hybrid weight "
-                                 << "for this event " 
+                                 << "for this event "
 				 << "-> assign weight = 0" << endl;
     return 0.0;
   }
@@ -1048,23 +1001,21 @@ double EvtVubBLNPHybrid::getWeight(double mX, double q2, double El) {
 
 
 void EvtVubBLNPHybrid::readWeights(int startArg) {
-  _weights  = new double[_nbins];
+  _weights.resize(_nbins);
 
   double maxw = 0.0;
-  for (int i = 0; i < _nbins; i++, startArg++) {
-    _weights[i] = getArg(startArg);
-    if (_weights[i] > maxw) maxw = _weights[i];
+  for (auto& w : _weights) {
+    w = getArg(startArg++);
+    if (w > maxw) maxw = w;
   }
 
   if (maxw == 0) {
-    EvtGenReport(EVTGEN_ERROR,"EvtVubBLNPHybrid") << "EvtVub generator expected at least one " 
-				     << " weight > 0, but found none! " 
+    EvtGenReport(EVTGEN_ERROR,"EvtVubBLNPHybrid") << "EvtVub generator expected at least one "
+				     << " weight > 0, but found none! "
 				     << "Will terminate execution!"<<endl;
     ::abort();
   }
 
   // rescale weights (to be in range 0..1)
-  for (int i = 0; i < _nbins; i++) {
-    _weights[i] /= maxw;
-  }
+  for (auto& w : _weights) w /= maxw;
 }

@@ -18,7 +18,7 @@
 //    DJL       April 23, 1998       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -43,11 +43,9 @@
 #include "EvtGenBase/EvtDecayTable.hh"
 #include <string>
 
-EvtPropSLPole::~EvtPropSLPole() {}
-
 std::string EvtPropSLPole::getName(){
 
-  return "PROPSLPOLE";     
+  return "PROPSLPOLE";
 
 }
 
@@ -70,7 +68,7 @@ void EvtPropSLPole::decay( EvtParticle *p ){
      nunum = getDaug(2);
 
      double mymaxprob = calcMaxProb(parnum,mesnum,
-                           lnum,nunum,SLPoleffmodel);
+                           lnum,nunum,SLPoleffmodel.get());
 
      setProbMax(mymaxprob);
 
@@ -83,8 +81,8 @@ void EvtPropSLPole::decay( EvtParticle *p ){
 
   EvtIntervalFlatPdf flat(minKstMass, maxKstMass);
   EvtPdfGen<EvtPoint1D> gen(flat);
-  EvtPoint1D point = gen(); 
- 
+  EvtPoint1D point = gen();
+
   double massKst = point.value();
 
   p->getDaug(0)->setMass(massKst);
@@ -92,11 +90,11 @@ void EvtPropSLPole::decay( EvtParticle *p ){
 
 //  EvtVector4R p4meson = p->getDaug(0)->getP4();
 
-  calcamp->CalcAmp(p,_amp2,SLPoleffmodel); 
+  calcamp->CalcAmp(p,_amp2,SLPoleffmodel.get());
 
   EvtParticle *mesonPart = p->getDaug(0);
-  
-  double meson_BWAmp = calBreitWigner(mesonPart, point);  
+
+  double meson_BWAmp = calBreitWigner(mesonPart, point);
 
   int list[2];
   list[0]=0; list[1]=0;
@@ -113,8 +111,8 @@ void EvtPropSLPole::decay( EvtParticle *p ){
   _amp2.vertex(2,0,_amp2.getAmp(list)*meson_BWAmp);
   list[0]=2; list[1]=1;
   _amp2.vertex(2,1,_amp2.getAmp(list)*meson_BWAmp);
-     
-  
+
+
   return;
 
 }
@@ -129,10 +127,10 @@ void EvtPropSLPole::initProbMax(){
 
 
 void EvtPropSLPole::init(){
-  
+
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -141,16 +139,20 @@ void EvtPropSLPole::init(){
 
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
 
-  SLPoleffmodel = new EvtSLPoleFF(getNArg(),getArgs());
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
-  }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
+  SLPoleffmodel = std::make_unique<EvtSLPoleFF>(getNArg(),getArgs());
+
+  switch(mesontype) {
+  case EvtSpinType::SCALAR:
+    calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
+    break;
+  case EvtSpinType::VECTOR:
+    calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+    break;
+  case EvtSpinType::TENSOR:
+    calcamp = std::make_unique<EvtSemiLeptonicTensorAmp>();
+    break;
+  default:
+    ;
   }
 
 }
@@ -176,10 +178,10 @@ double EvtPropSLPole::calBreitWignerBasic(double maxMass){
 
 double EvtPropSLPole::calBreitWigner(EvtParticle *pmeson, EvtPoint1D point){
 
-  EvtId mesnum = pmeson->getId(); 
-  double _mass = EvtPDL::getMeanMass(mesnum);
-  double _width = EvtPDL::getWidth(mesnum);
-  double _maxRange = EvtPDL::getMaxRange(mesnum);
+  EvtId mesnum = pmeson->getId();
+  _mass = EvtPDL::getMeanMass(mesnum);
+  _width = EvtPDL::getWidth(mesnum);
+  _maxRange = EvtPDL::getMaxRange(mesnum);
   EvtSpinType::spintype mesontype=EvtPDL::getSpinType(mesnum);
   _includeDecayFact=true;
   _includeBirthFact=true;
@@ -332,7 +334,7 @@ double EvtPropSLPole::calBreitWigner(EvtParticle *pmeson, EvtPoint1D point){
   if ( dauMasses) delete [] dauMasses;
 
   return ampVal;
- 
+
 }
 
 
@@ -390,7 +392,7 @@ double EvtPropSLPole::calcMaxProb( EvtId parent, EvtId meson,
     for(int ii=0; ii<decayer->nRealDaughters(); ii++){
       daughter->getDaug(ii)->setMass(EvtPDL::getMeanMass(daughter->getDaug(ii)->getId()));
     }
-  }  
+  }
 
   //cludge to avoid generating random numbers!
   daughter->noLifeTime();

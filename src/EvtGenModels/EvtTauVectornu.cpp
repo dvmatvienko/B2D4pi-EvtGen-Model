@@ -31,11 +31,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtTauVectornu::~EvtTauVectornu() {}
-
 std::string EvtTauVectornu::getName(){
 
-  return "TAUVECTORNU";     
+  return "TAUVECTORNU";
 
 }
 
@@ -53,7 +51,7 @@ void EvtTauVectornu::init(){
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::DIRAC);
-    
+
   checkSpinDaughter(0,EvtSpinType::VECTOR);
   checkSpinDaughter(1,EvtSpinType::NEUTRINO);
 }
@@ -85,14 +83,14 @@ void EvtTauVectornu::decay(EvtParticle *p){
   }
 
   double norm=mvec*sqrt(mvec);
-  
+
   vertex(0,0,norm*tau1*(v->epsParent(0).conj()));
   vertex(0,1,norm*tau1*(v->epsParent(1).conj()));
   vertex(0,2,norm*tau1*(v->epsParent(2).conj()));
   vertex(1,0,norm*tau2*(v->epsParent(0).conj()));
   vertex(1,1,norm*tau2*(v->epsParent(1).conj()));
   vertex(1,2,norm*tau2*(v->epsParent(2).conj()));
-  
+
   return;
 
 }

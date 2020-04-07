@@ -20,7 +20,7 @@
 //    COWAN   June 10, 2009	     Added methods for getting dGamma(s)
 //				     and dm(s) using B(s)0H and B(s)0L.
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtParticle.hh"
@@ -42,9 +42,6 @@ EvtCPUtil::EvtCPUtil(int mixingType) {
   _mixingType = mixingType;
 }
 
-EvtCPUtil::~EvtCPUtil() {
-}
-
 EvtCPUtil* EvtCPUtil::getInstance() {
 
   static EvtCPUtil* theCPUtil = 0;
@@ -57,20 +54,20 @@ EvtCPUtil* EvtCPUtil::getInstance() {
 
 }
 
-//added two functions for finding the fraction of B0 tags for decays into 
+//added two functions for finding the fraction of B0 tags for decays into
 //both CP eigenstates and non-CP eigenstates -- NK, Jan. 27th, 1998
 
-void EvtCPUtil::fractB0CP(EvtComplex Af, EvtComplex Abarf, 
+void EvtCPUtil::fractB0CP(EvtComplex Af, EvtComplex Abarf,
 			  double /*deltam*/, double beta, double &fract) {
 
   //This function returns the number of B0 tags for decays into CP-eigenstates
   //(the "probB0" in the new EvtOtherB)
 
-  //double gamma_B = EvtPDL::getWidth(B0);   
+  //double gamma_B = EvtPDL::getWidth(B0);
   //double xd = deltam/gamma_B;
   //double xd = 0.65;
   double ratio = 1/(1 + 0.65*0.65);
-  
+
   EvtComplex rf, rbarf;
 
   rf = EvtComplex(cos(2.0*beta),sin(2.0*beta))*Abarf/Af;
@@ -78,23 +75,23 @@ void EvtCPUtil::fractB0CP(EvtComplex Af, EvtComplex Abarf,
 
   double A2 = real(Af)*real(Af) + imag(Af)*imag(Af);
   double Abar2 = real(Abarf)*real(Abarf) + imag(Abarf)*imag(Abarf);
-  
-  double rf2 = real(rf)*real(rf) + imag(rf)*imag(rf);    
-  double rbarf2 = real(rbarf)*real(rbarf) + imag(rbarf)*imag(rbarf);    
 
-  fract = (Abar2*(1+ rbarf2 + (1 - rbarf2)*ratio))/(Abar2*(1+ rbarf2 + (1 - rbarf2)*ratio) + A2*(1+ rf2 + (1 - rf2)*ratio));  
-  return; 
+  double rf2 = real(rf)*real(rf) + imag(rf)*imag(rf);
+  double rbarf2 = real(rbarf)*real(rbarf) + imag(rbarf)*imag(rbarf);
+
+  fract = (Abar2*(1+ rbarf2 + (1 - rbarf2)*ratio))/(Abar2*(1+ rbarf2 + (1 - rbarf2)*ratio) + A2*(1+ rf2 + (1 - rf2)*ratio));
+  return;
 
 }
 
-void EvtCPUtil::fractB0nonCP(EvtComplex Af, EvtComplex Abarf, 
-			     EvtComplex Afbar, EvtComplex Abarfbar, 
-			     double deltam, double beta, 
+void EvtCPUtil::fractB0nonCP(EvtComplex Af, EvtComplex Abarf,
+			     EvtComplex Afbar, EvtComplex Abarfbar,
+			     double deltam, double beta,
 			     int flip, double &fract) {
 
   //this function returns the number of B0 tags for decays into non-CP eigenstates
   //(the "probB0" in the new EvtOtherB)
-  //this needs more thought... 
+  //this needs more thought...
 
   //double gamma_B = EvtPDL::getWidth(B0);
   //EvtGenReport(EVTGEN_INFO,"EvtGen") << "gamma " << gamma_B<< endl;
@@ -110,18 +107,18 @@ void EvtCPUtil::fractB0nonCP(EvtComplex Af, EvtComplex Abarf,
   double Af2, Afbar2, Abarf2, Abarfbar2;
 
   rf = EvtComplex(cos(2.0*beta),sin(2.0*beta))*Abarf/Af;
-  rfbar = EvtComplex(cos(2.0*beta),sin(2.0*beta))*Abarfbar/Afbar; 
+  rfbar = EvtComplex(cos(2.0*beta),sin(2.0*beta))*Abarfbar/Afbar;
   rbarf = EvtComplex(cos(-2.0*beta),sin(-2.0*beta))*Af/Abarf;
   rbarfbar = EvtComplex(cos(-2.0*beta),sin(-2.0*beta))*Afbar/Abarfbar;
-  
-  
+
+
   rf2 = real(rf)*real(rf) + imag(rf)*imag(rf);
   rfbar2 = real(rfbar)*real(rfbar) + imag(rfbar)*imag(rfbar);
   rbarf2 = real(rbarf)*real(rbarf) + imag(rbarf)*imag(rbarf);
   rbarfbar2 = real(rbarfbar)*real(rbarfbar) + imag(rbarfbar)*imag(rbarfbar);
 
   Af2 = real(Af)*real(Af) + imag(Af)*imag(Af);
-  Afbar2 = real(Afbar)*real(Afbar) + imag(Afbar)*imag(Afbar); 
+  Afbar2 = real(Afbar)*real(Afbar) + imag(Afbar)*imag(Afbar);
   Abarf2 = real(Abarf)*real(Abarf) + imag(Abarf)*imag(Abarf);
   Abarfbar2 = real(Abarfbar)*real(Abarfbar) + imag(Abarfbar)*imag(Abarfbar);
 
@@ -134,14 +131,14 @@ void EvtCPUtil::fractB0nonCP(EvtComplex Af, EvtComplex Abarf,
   IAfbar = (Afbar2/(2*gamma_B))*(1+rfbar2+(1-rfbar2)/(1+xd*xd));
   IAbarf = (Abarf2/(2*gamma_B))*(1+rbarf2+(1-rbarf2)/(1+xd*xd));
   IAbarfbar = (Abarfbar2/(2*gamma_B))*(1+rbarfbar2+(1-rbarfbar2)/(1+xd*xd));
-  
+
   //flip specifies the relative fraction of fbar events
- 
+
   fract = IAbarf/(IAbarf+IAf) + flip*IAbarfbar/(IAfbar+IAbarfbar);
 
 
-  return;  
-} 
+  return;
+}
 
 void EvtCPUtil::OtherB( EvtParticle *p,double &t, EvtId &otherb, double probB0){
 
@@ -172,19 +169,19 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
   static EvtId UPS4S=EvtPDL::getId("Upsilon(4S)");
 
   int isB0=EvtRandom::Flat(0.0,1.0)<probB0;
-  
+
   int idaug;
-  
+
   p->setLifetime();
-  
+
   // now get the time between the decay of this B and the other B!
-  
+
   EvtParticle *parent=p->getParent();
-  
+
   EvtParticle *other;
 
   bool incoherentmix=false;
-    
+
   if ((parent!=0)&&(parent->getId()==B0||
 		    parent->getId()==B0B||
 		    parent->getId()==BS||
@@ -193,13 +190,13 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
   }
 
   if (incoherentmix) parent=parent->getParent();
-  
+
   if (parent==0||parent->getId()!=UPS4S) {
     //Need to make this more general, but for now
     //assume no parent. If we have parent of B we
     //need to charge conj. full decay tree.
-    
-    
+
+
     if (parent!=0) {
       EvtGenReport(EVTGEN_INFO,"EvtGen") << "p="<<EvtPDL::name(p->getId())
 			    << " parent="<<EvtPDL::name(parent->getId())
@@ -221,7 +218,7 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
       }
     }
     otherb=EvtPDL::chargeConj(p->getId());
-    
+
     entryCount--;
     return;
   }
@@ -235,32 +232,32 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
       idaug=1;
     }
   }
-  
+
   if (parent != 0 ) {
 
     //if (entryCount>1){
     //  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Double CP decay:"<<entryCount<<endl;
     //}
 
-    //kludge!! Lange Mar21, 2003 	 
-    // if the other B is an alias... don't change the flavor.. 	 
-    if ( other->getId().isAlias() ) { 	 
+    //kludge!! Lange Mar21, 2003
+    // if the other B is an alias... don't change the flavor..
+    if ( other->getId().isAlias() ) {
       OtherB(p,t,otherb);
       entryCount--;
-      return; 	 
-      
+      return;
+
     }
-    
+
     if (entryCount==1){
-    
+
       EvtVector4R p_init=other->getP4();
       //int decayed=other->getNDaug()>0;
       bool decayed = other->isDecayed();
 
       other->deleteTree();
-    
+
       EvtScalarParticle* scalar_part;
-      
+
       scalar_part=new EvtScalarParticle;
       if (isB0) {
 	scalar_part->init(B0,p_init);
@@ -270,10 +267,10 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
       }
       other=(EvtParticle *)scalar_part;
       //    other->set_type(EvtSpinType::SCALAR);
-      other->setDiagonalSpinDensity();      
-    
+      other->setDiagonalSpinDensity();
+
       parent->insertDaugPtr(idaug,other);
-    
+
       if (decayed){
 	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "In CP Util calling decay \n";
 	other->decay();
@@ -285,15 +282,15 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
 
     other->setLifetime();
     t=p->getLifetime()-other->getLifetime();
-    
+
     otherb = other->getId();
-    
+
   }
   else {
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "We have an error here!!!!"<<endl;
-    otherb = EvtId(-1,-1); 
+    otherb = EvtId(-1,-1);
   }
-  
+
   entryCount--;
   return ;
 }
@@ -330,7 +327,7 @@ bool EvtCPUtil::isB0Mixed ( EvtParticle * p )
   return false ;
 }
 //============================================================================
-// Return the tag of the event (ie the anti-flavour of the produced 
+// Return the tag of the event (ie the anti-flavour of the produced
 // B meson). Flip the flavour of the event with probB probability
 //============================================================================
 void EvtCPUtil::OtherIncoherentB( EvtParticle * p ,
@@ -339,7 +336,7 @@ void EvtCPUtil::OtherIncoherentB( EvtParticle * p ,
                                   double probB )
 {
   //std::cout<<"New routine running"<<endl;
-  //if(p->getId() == B0 || p->getId() == B0B) 
+  //if(p->getId() == B0 || p->getId() == B0B)
   //added by liming Zhang
   enableFlip();
   if ( ( isB0Mixed( p ) ) || ( isBsMixed( p ) ) ) {
@@ -429,11 +426,11 @@ void EvtCPUtil::OtherB( EvtParticle *p,double &t, EvtId &otherb){
   p->setLifetime();
 
   // now get the time between the decay of this B and the other B!
-  
+
   EvtParticle *parent=p->getParent();
 
   if (parent==0||parent->getId()!=UPS4) {
-    //EvtGenReport(EVTGEN_ERROR,"EvtGen") << 
+    //EvtGenReport(EVTGEN_ERROR,"EvtGen") <<
     //  "Warning CP violation with B having no parent!"<<endl;
     t=p->getLifetime();
     if (p->getId()==B0) otherb=B0B;
@@ -464,7 +461,7 @@ void EvtCPUtil::incoherentMix(const EvtId id, double &t, int &mix){
 
   int stdHepNum=EvtPDL::getStdHep(id);
   stdHepNum=abs(stdHepNum);
-  
+
   EvtId partId=EvtPDL::evtIdFromStdHep(stdHepNum);
 
   std::string partName=EvtPDL::name(partId);
@@ -521,7 +518,7 @@ void EvtCPUtil::incoherentMix(const EvtId id, double &t, int &mix){
   mix=0;
 
   if (mixsign==-1) mix=1;
-   
+
   return;
 }
 
@@ -535,27 +532,27 @@ double EvtCPUtil::getDeltaGamma(const EvtId id){
   std::string partName = EvtPDL::name(partId);
   std::string hname = partName + std::string("H");
   std::string lname = partName + std::string("L");
-  
+
   EvtId lId = EvtPDL::getId(lname);
   EvtId hId = EvtPDL::getId(hname);
 
-  double ctauL = EvtPDL::getctau(lId);  
+  double ctauL = EvtPDL::getctau(lId);
   double ctauH = EvtPDL::getctau(hId);
-  
+
   double dGamma = (1/ctauL - 1/ctauH)*EvtConst::c;
   return dGamma;
 }
 
 double EvtCPUtil::getDeltaM(const EvtId id){
 
-  int stdHepNum = EvtPDL::getStdHep(id);  
-  stdHepNum = abs(stdHepNum); 
+  int stdHepNum = EvtPDL::getStdHep(id);
+  stdHepNum = abs(stdHepNum);
   EvtId partId = EvtPDL::evtIdFromStdHep(stdHepNum);
-  
+
   std::string partName = EvtPDL::name(partId);
   std::string parmName = std::string("dm_incohMix_") + partName;
 
-  int ierr;  
+  int ierr;
   double dM = atof(EvtSymTable::get(parmName,ierr).c_str());
   return dM;
 }

@@ -30,14 +30,13 @@ class EvtVVSPwave:public  EvtDecayAmp  {
 public:
 
   EvtVVSPwave() {}
-  virtual ~EvtVVSPwave();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
 
 };
 

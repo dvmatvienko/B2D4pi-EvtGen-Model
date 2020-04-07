@@ -36,13 +36,13 @@ EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
 EvtRaritaSchwinger dirProd(EvtVector4R v,EvtDiracSpinor u);
 EvtRaritaSchwinger dirProd(EvtVector4C v,EvtDiracSpinor u);
 EvtRaritaSchwinger operator+(const EvtRaritaSchwinger& u1,
-			     const EvtRaritaSchwinger& u2); 
+			     const EvtRaritaSchwinger& u2);
 EvtRaritaSchwinger operator-(const EvtRaritaSchwinger& u1,
-			     const EvtRaritaSchwinger& u2); 
+			     const EvtRaritaSchwinger& u2);
 EvtComplex operator*(const EvtRaritaSchwinger& u1,
 		     const EvtRaritaSchwinger& u2);
 
-class EvtRaritaSchwinger{
+class EvtRaritaSchwinger final {
 
   friend EvtRaritaSchwinger rotateEuler(const EvtRaritaSchwinger& rs,
 					double alpha,double beta,double gamma);
@@ -55,17 +55,16 @@ class EvtRaritaSchwinger{
   friend EvtRaritaSchwinger dirProd(EvtVector4C v,EvtDiracSpinor u);
 
   friend EvtRaritaSchwinger operator+(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2); 
+				  const EvtRaritaSchwinger& u2);
   friend EvtRaritaSchwinger operator-(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2); 
+				  const EvtRaritaSchwinger& u2);
 
   friend EvtComplex operator*(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2); 
+				  const EvtRaritaSchwinger& u2);
 
 public:
 
   inline EvtRaritaSchwinger();
-  virtual ~EvtRaritaSchwinger();
   inline EvtRaritaSchwinger(const EvtRaritaSchwinger& rs);
   inline EvtRaritaSchwinger& operator=(const EvtRaritaSchwinger& rs);
 
@@ -74,12 +73,12 @@ public:
   void applyRotateEuler(double alpha,double beta,double gamma);
   void applyBoostTo(const EvtVector4R p4);
   void applyBoostTo(const EvtVector3R boost);
- 
+
   EvtRaritaSchwinger& operator+=(const EvtRaritaSchwinger& u2);
   EvtRaritaSchwinger& operator-=(const EvtRaritaSchwinger& u2);
 
-  EvtComplex get(int i,int j) const; 
-  friend std::ostream& operator<<(std::ostream& s, const EvtRaritaSchwinger& rs); 
+  EvtComplex get(int i,int j) const;
+  friend std::ostream& operator<<(std::ostream& s, const EvtRaritaSchwinger& rs);
 
   EvtVector4C getVector(int i) const;
   EvtDiracSpinor getSpinor(int i) const;
@@ -88,9 +87,9 @@ public:
   void setSpinor(int i,const EvtDiracSpinor& sp);
 
 
-  
+
 private:
-  
+
   //First index in spinor index, second is Lorentz index.
   EvtComplex _rs[4][4];
 

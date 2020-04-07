@@ -14,8 +14,8 @@
 using std::cout;
 using std::endl;
 
-EvtPropFlatte::EvtPropFlatte(double m0, 
-			     double g0, double m0a, double m0b, 
+EvtPropFlatte::EvtPropFlatte(double m0,
+			     double g0, double m0a, double m0b,
 			     double g1, double m1a, double m1b) :
   EvtPropagator( m0, g0),
   _m0a(m0a),
@@ -26,23 +26,9 @@ EvtPropFlatte::EvtPropFlatte(double m0,
 {}
 
 
-EvtPropFlatte::EvtPropFlatte(const EvtPropFlatte& other) : 
-  EvtPropagator(other),
-  _m0a (other._m0a),
-  _m0b (other._m0b),
-  _g1  (other._g1),
-  _m1a (other._m1a),
-  _m1b (other._m1b)
-{}
-
-
-EvtPropFlatte::~EvtPropFlatte() 
-{}
-  
-
 EvtAmplitude<EvtPoint1D>* EvtPropFlatte::clone() const
-{ 
-  return new EvtPropFlatte(*this); 
+{
+  return new EvtPropFlatte(*this);
 }
 
 
@@ -58,7 +44,7 @@ EvtComplex EvtPropFlatte::amplitude(const EvtPoint1D& x) const
       -----------------------------------------
        m0^2 - m^2 - i*m0*( g1*rho1 + g2*rho2 )
 
-       
+
   Resonance mass: m0
   Channel1: m0a, m0b, g0
   Channel2: m1a, m1b, g1
@@ -78,7 +64,7 @@ EvtComplex EvtPropFlatte::amplitude(const EvtPoint1D& x) const
 
   double s = x.value()*x.value();
   double m = x.value();
-  
+
   double E0a  = 0.5 * (s + _m0a*_m0a - _m0b*_m0b) / m;
   double qSq0 = E0a*E0a - _m0a*_m0a;
 
@@ -89,7 +75,7 @@ EvtComplex EvtPropFlatte::amplitude(const EvtPoint1D& x) const
   EvtComplex gamma1 = qSq1 >= 0 ?  EvtComplex(  _g1 * sqrt(qSq1), 0)  : EvtComplex( 0, _g1 * sqrt(-qSq1) );
 
   EvtComplex gamma = gamma0 + gamma1;
-  
+
   EvtComplex a = 1.0/( _m0*_m0 - s - EvtComplex(0.0,2*_m0/m)*gamma  );
 
   return a;

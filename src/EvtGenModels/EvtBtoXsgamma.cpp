@@ -24,7 +24,7 @@
 //    Mark Ian Williams       Sept 11, 2000       Finalised code
 //    Jane Tinslay            March 21, 2001      Re-worked so that you can choose
 //                                                between the Ali-Greub and Kagan-Neubert
-//                                                Modules.                          
+//                                                Modules.
 //------------------------------------------------------------------------
 //
 
@@ -43,15 +43,9 @@
 #include "EvtGenModels/EvtBtoXsgammaFlatEnergy.hh"
 using std::endl;
 
-EvtBtoXsgamma::~EvtBtoXsgamma() {
-
-  delete _model; _model=0;
-
-}
-
 std::string EvtBtoXsgamma::getName(){
 
-  return "BTOXSGAMMA";     
+  return "BTOXSGAMMA";
 
 }
 
@@ -71,12 +65,12 @@ void EvtBtoXsgamma::init(){
 
   // check that at least one b->sg model has been selected
   if (getNArg() == 0) {
-    
+
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBtoXsgamma generator expected "
                            << " at least 1 argument but found: "<<getNArg()<<endl;
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();
-  }    
+  }
 }
 
 void EvtBtoXsgamma::initProbMax(){
@@ -90,18 +84,18 @@ void EvtBtoXsgamma::decay( EvtParticle *p ){
   //initialize here. -- its too damn slow otherwise.
 
   if ( _model == 0 ) {
-    
-    if (getArg(0) == 1) _model = new EvtBtoXsgammaAliGreub();
-    else if (getArg(0) == 2) _model = new EvtBtoXsgammaKagan();
-    else if (getArg(0) == 3) _model = new EvtBtoXsgammaFixedMass();
-    else if (getArg(0) == 4) _model = new EvtBtoXsgammaFlatEnergy();
+
+    if (getArg(0) == 1) _model = std::make_unique< EvtBtoXsgammaAliGreub >();
+    else if (getArg(0) == 2) _model = std::make_unique< EvtBtoXsgammaKagan >();
+    else if (getArg(0) == 3) _model = std::make_unique< EvtBtoXsgammaFixedMass >();
+    else if (getArg(0) == 4) _model = std::make_unique< EvtBtoXsgammaFlatEnergy >();
     else{
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "No valid EvtBtoXsgamma generator model selected "
 			     << "Set arg(0) to 1 for Ali-Greub model or 2 for "
 			     <<" Kagan model or 3 for a fixed mass"<<endl;
       EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
       ::abort();
-      
+
     }
     _model->init(getNArg(),getArgs());
   }
@@ -119,7 +113,7 @@ void EvtBtoXsgamma::decay( EvtParticle *p ){
   EvtParticle *pdaug[MAX_DAUG];
 
   for(i=0;i<getNDaug();i++){
-     pdaug[i]=p->getDaug(i);   
+     pdaug[i]=p->getDaug(i);
   }
 
   static EvtVector4R p4[MAX_DAUG];
@@ -128,9 +122,9 @@ void EvtBtoXsgamma::decay( EvtParticle *p ){
   m_b = p->mass();
 
   mass[1] = EvtPDL::getMass(getDaug(1));
- 
+
   int Xscode = EvtPDL::getStdHep(getDaug(0));
-   
+
   mass[0] = _model->GetMass(Xscode);
 
   EvtGenKine::PhaseSpace( getNDaug(), mass, p4, m_b );

@@ -41,10 +41,6 @@
 using std::endl;
 
 
-EvtSemiLeptonicBaryonAmp::~EvtSemiLeptonicBaryonAmp(){
-}
-
-
 void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
 					EvtAmp& amp,
 					EvtSemiLeptonicFF *FormFactors ) {
@@ -56,11 +52,11 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
   static EvtId MUP=EvtPDL::getId("mu+");
   static EvtId TAUP=EvtPDL::getId("tau+");
 
- 
+
   //Add the lepton and neutrino 4 momenta to find q2
 
-  EvtVector4R q = parent->getDaug(1)->getP4() 
-                    + parent->getDaug(2)->getP4(); 
+  EvtVector4R q = parent->getDaug(1)->getP4()
+                    + parent->getDaug(2)->getP4();
   double q2 = (q.mass2());
 
   double f1v,f1a,f2v,f2a;
@@ -70,32 +66,32 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
 			   parent->getDaug(0)->getId(),
                            q2,
                            m_meson,
-                           &f1v, 
-                           &f1a, 
-                           &f2v, 
+                           &f1v,
+                           &f1a,
+                           &f2v,
                            &f2a);
 
   EvtVector4R p4b;
   p4b.set(parent->mass(),0.0,0.0,0.0);
-  
+
   EvtVector4C temp_00_term1;
   EvtVector4C temp_00_term2;
-  
+
   EvtVector4C temp_01_term1;
   EvtVector4C temp_01_term2;
-  
+
   EvtVector4C temp_10_term1;
   EvtVector4C temp_10_term2;
-  
+
   EvtVector4C temp_11_term1;
   EvtVector4C temp_11_term2;
-  
+
   EvtDiracSpinor p0=parent->sp(0);
   EvtDiracSpinor p1=parent->sp(1);
-  
+
   EvtDiracSpinor d0=parent->getDaug(0)->spParent(0);
   EvtDiracSpinor d1=parent->getDaug(0)->spParent(1);
-  
+
   temp_00_term1.set(0,f1v*(d0*(EvtGammaMatrix::g0()*p0)));
   temp_00_term2.set(0,f1a*(d0*((EvtGammaMatrix::g0()*EvtGammaMatrix::g5())*p0)));
   temp_01_term1.set(0,f1v*(d0*(EvtGammaMatrix::g0()*p1)));
@@ -104,7 +100,7 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
   temp_10_term2.set(0,f1a*(d1*((EvtGammaMatrix::g0()*EvtGammaMatrix::g5())*p0)));
   temp_11_term1.set(0,f1v*(d1*(EvtGammaMatrix::g0()*p1)));
   temp_11_term2.set(0,f1a*(d1*((EvtGammaMatrix::g0()*EvtGammaMatrix::g5())*p1)));
-  
+
   temp_00_term1.set(1,f1v*(d0*(EvtGammaMatrix::g1()*p0)));
   temp_00_term2.set(1,f1a*(d0*((EvtGammaMatrix::g1()*EvtGammaMatrix::g5())*p0)));
   temp_01_term1.set(1,f1v*(d0*(EvtGammaMatrix::g1()*p1)));
@@ -113,7 +109,7 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
   temp_10_term2.set(1,f1a*(d1*((EvtGammaMatrix::g1()*EvtGammaMatrix::g5())*p0)));
   temp_11_term1.set(1,f1v*(d1*(EvtGammaMatrix::g1()*p1)));
   temp_11_term2.set(1,f1a*(d1*((EvtGammaMatrix::g1()*EvtGammaMatrix::g5())*p1)));
-  
+
   temp_00_term1.set(2,f1v*(d0*(EvtGammaMatrix::g2()*p0)));
   temp_00_term2.set(2,f1a*(d0*((EvtGammaMatrix::g2()*EvtGammaMatrix::g5())*p0)));
   temp_01_term1.set(2,f1v*(d0*(EvtGammaMatrix::g2()*p1)));
@@ -122,7 +118,7 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
   temp_10_term2.set(2,f1a*(d1*((EvtGammaMatrix::g2()*EvtGammaMatrix::g5())*p0)));
   temp_11_term1.set(2,f1v*(d1*(EvtGammaMatrix::g2()*p1)));
   temp_11_term2.set(2,f1a*(d1*((EvtGammaMatrix::g2()*EvtGammaMatrix::g5())*p1)));
-  
+
   temp_00_term1.set(3,f1v*(d0*(EvtGammaMatrix::g3()*p0)));
   temp_00_term2.set(3,f1a*(d0*((EvtGammaMatrix::g3()*EvtGammaMatrix::g5())*p0)));
   temp_01_term1.set(3,f1v*(d0*(EvtGammaMatrix::g3()*p1)));
@@ -131,7 +127,7 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
   temp_10_term2.set(3,f1a*(d1*((EvtGammaMatrix::g3()*EvtGammaMatrix::g5())*p0)));
   temp_11_term1.set(3,f1v*(d1*(EvtGammaMatrix::g3()*p1)));
   temp_11_term2.set(3,f1a*(d1*((EvtGammaMatrix::g3()*EvtGammaMatrix::g5())*p1)));
-  
+
 
 
   EvtVector4C l1,l2;
@@ -173,10 +169,10 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp( EvtParticle *parent,
 
 
 
-double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon, 
+double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
 					      EvtId lepton, EvtId nudaug,
 					      EvtSemiLeptonicFF *FormFactors,
-					      EvtComplex r00, EvtComplex r01, 
+					      EvtComplex r00, EvtComplex r01,
 					      EvtComplex r10, EvtComplex r11) {
 
   //This routine takes the arguements parent, baryon, and lepton
@@ -187,7 +183,7 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
 
   //Start by declaring a particle at rest.
 
-  //It only makes sense to have a scalar parent.  For now. 
+  //It only makes sense to have a scalar parent.  For now.
   //This should be generalized later.
 
   //  EvtScalarParticle *scalar_part;
@@ -202,7 +198,7 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
   dirac_part->noLifeTime();
 
   EvtVector4R p_init;
-  
+
   p_init.set(EvtPDL::getMass(parent),0.0,0.0,0.0);
   //  scalar_part->init(parent,p_init);
   //  root_part=(EvtParticle *)scalar_part;
@@ -210,10 +206,10 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
 
   dirac_part->init(parent,p_init);
   root_part=(EvtParticle *)dirac_part;
-  root_part->setDiagonalSpinDensity();      
+  root_part->setDiagonalSpinDensity();
 
   EvtParticle *daughter, *lep, *trino;
-  
+
   EvtAmp amp;
 
   EvtId listdaug[3];
@@ -234,15 +230,15 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
   trino->noLifeTime();
 
 
-  //Initial particle is unpolarized, well it is a scalar so it is 
+  //Initial particle is unpolarized, well it is a scalar so it is
   //trivial
   EvtSpinDensity rho;
   rho.setDiag(root_part->getSpinStates());
-  
+
   double mass[3];
-  
+
   double m = root_part->mass();
-  
+
   EvtVector4R p4baryon, p4lepton, p4nu, p4w;
   double q2max;
 
@@ -267,29 +263,29 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
     }
 
     q2max = (m-mass[0])*(m-mass[0]);
-    
+
     //loop over q2
 
     for (i=0;i<25;i++) {
       q2 = ((i+0.5)*q2max)/25.0;
-      
+
       erho = ( m*m + mass[0]*mass[0] - q2 )/(2.0*m);
-      
+
       prho = sqrt(erho*erho-mass[0]*mass[0]);
-      
+
       p4baryon.set(erho,0.0,0.0,-1.0*prho);
       p4w.set(m-erho,0.0,0.0,prho);
-      
+
       //This is in the W rest frame
       elepton = (q2+mass[1]*mass[1])/(2.0*sqrt(q2));
       plepton = sqrt(elepton*elepton-mass[1]*mass[1]);
-      
+
       double probctl[3];
 
       for (j=0;j<3;j++) {
-	
+
         costl = 0.99*(j - 1.0);
-	
+
 	//These are in the W rest frame. Need to boost out into
 	//the B frame.
         p4lepton.set(elepton,0.0,
@@ -334,7 +330,7 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
 	if (fabs(ctlx)<1.0){
 	  double probtmp=a+b*ctlx+c*ctlx*ctlx;
 	  if (probtmp>prob) prob=probtmp;
-	} 
+	}
 
       }
 
@@ -344,7 +340,7 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
       //			    << probctl[2]<<std::endl;
 
       if ( prob > maxfoundprob ) {
-	maxfoundprob = prob; 
+	maxfoundprob = prob;
       }
 
     }
@@ -354,16 +350,16 @@ double EvtSemiLeptonicBaryonAmp::CalcMaxProb( EvtId parent, EvtId baryon,
     }
 
   }
-  root_part->deleteTree();  
+  root_part->deleteTree();
 
   maxfoundprob *=1.1;
   return maxfoundprob;
-  
+
 }
 void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 				       EvtAmp& amp,
 				       EvtSemiLeptonicFF *FormFactors,
-				       EvtComplex r00, EvtComplex r01, 
+				       EvtComplex r00, EvtComplex r01,
 				       EvtComplex r10, EvtComplex r11) {
   //  Leptons
   static EvtId EM=EvtPDL::getId("e-");
@@ -398,10 +394,10 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
   EvtVector4R vector4P = parent->getP4Lab();
   double pmag = vector4P.d3mag();
   double cosTheta = vector4P.get(3)/pmag;
-  
+
   double theta = acos(cosTheta);
   double phi = atan2(vector4P.get(2), vector4P.get(1));
-  
+
   parent->setSpinDensityForwardHelicityBasis(rho,phi,theta, 0.0);
   //parent->setSpinDensityForward(rho);
 
@@ -411,20 +407,20 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 
   // Get the four momentum of the daughter baryon in the parent's rest frame
   EvtVector4R p4daught = parent->getDaug(0)->getP4();
-  
+
   // Add the lepton and neutrino 4 momenta to find q (q^2)
-  EvtVector4R q = parent->getDaug(1)->getP4() 
+  EvtVector4R q = parent->getDaug(1)->getP4()
     + parent->getDaug(2)->getP4();
-  
+
   double q2 = q.mass2();
 
 
   EvtId l_num = parent->getDaug(1)->getId();
   EvtId bar_num = parent->getDaug(0)->getId();
   EvtId par_num = parent->getId();
-  
+
   double baryonmass = parent->getDaug(0)->mass();
-  
+
   // Handle spin-1/2 daughter baryon Dirac spinor cases
   if( EvtPDL::getSpinType(parent->getDaug(0)->getId())==EvtSpinType::DIRAC ) {
 
@@ -436,9 +432,9 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 			     baryonmass,
 			     &f1, &f2, &f3,
 			     &g1, &g2, &g3);
-    
+
     const double form_fact[6] = {f1, f2, f3, g1, g2, g3};
-    
+
     EvtVector4C b11, b12, b21, b22, l1, l2;
 
     //  Lepton Current
@@ -448,14 +444,14 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 			    parent->getDaug(2)->spParentNeutrino());
       l2=EvtLeptonVACurrent(parent->getDaug(1)->spParent(1),
 			    parent->getDaug(2)->spParentNeutrino());
-      
+
     } else if (l_num==EP || l_num==MUP || l_num==TAUP) {
 
       l1=EvtLeptonVACurrent(parent->getDaug(2)->spParentNeutrino(),
 			    parent->getDaug(1)->spParent(0));
       l2=EvtLeptonVACurrent(parent->getDaug(2)->spParentNeutrino(),
 			    parent->getDaug(1)->spParent(1));
-      
+
     } else {
       EvtGenReport(EVTGEN_ERROR,"EvtGen")<< "Wrong lepton number \n";
       ::abort();
@@ -472,7 +468,7 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
     int pflag = 0;
 
     // Handle 1/2+ -> 1/2+ first
-    if ( (par_num==LAMB && bar_num==LAMCP) 
+    if ( (par_num==LAMB && bar_num==LAMCP)
 	 || (par_num==LAMBB && bar_num==LAMCM) ) {
 
       // Set particle/anti-particle flag
@@ -496,9 +492,9 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
     }
 
     // Handle 1/2+ -> 1/2- second
-    else if( (par_num==LAMB && bar_num==LAMC1P) 
+    else if( (par_num==LAMB && bar_num==LAMC1P)
 	     || (par_num==LAMBB && bar_num==LAMC1M) ) {
-      
+
       // Set particle/anti-particle flag
       if (bar_num==LAMC1P)
 	pflag = 1;
@@ -517,34 +513,34 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
       b22=EvtBaryonVACurrent((parent->getDaug(0)->spParent(1)),
 			     (EvtGammaMatrix::g5()*parent->sp(1)),
 			     p4b, p4daught, form_fact, pflag);
-      
+
     }
 
     else {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Dirac semilep. baryon current " 
-			     << "not implemented for this decay sequence." 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Dirac semilep. baryon current "
+			     << "not implemented for this decay sequence."
 			     << std::endl;
       ::abort();
     }
-     
+
     amp.vertex(0,0,0,l1*b11);
     amp.vertex(0,0,1,l2*b11);
-    
+
     amp.vertex(1,0,0,l1*b21);
     amp.vertex(1,0,1,l2*b21);
-    
+
     amp.vertex(0,1,0,l1*b12);
     amp.vertex(0,1,1,l2*b12);
-    
+
     amp.vertex(1,1,0,l1*b22);
     amp.vertex(1,1,1,l2*b22);
 
   }
-  
-  // Need special handling for the spin-3/2 daughter baryon 
+
+  // Need special handling for the spin-3/2 daughter baryon
   // Rarita-Schwinger spinor cases
   else if( EvtPDL::getSpinType(parent->getDaug(0)->getId())==EvtSpinType::RARITASCHWINGER ) {
-    
+
     // Set the form factors
     double f1,f2,f3,f4,g1,g2,g3,g4;
     FormFactors->getraritaff( par_num,
@@ -553,11 +549,11 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 			      baryonmass,
 			      &f1, &f2, &f3, &f4,
 			      &g1, &g2, &g3, &g4);
-    
+
     const double form_fact[8] = {f1, f2, f3, f4, g1, g2, g3, g4};
-    
+
     EvtId l_num = parent->getDaug(1)->getId();
-    
+
     EvtVector4C b11, b12, b21, b22, b13, b23, b14, b24, l1, l2;
 
     //  Lepton Current
@@ -573,17 +569,17 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
 			    parent->getDaug(1)->spParent(0));
       l2=EvtLeptonVACurrent(parent->getDaug(2)->spParentNeutrino(),
 			    parent->getDaug(1)->spParent(1));
-      
+
     } else {
       EvtGenReport(EVTGEN_ERROR,"EvtGen")<< "Wrong lepton number \n";
     }
-      
+
     //  Baryon Current
     // Declare particle, anti-particle flag, same/opp. parity
     // pflag = 0 => particle
     // pflag = 1 => anti-particle
     int pflag = 0;
-    
+
     // Handle cases of 1/2+ -> 3/2-
     if (par_num==LAMB && bar_num==LAMC2P) {
       // Set flag for particle case
@@ -594,12 +590,12 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
       pflag = 1;
     }
     else {
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Rarita-Schwinger semilep. baryon current " 
-			     << "not implemented for this decay sequence." 
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Rarita-Schwinger semilep. baryon current "
+			     << "not implemented for this decay sequence."
 			     << std::endl;
       ::abort();
     }
-     
+
     // Baryon current
     b11=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(0),
 				 parent->sp(0),
@@ -607,68 +603,68 @@ void EvtSemiLeptonicBaryonAmp::CalcAmp(EvtParticle *parent,
     b21=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(0),
 				 parent->sp(1),
 				 p4b, p4daught, form_fact, pflag);
-    
+
     b12=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(1),
 				 parent->sp(0),
 				 p4b, p4daught, form_fact, pflag);
     b22=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(1),
 				 parent->sp(1),
 				 p4b, p4daught, form_fact, pflag);
-    
+
     b13=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(2),
 				 parent->sp(0),
 				 p4b, p4daught, form_fact, pflag);
     b23=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(2),
 				 parent->sp(1),
 				 p4b, p4daught, form_fact, pflag);
-    
+
     b14=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(3),
 				 parent->sp(0),
 				 p4b, p4daught, form_fact, pflag);
     b24=EvtBaryonVARaritaCurrent(parent->getDaug(0)->spRSParent(3),
 				 parent->sp(1),
 				 p4b, p4daught, form_fact, pflag);
-    
+
     amp.vertex(0,0,0,l1*b11);
     amp.vertex(0,0,1,l2*b11);
-    
+
     amp.vertex(1,0,0,l1*b21);
     amp.vertex(1,0,1,l2*b21);
-    
+
     amp.vertex(0,1,0,l1*b12);
     amp.vertex(0,1,1,l2*b12);
-    
+
     amp.vertex(1,1,0,l1*b22);
     amp.vertex(1,1,1,l2*b22);
-    
+
     amp.vertex(0,2,0,l1*b13);
     amp.vertex(0,2,1,l2*b13);
-    
+
     amp.vertex(1,2,0,l1*b23);
     amp.vertex(1,2,1,l2*b23);
 
     amp.vertex(0,3,0,l1*b14);
     amp.vertex(0,3,1,l2*b14);
-    
+
     amp.vertex(1,3,0,l1*b24);
     amp.vertex(1,3,1,l2*b24);
 
   }
 
 }
-  
+
 
 EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVACurrent( const EvtDiracSpinor& Bf,
-							  const EvtDiracSpinor& Bi, 
-							  EvtVector4R parent, 
-							  EvtVector4R daught, 
+							  const EvtDiracSpinor& Bi,
+							  EvtVector4R parent,
+							  EvtVector4R daught,
 							  const double *ff,
 							  int pflag) {
 
-  // flag == 0 => particle, same parity 
-  // flag == 1 => particle, opposite parity 
-  // flag == 2 => anti-particle, same parity 
-  // flag == 3 => anti-particle, opposite parity 
+  // flag == 0 => particle, same parity
+  // flag == 1 => particle, opposite parity
+  // flag == 2 => anti-particle, same parity
+  // flag == 3 => anti-particle, opposite parity
 
   // particle
   EvtComplex cv = EvtComplex(1.0, 0.);
@@ -717,14 +713,14 @@ EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVACurrent( const EvtDiracSpinor& 
   // Sum the individual terms
   EvtVector4C current = (ff[0]*t[0] + ff[1]*t[1] + ff[2]*t[2]
 			 - ff[3]*t[3] - ff[4]*t[4] - ff[5]*t[5]);
-  
+
   return current;
 }
 
 EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVARaritaCurrent( const EvtRaritaSchwinger& Bf,
-								const EvtDiracSpinor& Bi, 
-								EvtVector4R parent, 
-								EvtVector4R daught, 
+								const EvtDiracSpinor& Bi,
+								EvtVector4R parent,
+								EvtVector4R daught,
 								const double *ff,
 								int pflag) {
 
@@ -742,7 +738,7 @@ EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVARaritaCurrent( const EvtRaritaS
   if( pflag == 1 ) {
     cv = EvtComplex(-1.0, 0.);
     ca = EvtComplex(1.0, 0.);
- 
+
     cg0 =  EvtComplex(1.0, 0.0);
     cg5 =  EvtComplex(0.0, -1.0);
  }
@@ -765,27 +761,27 @@ EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVARaritaCurrent( const EvtRaritaS
   // Term 1 = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})*(F_1(q^2)*\gamma_{mu})*u(p,s)
   t[0] = (cv/parent.mass()) * EvtLeptonVCurrent(tmp, Bi);
 
-  // Term 2 
+  // Term 2
   // = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})*(F_2(q^2)*(p_{mu}/m_{\Lambda_Q}))*u(p,s)
   t[1] = ((cg0/parent.mass()) * EvtLeptonSCurrent(tmp, Bi)) * (parent/parent.mass());
 
-  // Term 3 
+  // Term 3
   // = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})*(F_3(q^2)*(p'_{mu}/m_{\Lambda_q}))*u(p,s)
   t[2] = ((cg0/parent.mass()) * EvtLeptonSCurrent(tmp, Bi)) * (daught/daught.mass());
 
   // Term 4 = \bar{u}^{\alpha}(p',s')*(F_4(q^2)*g_{\alpha,\mu})*u(p,s)
   t[3] = cg0*(id.cont2(v1));
 
-  // Term 5 
+  // Term 5
   // = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})*(G_1(q^2)*\gamma_{mu}*\gamma_5)*u(p,s)
   t[4] = (ca/parent.mass()) * EvtLeptonACurrent(tmp, Bi);
 
-  // Term 6 
+  // Term 6
   // = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})
   //      *(G_2(q^2)*(p_{mu}/m_{\Lambda_Q})*\gamma_5)*u(p,s)
   t[5] = ((cg5/parent.mass()) * EvtLeptonPCurrent(tmp, Bi)) * (parent/parent.mass());
 
-  // Term 7 
+  // Term 7
   // = \bar{u}^{\alpha}(p',s')*(p_{\alpha}/m_{\Lambda_Q})
   //      *(G_3(q^2)*(p'_{mu}/m_{\Lambda_q})*\gamma_5)*u(p,s)
   t[6] = ((cg5/parent.mass()) * EvtLeptonPCurrent(tmp, Bi)) * (daught/daught.mass());
@@ -796,6 +792,6 @@ EvtVector4C EvtSemiLeptonicBaryonAmp::EvtBaryonVARaritaCurrent( const EvtRaritaS
   // Sum the individual terms
   EvtVector4C current = (ff[0]*t[0] + ff[1]*t[1] + ff[2]*t[2] + ff[3]*t[3]
 			 - ff[4]*t[4] - ff[5]*t[5] - ff[6]*t[6] - ff[7]*t[7]);
-  
+
   return current;
 }

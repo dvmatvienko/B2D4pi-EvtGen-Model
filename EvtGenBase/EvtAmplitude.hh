@@ -18,9 +18,13 @@ template <class T>
 class EvtAmplitude {
 public:
 
-  EvtAmplitude() {}
-  EvtAmplitude(const EvtAmplitude&) {}
-  virtual ~EvtAmplitude() {}
+  EvtAmplitude() = default;
+  EvtAmplitude(const EvtAmplitude&) = default;
+  EvtAmplitude(EvtAmplitude&&) = default;
+  EvtAmplitude& operator=(const EvtAmplitude&) = default;
+  EvtAmplitude& operator=(EvtAmplitude&&) = default;
+  virtual ~EvtAmplitude() = default;
+
   virtual EvtAmplitude<T>* clone() const = 0;
 
   EvtComplex evaluate(const T& p) const

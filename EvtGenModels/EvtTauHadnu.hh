@@ -28,16 +28,15 @@ class EvtParticle;
 class EvtTauHadnu : public  EvtDecayAmp  {
 
 public:
-  
+
   EvtTauHadnu() {}
-  virtual ~EvtTauHadnu();
 
-  std::string getName();
-  EvtDecayBase* clone();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
-  void init();
-  void decay(EvtParticle *p); 
+  void initProbMax() override;
+  void init() override;
+  void decay(EvtParticle *p) override;
 
 private:
   double _beta;
@@ -51,7 +50,7 @@ private:
   double gFunc(double m2,int dupD);
   EvtComplex Fpi( double s, double xm1, double xm2 );
   EvtComplex BW( double s, double m, double gamma, double xm1, double xm2 );
-  
+
 };
 
 #endif

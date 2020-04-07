@@ -29,20 +29,16 @@ class EvtFlatQ2: public  EvtDecayProb  {
 
 public:
 
-  EvtFlatQ2() {}
-  virtual ~EvtFlatQ2();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  void init();
-  void initProbMax();
-
-  void decay(EvtParticle *p);
+  void decay(EvtParticle *p) override;
 
 private:
   bool _usePhsp;
 };
 
 #endif
-

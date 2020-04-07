@@ -17,7 +17,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -30,11 +30,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtVSSMix::~EvtVSSMix() {}
-
 std::string EvtVSSMix::getName(){
 
-  return "VSS_MIX";     
+  return "VSS_MIX";
 
 }
 
@@ -52,7 +50,7 @@ void EvtVSSMix::init(){
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::VECTOR);
-    
+
   checkSpinDaughter(0,EvtSpinType::SCALAR);
   checkSpinDaughter(1,EvtSpinType::SCALAR);
 

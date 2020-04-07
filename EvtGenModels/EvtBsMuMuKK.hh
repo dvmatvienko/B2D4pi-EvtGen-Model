@@ -31,17 +31,13 @@ class EvtBsMuMuKK : public EvtDecayAmp
 
 public:
   
-  EvtBsMuMuKK() {;}
-  
-  virtual std::string getName() { return "BS_MUMUKK"; }
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual EvtDecayBase* clone();
+  void init() override;
+  void initProbMax() override;
 
-  virtual void init();
-
-  virtual void initProbMax();
-
-  virtual void decay(EvtParticle *p);
+  void decay(EvtParticle *p) override;
 
 protected:
 

@@ -11,7 +11,7 @@
 // Module: EvtGen/EvtBtoXsgammaKagan.hh
 //
 // Description:
-//       Implimentation of the Kagan-Neubert model for non-resonant 
+//       Implimentation of the Kagan-Neubert model for non-resonant
 //       B->Xs,gamma decays.
 //
 // Modification history:
@@ -29,18 +29,14 @@
 class EvtBtoXsgammaKagan : public EvtBtoXsgammaAbsModel {
 
 public:
-  
-  EvtBtoXsgammaKagan() {}
 
-  virtual ~EvtBtoXsgammaKagan();
-
-  void init(int, double*);
+  void init(int, double*) override;
 
   void computeHadronicMass(int, double*);
-  
+
   void getDefaultHadronicMass();
 
-  double GetMass(int code);
+  double GetMass(int code) override;
 
   double CalcAlphaS(double);
 
@@ -59,7 +55,7 @@ private:
   double _lambdabar;
   double _lam1;
   double _mHmin;
-  double _mHmax;  
+  double _mHmax;
   //Other parameters
   double _r7;
   double _gam77;
@@ -115,17 +111,14 @@ private:
   static double s27FermiFunc(double, std::vector<double> &coeffs);
   static double s28FermiFunc(double, std::vector<double> &coeffs);
   static double GetArrayVal(double, double, double, double, std::vector<double>);
-  static double sFermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, 
+  static double sFermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2,
 			   const std::vector<double> &coeffs3, const std::vector<double> &coeffs4);
   static double FermiFunc(double, const std::vector<double> &coeffs);
   static double diLogFunc(double);
   static double diLogMathematica(double);
-  double *massHad; double *brHad;
+  std::vector<double> massHad, brHad;
   static double intervalMH;
   static bool bbprod;
 };
 
 #endif
-
-
-

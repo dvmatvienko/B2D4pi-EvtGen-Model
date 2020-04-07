@@ -17,21 +17,20 @@
 //    DJL     April 17, 1998        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenModels/EvtMelikhovFF.hh"
 #include "EvtGenBase/EvtId.hh"
 #include <string>
-#include <math.h>
+#include <cmath>
 #include "EvtGenBase/EvtPDL.hh"
-#include <stdlib.h>
+#include <cstdlib>
 
 EvtMelikhovFF::EvtMelikhovFF(double arg1) {
 
   whichfit = int(arg1+0.1);
-  return;
 }
 
 void EvtMelikhovFF::getvectorff(EvtId parent,EvtId,
@@ -92,7 +91,7 @@ void EvtMelikhovFF::getvectorff(EvtId parent,EvtId,
 
   double melr = mass/mb;
   double mely = t/(mb*mb);
- 
+
 
   *a1f = ((1.0+melr*melr-mely)/(1+melr))*ra1/pow(1.0-(t/(ma1*ma1)),na1);
   *a2f = (1+melr)*((1.0-melr*melr-mely)/((1+melr)*(1+melr)-mely))
@@ -104,45 +103,45 @@ void EvtMelikhovFF::getvectorff(EvtId parent,EvtId,
  }
 
 
-void EvtMelikhovFF::getscalarff(EvtId, EvtId, double, double, double*, 
+void EvtMelikhovFF::getscalarff(EvtId, EvtId, double, double, double*,
 			       double*){
-  
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getvectorff in EvtMelikhovFF.\n";  
+
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getvectorff in EvtMelikhovFF.\n";
   ::abort();
 
 }
 
 
 
-void EvtMelikhovFF::gettensorff(EvtId, EvtId, double, double, double*, 
+void EvtMelikhovFF::gettensorff(EvtId, EvtId, double, double, double*,
 			       double*, double*, double*){
-  
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :gettensorff in EvtMelikhovFF.\n";  
+
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :gettensorff in EvtMelikhovFF.\n";
   ::abort();
 
 }
 
 
 
-void EvtMelikhovFF::getbaryonff(EvtId, EvtId, double, double, double*, 
+void EvtMelikhovFF::getbaryonff(EvtId, EvtId, double, double, double*,
 			       double*, double*, double*){
-  
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getbaryonff in EvtMelikhovFF.\n";  
+
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getbaryonff in EvtMelikhovFF.\n";
   ::abort();
 
 }
 
 void EvtMelikhovFF::getdiracff(EvtId, EvtId, double, double, double*, double*,
 			       double*, double*, double*, double*) {
-  
+
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getdiracff in EvtMelikhovFF.\n";
   ::abort();
 
 }
 
-void EvtMelikhovFF::getraritaff(EvtId, EvtId, double, double, double*, double*, 
+void EvtMelikhovFF::getraritaff(EvtId, EvtId, double, double, double*, double*,
 				double*, double*, double*, double*, double*, double*) {
-  
+
   EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getraritaff in EvtMelikhovFF.\n";
   ::abort();
 

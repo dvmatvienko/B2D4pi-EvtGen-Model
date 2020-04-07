@@ -49,7 +49,7 @@ EvtComplex& EvtComplex::operator/=(EvtComplex c){
   double inv=1.0/(c._rpart*c._rpart+c._ipart*c._ipart);
 
   double r=inv*(_rpart*c._rpart+_ipart*c._ipart);
-  double i=inv*(_rpart*c._ipart-_ipart*c._rpart);
+  double i=inv*(_ipart*c._rpart-_rpart*c._ipart);
 
   _rpart=r;
   _ipart=i;

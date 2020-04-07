@@ -6,7 +6,7 @@
 //
 // Description:
 //   DFN model:
-//      F(k+) = N (1-x)^a exp((1+a)x) ,x=k+/(mB-mb) 
+//      F(k+) = N (1-x)^a exp((1+a)x) ,x=k+/(mB-mb)
 //      the fermi motion distribution according to
 //      hep-ph/9905351 v2
 //   BLNP model:
@@ -24,22 +24,18 @@
 #ifndef EVTPFERMI_HH
 #define EVTPFERMI_HH
 
-class EvtPFermi {
+class EvtPFermi final {
 
 public:
-  
+
   // Constructors
 
   EvtPFermi(const double &a, const double &mB, const double &mb);
   EvtPFermi(const double &Lambda, const double &b);
-  
-  // Destructor
-
-  virtual ~EvtPFermi( );
 
   // Operators
 
-  // Selectors 
+  // Selectors
 
   // Modifiers
 
@@ -47,15 +43,15 @@ public:
 
   double getFPFermi(const double &kplus);
   double getSFBLNP(const double &what);
-  
+
 protected:
-  
+
   // Helper functions
 
 private:
 
   // Friends
-  
+
   // Data members
 
   double _a;

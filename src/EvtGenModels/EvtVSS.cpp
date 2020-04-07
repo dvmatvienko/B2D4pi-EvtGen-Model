@@ -17,7 +17,7 @@
 //    RYD       November 24, 1996       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -29,12 +29,10 @@
 #include "EvtGenModels/EvtVSS.hh"
 #include <string>
 
-EvtVSS::~EvtVSS() {}
-
 std::string EvtVSS::getName(){
 
-  return "VSS"; 
-    
+  return "VSS";
+
 }
 
 
@@ -62,14 +60,14 @@ void EvtVSS::initProbMax() {
 
    setProbMax(1.0);
 
-}      
+}
 
 void EvtVSS::decay( EvtParticle *p){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
 
   EvtVector4R pDaug = p->getDaug(0)->getP4();
-  
+
   double norm=1.0/pDaug.d3mag();
 
   for (int i=0; i<3; i++) vertex(i,norm*pDaug*(p->eps(i)));

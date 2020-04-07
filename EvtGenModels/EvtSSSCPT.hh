@@ -29,14 +29,11 @@ class EvtSSSCPT:public  EvtDecayAmp  {
 
 public:
 
-  EvtSSSCPT() {}
-  virtual ~EvtSSSCPT();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void init();
-  void decay(EvtParticle *p); 
+  void init() override;
+  void decay(EvtParticle *p) override;
 
 };
 

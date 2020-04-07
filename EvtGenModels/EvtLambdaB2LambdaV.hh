@@ -51,39 +51,38 @@ namespace VID
 //      B (real)    : lambdaB polarisation
 //      C (complex) : lambdaB density matrix element rho+-
 //
-// cf : O. Leitner, Z.J Ajaltouni, E. Conte, 
+// cf : O. Leitner, Z.J Ajaltouni, E. Conte,
 //      PCCF RI 0601, ECT-05-15, LPNHE/2006-01, hep-ph/0602043
- 
+
 class EvtLambdaB2LambdaV:public  EvtDecayProb
 {
 
 public:
-
   EvtLambdaB2LambdaV();
-  virtual ~EvtLambdaB2LambdaV();
-  EvtDecayBase* clone();
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *lambdab);
- 
+  EvtDecayBase* clone() override;
+
+  std::string getName() override;
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *lambdab) override;
+
 private:
 
   //class name for report method
   std::string fname;
 
-  //meson vector identity 
+  //meson vector identity
   VID::VectorMesonType Vtype;
 
-  //decay dynamics parameters 
+  //decay dynamics parameters
   double A;
   double B;
   EvtComplex C;
 
   //V mass generator method
   double getVMass(double MASS_LAMBDAB, double MASS_LAMBDA);
-  
+
   //PDF generator method
   double BreitWignerRelPDF(double m,double _m0, double _g0);
   double RhoOmegaMixingPDF(double m, double _mr, double _gr, double _mo, double _go);
@@ -119,20 +118,19 @@ class EvtLambda2PPiForLambdaB2LambdaV:public  EvtDecayProb
 public:
 
   EvtLambda2PPiForLambdaB2LambdaV();
-  virtual ~EvtLambda2PPiForLambdaB2LambdaV();
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *lambda);  
+  std::string getName() override;
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *lambda) override;
 
 private :
 
   //class name for report method
   std::string fname;
 
-  //meson vector identity 
+  //meson vector identity
   VID::VectorMesonType Vtype;
 
   //decay dynamics parameters
@@ -172,24 +170,23 @@ class EvtV2VpVmForLambdaB2LambdaV:public  EvtDecayProb
 {
 
 public:
-
   EvtV2VpVmForLambdaB2LambdaV();
-  virtual ~EvtV2VpVmForLambdaB2LambdaV();
-  EvtDecayBase* clone();
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *V);
-  
+  EvtDecayBase* clone() override;
+
+  std::string getName() override;
+  void init() override;
+  void initProbMax() override;
+  void decay(EvtParticle *V) override;
+
 private:
 
   //class name for report method
   std::string fname;
 
-  //meson vector identity 
+  //meson vector identity
   VID::VectorMesonType Vtype;
-  //decay dynamics parameters 
+  //decay dynamics parameters
   double A;
 };
 

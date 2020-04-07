@@ -45,13 +45,10 @@ class EvtPhotosEngine : public EvtAbsExternalGen {
 public:
 
   EvtPhotosEngine(std::string photonType = "gamma", bool useEvtGenRandom = true);
-  virtual ~EvtPhotosEngine();
 
-  virtual bool doDecay(EvtParticle* theMother);
+  bool doDecay(EvtParticle* theMother) override;
 
-  virtual void initialise();
-
-protected:
+  void initialise() override;
 
 private:
 

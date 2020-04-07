@@ -20,26 +20,25 @@
 #ifndef EvtBcVHad_HH
 #define EvtBcVHad_HH
 
-#include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtDecayAmp.hh"
+#include "EvtGenBase/EvtVector4C.hh"
+
+#include "EvtGenModels/EvtBCVFF2.hh"
+#include "EvtGenModels/EvtWHad.hh"
 
 #include <string>
+#include <memory>
 
-class EvtBCVFF2;
 class EvtParticle;
-class EvtWHad;
 
 class EvtBcVHad : public EvtDecayAmp {
 public:
 
-    EvtBcVHad();
-    virtual ~EvtBcVHad();
-
-    std::string getName();
-    EvtDecayBase* clone();
-    void initProbMax();
-    void init();
-    void decay(EvtParticle *p);
+    std::string getName() override;
+    EvtDecayBase* clone() override;
+    void initProbMax() override;
+    void init() override;
+    void decay(EvtParticle *p) override;
 
 protected:
 
@@ -66,8 +65,8 @@ private:
     //   8 - K_S0 K+
     int out_code;
 
-    EvtBCVFF2 *ffmodel;
-    EvtWHad *wcurr;
+    std::unique_ptr<EvtBCVFF2> ffmodel;
+    std::unique_ptr<EvtWHad> wcurr;
 
 };
 

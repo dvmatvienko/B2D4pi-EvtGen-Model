@@ -25,6 +25,7 @@
 #include "EvtGenBase/EvtSpinType.hh"
 #include "EvtGenBase/EvtId.hh"
 #include <string>
+#include <memory>
 #include "EvtGenBase/EvtAbsLineShape.hh"
 
 
@@ -32,24 +33,22 @@ class EvtPartProp {
 
 public:
 
-  EvtPartProp(); 
-  EvtPartProp(const EvtPartProp& x); 
+  EvtPartProp();
+  EvtPartProp(const EvtPartProp& x);
 
-  ~EvtPartProp(); 
-
-  double getMass() {return _lineShape->getMass();} 
-  double getMassMin() {return _lineShape->getMassMin();} 
-  double getMassMax() {return _lineShape->getMassMax();} 
-  double getMaxRange() {return _lineShape->getMaxRange();} 
-  double getWidth() {return _lineShape->getWidth();} 
+  double getMass() {return _lineShape->getMass();}
+  double getMassMin() {return _lineShape->getMassMin();}
+  double getMassMax() {return _lineShape->getMassMax();}
+  double getMaxRange() {return _lineShape->getMaxRange();}
+  double getWidth() {return _lineShape->getWidth();}
 
   double getRandMass(EvtId *parId, int nDaug, EvtId *dauId,EvtId *othDauId,double maxMass, double *dauMasses) {return _lineShape->getRandMass(parId,nDaug,dauId,othDauId,maxMass,dauMasses);}
   double getMassProb(double mass, double massPar, int nDaug, double *massDau) { return _lineShape->getMassProb(mass,massPar,nDaug,massDau);}
 
-  double getctau() {return _ctau; } 
+  double getctau() {return _ctau; }
   void   setctau(double tau) { _ctau=tau; }
 
-  int    getChg3() {return _chg3; } 
+  int    getChg3() {return _chg3; }
   void   setChg3(int c3) { _chg3=c3; }
 
   EvtSpinType::spintype  getSpinType() {return _spintype; }
@@ -70,12 +69,12 @@ public:
   int  getLundKC() {return _lundkc;}
   void   setLundKC(int lundkc) {_lundkc=lundkc;}
 
-  EvtAbsLineShape* getLineShape() {return _lineShape;}
+  EvtAbsLineShape* getLineShape() {return _lineShape.get();}
   void initLineShape(double mass, double width, double maxRange);
   //  void initLineShape(double mass, double width, double maxRange, double mDaug1, double mDaug2, int l);
 
   // setLineShape takes ownership of l
-  void setLineShape(EvtAbsLineShape *l) { _lineShape=l;}
+  void setLineShape(EvtAbsLineShape *l) { _lineShape.reset(l);}
   double rollMass(){return _lineShape->rollMass();}
 
   EvtPartProp& operator=(const EvtPartProp& x);
@@ -95,7 +94,7 @@ public:
 
 private:
 
-  EvtAbsLineShape *_lineShape;
+  std::unique_ptr<EvtAbsLineShape> _lineShape;
 
   double _ctau;
   EvtId  _id;
@@ -105,8 +104,8 @@ private:
   int _stdhep;
   int _lundkc;
   std::string _name;
-  
-}; 
+
+};
 
 #endif
 

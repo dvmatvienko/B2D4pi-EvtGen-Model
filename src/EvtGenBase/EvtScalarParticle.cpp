@@ -17,7 +17,7 @@
 //    DJL/RYD   September 25, 1996           Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <math.h>
@@ -36,9 +36,6 @@ void EvtScalarParticle::init(EvtId part_n,double e,double px,double py,double pz
 
 }
 
-EvtScalarParticle::~EvtScalarParticle() {}
-
-
 void EvtScalarParticle::init(EvtId part_n,const EvtVector4R& p4){
 
   _validP4=true;
@@ -53,7 +50,7 @@ EvtSpinDensity EvtScalarParticle::rotateToHelicityBasis() const{
 
   EvtSpinDensity R;
   R.setDim(1);
-      
+
   R.set(0,0,1.0);
 
   return R;
@@ -67,7 +64,7 @@ EvtSpinDensity EvtScalarParticle::rotateToHelicityBasis(double,
 
   EvtSpinDensity R;
   R.setDim(1);
-      
+
   R.set(0,0,1.0);
 
   return R;

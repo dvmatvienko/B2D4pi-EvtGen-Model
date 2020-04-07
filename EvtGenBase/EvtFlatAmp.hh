@@ -15,15 +15,15 @@
 #include "EvtGenBase/EvtAmplitude.hh"
 
 template <class T>
-class EvtFlatAmp : public EvtAmplitude<T> {  
+class EvtFlatAmp : public EvtAmplitude<T> {
 public:
 
   EvtFlatAmp() {}
   EvtFlatAmp(const EvtFlatAmp<T>& other) : EvtAmplitude<T>(other) {}
   virtual ~EvtFlatAmp() {}
 
-  virtual EvtAmplitude<T>* clone() const { return new EvtFlatAmp<T>(*this); }
-  virtual EvtComplex amplitude(const T& ) const { return EvtComplex(1.,0.); }
-}; 
+  EvtAmplitude<T>* clone() const override { return new EvtFlatAmp<T>(*this); }
+  EvtComplex amplitude(const T& ) const override { return EvtComplex(1.,0.); }
+};
 
 #endif

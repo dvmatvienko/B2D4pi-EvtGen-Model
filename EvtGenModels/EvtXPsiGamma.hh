@@ -29,25 +29,22 @@
 
 class EvtParticle;
 
-class EvtXPsiGamma: public EvtDecayAmp {
+class EvtXPsiGamma:public  EvtDecayAmp  {
 
 public:
 
-  EvtXPsiGamma() {}
-  virtual ~EvtXPsiGamma();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void decay(EvtParticle *p) override;
+  void init() override;
 
-  void decay(EvtParticle *p);
-  void init();
-
-  virtual void initProbMax();
+  void initProbMax() override;
 
 
 private:
 //  int whichfit;
-  EvtComplex fT2(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, EvtVector4C epsEps, EvtVector4C epsEta); 
+  EvtComplex fT2(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, EvtVector4C epsEps, EvtVector4C epsEta);
   EvtComplex fT3(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, EvtVector4C epsEps, EvtVector4C epsEta);
   EvtId _ID0;
   int ncall;

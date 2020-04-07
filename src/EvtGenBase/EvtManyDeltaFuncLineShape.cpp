@@ -34,10 +34,7 @@ EvtManyDeltaFuncLineShape::EvtManyDeltaFuncLineShape() {
 
 }
 
-EvtManyDeltaFuncLineShape::~EvtManyDeltaFuncLineShape() {
-}
-
-EvtManyDeltaFuncLineShape::EvtManyDeltaFuncLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp) { 
+EvtManyDeltaFuncLineShape::EvtManyDeltaFuncLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp) {
 
   _mass=mass;
   _width=width;
@@ -83,7 +80,7 @@ EvtAbsLineShape* EvtManyDeltaFuncLineShape::clone() {
 
 double EvtManyDeltaFuncLineShape::getMassProb(double mass, double massPar,int nDaug, double *massDau) {
 
-  
+
   double dTotMass=0.;
 
   int i;

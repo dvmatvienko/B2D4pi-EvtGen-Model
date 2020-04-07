@@ -19,7 +19,7 @@
 //    Clara Remon (Clara.Remon@ific.uv.es)       September 24, 2015      Function SVPHel created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -35,11 +35,9 @@
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 
-EvtSVPHelAmp::~EvtSVPHelAmp() {}
-
 std::string EvtSVPHelAmp::getName(){
 
-  return "SVP_HELAMP";     
+  return "SVP_HELAMP";
 
 }
 
@@ -74,7 +72,7 @@ void EvtSVPHelAmp::decay( EvtParticle *p){
   SVPHel(p,_amp2,getDaug(0),getDaug(1),
 	 EvtComplex(getArg(0)*cos(getArg(1)),getArg(0)*sin(getArg(1))),
          EvtComplex(getArg(2)*cos(getArg(3)),getArg(2)*sin(getArg(3))));
-				 
+
   return ;
 
 }
@@ -87,10 +85,10 @@ void EvtSVPHelAmp::SVPHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
   //  by ryd on Oct 17, 1996.
 
   // This routine is adopted from EvtSVVHel and since there is
-  // a photon that can not have helicity 0 this is put in by 
+  // a photon that can not have helicity 0 this is put in by
   // setting the h0 amplitude to 0.
   EvtComplex h0=EvtComplex(0.0,0.0);
-    
+
   int tndaug = 2;
   EvtId tdaug[2];
   tdaug[0] = n_v1;
@@ -118,7 +116,7 @@ void EvtSVPHelAmp::SVPHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
   EvtVector3C t0=M.cont1(v1->eps(0).vec().conj());
   EvtVector3C t1=M.cont1(v1->eps(1).vec().conj());
   EvtVector3C t2=M.cont1(v1->eps(2).vec().conj());
-   
+
   EvtVector3C eps0=v2->epsParentPhoton(0).vec().conj();
   EvtVector3C eps1=v2->epsParentPhoton(1).vec().conj();
 

@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtSLBKPole.hh
 //
-// Description:Semileptonic decays with pole form form factors, 
+// Description:Semileptonic decays with pole form form factors,
 //             according to Becirevic and Kaidalov(BK)
 //
 // Modification history:
@@ -25,26 +25,23 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"//modified
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
-
+#include <memory>
 class Evtparticle;
 
 class EvtSLBKPole:public  EvtDecayAmp  {
 
 public:
 
-  EvtSLBKPole() {}//modified
-  virtual ~EvtSLBKPole();//modified
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF *SLBKPoleffmodel;//modified
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> SLBKPoleffmodel;//modified
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif

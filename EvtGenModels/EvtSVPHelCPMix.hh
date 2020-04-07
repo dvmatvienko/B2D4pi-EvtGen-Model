@@ -34,17 +34,14 @@ class EvtSVPHelCPMix : public EvtDecayAmp {
 
 public:
 
-  EvtSVPHelCPMix() {}
-  virtual ~EvtSVPHelCPMix();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void initProbMax() override;
+  void init() override;
 
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
 
-  void decay(EvtParticle *p);
-  
 };
 
 #endif

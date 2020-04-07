@@ -15,7 +15,7 @@
 using std::endl;
 using std::ostream;
 
-EvtValError::EvtValError() 
+EvtValError::EvtValError()
   : _valKnown(0), _val(0.), _errKnown(0), _err(0.)
 {}
 
@@ -26,19 +26,16 @@ EvtValError::EvtValError(double val)
 EvtValError::EvtValError(double val, double err)
   : _valKnown(1), _val(val), _errKnown(1), _err(err)
 {}
-  
-EvtValError::EvtValError(const EvtValError& other) 
-  : _valKnown(other._valKnown), _val(other._val), 
+
+EvtValError::EvtValError(const EvtValError& other)
+  : _valKnown(other._valKnown), _val(other._val),
   _errKnown(other._errKnown), _err(other._err)
 {}
 
-EvtValError::~EvtValError()
-{}
-
-double EvtValError::prec() const 
-{ 
-  assert(_valKnown && _errKnown); 
-  return ( _val != 0) ? _err/_val : 0; 
+double EvtValError::prec() const
+{
+  assert(_valKnown && _errKnown);
+  return ( _val != 0) ? _err/_val : 0;
 }
 
 void EvtValError::operator=(const EvtValError& other)
@@ -57,8 +54,8 @@ void EvtValError::operator*=(const EvtValError& other)
   if(_errKnown && other._errKnown)
     _err = _val * other._val * sqrt(prec()*prec() + other.prec() * other.prec());
   else _errKnown = 0;
-  
-  // Modify the value  
+
+  // Modify the value
   _val *= other._val;
 }
 
@@ -70,8 +67,8 @@ void EvtValError::operator/=(const EvtValError& other)
   if(_errKnown && other._errKnown)
     _err = _val/other._val * sqrt(prec()*prec() + other.prec() * other.prec());
   else _errKnown = 0;
-  
-  // Modify the value  
+
+  // Modify the value
   _val /= other._val;
 }
 
@@ -91,21 +88,21 @@ void EvtValError::operator+=(const EvtValError& other)
 {
   assert(_valKnown); assert(other._valKnown);
   _val += other._val;
-  
+
     // add errors in quadrature
-  
+
   if(_errKnown && other._errKnown) {
 
     _err = sqrt(_err*_err + other._err*other._err);
   }
   else {
-    
+
       _errKnown = 0;
   }
 }
 
 void EvtValError::operator*=(double c) {
-  
+
   assert(_valKnown);
   _val *= c;
   if(_errKnown) _err*=c;
@@ -135,7 +132,7 @@ EvtValError operator+(const EvtValError& x1, const EvtValError& x2)
 }
 
 
-EvtValError operator*(const EvtValError& x,double c) 
+EvtValError operator*(const EvtValError& x,double c)
 {
   EvtValError ret(x);
   ret*=c;
@@ -143,7 +140,7 @@ EvtValError operator*(const EvtValError& x,double c)
 }
 
 
-EvtValError operator*(double c,const EvtValError& x) 
+EvtValError operator*(double c,const EvtValError& x)
 {
   EvtValError ret(x);
   ret*=c;

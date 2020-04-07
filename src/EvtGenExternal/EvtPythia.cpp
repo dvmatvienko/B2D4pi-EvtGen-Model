@@ -83,11 +83,11 @@ void EvtPythia::decay( EvtParticle *p ){
   // We check to see if the engine has been created before doing the decay.
   // This should only create the full Pythia engine once, and all clones will point to the same engine.
 
-  if (_pythiaEngine == 0) {
+  if (!_pythiaEngine) {
     _pythiaEngine = EvtExternalGenFactory::getInstance()->getGenerator(EvtExternalGenFactory::PythiaGenId);
   }
     
-  if (_pythiaEngine != 0) {
+  if (_pythiaEngine) {
     _pythiaEngine->doDecay(p);
   }
 
@@ -99,7 +99,7 @@ void EvtPythia::fixPolarisations(EvtParticle *p) {
 
   // Special case to handle the J/psi polarisation
 
-  if (p == 0) {return;}
+  if (!p) {return;}
 
   int nDaug = p->getNDaug();  
   int i(0);
@@ -110,7 +110,7 @@ void EvtPythia::fixPolarisations(EvtParticle *p) {
 
     EvtParticle* theDaug = p->getDaug(i);
 
-    if (theDaug != 0) {
+    if (theDaug) {
 
       if (theDaug->getId() == Jpsi) {
   

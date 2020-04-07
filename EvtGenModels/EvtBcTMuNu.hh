@@ -21,13 +21,10 @@
 #ifndef EVTBcTMuNu_HH
 #define EVTBcTMuNu_HH
 
-#include <fstream>
-#include <stdio.h>
-
-
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <memory>
 
 class EvtParticle;
 
@@ -35,20 +32,17 @@ class EvtBcTMuNu:public  EvtDecayAmp  {
 
 public:
 
-  EvtBcTMuNu() {}
-  virtual ~EvtBcTMuNu();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void decay(EvtParticle *p) override;
+  void init() override;
 
-  void decay(EvtParticle *p);
-  void init();
-
-  virtual void initProbMax();
+  void initProbMax() override;
 
 private:
-  EvtSemiLeptonicFF *ffmodel;
-  EvtSemiLeptonicAmp *calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> ffmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
   int whichfit;
   int idTensor;
 };

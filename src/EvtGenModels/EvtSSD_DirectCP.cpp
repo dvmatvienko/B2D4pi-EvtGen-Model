@@ -1,7 +1,6 @@
-// $Id: EvtSSD_DirectCP.cpp,v 1.2 2009-03-16 16:24:05 robbep Exp $
 // Generation of direct CP violation in hadronic environment
 // Patrick Robbe, LHCb,  08 Nov 2006
-// 
+//
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtRandom.hh"
@@ -14,8 +13,6 @@
 #include "EvtGenModels/EvtSSD_DirectCP.hh"
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
-
-EvtSSD_DirectCP::~EvtSSD_DirectCP() {}
 
 std::string EvtSSD_DirectCP::getName( ){
 
@@ -39,7 +36,7 @@ void EvtSSD_DirectCP::init(){
 
   EvtSpinType::spintype d1type=EvtPDL::getSpinType(getDaug(0));
   EvtSpinType::spintype d2type=EvtPDL::getSpinType(getDaug(1));
-  
+
   if ( (!(d1type == EvtSpinType::SCALAR || d2type == EvtSpinType::SCALAR))||
        (!((d2type==EvtSpinType::SCALAR)||(d2type==EvtSpinType::VECTOR)||
           (d2type==EvtSpinType::TENSOR)))||
@@ -56,7 +53,7 @@ void EvtSSD_DirectCP::init(){
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<std::endl;
     ::abort();
   }
-  
+
   _acp = getArg( 0 ) ; // A_CP defined as A_CP = (BR(fbar)-BR(f))/(BR(fbar)+BR(f))
 
 }
@@ -75,7 +72,7 @@ void EvtSSD_DirectCP::decay( EvtParticle *p) {
 
   bool flip = false ;
   EvtId daugs[2];
-  
+
   // decide it is B or Bbar:
   if ( EvtRandom::Flat(0.,1.) < ( ( 1. - _acp ) / 2. ) ) {
     // it is a B
@@ -84,7 +81,7 @@ void EvtSSD_DirectCP::decay( EvtParticle *p) {
     // it is a Bbar
     if ( EvtPDL::getStdHep( getParentId() ) > 0 ) flip = true ;
   }
-  
+
   if ( flip ) {
     if ( ( isB0Mixed( p ) ) || ( isBsMixed( p ) ) ) {
       p->getParent()
@@ -94,7 +91,7 @@ void EvtSSD_DirectCP::decay( EvtParticle *p) {
     else {
       p->setId( EvtPDL::chargeConj( p->getId() ) ) ;
     }
-  }  
+  }
 
   if (!flip) {
     daugs[0]=getDaug(0);
@@ -131,28 +128,28 @@ void EvtSSD_DirectCP::decay( EvtParticle *p) {
   if (d2type==EvtSpinType::SCALAR) {
     vertex(1.);
   }
-  
+
   if (d2type==EvtSpinType::VECTOR) {
-    
+
     double norm=momv.mass()/(momv.d3mag()*p->mass());
-    
+
     vertex(0,norm*p4_parent*(d->epsParent(0)));
     vertex(1,norm*p4_parent*(d->epsParent(1)));
     vertex(2,norm*p4_parent*(d->epsParent(2)));
-  
+
   }
 
   if (d2type==EvtSpinType::TENSOR) {
 
     double norm=
       d->mass()*d->mass()/(m_parent*d->getP4().d3mag()*d->getP4().d3mag());
- 
-   
+
+
    vertex(0,norm*d->epsTensorParent(0).cont1(p4_parent)*p4_parent);
    vertex(1,norm*d->epsTensorParent(1).cont1(p4_parent)*p4_parent);
    vertex(2,norm*d->epsTensorParent(2).cont1(p4_parent)*p4_parent);
    vertex(3,norm*d->epsTensorParent(3).cont1(p4_parent)*p4_parent);
-   vertex(4,norm*d->epsTensorParent(4).cont1(p4_parent)*p4_parent);  
+   vertex(4,norm*d->epsTensorParent(4).cont1(p4_parent)*p4_parent);
   }
 }
 

@@ -16,7 +16,7 @@
 // Modification history:
 //
 //    Mark Ian Williams       July 20, 2000       Module created
-//    Jane Tinslay            March 21, 2000      Separated from EvtBtoXsgamma 
+//    Jane Tinslay            March 21, 2000      Separated from EvtBtoXsgamma
 //                                                class to allow choice of input models.
 //
 //------------------------------------------------------------------------
@@ -28,18 +28,12 @@
 class EvtBtoXsgammaAliGreub : public EvtBtoXsgammaAbsModel {
 
 public:
-  
-  EvtBtoXsgammaAliGreub() {}
 
-  virtual ~EvtBtoXsgammaAliGreub();
+  void init(int, double*) override;
 
-  void init(int, double*);
+  double GetMass(int code) override;
 
-  double GetMass(int code);
-
-private:
 
 };
 
 #endif
-

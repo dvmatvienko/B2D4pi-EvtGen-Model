@@ -29,21 +29,14 @@ class EvtHighSpinParticle: public EvtParticle {
 
 public:
 
-  EvtHighSpinParticle() {}
-  virtual ~EvtHighSpinParticle();
+  EvtHighSpinParticle() = default;
 
-  void init(EvtId id,const EvtVector4R& p);
+  void init(EvtId id,const EvtVector4R& p) override;
 
-  EvtSpinDensity rotateToHelicityBasis() const;
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
-
-   
-private:
-
-  EvtHighSpinParticle(const EvtHighSpinParticle& highSpin);
-  EvtHighSpinParticle& operator=(const EvtHighSpinParticle& highSpin);
+				       double gamma) const override;
 
 };
 

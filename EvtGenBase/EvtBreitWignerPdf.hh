@@ -15,21 +15,20 @@
 #include "EvtGenBase/EvtIntegPdf1D.hh"
 
 class EvtBreitWignerPdf : public EvtIntegPdf1D {
-  
+
 public:
-  
+
   EvtBreitWignerPdf(double min, double max, double m0, double g0);
   EvtBreitWignerPdf(const EvtBreitWignerPdf& other);
-  virtual ~EvtBreitWignerPdf(); 
-  
-  double pdf(const EvtPoint1D& x) const;
-  EvtPdf<EvtPoint1D>* clone() const
+
+  double pdf(const EvtPoint1D& x) const override;
+  EvtPdf<EvtPoint1D>* clone() const override
   {
     return new EvtBreitWignerPdf(*this);
   }
 
-  double pdfIntegral(double m) const;
-  double pdfIntegralInverse(double x) const;
+  double pdfIntegral(double m) const override;
+  double pdfIntegralInverse(double x) const override;
 
   // accessors
 
@@ -40,7 +39,7 @@ private:
 
   double _m0;
   double _g0;
-  
+
 };
 
 

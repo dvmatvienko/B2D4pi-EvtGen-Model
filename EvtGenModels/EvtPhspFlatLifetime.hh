@@ -36,19 +36,19 @@ public:
   virtual ~EvtPhspFlatLifetime() {} ;
 
   /// return name of the model
-  virtual std::string getName();
+  std::string getName() override;
 
   /// Clone
-  virtual EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
   /// Compute maximum weight
-  virtual void initProbMax();
+  void initProbMax() override;
 
   /// Initialize the model
-  virtual void init();
+  void init() override;
 
   /// Perform the decay
-  virtual  void decay(EvtParticle *p);
+   void decay(EvtParticle *p) override;
 
 private:
   /// parameter of the model: maximum of the generated lifetime (in ps)

@@ -31,21 +31,20 @@ class EvtRaritaSchwingerParticle:public EvtParticle {
 
 public:
 
-  
-  EvtRaritaSchwingerParticle();
-  virtual ~EvtRaritaSchwingerParticle();
-  void init(EvtId id,const EvtVector4R& p4);
+
+  EvtRaritaSchwingerParticle() = default;
+  void init(EvtId id,const EvtVector4R& p4) override;
   void init(EvtId id,const EvtVector4R& p4,
 	    const EvtRaritaSchwinger &,const EvtRaritaSchwinger &,
 	    const EvtRaritaSchwinger &,const EvtRaritaSchwinger &,
 	    const EvtRaritaSchwinger &,const EvtRaritaSchwinger &,
 	    const EvtRaritaSchwinger &,const EvtRaritaSchwinger &);
-  EvtRaritaSchwinger spRSParent(int) const;
-  EvtRaritaSchwinger spRS(int) const;   
-  EvtSpinDensity rotateToHelicityBasis() const;
+  EvtRaritaSchwinger spRSParent(int) const override;
+  EvtRaritaSchwinger spRS(int) const override;
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
+				       double gamma) const override;
 
 private:
 

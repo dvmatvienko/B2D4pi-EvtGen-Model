@@ -10,7 +10,7 @@
 //
 // Module: EvtSVVCPLH.cc
 //
-// Description: The decay of a scalar to two vector particles are 
+// Description: The decay of a scalar to two vector particles are
 //              performed with CP violation and different widths for
 //              the cpe even and od states. E.g. Bs->J/psi phi.
 //
@@ -34,11 +34,9 @@
 #include "EvtGenBase/EvtConst.hh"
 using std::endl;
 
-EvtSVVCPLH::~EvtSVVCPLH() {}
-
 std::string EvtSVVCPLH::getName(){
 
-  return "SVV_CPLH";     
+  return "SVV_CPLH";
 
 }
 
@@ -83,7 +81,7 @@ void EvtSVVCPLH::decay( EvtParticle *p){
   EvtCPUtil::getInstance()->OtherB(p,t,other_b);
 
   EvtComplex G0P,G1P,G1M;
-  
+
   G1P=EvtComplex(getArg(3)*cos(getArg(4)),getArg(3)*sin(getArg(4)));
   G0P=EvtComplex(getArg(5)*cos(getArg(6)),getArg(5)*sin(getArg(6)));
   G1M=EvtComplex(getArg(7)*cos(getArg(8)),getArg(7)*sin(getArg(8)));
@@ -121,8 +119,8 @@ void EvtSVVCPLH::decay( EvtParticle *p){
    EvtComplex A0,AP,AM;
 
    A0=cG0P/sqrt(2.0);
-   AP=(cG1P+cG1M)/sqrt(2.0); 
-   AM=(cG1P-cG1M)/sqrt(2.0); 
+   AP=(cG1P+cG1M)/sqrt(2.0);
+   AM=(cG1P-cG1M)/sqrt(2.0);
 
    EvtSVVHelAmp::SVVHel(p,_amp2,getDaug(0),getDaug(1),AP,A0,AM);
 

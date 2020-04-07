@@ -1,11 +1,11 @@
-// Include files 
+// Include files
 
 
 
 // local
 
 #include "EvtGenModels/EvtRareLbToLllFFGutsche.hh"
-#include "EvtGenBase/EvtVector4R.hh" 
+#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtIdSet.hh"
 
@@ -23,10 +23,6 @@
 
 EvtIdSet EvtRareLbToLllFFGutsche::fParents("Lambda_b0", "anti-Lambda_b0");
 EvtIdSet EvtRareLbToLllFFGutsche::fDaughters("Lambda0", "anti-Lambda0");
-
-EvtRareLbToLllFFGutsche::EvtRareLbToLllFFGutsche() : EvtRareLbToLllFFBase()  
-  {}
-
 
 void EvtRareLbToLllFFGutsche::init()
 {
@@ -74,29 +70,21 @@ void EvtRareLbToLllFFGutsche::init()
 }
 
 //=============================================================================
-// Destructor
-//=============================================================================
-
-EvtRareLbToLllFFGutsche::~EvtRareLbToLllFFGutsche() {
-  
-}
-
-//=============================================================================
 
 
-void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent, 
+void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent,
                              EvtParticle* lambda,
                              EvtRareLbToLllFFBase::FormFactors& FF )
 {
   // Find the FF information for this particle, start by setting all to zero
   FF.areZero();
-  
+
 /*
-  if ( ! ( fParents.contains(parent->getId()) && 
+  if ( ! ( fParents.contains(parent->getId()) &&
            fDaughters.contains(lambda->getId()) ) )
   {
     EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtRareLbToLllFFGutsche: Unknown mother and/or daughter. " << std::endl;
-    return; 
+    return;
   }
 */
 
@@ -146,7 +134,7 @@ void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent,
   return ;
 }
 
-double EvtRareLbToLllFFGutsche::formFactorParametrization(double s, double f0, 
+double EvtRareLbToLllFFGutsche::formFactorParametrization(double s, double f0,
                                      double a, double b) {
   return f0 / (1 - a * s + b * s * s);
 }

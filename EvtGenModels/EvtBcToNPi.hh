@@ -30,22 +30,21 @@
 class EvtBcToNPi: public EvtDecayAmp {
 
 public:
-  
+
   EvtBcToNPi(bool printAuthorInfo = false);
-  virtual ~EvtBcToNPi();
 
-  std::string getName();
+  std::string getName() override;
 
-  EvtDecayBase* clone();
+  EvtDecayBase* clone() override;
 
-  void initProbMax();
+  void initProbMax() override;
 
-  void init();
+  void init() override;
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 protected:
-  
+
   int nCall;
   double maxAmp2;
 
@@ -55,10 +54,10 @@ protected:
   double FAm_N, FAm_c1, FAm_c2;
   double FAp_N, FAp_c1, FAp_c2;
   double FV_N, FV_c1, FV_c2;
-  
+
   double Fp_N, Fp_c1, Fp_c2;
   double Fm_N, Fm_c1, Fm_c2;
-  
+
   // W -> pi... form factors
   double _beta;
   double  _mRho;

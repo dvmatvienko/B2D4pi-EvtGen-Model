@@ -26,15 +26,12 @@ class EvtLb2Lll:public EvtDecayAmp {
 
 public:
 
-  EvtLb2Lll() {}
-  virtual ~EvtLb2Lll();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void init();
-  void initProbMax();
+  void decay(EvtParticle *p) override;
+  void init() override;
+  void initProbMax() override;
   void calcAmp(EvtAmp *amp,EvtParticle *parent);
 
   EvtTensor4C EvtLeptonTG5Current(const EvtDiracSpinor &d,const EvtDiracSpinor &dp);
@@ -52,7 +49,7 @@ private:
   std::string m_HEPmodel;
   std::string m_FFtype;
   std::string m_effectContribution;
-  
+
   EvtWilsonCoefficients m_WC;
 
 };

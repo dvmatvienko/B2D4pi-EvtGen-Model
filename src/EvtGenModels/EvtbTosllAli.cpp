@@ -10,14 +10,14 @@
 //
 // Module: EvtbTosllAli.cc
 //
-// Description: Routine to implement b->sll decays according to Ali '02 et al. 
+// Description: Routine to implement b->sll decays according to Ali '02 et al.
 //
 // Modification history:
 //
 //    Ryd     March 30, 2003        Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -33,11 +33,9 @@
 #include <string>
 using std::endl;
 
-EvtbTosllAli::~EvtbTosllAli() {}
-
 std::string EvtbTosllAli::getName(){
 
-  return "BTOSLLALI";     
+  return "BTOSLLALI";
 }
 
 
@@ -52,24 +50,24 @@ void EvtbTosllAli::decay( EvtParticle *p ){
   setWeight(p->initializePhaseSpace(getNDaug(),getDaugs(),false,
                                     _poleSize,1,2));
 
-  _calcamp->CalcAmp(p,_amp2,_aliffmodel);
-  
+  _calcamp->CalcAmp(p,_amp2,_aliffmodel.get());
+
 }
 
 
 void EvtbTosllAli::initProbMax(){
 
   EvtId parnum,mesnum,l1num,l2num;
-  
+
   parnum = getParentId();
   mesnum = getDaug(0);
   l1num = getDaug(1);
   l2num = getDaug(2);
-  
+
   //This routine sets the _poleSize.
   double mymaxprob = _calcamp->CalcMaxProb(parnum,mesnum,
 					   l1num,l2num,
-					   _aliffmodel,_poleSize);
+					   _aliffmodel.get(),_poleSize);
 
   setProbMax(mymaxprob);
 
@@ -81,7 +79,7 @@ void EvtbTosllAli::init(){
   checkNArg(0);
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton+ lepton-
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -100,12 +98,12 @@ void EvtbTosllAli::init(){
   checkSpinDaughter(1,EvtSpinType::DIRAC);
   checkSpinDaughter(2,EvtSpinType::DIRAC);
 
-  _aliffmodel = new EvtbTosllAliFF();
+  _aliffmodel = std::make_unique<EvtbTosllAliFF>();
   if (mesontype == EvtSpinType::SCALAR){
-    _calcamp = new EvtbTosllScalarAmp(-0.313,4.344,-4.669); 
+    _calcamp = std::make_unique<EvtbTosllScalarAmp>();
   }
   if (mesontype == EvtSpinType::VECTOR){
-    _calcamp = new EvtbTosllVectorAmp(-0.313,4.344,-4.669); 
+    _calcamp = std::make_unique<EvtbTosllVectorAmp>();
   }
 
 }

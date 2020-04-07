@@ -32,15 +32,12 @@ class EvtTSS:public  EvtDecayAmp  {
 
 public:
 
-  EvtTSS() {}
-  virtual ~EvtTSS();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void init();
-  void decay(EvtParticle *p); 
-  void initProbMax();
+  void init() override;
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
 
 };
 

@@ -5,13 +5,13 @@
 //
 //
 // tripleDiff from BLNPHybrid's notebook, based on hep-ph/0504071
-// 
+//
 // Description:
 // Class to generate inclusive B to X_u l nu decays.
 // This class is based on EvtVubBLNP by Sheila Mclachlin with an update to
 // generate the inclusive decays in such a way that the right
 // mix of inclusive and exclusive decays is obtained.
-// 
+//
 //NOTE:
 // - A set of weights (for bins in the kinematic variables mX, q2, El)
 //   is read from DECAY.DEC. This set of weights must be consistent
@@ -34,39 +34,33 @@ class EvtParticle;
 class EvtVubBLNPHybrid:public  EvtDecayIncoherent  {
 
 public:
-  
-  EvtVubBLNPHybrid(); 
-  virtual ~EvtVubBLNPHybrid();
-  
-  std::string getName();
-  
-  EvtDecayBase* clone();
 
-  void initProbMax();
+  std::string getName() override;
 
-  void init();
+  EvtDecayBase* clone() override;
 
-  void decay(EvtParticle *Bmeson); 
+  void initProbMax() override;
+
+  void init() override;
+
+  void decay(EvtParticle *Bmeson) override;
 
   void readWeights(int startArg=0);
-  
+
   double getWeight(double mX, double q2, double El);
 
 private:
   //Input for hybrid modell
   enum { nParameters = 10, nVariables = 3 };
-  bool _noHybrid;
-  bool _storeWhat;
-  int    _nbins_mX;
-  int    _nbins_q2;
-  int    _nbins_El;
-  int    _nbins;
-  double _masscut;
-  double * _bins_mX;
-  double * _bins_q2;
-  double * _bins_El;
-  double * _weights;
-  
+  bool _noHybrid = false;
+  bool _storeWhat = true;
+  int    _nbins = 0;
+  double _masscut = 0.28;
+  std::vector<double>  _bins_mX;
+  std::vector<double>  _bins_q2;
+  std::vector<double>  _bins_El;
+  std::vector<double>  _weights;
+
   // Input parameters
   double mBB;
   double lambda2;
@@ -123,7 +117,7 @@ private:
   double precision;
 
   std::vector<double> gvars;
-  
+
   double rate3(double Pp, double Pl, double Pm);
   double F1(double Pp, double Pm, double muh, double mui, double mubar, double doneJS, double done1);
   double F2(double Pp, double Pm, double muh, double mui, double mubar, double done3);

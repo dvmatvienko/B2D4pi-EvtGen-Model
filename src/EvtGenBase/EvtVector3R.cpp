@@ -17,7 +17,7 @@
 //    RYD       September 5, 1997       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <iostream>
 #include <math.h>
@@ -26,16 +26,14 @@ using std::ostream;
 
 
 
-EvtVector3R::~EvtVector3R(){}
-
 EvtVector3R::EvtVector3R(){
-  
+
   v[0]=v[1]=v[2]=0.0;
 }
 
 
 EvtVector3R::EvtVector3R(double x,double y, double z){
-  
+
   v[0]=x; v[1]=y; v[2]=z;
 }
 
@@ -72,7 +70,7 @@ void EvtVector3R::applyRotateEuler(double phi,double theta,double ksi){
 }
 
 ostream& operator<<(ostream& s,const EvtVector3R& v){
- 
+
   s<<"("<<v.v[0]<<","<<v.v[1]<<","<<v.v[2]<<")";
 
   return s;
@@ -110,7 +108,7 @@ double EvtVector3R::dot ( const EvtVector3R& p2 ){
   temp = v[0]*p2.v[0];
   temp += v[0]*p2.v[0];
   temp += v[0]*p2.v[0];
- 
+
   return temp;
 } //dot
 

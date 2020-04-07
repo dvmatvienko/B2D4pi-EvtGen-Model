@@ -1,4 +1,4 @@
-// Include files 
+// Include files
 
 
 
@@ -6,7 +6,7 @@
 
 #include "EvtGenModels/EvtRareLbToLllFFlQCD.hh"
 #include "EvtGenModels/EvtWilsonCoefficients.hh"
-#include "EvtGenBase/EvtVector4R.hh" 
+#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtIdSet.hh"
 #include "EvtGenBase/EvtConst.hh"
@@ -20,13 +20,6 @@
 // 2014-10-22 : Michal Kreps
 //-----------------------------------------------------------------------------
 
-//=============================================================================
-// Standard constructor, initializes variables
-//=============================================================================
-
-
-EvtRareLbToLllFFlQCD::EvtRareLbToLllFFlQCD() : EvtRareLbToLllFFBase()  
-  {}
 
 
 void EvtRareLbToLllFFlQCD::init()
@@ -86,23 +79,15 @@ void EvtRareLbToLllFFlQCD::init()
 }
 
 //=============================================================================
-// Destructor
-//=============================================================================
-
-EvtRareLbToLllFFlQCD::~EvtRareLbToLllFFlQCD() {
-  
-}
-
-//=============================================================================
 
 
-void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent, 
+void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent,
                              EvtParticle* lambda,
                              EvtRareLbToLllFFBase::FormFactors& FF )
 {
   // Find the FF information for this particle, start by setting all to zero
   FF.areZero();
-  
+
   double m1 = parent->getP4().mass();
   double m2 = lambda->getP4().mass();
 //  double m21=m2/m1;
@@ -116,7 +101,7 @@ void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent,
   double massDiffSq = massDiff * massDiff;
   double q2Sum = q2 - massSumSq;
   double q2Diff = q2 - massDiffSq;
- 
+
   double f[3];
   double g[3];
   double h[2];
@@ -128,7 +113,7 @@ void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent,
   }
   for (int i=0;i<=1;++i) {
     h[i] = formFactorParametrization(q2, hconsts[i][0], hconsts[i][1], hconsts[i][2]);
-    htilda[i] = formFactorParametrization(q2, htildaconsts[i][0], htildaconsts[i][1], 
+    htilda[i] = formFactorParametrization(q2, htildaconsts[i][0], htildaconsts[i][1],
                                           htildaconsts[i][2]);
   }
 
@@ -148,16 +133,16 @@ void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent,
   FF.FT_[1] = -m1/q2Sum*( 2*h[1]*m2*massSum-h[0]*(q2-massSum*massDiff));
   FF.FT_[2] = -m2/q2Sum*( 2*h[1]*m1*massSum-h[0]*(q2+massSum*massDiff));
 
-  FF.GT_[0] = massDiff*htilda[1]; 
+  FF.GT_[0] = massDiff*htilda[1];
 
-  FF.GT_[1] = m1/q2Diff*(2*htilda[1]*massDiff*m2+htilda[0]*(q2-massSum*massDiff)); 
+  FF.GT_[1] = m1/q2Diff*(2*htilda[1]*massDiff*m2+htilda[0]*(q2-massSum*massDiff));
   FF.GT_[2] = m2/q2Diff*(-2*htilda[1]*massDiff*m1+htilda[0]*(q2+massSum*massDiff));
 
   return ;
 }
 
-double EvtRareLbToLllFFlQCD::formFactorParametrization(double q2, double a0, 
-                                                       double a1, double pole){ 
+double EvtRareLbToLllFFlQCD::formFactorParametrization(double q2, double a0,
+                                                       double a1, double pole){
 
   double z = zvar(q2);
   return 1./(1.-q2/(pole * pole))*(a0 + a1 * z);

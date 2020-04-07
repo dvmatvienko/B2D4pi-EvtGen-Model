@@ -18,7 +18,7 @@
 //    AVL     Feb 5, 2018            D0, D*0 modes added
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -37,11 +37,8 @@ using namespace std;
 
 
 
-EvtBcVMuNu::~EvtBcVMuNu() {
-}
-
 std::string EvtBcVMuNu::getName(){
-  return "BC_VMN";     
+  return "BC_VMN";
 }
 
 
@@ -53,7 +50,7 @@ EvtDecayBase* EvtBcVMuNu::clone(){
 void EvtBcVMuNu::decay( EvtParticle *p ){
 
   p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,ffmodel);
+  calcamp->CalcAmp(p,_amp2,ffmodel.get());
 }
 
 
@@ -61,7 +58,7 @@ void EvtBcVMuNu::init(){
   checkNArg(1);
   checkNDaug(3);
 
-  //We expect the parent to be a scalar 
+  //We expect the parent to be a scalar
   //and the daughters to be X lepton neutrino
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -73,10 +70,10 @@ void EvtBcVMuNu::init(){
   idVector = getDaug(0).getId();
   whichfit = int(getArg(0)+0.1);
 
-  ffmodel = new EvtBCVFF(idVector,whichfit);
+  ffmodel = std::make_unique<EvtBCVFF>(idVector,whichfit);
 
-  calcamp = new EvtSemiLeptonicVectorAmp; 
- 
+  calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+
 }
 
 void EvtBcVMuNu::initProbMax() {
@@ -87,7 +84,7 @@ void EvtBcVMuNu::initProbMax() {
   EvtId nuId = getDaug(2);
 
   int nQ2Bins = 200;
-  double maxProb = calcamp->CalcMaxProb(parId, mesonId, lepId, nuId, ffmodel, nQ2Bins);
+  double maxProb = calcamp->CalcMaxProb(parId, mesonId, lepId, nuId, ffmodel.get(), nQ2Bins);
 
   if (verbose()) {
     EvtGenReport(EVTGEN_INFO,"EvtBcVMuNu") << "Max prob = " << maxProb << endl;

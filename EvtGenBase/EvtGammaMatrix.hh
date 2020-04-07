@@ -35,7 +35,7 @@ namespace EvtGenFunctions {
   EvtGammaMatrix slash( const EvtVector4R& p ) ;
 }
 
-class EvtGammaMatrix {
+class EvtGammaMatrix final {
 
     friend EvtGammaMatrix operator*(const EvtComplex& c,const EvtGammaMatrix& g);
     friend EvtGammaMatrix operator*(const EvtGammaMatrix& g, const EvtComplex& c);
@@ -47,14 +47,13 @@ class EvtGammaMatrix {
     friend std::ostream& operator<<(std::ostream& s, const EvtGammaMatrix& v);
     friend EvtDiracSpinor EvtDiracSpinor::adjoint() const;
 
-    
+
 public:
-    
+
     EvtGammaMatrix();
-    virtual ~EvtGammaMatrix();
-    EvtGammaMatrix(const EvtGammaMatrix& gm);  
-    EvtGammaMatrix& operator=(const EvtGammaMatrix& gm);  
-    
+    EvtGammaMatrix(const EvtGammaMatrix& gm);
+    EvtGammaMatrix& operator=(const EvtGammaMatrix& gm);
+
     void init();
     static const EvtGammaMatrix& g(int);
     static const EvtGammaMatrix& g0();
@@ -74,11 +73,11 @@ public:
     // Dirac sigma matrix with upper or lower indices (only one element)
     static const EvtGammaMatrix& sigmaUpper(unsigned int mu, unsigned int nu);
     static const EvtGammaMatrix& sigmaLower(unsigned int mu, unsigned int nu);
-        
+
     EvtGammaMatrix& operator+=(const EvtGammaMatrix &g);
     EvtGammaMatrix& operator-=(const EvtGammaMatrix &g);
     EvtGammaMatrix& operator*=(const EvtGammaMatrix &g);
-    
+
 private:
     EvtComplex _gamma[4][4];
 

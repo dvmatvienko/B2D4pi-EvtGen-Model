@@ -532,7 +532,7 @@ double EvtbTosllVectorAmpNewExt::CalcMaxProb(EvtId parnum, EvtId mesnum,
      double cosVellminus; // angle between the vector meson and ell^- directions
      cosVellminus = (pow(M2,2.0)+pow(ml,2.0)+2.0*EV*El2-t_for_s)/(2.0*modV*modl2);
      if((fabs(cosVellminus)>1.0)&&(fabs(cosVellminus)<=1.0001)){
-//       report(DEBUG,"EvtGen") 
+//       EvtGenReport(EVTGEN_DEBUG,"EvtGen") 
 //         << "\n Debug in the function EvtbTosllVectorAmpNew::CalcMaxProb(...):"
 //         << "\n cos(theta) = " << cosVellminus 
 //         << std::endl;
@@ -575,7 +575,7 @@ double EvtbTosllVectorAmpNewExt::CalcMaxProb(EvtId parnum, EvtId mesnum,
      k2.set(El2, modl2*cosVellminus, -modl2*sqrt(1.0-pow(cosVellminus,2.0)), 0.0);
      k1=p1-p2-k2;
 
-//     report(DEBUG,"EvtGen") 
+//     EvtGenReport(EVTGEN_DEBUG,"EvtGen") 
 //         << "\n Debug in the function EvtbTosllVectorAmpNew::CalcMaxProb(...):"
 //         << "\n mu =" << mu << " Nf =" << Nf 
 //         << " res_swch =" << res_swch 
@@ -716,7 +716,7 @@ double EvtbTosllVectorAmpNewExt::CalcMaxProb(EvtId parnum, EvtId mesnum,
        double cosVellminus; // angle between the vector meson and ell^- directions
        cosVellminus = (pow(M2,2.0)+pow(ml,2.0)+2.0*EV*El2-t_for_s)/(2.0*modV*modl2);
        if((fabs(cosVellminus)>1.0)&&(fabs(cosVellminus)<=1.0001)){
-//         report(DEBUG,"EvtGen") 
+//         EvtGenReport(EVTGEN_DEBUG,"EvtGen") 
 //           << "\n Debug in the function EvtbTosllVectorAmpNew::CalcMaxProb(...):"
 //           << "\n cos(theta) = " << cosVellminus 
 //           << std::endl;
@@ -762,7 +762,7 @@ double EvtbTosllVectorAmpNewExt::CalcMaxProb(EvtId parnum, EvtId mesnum,
        k2.set(El2, modl2*cosVellminus, -modl2*sqrt(1.0-pow(cosVellminus,2.0)), 0.0);
        k1=p1-p2-k2;
 
-//       report(DEBUG,"EvtGen") 
+//       EvtGenReport(EVTGEN_DEBUG,"EvtGen") 
 //           << "\n Debug in the function EvtbTosllVectorAmpNew::CalcMaxProb(...):"
 //           << "\n mu =" << mu << " Nf =" << Nf 
 //           << " res_swch =" << res_swch 

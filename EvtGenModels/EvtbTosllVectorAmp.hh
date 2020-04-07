@@ -31,18 +31,17 @@ class EvtbTosllVectorAmp : public EvtbTosllAmp {
 
 public:
 
-  EvtbTosllVectorAmp(double c7, double c9, double c10):_c7(c7),_c9(c9),_c10(c10){}
+  //EvtbTosllVectorAmp(double c7, double c9, double c10):_c7(c7),_c9(c9),_c10(c10){}
 
   //Daughters are initialized and have been added to the parent.
   //No need to carry around the daughters seperately!
   void CalcAmp( EvtParticle *parent, EvtAmp& amp,
-		EvtbTosllFF *formFactors );
+		EvtbTosllFF *formFactors ) override;
 
 private:
 
-  double _c7,_c9,_c10;
+  //double _c7,_c9,_c10;
 
 };
 
 #endif
-

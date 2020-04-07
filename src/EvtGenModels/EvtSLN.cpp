@@ -30,11 +30,9 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-EvtSLN::~EvtSLN() {}
-
 std::string EvtSLN::getName(){
 
-  return "SLN";     
+  return "SLN";
 
 }
 
@@ -50,7 +48,7 @@ void EvtSLN::init(){
   // check that there are 0 arguments
   checkNArg(0);
   checkNDaug(2);
-    
+
   checkSpinParent(EvtSpinType::SCALAR);
 
   checkSpinDaughter(0,EvtSpinType::DIRAC);
@@ -87,7 +85,7 @@ void EvtSLN::decay(EvtParticle *p){
   p4_p.set(p->mass(),0.0,0.0,0.0);
 
   EvtVector4C l1, l2;
-  
+
   if (getDaug(0)==TAUM || getDaug(0)==MUM || getDaug(0)==EM) {
     l1=EvtLeptonVACurrent(l->spParent(0),nul->spParentNeutrino());
     l2=EvtLeptonVACurrent(l->spParent(1),nul->spParentNeutrino());
@@ -99,7 +97,7 @@ void EvtSLN::decay(EvtParticle *p){
 
   vertex(0,p4_p*l1);
   vertex(1,p4_p*l2);
-  
+
   return;
 
 }

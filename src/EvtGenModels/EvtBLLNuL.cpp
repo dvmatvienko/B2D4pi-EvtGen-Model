@@ -29,10 +29,6 @@ EvtBLLNuL::EvtBLLNuL() :
 {
 }
 
-EvtBLLNuL::~EvtBLLNuL()
-{
-}
-
 std::string EvtBLLNuL::getName() 
 {    
     // The model name

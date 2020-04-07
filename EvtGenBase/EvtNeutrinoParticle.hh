@@ -30,16 +30,15 @@ class EvtNeutrinoParticle:public EvtParticle {
 
 public:
 
-  EvtNeutrinoParticle();
-  virtual ~EvtNeutrinoParticle();
-  void init(EvtId part_n,const EvtVector4R& p4);
-  EvtDiracSpinor spParentNeutrino() const;
-  EvtDiracSpinor spNeutrino() const;
-  EvtSpinDensity rotateToHelicityBasis() const;
+  EvtNeutrinoParticle() = default;
+  void init(EvtId part_n,const EvtVector4R& p4) override;
+  EvtDiracSpinor spParentNeutrino() const override;
+  EvtDiracSpinor spNeutrino() const override;
+  EvtSpinDensity rotateToHelicityBasis() const override;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,
-				       double gamma) const;
-  
+				       double gamma) const override;
+
 private:
 
   EvtDiracSpinor spinor_rest;

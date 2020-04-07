@@ -25,6 +25,7 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <memory>
 
 class EvtParticle;
 
@@ -32,19 +33,15 @@ class EvtBToVlnuBall:public  EvtDecayAmp  {
 
 public:
 
-  EvtBToVlnuBall();
-  virtual ~EvtBToVlnuBall();
+  std::string getName() override;
+  EvtBToVlnuBall* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
+  void initProbMax() override;
+  void init() override;
 
 private:
-  EvtSemiLeptonicFF* _Ballmodel;
-  EvtSemiLeptonicAmp* _calcamp;
+  std::unique_ptr<EvtSemiLeptonicFF> _Ballmodel;
+  std::unique_ptr<EvtSemiLeptonicAmp> _calcamp;
 };
 #endif
-

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// File and Version Information: 
+// File and Version Information:
 //      $Id: EvtPto3PAmpFactory.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
-// 
+//
 // Environment:
 //      This software is part of the EvtGen package developed jointly
 //      for the BaBar and CLEO collaborations. If you use all or part
@@ -25,30 +25,27 @@
 #include "EvtGenBase/EvtDalitzPoint.hh"
 #include "EvtGenBase/EvtCyclic3.hh"
 
-class EvtPto3PAmpFactory : public EvtAmpFactory<EvtDalitzPoint> {
-  
+class EvtPto3PAmpFactory final : public EvtAmpFactory<EvtDalitzPoint> {
+
 public:
-  
-  EvtPto3PAmpFactory(const EvtDalitzPlot& dp) 
+
+  EvtPto3PAmpFactory(const EvtDalitzPlot& dp)
     : EvtAmpFactory<EvtDalitzPoint>(), _dp(dp)
   {}
-  EvtPto3PAmpFactory(const EvtPto3PAmpFactory& other) 
-    : EvtAmpFactory<EvtDalitzPoint>(other), _dp(other._dp)
-  {}
-  virtual ~EvtPto3PAmpFactory() 
-  {}
-  
-  virtual EvtAmpFactory<EvtDalitzPoint>* clone() const 
-  { 
-    return new EvtPto3PAmpFactory(*this); 
+  EvtPto3PAmpFactory(EvtPto3PAmpFactory&&) = default;
+  EvtPto3PAmpFactory(const EvtPto3PAmpFactory&) = default;
+
+  EvtAmpFactory<EvtDalitzPoint>* clone() const override
+  {
+    return new EvtPto3PAmpFactory(*this);
   }
-  
-  virtual void processAmp(EvtComplex c, std::vector<std::string> vv, bool conj);
- 
+
+  void processAmp(EvtComplex c, std::vector<std::string> vv, bool conj) override;
+
 private:
 
-  double matchIsobarCoef(EvtAmplitude<EvtDalitzPoint>* amp,
-			 EvtPdf<EvtDalitzPoint>* pdf, 
+  double matchIsobarCoef(EvtAmplitude<EvtDalitzPoint>& amp,
+			 EvtPdf<EvtDalitzPoint>& pdf,
 			 EvtCyclic3::Pair i);
 
 
@@ -57,8 +54,3 @@ private:
 };
 
 #endif
-
-
-
-
-

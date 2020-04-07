@@ -29,22 +29,19 @@ class EvtSVSNONCPEIGEN:public  EvtDecayAmp  {
 
 public:
 
-  EvtSVSNONCPEIGEN() {}
-  virtual ~EvtSVSNONCPEIGEN();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+  void initProbMax() override;
+  void init() override;
 
-  void initProbMax();
-  void init();
-
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p) override;
 
 private:
 
   EvtComplex _A_f;
   EvtComplex _Abar_f;
-  
+
   EvtComplex _A_fbar;
   EvtComplex _Abar_fbar;
 

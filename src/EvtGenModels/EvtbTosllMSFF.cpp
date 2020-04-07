@@ -37,32 +37,27 @@
 EvtbTosllMSFF::EvtbTosllMSFF(){}
 
 double EvtbTosllMSFF::equation9_10(double ff0, double M2, double q2, 
-                                double sigma1, double sigma2, int eq_num)
-         {
-           double ff;
-
-           ff=1.0;
+                                double sigma1, double sigma2, int eq_num) {
+    double ff=1.0;
            
-           switch(eq_num)
-             {
-               case 9:
-                 ff=1./(1.-q2/M2);
-		 [[fallthrough]];
-               case 10:
-                 ff=ff*ff0/(1.-sigma1*q2/M2+sigma2*pow(q2,2)/pow(M2,2));
-                 break;
-               default:
-                 EvtGenReport(EVTGEN_ERROR,"EvtGen") << 
-                   "In the function EvtbTosllMSFF::equation9_10   \n" <<
-                   "the parameter eq_num non equal to the 9 or 10! \n" <<
-                   "eq_num =" << eq_num <<std::endl;
-                 ::abort();
-             }
+    switch(eq_num) {
+    case 9:
+	ff=1./(1.-q2/M2);
+	[[fallthrough]];
+    case 10:
+	ff=ff*ff0/(1.-sigma1*q2/M2+sigma2*pow(q2,2)/pow(M2,2));
+	break;
+    default:
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << 
+	    "In the function EvtbTosllMSFF::equation9_10   \n" <<
+	    "the parameter eq_num non equal to the 9 or 10! \n" <<
+	    "eq_num =" << eq_num <<std::endl;
+	::abort();
+    }
+    
+    return ff;
 
-           return ff;
-         }
-
-
+}
 
 void EvtbTosllMSFF::getScalarFF(EvtId parent, EvtId daught,
                                  double  t, double& fp,double& f0, double& ft){

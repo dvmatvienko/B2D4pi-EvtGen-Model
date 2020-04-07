@@ -31,13 +31,6 @@ EvtTwoBodyKine::EvtTwoBodyKine(double mA, double mB, double mAB)
   }
 }
 
-EvtTwoBodyKine::EvtTwoBodyKine(const EvtTwoBodyKine& other)
-  : _mA(other._mA), _mB(other._mB), _mAB(other._mAB)
-{}
-
-EvtTwoBodyKine::~EvtTwoBodyKine()
-{}
-
 
 double EvtTwoBodyKine::m(Index i) const
 {

@@ -18,7 +18,7 @@
 //    RYD       April 26, 1997       Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include "EvtGenBase/EvtParticle.hh"
@@ -32,11 +32,9 @@
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
 
-EvtSVSNONCPEIGEN::~EvtSVSNONCPEIGEN() {}
-
 std::string EvtSVSNONCPEIGEN::getName(){
 
-  return "SVS_NONCPEIGEN";     
+  return "SVS_NONCPEIGEN";
 
 }
 
@@ -61,7 +59,7 @@ void EvtSVSNONCPEIGEN::init(){
 
   _A_f=EvtComplex(getArg(3)*cos(getArg(4)),getArg(3)*sin(getArg(4)));
   _Abar_f=EvtComplex(getArg(5)*cos(getArg(6)),getArg(5)*sin(getArg(6)));
-  
+
   _A_fbar=_Abar_f;
   _Abar_fbar=_A_f;
 
@@ -72,12 +70,12 @@ void EvtSVSNONCPEIGEN::init(){
 }
 
 void EvtSVSNONCPEIGEN::initProbMax() {
-  double theProbMax = 
+  double theProbMax =
     abs(_A_f) * abs(_A_f) +
     abs(_Abar_f) * abs(_Abar_f) +
     abs(_A_fbar) * abs(_A_fbar) +
     abs(_Abar_fbar) * abs(_Abar_fbar);
-  
+
   setProbMax(theProbMax);
 }
 

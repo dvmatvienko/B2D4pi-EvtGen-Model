@@ -30,16 +30,14 @@
 #include "EvtGenModels/EvtCBTo3piMPP.hh"
 #include <string>
 
-EvtCBTo3piMPP::~EvtCBTo3piMPP() {}
-
 std::string EvtCBTo3piMPP::getName(){
 
-  return "CB3PI-MPP";     
+  return "CB3PI-MPP";
 
 }
 
 
-EvtDecayBase* EvtCBTo3piMPP::clone(){
+EvtCBTo3piMPP* EvtCBTo3piMPP::clone(){
 
   return new EvtCBTo3piMPP;
 
@@ -56,7 +54,7 @@ void EvtCBTo3piMPP::init(){
   checkSpinDaughter(0,EvtSpinType::SCALAR);
   checkSpinDaughter(1,EvtSpinType::SCALAR);
   checkSpinDaughter(2,EvtSpinType::SCALAR);
- 
+
   EvtVector4R p4[3];
   double alpha = getArg(0);
 
@@ -65,7 +63,7 @@ void EvtCBTo3piMPP::init(){
 
   generator.Evt3piMPP(alpha, iset, p4[0], p4[1], p4[2], 
 		      realA, imgA, realbarA, imgbarA);
- 
+
 }
 
 void EvtCBTo3piMPP::initProbMax(){
@@ -93,8 +91,8 @@ void EvtCBTo3piMPP::decay( EvtParticle *p ){
   int iset(0);
   double realA,imgA,realbarA,imgbarA;
 
-  generator.Evt3piMPP(alpha, iset, p4[0], p4[1], p4[2], 
-                  realA, imgA, realbarA, imgbarA);
+  generator.Evt3piMPP(alpha, iset, p4[0], p4[1], p4[2],
+		      realA, imgA, realbarA, imgbarA);
 
   pi1->init( getDaug(0), p4[0] );
   pi2->init( getDaug(1), p4[1] );
@@ -106,7 +104,7 @@ void EvtCBTo3piMPP::decay( EvtParticle *p ){
    //amp is filled just to make sure the compiler will
    //do its job!! but one has to define amp differently
    // if one wants the B+ or the B- to decay to 3pi!
-   // 
+   //
 
 
    EvtComplex  amp;
@@ -117,7 +115,7 @@ void EvtCBTo3piMPP::decay( EvtParticle *p ){
    if(p->getId()==BM)
      {
        amp = Abar;
-     }  
+     }
 
    vertex(amp);
 

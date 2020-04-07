@@ -18,7 +18,7 @@
 //    RYD            August 12, 2000         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <stdlib.h>
 #include <math.h>
@@ -27,10 +27,6 @@
 #include "EvtGenBase/EvtCGCoefSingle.hh"
 #include "EvtGenBase/EvtOrthogVector.hh"
 
-
-
-EvtCGCoefSingle::~EvtCGCoefSingle(){
-}
 
 
 void EvtCGCoefSingle::init(int j1,int j2){
@@ -94,7 +90,7 @@ void EvtCGCoefSingle::init(int j1,int j2){
 	int m2=M-m1;
 	double sum=0.0;
 	float fkwTmp = _j1*(_j1+2)-(m1+2)*m1;
-	//fkw 2/2/2001: changes needed to satisfy KCC 
+	//fkw 2/2/2001: changes needed to satisfy KCC
 	//fkw if (m1+2<=_j1) sum+=0.5*sqrt(_j1*(_j1+2)-(m1+2)*m1)*cg(J,M+2,m1+2,m2);
 	//fkw if (m2+2<=_j2) sum+=0.5*sqrt(_j2*(_j2+2)-(m2+2)*m2)*cg(J,M+2,m1,m2+2);
 	//fkw sum/=(0.5*sqrt(J*(J+2)-(M+2)*M));
@@ -108,7 +104,7 @@ void EvtCGCoefSingle::init(int j1,int j2){
     }
   }
 
-  
+
 
 }
 
@@ -120,7 +116,7 @@ double EvtCGCoefSingle::coef(int J,int M,int j1,int j2,int m1,int m2){
 
   return cg(J,M,m1,m2);
 
-  
+
 }
 
 
@@ -136,7 +132,7 @@ double& EvtCGCoefSingle::cg(int J,int M, int m1, int m2){
   //find lowest m1 allowed for the given M
 
   int mmin=M-_j2;
-  
+
   if (mmin<-_j1) mmin=-_j1;
 
   int n=m1-mmin;

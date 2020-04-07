@@ -1,4 +1,4 @@
-// Include files 
+// Include files
 
 
 
@@ -12,26 +12,16 @@
 // 2013-11-27 : Thomas Blake
 //-----------------------------------------------------------------------------
 
-//=============================================================================
-// Standard constructor, initializes variables
-//=============================================================================
 
-EvtRareLbToLllWC::EvtRareLbToLllWC(  ) {}
 
-//=============================================================================
-// Destructor
-//=============================================================================
-
-EvtRareLbToLllWC::~EvtRareLbToLllWC() {}
-
-EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const 
+EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const
 {
 
   static double mbeff = 4.8;
   double shat = q2/mbeff/mbeff;
   double logshat;
   logshat = log(shat);
-  
+
   double muscale;
   muscale = 2.5;
   double alphas;
@@ -44,7 +34,7 @@ EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const
   C1 = -0.697;
   double C2;
   C2 = 1.046;
-  
+
   double Lmu;
   Lmu = log(muscale/mbeff);
 
@@ -52,7 +42,7 @@ EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const
 
   EvtComplex c7eff;
   if (shat > 0.25)
-  { 
+  {
    c7eff = A7;
    return c7eff;
   }
@@ -77,8 +67,8 @@ EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const
   EvtComplex k7130(0.28248,-0.12783);
   EvtComplex k7131(0.029027,-0.0082265);
   f71 = k7100 + k7101*logshat + shat*(k7110 + k7111*logshat) +
-        shat*shat*(k7120 + k7121*logshat) + 
-        shat*shat*shat*(k7130 + k7131*logshat); 
+        shat*shat*(k7120 + k7121*logshat) +
+        shat*shat*shat*(k7130 + k7131*logshat);
   F71 = (-208.0/243.0)*Lmu + f71;
 
   EvtComplex F72;
@@ -92,33 +82,33 @@ EvtComplex EvtRareLbToLllWC::GetC7Eff( const double q2 ) const
   EvtComplex k7230(-1.6949,0.76698);
   EvtComplex k7231(-0.17416,0.049359);
   f72 = k7200 + k7201*logshat + shat*(k7210 + k7211*logshat) +
-        shat*shat*(k7220 + k7221*logshat) + 
-        shat*shat*shat*(k7230 + k7231*logshat); 
+        shat*shat*(k7220 + k7221*logshat) +
+        shat*shat*shat*(k7230 + k7231*logshat);
   F72 = (416.0/81.0)*Lmu + f72;
-  
+
   EvtComplex F78;
-  F78 = (-32.0/9.0)*Lmu + 8.0*EvtConst::pi*EvtConst::pi/27.0 + (-44.0/9.0) 
+  F78 = (-32.0/9.0)*Lmu + 8.0*EvtConst::pi*EvtConst::pi/27.0 + (-44.0/9.0)
         + (-8.0*EvtConst::pi/9.0)*uniti +
         (4.0/3.0*EvtConst::pi*EvtConst::pi - 40.0/3.0)*shat +
         (32.0*EvtConst::pi*EvtConst::pi/9.0 - 316.0/9.0)*shat*shat +
         (200.0*EvtConst::pi*EvtConst::pi/27.0 - 658.0/9.0)*shat*shat*shat +
     (-8.0*logshat/9.0)*(shat + shat*shat + shat*shat*shat);
-        
+
   c7eff = A7 - alphas/(4.0*EvtConst::pi)*(C1*F71 + C2*F72 + A8*F78);
 
   return c7eff;
 }
 
-EvtComplex EvtRareLbToLllWC::GetC9Eff( const double q2, const bool btod ) const 
+EvtComplex EvtRareLbToLllWC::GetC9Eff( const double q2, const bool btod ) const
 {
-  
+
   static double mbeff = 4.8;
   double shat = q2/mbeff/mbeff;
   double logshat;
   logshat = log(shat);
   double mchat = 0.29;
 
-  
+
   double muscale;
   muscale = 2.5;
   double alphas;
@@ -137,7 +127,7 @@ EvtComplex EvtRareLbToLllWC::GetC9Eff( const double q2, const bool btod ) const
   U9 = 0.045 + 0.023;
   double W9;
   W9 = 0.044 + 0.016;
-  
+
   double Lmu;
   Lmu = log(muscale/mbeff);
 
@@ -160,7 +150,7 @@ if (xarg < 1.0)
     hc = hc - 2.0/9.0*(2.0 + xarg)*sqrt(fabs(1.0 - xarg))*
       2.0*atan(1.0/sqrt(xarg - 1.0));
   }
-                                                                                                                                                             
+
   EvtComplex h1;
   xarg = 4.0/shat;
   h1 = 8.0/27.0 + 4.0*xarg/9.0;
@@ -194,11 +184,11 @@ if (xarg < 1.0)
 
   EvtComplex c9eff=4.344;
   if (shat > 0.25)
-  { 
+  {
    c9eff =  A9 + T9*hc + U9*h1 + W9*h0;
    if (btod)
    {
-    c9eff += Xd; 
+    c9eff += Xd;
    }
 
    return c9eff;
@@ -227,9 +217,9 @@ if (xarg < 1.0)
   EvtComplex k9130(-128.8,-2.5243);
   EvtComplex k9131(-0.017587,0.050639);
   f91 = k9100 + k9101*logshat + shat*(k9110 + k9111*logshat) +
-        shat*shat*(k9120 + k9121*logshat) + 
-        shat*shat*shat*(k9130 + k9131*logshat); 
-  F91 = (-1424.0/729.0 + 16.0*uniti*EvtConst::pi/243.0 
+        shat*shat*(k9120 + k9121*logshat) +
+        shat*shat*shat*(k9130 + k9131*logshat);
+  F91 = (-1424.0/729.0 + 16.0*uniti*EvtConst::pi/243.0
          + 64.0/27.0*log(mchat))*Lmu - 16.0*Lmu*logshat/243.0 +
         (16.0/1215.0 - 32.0/135.0/mchat/mchat)*Lmu*shat +
         (4.0/2835.0 - 8.0/315.0/mchat/mchat/mchat/mchat)*Lmu*shat*shat +
@@ -247,17 +237,17 @@ if (xarg < 1.0)
   EvtComplex k9230(-17.12,15.146);
   EvtComplex k9231(0.10552,-0.30383);
   f92 = k9200 + k9201*logshat + shat*(k9210 + k9211*logshat) +
-        shat*shat*(k9220 + k9221*logshat) + 
-        shat*shat*shat*(k9230 + k9231*logshat); 
-  F92 = (256.0/243.0 - 32.0*uniti*EvtConst::pi/81.0 
+        shat*shat*(k9220 + k9221*logshat) +
+        shat*shat*shat*(k9230 + k9231*logshat);
+  F92 = (256.0/243.0 - 32.0*uniti*EvtConst::pi/81.0
          - 128.0/9.0*log(mchat))*Lmu + 32.0*Lmu*logshat/81.0 +
         (-32.0/405.0 + 64.0/45.0/mchat/mchat)*Lmu*shat +
         (-8.0/945.0 + 16.0/105.0/mchat/mchat/mchat/mchat)*Lmu*shat*shat +
     (-32.0/25515.0 + 64.0/2835.0/mchat/mchat/mchat/mchat/mchat/mchat)*
     Lmu*shat*shat*shat + 512.0*Lmu*Lmu/81.0 + f92;
-  
+
   EvtComplex F98;
-  F98 = 104.0/9.0 - 32.0*EvtConst::pi*EvtConst::pi/27.0 + 
+  F98 = 104.0/9.0 - 32.0*EvtConst::pi*EvtConst::pi/27.0 +
         (1184.0/27.0 - 40.0*EvtConst::pi*EvtConst::pi/9.0)*shat +
         (14212.0/135.0 - 32.0*EvtConst::pi*EvtConst::pi/3.0)*shat*shat +
     (193444.0/945.0 - 560.0*EvtConst::pi*EvtConst::pi/27.0)*shat*shat*shat +
@@ -265,22 +255,22 @@ if (xarg < 1.0)
 
   Xd = (Vudstar * Vub / Vtdstar * Vtb) * (4.0/3.0*C1 + C2) * (hc - h0);
 
-  c9eff = A9 + T9*hc + U9*h1 + W9*h0 -             
+  c9eff = A9 + T9*hc + U9*h1 + W9*h0 -
     alphas/(4.0*EvtConst::pi)*(C1*F91 + C2*F92 + A8*F98);
   if (btod)
   {
-   c9eff += Xd; 
+   c9eff += Xd;
   }
 
   return c9eff;
 }
 
 /*
- Calculate C10 coefficient 
- 
- C10 is scale (and q^2) independent 
+ Calculate C10 coefficient
+
+ C10 is scale (and q^2) independent
 */
-EvtComplex EvtRareLbToLllWC::GetC10Eff( double /*q2*/ ) const 
+EvtComplex EvtRareLbToLllWC::GetC10Eff( double /*q2*/ ) const
 {
   double A10;
   A10 = -4.592 + 0.379;

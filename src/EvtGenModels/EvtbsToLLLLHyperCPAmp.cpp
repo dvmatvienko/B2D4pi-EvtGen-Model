@@ -56,20 +56,20 @@
 //        mDjiLL(RR)     - parameters for Bq-decays (i <-> j!)
 //                         d==1, s==2, b==3
 //
-void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp, 
-                             double mS, double mP, 
-                             double gammaS, double gammaP, 
-                             double mLiiLR, 
-                             double Fc, 
-                             double mD23LL, double mD23RR, 
-                             double mD32LL, double mD32RR, 
-                             double mD13LL, double mD13RR, 
+void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
+                             double mS, double mP,
+                             double gammaS, double gammaP,
+                             double mLiiLR,
+                             double Fc,
+                             double mD23LL, double mD23RR,
+                             double mD32LL, double mD32RR,
+                             double mD13LL, double mD13RR,
                              double mD31LL, double mD31RR){
 
 //  FILE *mytest;
 
-  int il1=0, il2=1, il3=2, il4=3;  // leptons are the first, second, thirds 
-                                   //                      and fourth daughter particles 
+  int il1=0, il2=1, il3=2, il4=3;  // leptons are the first, second, thirds
+                                   //                      and fourth daughter particles
 
   EvtComplex unit1(1.0,0.0); // real unit
   EvtComplex uniti(0.0,1.0); // imaginary unit
@@ -82,20 +82,17 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
      Cl =  mLiiLR*mLiiLR/(sqrt(2)*Fc);
   }
   if(Cl == 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcAmp(...)"
             << "\n Error in the Cl setting!"
             << "\n     Cl = " << Cl
-            << "\n mLiiLR = " << mLiiLR 
-            << "\n     Fc = " << Fc << std::endl; 
+            << "\n mLiiLR = " << mLiiLR
+            << "\n     Fc = " << Fc << std::endl;
      ::abort();
   }
 
   EvtComplex  MS = unit1*mS - uniti*gammaS/2.0; // complex mass of the scalar sgoldstino
-
   EvtComplex  MP = unit1*mP - uniti*gammaP/2.0; // complex mass of the pseudoscalar sgoldstino
-
-
 
   //
   // Setting of the different Bq-mesons tipes
@@ -126,7 +123,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
   }
 
   if(CB == 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcAmp(...)"
             << "\n Error in the CB setting!"
             << "\n       CB = " << CB
@@ -138,7 +135,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
             << "\n   mD31RR = " << mD31RR
             << "\n   mD13LL = " << mD13LL
             << "\n   mD13RR = " << mD13RR
-            << "\n idparent = " << idparent << std::endl; 
+            << "\n idparent = " << idparent << std::endl;
      ::abort();
   }
 
@@ -154,7 +151,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
   int charge4 = (EvtPDL::chg3(parent->getDaug(il4)->getId()))/3;
   if((abs(charge1)!=1)||(abs(charge2)!=1)||(abs(charge3)!=1)||(abs(charge4)!=1)||
      (charge1+charge2+charge3+charge4!=0)){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcAmp(...)"
             << "\n Error in the leptonic charge definition!"
             << "\n charge1             =" << charge1
@@ -210,7 +207,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
        IdMu2 = parent->getDaug(il1)->getId();
      }
      // positive charged lepton 2
-     lep2Plus  = (charge3 > charge4) ? parent->getDaug(il3) : parent->getDaug(il4); 
+     lep2Plus  = (charge3 > charge4) ? parent->getDaug(il3) : parent->getDaug(il4);
      // negative charged lepton 2
      lep2Minus = (charge3 < charge4) ? parent->getDaug(il3) : parent->getDaug(il4);
      if(charge3 > charge4){
@@ -227,7 +224,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
   }
   if ((charge1+charge3==0)&&(charge2+charge4==0)){
      // positive charged lepton 1
-     lep1Plus  = (charge1 > charge3) ? parent->getDaug(il1) : parent->getDaug(il3); 
+     lep1Plus  = (charge1 > charge3) ? parent->getDaug(il1) : parent->getDaug(il3);
      // negative charged lepton 1
      lep1Minus = (charge1 < charge3) ? parent->getDaug(il1) : parent->getDaug(il3);
      if(charge1 > charge3){
@@ -242,9 +239,9 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
        IdMu2 = parent->getDaug(il1)->getId();
      }
      // positive charged lepton 2
-     lep2Plus  = (charge2 > charge4) ? parent->getDaug(il2) : parent->getDaug(il4); 
+     lep2Plus  = (charge2 > charge4) ? parent->getDaug(il2) : parent->getDaug(il4);
      // negative charged lepton 2
-     lep2Minus = (charge2 < charge4) ? parent->getDaug(il2) : parent->getDaug(il4); 
+     lep2Minus = (charge2 < charge4) ? parent->getDaug(il2) : parent->getDaug(il4);
      if(charge2 > charge4){
        k_3 = parent->getDaug(il2)->getP4();
        k_4 = parent->getDaug(il4)->getP4();
@@ -269,8 +266,6 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
   q2   = q.mass2();       // Mandelstam variable s=q^2
   k2   = k.mass2();       // Mandelstam variable t=k^2
 
-
-
   //
   // The calculation of the SECOND part of the amplitude
   //
@@ -290,7 +285,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
   if (bmesons.contains(parentID)){
 
     // The amplitude for the decay barB -> ell^+ ell^- ell^+ ell^-  or
-    // b \bar q -> ell^+ ell^- ell^+ ell^- 
+    // b \bar q -> ell^+ ell^- ell^+ ell^-
 
     int i1, i2, i3, i4;  // leptonic spin structures counters
     int leptonicspin[4]; // array for the saving of the leptonic spin configuration
@@ -298,7 +293,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
    // Tables for correspondings
    // l^+(k_1) && lep1Plus  && k_1 && i1
    // l^-(k_2) && lep1Minus && k_2 && i2
-   // l^+(k_3) && lep2Plus  && k_3 && i3 
+   // l^+(k_3) && lep2Plus  && k_3 && i3
    // l^-(k_4) && lep2Minus && k_4 && i4
 
     for(i2=0;i2<2;i2++){
@@ -311,8 +306,8 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
             leptonicspin[3] = i3;
 
             EvtComplex SL2L1, PL4L3;
-            EvtComplex SL2L1second, PL4L3second; 
-            
+            EvtComplex SL2L1second, PL4L3second;
+
             SL2L1 = EvtLeptonSCurrent(lep1Minus->spParent(i2),lep1Plus->spParent(i1));
             PL4L3 = EvtLeptonPCurrent(lep2Minus->spParent(i4),lep2Plus->spParent(i3));
 
@@ -331,7 +326,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
 //    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "\n The function EvtbsToLLLLHyperCPAmp::CalcAmp(...) passed with arguments:"
 //      << "\n ============================================================================"
 //      << "\n Input parameters:"
-//      << "\n     mS = " << mS 
+//      << "\n     mS = " << mS
 //      << "\n     mP = " << mP
 //      << "\n gammaS = " << gammaS
 //      << "\n gammaP = " << gammaP
@@ -390,7 +385,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
    // Tables for correspondings
    // l^+(k_1) && lep1Plus  && k_1 && i1
    // l^-(k_2) && lep1Minus && k_2 && i2
-   // l^+(k_3) && lep2Plus  && k_3 && i3 
+   // l^+(k_3) && lep2Plus  && k_3 && i3
    // l^-(k_4) && lep2Minus && k_4 && i4
 
     for(i2=1;i2<0;i2--){
@@ -423,7 +418,7 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
 //    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "\n The function EvtbsToLLLLHyperCPAmp::CalcAmp(...) passed with arguments:"
 //      << "\n ============================================================================"
 //      << "\n Input parameters:"
-//      << "\n     mS = " << mS 
+//      << "\n     mS = " << mS
 //      << "\n     mP = " << mP
 //      << "\n gammaS = " << gammaS
 //      << "\n gammaP = " << gammaP
@@ -475,15 +470,13 @@ void EvtbsToLLLLHyperCPAmp::CalcAmp(EvtParticle *parent, EvtAmp& amp,
                              << "\n Wrong Bq-meson number"
                              << std::endl;
       ::abort();
-    }    
+    }
   }
 
 }
 
 //
-
-// The decays Bq ->  ell^+ ell^- ell^+ ell^- maximum probability calculation 
-
+// The decays Bq ->  ell^+ ell^- ell^+ ell^- maximum probability calculation
 //
 double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
                                      EvtId parnum,
@@ -500,10 +493,10 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
                                   ){
 
   if(Fc == 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcMaxProb"
             << "\n Error in the Fc setting!"
-            << "\n       Fc = " << Fc 
+            << "\n       Fc = " << Fc
             << "\n   mD32LL = " << mD32LL
             << "\n   mD32RR = " << mD32RR
             << "\n   mD23LL = " << mD23LL
@@ -512,23 +505,21 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
             << "\n   mD31RR = " << mD31RR
             << "\n   mD13LL = " << mD13LL
             << "\n   mD13RR = " << mD13RR
-            << "\n   parnum = " << parnum << std::endl; 
- 
-     ::abort();
+            << "\n   parnum = " << parnum << std::endl;
+      ::abort();
   }
-  
 
   double Cl = 0.0;                           // LPL and LSL - vertexes
   if(Fc != 0.0){
      Cl =  mLiiLR*mLiiLR/(sqrt(2)*Fc);
   }
   if(Cl == 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcMaxProb"
             << "\n Error in the Cl setting!"
             << "\n     Cl = " << Cl
-            << "\n mLiiLR = " << mLiiLR 
-            << "\n     Fc = " << Fc << std::endl; 
+            << "\n mLiiLR = " << mLiiLR
+            << "\n     Fc = " << Fc << std::endl;
      ::abort();
   }
 
@@ -536,7 +527,7 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
   // Setting of the different Bq-mesons tipes
   //
 
-  double fb = 0.0;  
+  double fb = 0.0;
   double CB = 0.0;
 
   if(parnum == EvtPDL::getId(std::string("B_s0"))){
@@ -560,7 +551,7 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
   }
 
   if(CB == 0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
             << "\n\n The function EvtbsToLLLLHyperCPAmp::CalcMaxProb"
             << "\n Error in the CB setting!"
             << "\n       CB = " << CB
@@ -572,7 +563,7 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
             << "\n   mD31RR = " << mD31RR
             << "\n   mD13LL = " << mD13LL
             << "\n   mD13RR = " << mD13RR
-            << "\n   parnum = " << parnum << std::endl; 
+            << "\n   parnum = " << parnum << std::endl;
      ::abort();
   }
 
@@ -585,7 +576,7 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
                                           (4.0*Fc*Fc*mS*gammaS*mP*gammaP);
 
   if(maxfoundprob<=0.0){
-     EvtGenReport(EVTGEN_ERROR,"EvtGen") 
+     EvtGenReport(EVTGEN_ERROR,"EvtGen")
        << "\n\n In the function EvtbsToLLLLHyperCPAmp::CalcMaxProb"
        << "\n maxfoundprob = " << maxfoundprob << " < 0 or =0!"
        << "\n           mS = " << mS
@@ -608,7 +599,7 @@ double EvtbsToLLLLHyperCPAmp::CalcMaxProb(
   }
 
   EvtGenReport(EVTGEN_NOTICE,"EvtGen")
-    << "\n maxfoundprob (...) = " 
+    << "\n maxfoundprob (...) = "
     << maxfoundprob
     << std::endl;
 

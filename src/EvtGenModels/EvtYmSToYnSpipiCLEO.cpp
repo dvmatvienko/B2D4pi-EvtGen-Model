@@ -52,11 +52,9 @@
 #include <string>
 using std::endl;
 
-EvtYmSToYnSpipiCLEO::~EvtYmSToYnSpipiCLEO() {}
-
 std::string EvtYmSToYnSpipiCLEO::getName(){
 
-  return "YMSTOYNSPIPICLEO";     
+  return "YMSTOYNSPIPICLEO";
 
 }
 
@@ -95,7 +93,7 @@ void EvtYmSToYnSpipiCLEO::init(){
 
 void EvtYmSToYnSpipiCLEO::initProbMax() {
   setProbMax(2.0);
-}      
+}
 
 void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
 
@@ -106,7 +104,7 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
   //
   // The CLEO analysis assumed such an intermediate process
   // were occurring, and wrote down the matrix element
-  // and its components according to this assumption. 
+  // and its components according to this assumption.
   //
   //
 
@@ -134,7 +132,7 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
   // dipion system that passes
   bool acceptX = false;
 
-  while( false == acceptX ) 
+  while( false == acceptX )
     {
 
       // Begin by generating a random X mass between the kinematic
@@ -160,7 +158,7 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
 
       // Now create the four-vectors for the two pions in the X
       // rest frame, X -> pi pi
-  
+
       masses[0] = s1->mass();
       masses[1] = s2->mass();
 
@@ -180,10 +178,10 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
       if (EvtPDL::name(s1->getId()) == "pi-") {
 	costheta = - p4[1].dot(P_YmS_X)/(p4[1].d3mag()*P_YmS_X.d3mag());
       }
-  
+
       // //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "cos(theta) = " << costheta << endl;
-    
-    
+
+
 
       // Now boost the pion four vectors into the Y(mS) rest frame
       P_pi1 = boostTo(p4[0],P_YmS_X);
@@ -195,10 +193,10 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
       //
       // M(x,y)^2 = Q(x,y)^2 + |B/A|^2 * E1E2(x,y)^2 + 2*Re(B/A)*Q(x,y)*E1E2(x,y)
       //
-      // x=m_pipi^2 and y = cos(theta), and where 
+      // x=m_pipi^2 and y = cos(theta), and where
       //
       //   Q(x,y) = (x^2 + 2*m_pi^2)
-      //  
+      //
       //   E1E2(x,y) = (1/4) * ( (E1 + E2)^2 - (E2 - E1)^2_max * cos(theta)^2 )
       //
       // and E1 + E2 = M_mS - M_nS and (E2 - E1)_max is the maximal difference
@@ -207,8 +205,8 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
 
       double Q    = (mX*mX - 2.0 * m_pi * m_pi);
 
-      double deltaEmax = 
-	- 2.0 * 
+      double deltaEmax =
+	- 2.0 *
 	sqrt( P_nS.get(0)*P_nS.get(0) - M_nS*M_nS ) *
 	sqrt( 0.25 - pow(m_pi/mX,2.0));
 
@@ -221,12 +219,12 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
       // phase space factor
       //
       // this is given as d(PS) = C * p(*)_X * p(X)_{pi+} * d(cosTheta) * d(m_X)
-      // 
+      //
       // where C is a normalization constant, p(*)_X is the X momentum magnitude in the
       // Y(mS) rest frame, and p(X)_{pi+} is the pi+/pi0 momentum in the X rest frame
       //
-  
-      double dPS = 
+
+      double dPS =
 	sqrt( (M_mS*M_mS - pow(M_nS + mX,2.0)) * (M_mS*M_mS - pow(M_nS - mX,2.0)) ) * // p(*)_X
 	sqrt(mX*mX - 4*m_pi*m_pi); // p(X)_{pi}
 
@@ -234,7 +232,7 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
       double dG = M2 * dPS;
 
       // Throw a uniform random number from 0 --> probMax and do accept/reject on this
-      
+
       double rnd = EvtRandom::Flat(0.0,getProbMax(0.0));
 
       if (rnd < dG)
@@ -246,16 +244,16 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
   // initialize the daughters
   v->init(  getDaugs()[0], P_nS);
   s1->init( getDaugs()[1], P_pi1);
-  s2->init( getDaugs()[2], P_pi2); 
+  s2->init( getDaugs()[2], P_pi2);
 
 //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M_nS = " << v->getP4().mass() << endl;
 //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s1->getP4().mass() << endl;
 //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s2->getP4().mass() << endl;
 //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M2 = "   << M2 << endl;
-  
+
   // Pass the polarization of the parent Upsilon
-  EvtVector4C ep0,ep1,ep2;  
-  
+  EvtVector4C ep0,ep1,ep2;
+
   ep0=p->eps(0);
   ep1=p->eps(1);
   ep2=p->eps(2);
@@ -264,11 +262,11 @@ void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
   vertex(0,0,(ep0*v->epsParent(0).conj()));
   vertex(0,1,(ep0*v->epsParent(1).conj()));
   vertex(0,2,(ep0*v->epsParent(2).conj()));
-  
+
   vertex(1,0,(ep1*v->epsParent(0).conj()));
   vertex(1,1,(ep1*v->epsParent(1).conj()));
   vertex(1,2,(ep1*v->epsParent(2).conj()));
-  
+
   vertex(2,0,(ep2*v->epsParent(0).conj()));
   vertex(2,1,(ep2*v->epsParent(1).conj()));
   vertex(2,2,(ep2*v->epsParent(2).conj()));

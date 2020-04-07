@@ -34,23 +34,6 @@
 #include "EvtGenBase/EvtVector4R.hh"
 
 #include "EvtGenModels/EvtBToDiBaryonlnupQCD.hh"
-#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
-#include "EvtGenModels/EvtSLDiBaryonAmp.hh"
-
-using std::endl;
-
-EvtBToDiBaryonlnupQCD::EvtBToDiBaryonlnupQCD() :
-    ffModel_(0),
-    calcAmp_(0)
-{
-}
-
-EvtBToDiBaryonlnupQCD::~EvtBToDiBaryonlnupQCD() {
-  delete ffModel_;
-  ffModel_ = 0;
-  delete calcAmp_;
-  calcAmp_ = 0;
-}
 
 std::string EvtBToDiBaryonlnupQCD::getName() {
 
@@ -77,8 +60,8 @@ void EvtBToDiBaryonlnupQCD::init() {
     if ( !(getNArg() == 6 || getNArg() == 7) ) {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
-					    << " 6 or 7 arguments but found:" << getNArg() << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << " 6 or 7 arguments but found:" << getNArg() << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
 
     }
@@ -86,8 +69,8 @@ void EvtBToDiBaryonlnupQCD::init() {
     if (getNDaug() != 4) {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong number of daughters in EvtBToDiBaryonlnupQCD model: "
-					    << "4 daughters expected but found: " << getNDaug() << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << "4 daughters expected but found: " << getNDaug() << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -101,8 +84,8 @@ void EvtBToDiBaryonlnupQCD::init() {
 
         EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a SCALAR parent, found:"
-					    << EvtPDL::name(getParentId()) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getParentId()) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -110,8 +93,8 @@ void EvtBToDiBaryonlnupQCD::init() {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a DIRAC 3rd daughter, found:"
-					    << EvtPDL::name(getDaug(2)) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getDaug(2)) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -119,8 +102,8 @@ void EvtBToDiBaryonlnupQCD::init() {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBToDiBaryonlnupQCD model expected "
 					    << " a NEUTRINO 4th daughter, found:"
-					    << EvtPDL::name(getDaug(3)) << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << EvtPDL::name(getDaug(3)) << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 
@@ -131,7 +114,7 @@ void EvtBToDiBaryonlnupQCD::init() {
     }
 
     // Form factor model
-    ffModel_ = new EvtBToDiBaryonlnupQCDFF(DPars);
+    ffModel_ = std::make_unique<EvtBToDiBaryonlnupQCDFF>(DPars);
 
     // Set amplitude calculation pointer.    
     // Accomodate for spin 1/2 (DIRAC) or 3/2 (RARITASCHWINGER) baryons
@@ -142,15 +125,15 @@ void EvtBToDiBaryonlnupQCD::init() {
 	 (baryon1Type == EvtSpinType::RARITASCHWINGER && baryon2Type == EvtSpinType::DIRAC) ||
 	 (baryon1Type == EvtSpinType::DIRAC && baryon2Type == EvtSpinType::DIRAC) ) {
 
-	calcAmp_ = new EvtSLDiBaryonAmp(*ffModel_);
+	calcAmp_ = std::make_unique<EvtSLDiBaryonAmp>(*ffModel_);
 
     } else {
 
 	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong baryon spin type in EvtBToDiBaryonlnupQCD model. "
 					    << "Expected spin type " << EvtSpinType::DIRAC 
 					    << " or " << EvtSpinType::RARITASCHWINGER 
-					    << ", found spin types " << baryon1Type << " and " << baryon2Type << endl;
-	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << endl;
+					    << ", found spin types " << baryon1Type << " and " << baryon2Type << std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!" << std::endl;
 	::abort();
     }
 

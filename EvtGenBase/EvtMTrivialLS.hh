@@ -10,9 +10,9 @@ class EvtMTrivialLS : public EvtMLineShape {
         EvtMTrivialLS( const EvtId& /*id*/, const vector<string>& /*args*/ ) {};
         ~EvtMTrivialLS() {};
 
-        EvtComplex shape( const vector<EvtVector4R>& product ) const; 
-    
-        EvtMLineShape* duplicate() const;
+        EvtComplex shape( const vector<EvtVector4R>& product ) const override;
+
+        EvtMLineShape* duplicate() const override;
 };
 
 #endif

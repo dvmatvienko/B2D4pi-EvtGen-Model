@@ -17,7 +17,7 @@
 //    DJL/RYD     September 25, 1996         Module created
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 #include <math.h>
 #include <assert.h>
@@ -29,8 +29,6 @@
 #include "EvtGenBase/EvtTensor4C.hh"
 using std::ostream;
 
-
-EvtDiracSpinor::~EvtDiracSpinor(){}
 
 EvtDiracSpinor::EvtDiracSpinor(const EvtComplex& sp0,const EvtComplex& sp1,
 				    const EvtComplex& sp2,const EvtComplex& sp3){
@@ -57,8 +55,8 @@ ostream& operator<<(ostream& s, const EvtDiracSpinor& sp){
 }
 
 
-const EvtComplex& EvtDiracSpinor::get_spinor(int i) const { 
-   
+const EvtComplex& EvtDiracSpinor::get_spinor(int i) const {
+
   return spinor[i];
 
 }
@@ -122,7 +120,7 @@ void EvtDiracSpinor::applyBoostTo(const EvtVector3R& boost) {
 
   gamma=1.0;
   if (b2 < 1.0) {gamma = 1.0/sqrt(1.0-b2);}
-  
+
   f1=sqrt((gamma+1.0)/2.0);
   f2=f1*gamma/(gamma+1.0);
 
@@ -134,7 +132,7 @@ void EvtDiracSpinor::applyBoostTo(const EvtVector3R& boost) {
     f1*spinor[2];
   spinorp[3]=f2*EvtComplex(bx,by)*spinor[0]-
     f2*bz*spinor[1]+f1*spinor[3];
-  
+
   spinor[0]=spinorp[0];
   spinor[1]=spinorp[1];
   spinor[2]=spinorp[2];
@@ -147,7 +145,7 @@ void EvtDiracSpinor::applyRotateEuler(double alpha,double beta,
 				      double gamma) {
 
   EvtComplex retVal[4];
-  
+
   double cb2=cos(0.5*beta);
   double sb2=sin(0.5*beta);
   double capg2=cos(0.5*(alpha+gamma));
@@ -181,7 +179,7 @@ EvtDiracSpinor EvtDiracSpinor::conj() const {
 
   for ( int i=0; i<4; i++)
     sp.set_spinor(i,::conj(spinor[i]));
-  
+
   return sp;
 }
 
@@ -199,10 +197,10 @@ EvtVector4C EvtLeptonVACurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp)
   //mat.va3();
   //temp.set(3,d*(mat*dp));
   //return temp;
- 
 
-  EvtComplex u02=::conj(d.spinor[0]-d.spinor[2]);  
-  EvtComplex u13=::conj(d.spinor[1]-d.spinor[3]);  
+
+  EvtComplex u02=::conj(d.spinor[0]-d.spinor[2]);
+  EvtComplex u13=::conj(d.spinor[1]-d.spinor[3]);
 
   EvtComplex v02=dp.spinor[0]-dp.spinor[2];
   EvtComplex v13=dp.spinor[1]-dp.spinor[3];
@@ -215,7 +213,7 @@ EvtVector4C EvtLeptonVACurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp)
 
   return EvtVector4C(a+b,-(c+e),EvtComplex(0,1)*(c-e),b-a);
 
-  
+
 }
 
 EvtVector4C EvtLeptonVCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
@@ -229,7 +227,7 @@ EvtVector4C EvtLeptonVCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
   temp.set(1,d*(EvtGammaMatrix::v1()*dp));
   temp.set(2,d*(EvtGammaMatrix::v2()*dp));
   temp.set(3,d*(EvtGammaMatrix::v3()*dp));
-  
+
   return temp;
 }
 
@@ -254,7 +252,7 @@ EvtVector4C EvtLeptonACurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
 
   mat = EvtGammaMatrix::v3()-EvtGammaMatrix::va3();
   temp.set(3,d*(mat*dp));
-  
+
   return temp;
 }
 
@@ -266,7 +264,7 @@ EvtComplex EvtLeptonSCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
   // yes this is stupid and fooled me to for a long time (ryd)
 
   temp=d*(EvtGammaMatrix::g0()*dp);
-  
+
   return temp;
 }
 
@@ -278,7 +276,7 @@ EvtComplex EvtLeptonPCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
   // yes this is stupid and fooled me to for a long time (ryd)
   static EvtGammaMatrix m=EvtGammaMatrix::g0()*EvtGammaMatrix::g5();
   temp=d*(m*dp);
-  
+
   return temp;
 }
 
@@ -307,7 +305,7 @@ EvtTensor4C EvtLeptonTCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
     (EvtGammaMatrix::g2()*EvtGammaMatrix::g3()-
      EvtGammaMatrix::g3()*EvtGammaMatrix::g2());
 
- 
+
   temp.set(0,1,i2*(d*(mat01*dp)));
   temp.set(1,0,-temp.get(0,1));
 
@@ -325,7 +323,7 @@ EvtTensor4C EvtLeptonTCurrent(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
 
   temp.set(2,3,i2*(d*(mat23*dp)));
   temp.set(3,2,-temp.get(2,3));
-  
+
   return temp;
 }
 
@@ -356,9 +354,9 @@ EvtComplex operator*(const EvtDiracSpinor& d,const EvtDiracSpinor& dp){
 
   int i;
   EvtComplex temp;
-  
+
   temp=EvtComplex(0.0,0.0);
-  
+
   for(i=0;i<4;i++){
     temp += conj( d.get_spinor(i) ) * dp.get_spinor( i ) ;
   }

@@ -35,16 +35,13 @@ public:
     EvtBLLNuLAmp(double Vub = 4.09e-3);
     EvtBLLNuLAmp(double qSqMin, double kSqMin, bool symmetry, double Vub = 4.09e-3);
 
-    virtual ~EvtBLLNuLAmp();
-
     void CalcAmp(EvtParticle *parent, EvtAmp& amp) const;
     void setParameters(double qSqMin, double kSqMin, bool symmetry);
 
     // Resonance poles
-    class ResPole {
+    class ResPole final {
     public:
 	ResPole(double mass, double width, double coupling);
-	virtual ~ResPole() {;}
 
 	EvtComplex propagator(double qSq, int numForm = 0) const;
 
@@ -98,10 +95,9 @@ private:
     double fBu_;
 
     // Resonance poles
-    EvtBLLNuLAmp::ResPole* Bstar_;
-    EvtBLLNuLAmp::ResPole* Upsilon_;
+    EvtBLLNuLAmp::ResPole Bstar_, Upsilon_;
 
-    std::vector<EvtBLLNuLAmp::ResPole*> resPoles_;
+    std::vector<EvtBLLNuLAmp::ResPole> resPoles_;
     int nPoles_;
 
     // Complex number constants

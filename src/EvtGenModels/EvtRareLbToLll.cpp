@@ -40,15 +40,6 @@
 #include "EvtGenBase/EvtSpinDensity.hh"
 #include "EvtGenBase/EvtPDL.hh"
 
-
-EvtRareLbToLll::EvtRareLbToLll() : m_maxProbability( 0 ), ffmodel_( 0 ), wcmodel_( 0 ) {}
-
-EvtRareLbToLll::~EvtRareLbToLll() {
-  if ( wcmodel_ ) delete wcmodel_;
-  if ( ffmodel_ ) delete ffmodel_;
-}
-
-
 // The module name specification
 std::string EvtRareLbToLll::getName( ) {
   return "RareLbToLll" ;
@@ -63,7 +54,7 @@ EvtDecayBase* EvtRareLbToLll::clone(){
 void EvtRareLbToLll::init(){
   checkNArg(1);
 
-  // check that there are 3 daughteres
+  // check that there are 3 daughters
   checkNDaug(3);
 
   // Parent should be spin 1/2 Lambda_b0
@@ -81,17 +72,17 @@ void EvtRareLbToLll::init(){
 
   std::string model = getArgStr(0);
   if ( model == "Gutsche" ) {
-    ffmodel_ = new EvtRareLbToLllFFGutsche();
+    ffmodel_ = std::make_unique<EvtRareLbToLllFFGutsche>();
   } else if ( model == "LQCD" ) {
-    ffmodel_ = new EvtRareLbToLllFFlQCD();
+    ffmodel_ = std::make_unique<EvtRareLbToLllFFlQCD>();
   } else if ( model == "MR" ) {
-    ffmodel_ = new EvtRareLbToLllFF();
+    ffmodel_ = std::make_unique<EvtRareLbToLllFF>();
   }
   else {
     EvtGenReport(EVTGEN_INFO,"EvtGen") << "  Unknown form-factor model, valid options are MR, LQCD, Gutsche." << std::endl;
     ::abort();
   }
-  wcmodel_  = new EvtRareLbToLllWC();
+  wcmodel_ = std::make_unique<EvtRareLbToLllWC>();
 
   ffmodel_->init();
 
@@ -106,24 +97,24 @@ void EvtRareLbToLll::initProbMax(){
 
   if(m_maxProbability==0){
 
-    EvtDiracParticle *parent = new EvtDiracParticle;
-    parent->noLifeTime();
-    parent->init(getParentId(),EvtVector4R(EvtPDL::getMass(getParentId()),0,0,0));
-    parent->setDiagonalSpinDensity();
+    EvtDiracParticle parent{};
+    parent.noLifeTime();
+    parent.init(getParentId(),EvtVector4R(EvtPDL::getMass(getParentId()),0,0,0));
+    parent.setDiagonalSpinDensity();
 
     EvtAmp amp;
     EvtId daughters[3] = {getDaug(0),getDaug(1),getDaug(2)};
     amp.init(getParentId(),3,daughters);
-    parent->makeDaughters(3,daughters);
-    EvtParticle *lambda = parent->getDaug(0);
-    EvtParticle *lep1   = parent->getDaug(1);
-    EvtParticle *lep2   = parent->getDaug(2);
+    parent.makeDaughters(3,daughters);
+    EvtParticle *lambda = parent.getDaug(0);
+    EvtParticle *lep1   = parent.getDaug(1);
+    EvtParticle *lep2   = parent.getDaug(2);
     lambda -> noLifeTime();
     lep1   -> noLifeTime();
     lep2   -> noLifeTime();
 
     EvtSpinDensity rho;
-    rho.setDiag(parent->getSpinStates());
+    rho.setDiag(parent.getSpinStates());
 
     double M0 = EvtPDL::getMass(getParentId());
     double mL = EvtPDL::getMass(getDaug(0));
@@ -164,7 +155,7 @@ void EvtRareLbToLll::initProbMax(){
         lambda -> init(getDaug(0),p4lambda);
         lep1   -> init(getDaug(1),p4lep1  );
         lep2   -> init(getDaug(2),p4lep2  );
-        calcAmp(amp,parent);
+        calcAmp(amp,&parent);
         prob = rho.normalizedProb(amp.getSpinDensity());
         //std::cout << "q2:  " << q2 << " \t theta:  " << theta << " \t prob:  " << prob << std::endl;
         //std::cout << "p1: " << p4lep1 << " p2: " << p4lep2 << " q2-q2min: " << q2-(m1+m2)*(m1+m2) << std::endl;
@@ -180,7 +171,7 @@ void EvtRareLbToLll::initProbMax(){
 
     //m_poleSize = 0.04*q2min;
     m_maxProbability *= 1.2;
-    delete parent;
+
   }
 
   setProbMax(m_maxProbability);

@@ -31,17 +31,14 @@ class EvtPVVCPLH:public  EvtDecayAmp  {
 
 public:
 
-  EvtPVVCPLH() {}
-  virtual ~EvtPVVCPLH();
+  std::string getName() override;
+  EvtDecayBase* clone() override;
 
-  virtual std::string getName();
-  EvtDecayBase* clone();
+  void initProbMax() override;
+  void init() override;
 
-  void initProbMax();
-  void init();
+  void decay(EvtParticle *p) override;
 
-  void decay(EvtParticle *p); 
-  
 private:
   bool isBsMixed ( EvtParticle * p ) ;
 

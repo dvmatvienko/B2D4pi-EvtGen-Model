@@ -10,12 +10,12 @@
 // Module: EvtItgPtrFunction.hh
 //
 // Description:
-//      Class describing a function with one vector of coefficients. (Stolen and 
+//      Class describing a function with one vector of coefficients. (Stolen and
 //      modified from the BaBar IntegrationUtils package - author: Phil Strother).
 //
 // Modification history:
 //
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
+//    Jane Tinslay                March 21, 2001       Module adapted for use in
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
@@ -36,14 +36,6 @@ EvtItgPtrFunction::EvtItgPtrFunction( double (*theFunction)(double, const std::v
   EvtItgAbsFunction(lowerRange, upperRange),
   _myFunction(theFunction),
   _coeffs1(coeffs1)
-{}
-
-
-//--------------
-// Destructor --
-//--------------
-
-EvtItgPtrFunction::~EvtItgPtrFunction( )
 {}
 
 

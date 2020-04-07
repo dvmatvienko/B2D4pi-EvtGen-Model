@@ -30,14 +30,7 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtSpinType.hh"
 
-EvtFlatLineShape::EvtFlatLineShape() {
-
-}
-
-EvtFlatLineShape::~EvtFlatLineShape() {
-}
-
-EvtFlatLineShape::EvtFlatLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp) { 
+EvtFlatLineShape::EvtFlatLineShape(double mass, double width, double maxRange, EvtSpinType::spintype sp) {
 
   _mass=mass;
   _width=width;
@@ -83,7 +76,7 @@ EvtAbsLineShape* EvtFlatLineShape::clone() {
 
 double EvtFlatLineShape::getMassProb(double mass, double massPar,int nDaug, double *massDau) {
 
-  
+
   double dTotMass=0.;
 
   int i;

@@ -31,23 +31,6 @@
 #include "EvtGenModels/EvtWHad.hh"
 
 #include <iostream>
- 
-EvtBcVHad::EvtBcVHad() :  
-    whichfit(0), 
-    idVector(0), 
-    out_code(0),
-    ffmodel(0), 
-    wcurr(0) 
-{
-}
-
-EvtBcVHad::~EvtBcVHad()
-{
-
-    if (ffmodel) {delete ffmodel;}
-    if (wcurr) {delete wcurr;}
-
-}
 
 std::string EvtBcVHad::getName() {
     return "BC_VHAD";
@@ -79,9 +62,9 @@ void EvtBcVHad::init() {
 
     idVector = getDaug(0).getId();
     whichfit = int(getArg(0) + 0.1);
-    ffmodel = new EvtBCVFF2(idVector, whichfit);
+    ffmodel = std::make_unique<EvtBCVFF2>(idVector, whichfit);
 
-    wcurr = new EvtWHad();
+    wcurr = std::make_unique<EvtWHad>();
 
     // determine the code of final hadronic state
     EvtIdSet thePis("pi+", "pi-", "pi0");

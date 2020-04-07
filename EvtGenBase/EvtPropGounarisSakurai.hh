@@ -2,7 +2,7 @@
  * Project: BaBar detector at the SLAC PEP-II B-factory
  * Package: EvtGenBase
  *    File: $Id: EvtPropGounarisSakurai.hh,v 1.1 2009-03-16 16:50:50 robbep Exp $
- *  Author: Matt Graham 
+ *  Author: Matt Graham
  *  modified from EvtPropBreitWignerRel...this should be used for rho's
  *******************************************************************************/
 
@@ -20,21 +20,19 @@
 class EvtPropGounarisSakurai : public EvtPropagator {
 public:
 
-  EvtPropGounarisSakurai(EvtDalitzPlot *dp, 
-                       EvtCyclic3::Pair pair, double m0, double g0); 
-  EvtPropGounarisSakurai(const EvtPropGounarisSakurai& other); 
-  ~EvtPropGounarisSakurai(); 
+  EvtPropGounarisSakurai(EvtDalitzPlot *dp,
+                       EvtCyclic3::Pair pair, double m0, double g0);
 
-  EvtAmplitude<EvtPoint1D>* clone() const;
+  EvtAmplitude<EvtPoint1D>* clone() const override;
 
 protected:
 
-  EvtComplex amplitude(const EvtPoint1D& x) const;
+  EvtComplex amplitude(const EvtPoint1D& x) const override;
 
 private:
   EvtDalitzPlot *_dalitzSpace;
 
-  EvtCyclic3::Pair      _pair;   
+  EvtCyclic3::Pair      _pair;
   double _gbase;
   double _m1;
   double _m2;
