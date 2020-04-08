@@ -4,6 +4,14 @@
 //
 //===========================================================================
 
+8th Apr 2020 John Back
+    Fixed NonReson amplitude and the 4-momentum boosts used for angles in
+    EvtLambdacPHH, courtesy of Elisabeth Niel (LHCb).
+
+7th Apr 2020 Gerhard Raven, Tom Latham, Michal Kreps and John Back
+    Incorporate C++ modernization changes from Gerhard Raven (LHCb).
+    Merged modernize branch into master.
+
 9th Mar 2020 John Back
     Add EvtAbsExternalGen::getDecayProb() to allow external generators to
     return a probability that can be used in EvtDecayProb (default = 1).

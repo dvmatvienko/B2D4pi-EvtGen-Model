@@ -363,11 +363,12 @@ std::vector<EvtComplex> EvtLambdacPHH::calcResAmpTerms(EvtLambdacPHH::LcResLabel
   // Initialise Amplitude terms
   EvtComplex term1(0.0),  term2(0.0), term3(0.0), term4(0.0);
   // Normalised dynamical amplitude
-  EvtComplex resAmp = res.resAmpl()*norm;
+  EvtComplex resAmp(norm, 0.0);
 
   // Angles are not needed for the non-resonant amplitude
   if (resIndex != EvtLambdacPHH::NonReson) {
 
+    resAmp = res.resAmpl()*norm;
     // Resonance and daughter 4 momenta
     EvtVector4R p4d1 = res.p4_d1();
     EvtVector4R p4d2 = res.p4_d2();
@@ -389,9 +390,11 @@ std::vector<EvtComplex> EvtLambdacPHH::calcResAmpTerms(EvtLambdacPHH::LcResLabel
     thetaPrimeDaug = getACos(res_d1.dot(res_d3), res_d1_Mag*res_d3_Mag);
 
     res_atproton = p4Res;
+    res_atproton.applyBoostTo(p4d1, true);
     double res_atproton_mag = res_atproton.d3mag();
 
     Lc_atproton = res.p4_p();
+    Lc_atproton.applyBoostTo(p4d1, true);
     double Lc_atproton_mag = Lc_atproton.d3mag();
 
     // Check that the momentum of the Lambda_c is not zero, as well as a valid zprime vector
@@ -413,9 +416,7 @@ std::vector<EvtComplex> EvtLambdacPHH::calcResAmpTerms(EvtLambdacPHH::LcResLabel
     if (res_atproton_mag > 0.0 && Lc_atproton_mag > 0.0) {
 
       // Extra rotation to go to the proton helicity frame for the two resonances Delta++ and Lambda.
-      // No rotation is needed for K*. Boost the vectors to the proton restframe to get the rotation angle
-      res_atproton.applyBoostTo(p4d1, true);
-      Lc_atproton.applyBoostTo(p4d1, true);
+      // No rotation is needed for K*. Use the momenta boosted to the proton restframe
 
       beta_res = getACos(res_atproton.dot(Lc_atproton), res_atproton_mag*Lc_atproton_mag);
 
