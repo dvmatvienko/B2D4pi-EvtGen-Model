@@ -105,7 +105,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   if (nDaug == 0 || nDaug >= 10) {return false;}
 
   // Create the dummy event.
-  GenEvent* theEvent = new GenEvent(Units::GEV, Units::MM);
+  auto theEvent = std::make_unique<GenEvent>(Units::GEV, Units::MM);
 
   // Create the decay "vertex".
   GenVertexPtr theVertex = newGenVertexPtr();
@@ -134,9 +134,9 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   // Now pass the event to Photos for processing
   // Create a Photos event object
 #ifdef EVTGEN_HEPMC3
-  Photospp::PhotosHepMC3Event photosEvent(theEvent);
+  Photospp::PhotosHepMC3Event photosEvent(theEvent.get());
 #else
-  Photospp::PhotosHepMCEvent photosEvent(theEvent);
+  Photospp::PhotosHepMCEvent photosEvent(theEvent.get());
 #endif
 
   // Run the Photos algorithm
@@ -226,7 +226,6 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 
   // Cleanup
   theEvent->clear();
-  delete theEvent;
 
   return true;
 

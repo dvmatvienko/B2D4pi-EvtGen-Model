@@ -4,6 +4,10 @@
 //
 //===========================================================================
 
+8th Apr 2020 Tom Latham
+    One small modernisation change to EvtPhotosEngine to match that already
+    applied in EvtTauolaEngine.
+
 8th Apr 2020 John Back
     Fixed NonReson amplitude and the 4-momentum boosts used for angles in
     EvtLambdacPHH, courtesy of Elisabeth Niel (LHCb).
