@@ -14,29 +14,25 @@
 #ifndef EVTHYBNONLEPTON_HH
 #define EVTHYBNONLEPTON_HH
 
-#include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
 
-class EvtHypNonLepton:public EvtDecayAmp {
+class EvtHypNonLepton : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void calcAmp( EvtAmp* amp, EvtParticle* parent );
 
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
-  void calcAmp(EvtAmp *amp,EvtParticle *parent);
-
-private:
-
-  double     m_alpha;
-  double     m_phi;
-  EvtComplex m_B_to_A;
-  long       m_noTries;
-
+  private:
+    double m_alpha;
+    double m_phi;
+    EvtComplex m_B_to_A;
+    long m_noTries;
 };
 
 #endif

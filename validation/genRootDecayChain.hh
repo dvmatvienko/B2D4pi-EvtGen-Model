@@ -1,39 +1,34 @@
 #ifndef GENROOT_DECAYCHAIN_HH
 #define GENROOT_DECAYCHAIN_HH
 
+#include "TCanvas.h"
 #include "TFile.h"
 #include "TH1.h"
 #include "TTree.h"
-#include "TCanvas.h"
 
 #include <string>
 
 class EvtParticle;
 
 class genRootDecayChain {
-
-public:
-
-    genRootDecayChain(const std::string& decayFileName,
-		      const std::string& rootFileName,
-		      const std::string& parentName,
-		      int nEvents,
-		      bool storeMtmXYZ = false);
+  public:
+    genRootDecayChain( const std::string& decayFileName,
+                       const std::string& rootFileName,
+                       const std::string& parentName, int nEvents,
+                       bool storeMtmXYZ = false );
 
     ~genRootDecayChain();
 
     void run();
 
-protected:
-
+  protected:
     void initTree();
     void generateEvents();
-    void storeDaughterInfo(EvtParticle* theParticle);
-    void storeTreeInfo(EvtParticle* theParticle);
+    void storeDaughterInfo( EvtParticle* theParticle );
+    void storeTreeInfo( EvtParticle* theParticle );
     void writeTree();
 
-private:
-
+  private:
     std::string _decayFileName;
     std::string _rootFileName;
     std::string _parentName;
@@ -64,8 +59,6 @@ private:
     double _t;
 
     int _vertexNo;
-
 };
-
 
 #endif

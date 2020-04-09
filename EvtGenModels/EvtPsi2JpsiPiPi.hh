@@ -23,27 +23,24 @@ class EvtDecayBase;
 class EvtParticle;
 
 class EvtPsi2JpsiPiPi : public EvtDecayAmp {
-public:
-    
+  public:
     EvtPsi2JpsiPiPi();
 
     std::string getName() override;
     EvtDecayBase* clone() override;
     void initProbMax() override;
     void init() override;
-    void decay(EvtParticle *p) override;
+    void decay( EvtParticle* p ) override;
 
-private:
-
+  private:
     bool tree;
-    double phi; // LO vs NLO mixing angle (radians)
+    double phi;    // LO vs NLO mixing angle (radians)
     double cosPhi, cos2Phi, sinPhi, sin2Phi;
     // NLO corrections
-    static const int nQ = 6; // number of terms in mPiPi interpolation
+    static const int nQ = 6;    // number of terms in mPiPi interpolation
     std::array<double, nQ> c0, c1, c2, s1, s2;
 
     void setNLOArrays();
-
 };
 
 #endif

@@ -30,29 +30,23 @@
  *  @author Phil Strother       Originator
  */
 
-class EvtItgFunction: public EvtItgAbsFunction {
+class EvtItgFunction : public EvtItgAbsFunction {
+  public:
+    // Constructors
+    EvtItgFunction( double ( *theFunction )( double ), double lowerRange,
+                    double upperRange );
 
-public:
+    void setCoeff( int, int, double ) override{};
+    double getCoeff( int, int ) override { return 0.0; };
 
-  // Constructors
-  EvtItgFunction( double (*theFunction)(double),
-		     double lowerRange, double upperRange);
+  protected:
+    // Helper functions
 
+    double myFunction( double x ) const override;
 
-  void setCoeff(int, int, double) override {};
-  double getCoeff(int, int) override {return 0.0;};
-
-protected:
-
-  // Helper functions
-
-  double myFunction(double x) const override;
-
-private:
-
-  // Data members
-  double (*_myFunction)(double x);
-
+  private:
+    // Data members
+    double ( *_myFunction )( double x );
 };
 
-#endif // EvtITGFUNCTION_HH
+#endif    // EvtITGFUNCTION_HH

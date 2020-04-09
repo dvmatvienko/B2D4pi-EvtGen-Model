@@ -4,21 +4,17 @@
 #include "EvtGenBase/EvtMRes.hh"
 
 class EvtMHelAmp : public EvtMRes {
+  public:
+    EvtMHelAmp( const EvtId& id, EvtMLineShape*, const vector<EvtMNode*>&,
+                const vector<EvtComplex>& );
+    ~EvtMHelAmp(){};
 
-    public:
+    EvtSpinAmp amplitude( const vector<EvtVector4R>& product ) const override;
 
-        EvtMHelAmp( const EvtId& id, EvtMLineShape *, const
-                vector<EvtMNode * >&, const vector<EvtComplex>& );
-        ~EvtMHelAmp() {};
+    EvtMNode* duplicate() const override;
 
-        EvtSpinAmp amplitude( const vector<EvtVector4R>& product )
-            const override;
-
-        EvtMNode * duplicate() const override;
-
-    private:
-
-        vector<EvtComplex> _elem;
+  private:
+    vector<EvtComplex> _elem;
 };
 
 #endif

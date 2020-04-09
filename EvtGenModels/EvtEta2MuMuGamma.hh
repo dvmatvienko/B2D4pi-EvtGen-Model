@@ -25,17 +25,15 @@
 
 class EvtParticle;
 
-class EvtEta2MuMuGamma:public  EvtDecayProb  {
+class EvtEta2MuMuGamma : public EvtDecayProb {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-
-  void decay(EvtParticle *p) override;
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

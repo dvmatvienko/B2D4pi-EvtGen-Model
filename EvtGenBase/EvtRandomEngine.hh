@@ -17,25 +17,20 @@
 // Modification history:
 //
 //    RYD     December 25, 1999         Module created
-//    RYD     October 2, 2006           Converted to a pure interface class 
+//    RYD     October 2, 2006           Converted to a pure interface class
 //
 //------------------------------------------------------------------------
 
 #ifndef EVTRANDOMENGINE_HH
 #define EVTRANDOMENGINE_HH
 
-class EvtRandomEngine{
+class EvtRandomEngine {
+  public:
+    virtual ~EvtRandomEngine(){};
 
-public:
+    virtual double random() = 0;
 
-  virtual ~EvtRandomEngine() {};
-
-  virtual double random()=0;
-
-private:
-
+  private:
 };
 
 #endif
-
-

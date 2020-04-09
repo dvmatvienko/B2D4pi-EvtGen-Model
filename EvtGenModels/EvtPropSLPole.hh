@@ -22,46 +22,44 @@
 #define EVTPROPSLPOLE_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
-#include "EvtGenBase/EvtSemiLeptonicAmp.hh"
 #include "EvtGenBase/EvtPoint1D.hh"
+#include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
 #include <memory>
 
 class Evtparticle;
 
-class EvtPropSLPole:public  EvtDecayAmp  {
+class EvtPropSLPole : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    double calBreitWigner( EvtParticle* pmeson, EvtPoint1D point );
+    double calBreitWignerBasic( double maxMass );
 
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-  void init() override;
+    double calcMaxProb( EvtId parent, EvtId meson, EvtId lepton, EvtId nudaug,
+                        EvtSemiLeptonicFF* FormFactors );
 
-  double calBreitWigner(EvtParticle *pmeson, EvtPoint1D point);
-  double calBreitWignerBasic(double maxMass);
+  private:
+    bool _includeDecayFact;
+    bool _includeBirthFact;
+    double _mass;
+    double _massMin;
+    double _massMax;
+    double _width;
+    double _maxRange;
+    EvtSpinType::spintype _spin;
 
-  double calcMaxProb( EvtId parent, EvtId meson, EvtId lepton, EvtId nudaug, EvtSemiLeptonicFF *FormFactors );
+    double _blatt;
+    bool _isProbMaxSet;
 
-private:
-
-  bool _includeDecayFact;
-  bool _includeBirthFact;
-  double _mass;
-  double _massMin;
-  double _massMax;
-  double _width;
-  double _maxRange;
-  EvtSpinType::spintype _spin;
-
-  double _blatt;
-  bool _isProbMaxSet;
-
-  std::unique_ptr<EvtSemiLeptonicFF> SLPoleffmodel;
-  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
+    std::unique_ptr<EvtSemiLeptonicFF> SLPoleffmodel;
+    std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif
-

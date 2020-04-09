@@ -26,19 +26,16 @@
 
 class EvtParticle;
 
-class EvtOmegaDalitz:public  EvtDecayAmp  {
+class EvtOmegaDalitz : public EvtDecayAmp {
+  public:
+    EvtOmegaDalitz() {}
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtOmegaDalitz() {}
-
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-
+    void init() override;
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
 };
 
 #endif

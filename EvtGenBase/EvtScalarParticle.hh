@@ -24,27 +24,20 @@
 #include "EvtGenBase/EvtParticle.hh"
 class EvtId;
 
+class EvtScalarParticle : public EvtParticle {
+  public:
+    EvtScalarParticle() {}
 
-class EvtScalarParticle: public EvtParticle {
+    void init( EvtId part_n, double e, double px, double py, double pz );
+    void init( EvtId part_n, const EvtVector4R& p ) override;
 
-public:
+    EvtSpinDensity rotateToHelicityBasis() const override;
+    EvtSpinDensity rotateToHelicityBasis( double alpha, double beta,
+                                          double gamma ) const override;
 
-  EvtScalarParticle() {}
-
-  void init(EvtId part_n,double e,double px,double py,double pz);
-  void init(EvtId part_n,const EvtVector4R& p) override;
-
-  EvtSpinDensity rotateToHelicityBasis() const override;
-  EvtSpinDensity rotateToHelicityBasis(double alpha,
-				       double beta,
-				       double gamma) const override;
-
-private:
-
-  EvtScalarParticle(const EvtScalarParticle& scalar);
-  EvtScalarParticle& operator=(const EvtScalarParticle& scalar);
-
+  private:
+    EvtScalarParticle( const EvtScalarParticle& scalar );
+    EvtScalarParticle& operator=( const EvtScalarParticle& scalar );
 };
 
 #endif
-

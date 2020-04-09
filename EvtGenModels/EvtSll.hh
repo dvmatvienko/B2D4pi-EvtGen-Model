@@ -27,17 +27,14 @@ class EvtParticle;
 
 //Class to handle decays of the form SCALAR -> DIRAC DIRAC.
 
-class EvtSll:public  EvtDecayAmp  {
+class EvtSll : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

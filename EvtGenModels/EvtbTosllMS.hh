@@ -29,28 +29,26 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
-class EvtbTosllFFNew;        // my class with ff for rare semileptonic B-decays
-class EvtbTosllAmpNew;       // my class with amplitudes for rare semileptonic B-decays
-class EvtbTosllWilsCoeffNLO; // my class with Wilson coefficients in NLO
+class EvtbTosllFFNew;    // my class with ff for rare semileptonic B-decays
+class EvtbTosllAmpNew;    // my class with amplitudes for rare semileptonic B-decays
+class EvtbTosllWilsCoeffNLO;    // my class with Wilson coefficients in NLO
 
-class EvtbTosllMS:public  EvtDecayAmp{
+class EvtbTosllMS : public EvtDecayAmp {
+  public:
+    EvtbTosllMS(){};
+    virtual ~EvtbTosllMS();
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtbTosllMS() {} ;
-  virtual ~EvtbTosllMS();
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-  void decay(EvtParticle *p) override;
-
-private:
-  EvtbTosllFFNew *_msffmodel;
-  EvtbTosllAmpNew *_calcamp;
-  EvtbTosllWilsCoeffNLO *_wilscoeff;
+  private:
+    EvtbTosllFFNew* _msffmodel;
+    EvtbTosllAmpNew* _calcamp;
+    EvtbTosllWilsCoeffNLO* _wilscoeff;
 };
 
 #endif

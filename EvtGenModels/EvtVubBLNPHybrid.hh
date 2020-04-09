@@ -22,144 +22,149 @@
 //
 //////////////////////////////////////////////////////////////////
 
-
 #ifndef EVTVUBBLNPHYBRID_HH
 #define EVTVUBBLNPHYBRID_HH
 
-#include <vector>
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+
+#include <vector>
 
 class EvtParticle;
 
-class EvtVubBLNPHybrid:public  EvtDecayIncoherent  {
+class EvtVubBLNPHybrid : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* Bmeson ) override;
 
-  void init() override;
+    void readWeights( int startArg = 0 );
 
-  void decay(EvtParticle *Bmeson) override;
+    double getWeight( double mX, double q2, double El );
 
-  void readWeights(int startArg=0);
+  private:
+    //Input for hybrid modell
+    enum
+    {
+        nParameters = 10,
+        nVariables = 3
+    };
+    bool _noHybrid = false;
+    bool _storeWhat = true;
+    int _nbins = 0;
+    double _masscut = 0.28;
+    std::vector<double> _bins_mX;
+    std::vector<double> _bins_q2;
+    std::vector<double> _bins_El;
+    std::vector<double> _weights;
 
-  double getWeight(double mX, double q2, double El);
+    // Input parameters
+    double mBB;
+    double lambda2;
 
-private:
-  //Input for hybrid modell
-  enum { nParameters = 10, nVariables = 3 };
-  bool _noHybrid = false;
-  bool _storeWhat = true;
-  int    _nbins = 0;
-  double _masscut = 0.28;
-  std::vector<double>  _bins_mX;
-  std::vector<double>  _bins_q2;
-  std::vector<double>  _bins_El;
-  std::vector<double>  _weights;
+    // Shape function parameters
+    double b;
+    double Lambda;
+    double Ecut;
+    double wzero;
 
-  // Input parameters
-  double mBB;
-  double lambda2;
+    // SF and SSF modes
+    int itype;
+    double dtype;
+    int isubl;
 
-  // Shape function parameters
-  double b;
-  double Lambda;
-  double Ecut;
-  double wzero;
+    // flags
+    int flag1;
+    int flag2;
+    int flag3;
 
-  // SF and SSF modes
-  int itype;
-  double dtype;
-  int isubl;
+    // Quark mass
+    double mb;
 
-  // flags
-  int flag1;
-  int flag2;
-  int flag3;
+    // Matching scales
+    double muh;
+    double mui;
+    double mubar;
 
-  // Quark mass
-  double mb;
+    // Perturbative quantities
+    double CF;
+    double CA;
 
-  // Matching scales
-  double muh;
-  double mui;
-  double mubar;
+    double beta0;
+    double beta1;
+    double beta2;
 
-  // Perturbative quantities
-  double CF;
-  double CA;
+    double zeta3;
 
-  double beta0;
-  double beta1;
-  double beta2;
+    double Gamma0;
+    double Gamma1;
+    double Gamma2;
 
-  double zeta3;
+    double gp0;
+    double gp1;
 
-  double Gamma0;
-  double Gamma1;
-  double Gamma2;
+    double Lbar;
+    double mupisq;
+    double moment2;
 
-  double gp0;
-  double gp1;
+    int flagpower;
+    int flag2loop;
 
-  double Lbar;
-  double mupisq;
-  double moment2;
+    int maxLoop;
+    double precision;
 
-  int flagpower;
-  int flag2loop;
+    std::vector<double> gvars;
 
-  int maxLoop;
-  double precision;
-
-  std::vector<double> gvars;
-
-  double rate3(double Pp, double Pl, double Pm);
-  double F1(double Pp, double Pm, double muh, double mui, double mubar, double doneJS, double done1);
-  double F2(double Pp, double Pm, double muh, double mui, double mubar, double done3);
-  double F3(double Pp, double Pm, double muh, double mui, double mubar, double done2);
-  double DoneJS(double Pp, double Pm, double mui);
-  double Done1(double Pp, double Pm, double mui);
-  double Done2(double Pp, double Pm, double mui);
-  double Done3(double Pp, double Pm, double mui);
-  static double IntJS(double what, const std::vector<double> &vars);
-  static double Int1(double what, const std::vector<double> &vars);
-  static double Int2(double what, const std::vector<double> &vars);
-  static double Int3(double what, const std::vector<double> &vars);
-  static double g1(double w, const std::vector<double> &vars);
-  static double g2(double w, const std::vector<double> &vars);
-  static double g3(double w, const std::vector<double> &vars);
-  static double Shat(double w, const std::vector<double> &vars);
-  static double Mzero(double muf, double mu, double mupisq, const std::vector<double> &vars);
-  double wS(double w);
-  double t(double w);
-  double u(double w);
-  double v(double w);
-  double myfunction(double w, double Lbar, double mom2);
-  double myfunctionBIK(double w, double Lbar, double mom2);
-  double dU1nlo(double muh, double mui);
-  double U1lo(double muh, double mui);
-  double Sfun(double mu1, double mu2, double epsilon);
-  double S0(double a1, double r);
-  double S1(double a1, double r);
-  double S2(double a1, double r);
-  double aGamma(double mu1, double mu2, double epsilon);
-  double agp(double mu1, double mu2, double epsilon);
-  double alo(double muh, double mui);
-  double anlo(double muh, double mui);   // d/depsilon of aGamma
-  static double alphas(double mu, const std::vector<double> &vars);
-  double PolyLog(double v, double z);
-  static double Gamma(double z);
-  static double Gamma(double a, double x);
-  static double gamser(double a, double x, double LogGamma);
-  static double gammcf(double a, double x, double LogGamma);
-  double findBLNPWhat();
-  std::vector<double> _pf;
+    double rate3( double Pp, double Pl, double Pm );
+    double F1( double Pp, double Pm, double muh, double mui, double mubar,
+               double doneJS, double done1 );
+    double F2( double Pp, double Pm, double muh, double mui, double mubar,
+               double done3 );
+    double F3( double Pp, double Pm, double muh, double mui, double mubar,
+               double done2 );
+    double DoneJS( double Pp, double Pm, double mui );
+    double Done1( double Pp, double Pm, double mui );
+    double Done2( double Pp, double Pm, double mui );
+    double Done3( double Pp, double Pm, double mui );
+    static double IntJS( double what, const std::vector<double>& vars );
+    static double Int1( double what, const std::vector<double>& vars );
+    static double Int2( double what, const std::vector<double>& vars );
+    static double Int3( double what, const std::vector<double>& vars );
+    static double g1( double w, const std::vector<double>& vars );
+    static double g2( double w, const std::vector<double>& vars );
+    static double g3( double w, const std::vector<double>& vars );
+    static double Shat( double w, const std::vector<double>& vars );
+    static double Mzero( double muf, double mu, double mupisq,
+                         const std::vector<double>& vars );
+    double wS( double w );
+    double t( double w );
+    double u( double w );
+    double v( double w );
+    double myfunction( double w, double Lbar, double mom2 );
+    double myfunctionBIK( double w, double Lbar, double mom2 );
+    double dU1nlo( double muh, double mui );
+    double U1lo( double muh, double mui );
+    double Sfun( double mu1, double mu2, double epsilon );
+    double S0( double a1, double r );
+    double S1( double a1, double r );
+    double S2( double a1, double r );
+    double aGamma( double mu1, double mu2, double epsilon );
+    double agp( double mu1, double mu2, double epsilon );
+    double alo( double muh, double mui );
+    double anlo( double muh, double mui );    // d/depsilon of aGamma
+    static double alphas( double mu, const std::vector<double>& vars );
+    double PolyLog( double v, double z );
+    static double Gamma( double z );
+    static double Gamma( double a, double x );
+    static double gamser( double a, double x, double LogGamma );
+    static double gammcf( double a, double x, double LogGamma );
+    double findBLNPWhat();
+    std::vector<double> _pf;
 };
 
 #endif
-

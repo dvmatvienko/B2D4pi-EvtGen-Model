@@ -1,14 +1,17 @@
-#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtMBreitWigner.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
+
 #include <stdlib.h>
 
 using std::endl;
 
 EvtMBreitWigner::EvtMBreitWigner( const EvtId& id, const vector<string>& args )
 {
-    if( args.size() != 0 ) {
-        EvtGenReport(EVTGEN_ERROR, "EvtGen")<<"Unknown input arguments passed in to lineshape."<<endl;
+    if ( args.size() != 0 ) {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Unknown input arguments passed in to lineshape." << endl;
         ::abort();
     }
 
@@ -17,19 +20,18 @@ EvtMBreitWigner::EvtMBreitWigner( const EvtId& id, const vector<string>& args )
     _resmass = EvtPDL::getMeanMass( id );
 }
 
-EvtComplex EvtMBreitWigner::shape( const vector<EvtVector4R>& product ) const 
+EvtComplex EvtMBreitWigner::shape( const vector<EvtVector4R>& product ) const
 {
-    static EvtComplex I(0.0, 1.0);
-    double mass = _node->get4vector(product).mass();
- 
-    return sqrt(_width/( EvtConst::twoPi )) * 1/( mass - _resmass - I * _width/2 );
+    static EvtComplex I( 0.0, 1.0 );
+    double mass = _node->get4vector( product ).mass();
+
+    return sqrt( _width / ( EvtConst::twoPi ) ) * 1 /
+           ( mass - _resmass - I * _width / 2 );
 }
 
-
-EvtMLineShape * EvtMBreitWigner::duplicate() const
+EvtMLineShape* EvtMBreitWigner::duplicate() const
 {
-  vector<string> args;
-  EvtMLineShape* tmp=new EvtMBreitWigner( _id, args );
-  return tmp;
+    vector<string> args;
+    EvtMLineShape* tmp = new EvtMBreitWigner( _id, args );
+    return tmp;
 }
-

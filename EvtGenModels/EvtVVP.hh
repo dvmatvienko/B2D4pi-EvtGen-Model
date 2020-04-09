@@ -33,24 +33,21 @@
 class EvtParticle;
 class EvtDecayBase;
 
-class EvtVVP: public EvtDecayAmp  {
+class EvtVVP : public EvtDecayAmp {
+  public:
+    EvtVVP() {}
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtVVP() {}
+    void initProbMax() override;
+    void init() override;
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void initProbMax() override;
-  void init() override;
-  void decay(EvtParticle *p) override;
-
-private:
-  void decay_2body(EvtParticle *p);
-  void decay_3body(EvtParticle *p);
-  double delta; // form factor parameter
-
+  private:
+    void decay_2body( EvtParticle* p );
+    void decay_3body( EvtParticle* p );
+    double delta;    // form factor parameter
 };
 
 #endif

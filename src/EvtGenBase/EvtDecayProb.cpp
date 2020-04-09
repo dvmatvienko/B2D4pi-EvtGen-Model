@@ -17,78 +17,77 @@
 //    DJL/RYD     August 11, 1998         Module created
 //
 //------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtDecayProb.hh"
 
 #include "EvtGenBase/EvtDecayBase.hh"
-#include "EvtGenBase/EvtDecayProb.hh"
+#include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenBase/EvtRandom.hh"
-#include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtReport.hh"
 using std::endl;
 
-void EvtDecayProb::makeDecay(EvtParticle* p, bool recursive){
+void EvtDecayProb::makeDecay( EvtParticle* p, bool recursive )
+{
+    int ntimes = 10000;
 
-  int ntimes=10000;
+    double dummy;
 
-  double dummy;
+    do {
+        _weight = 1.0;
+        _daugsDecayedByParentModel = false;
 
-  do{
-    _weight=1.0;
-    _daugsDecayedByParentModel=false;
+        decay( p );
 
-    decay(p);
+        ntimes--;
 
-    ntimes--;
-    
-    _prob = _prob/_weight;
-    
-    dummy=getProbMax(_prob)*EvtRandom::Flat();
-    p->setDecayProb(_prob/getProbMax(_prob));
+        _prob = _prob / _weight;
 
-  }while(ntimes&&(_prob<dummy));
+        dummy = getProbMax( _prob ) * EvtRandom::Flat();
+        p->setDecayProb( _prob / getProbMax( _prob ) );
 
-  if (ntimes==0){
-    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Tried accept/reject:10000"
-			   <<" times, and rejected all the times!"<<endl;
-    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Is therefore accepting the last event!"<<endl;
-    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Decay of particle:"<<
-      EvtPDL::name(p->getId()).c_str()<<"(channel:"<<
-      p->getChannel()<<") with mass "<<p->mass()<<endl;
-    
-    for(size_t ii=0;ii<p->getNDaug();ii++){
-      EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<"Daughter "<<ii<<":"<<
-	EvtPDL::name(p->getDaug(ii)->getId()).c_str()<<" with mass "<<
-	p->getDaug(ii)->mass()<<endl;
-    }				   
-  }
+    } while ( ntimes && ( _prob < dummy ) );
 
+    if ( ntimes == 0 ) {
+        EvtGenReport( EVTGEN_DEBUG, "EvtGen" )
+            << "Tried accept/reject:10000"
+            << " times, and rejected all the times!" << endl;
+        EvtGenReport( EVTGEN_DEBUG, "EvtGen" )
+            << "Is therefore accepting the last event!" << endl;
+        EvtGenReport( EVTGEN_DEBUG, "EvtGen" )
+            << "Decay of particle:" << EvtPDL::name( p->getId() ).c_str()
+            << "(channel:" << p->getChannel() << ") with mass " << p->mass()
+            << endl;
 
-  EvtSpinDensity rho;
-  rho.setDiag(p->getSpinStates());
-  p->setSpinDensityBackward(rho);
-  if (getPHOTOS() || EvtRadCorr::alwaysRadCorr()) {
-    EvtRadCorr::doRadCorr(p);
-  }
+        for ( size_t ii = 0; ii < p->getNDaug(); ii++ ) {
+            EvtGenReport( EVTGEN_DEBUG, "EvtGen" )
+                << "Daughter " << ii << ":"
+                << EvtPDL::name( p->getDaug( ii )->getId() ).c_str()
+                << " with mass " << p->getDaug( ii )->mass() << endl;
+        }
+    }
 
-  if(!recursive) return;
+    EvtSpinDensity rho;
+    rho.setDiag( p->getSpinStates() );
+    p->setSpinDensityBackward( rho );
+    if ( getPHOTOS() || EvtRadCorr::alwaysRadCorr() ) {
+        EvtRadCorr::doRadCorr( p );
+    }
 
-  //Now decay the daughters.
-  if ( !daugsDecayedByParentModel()) {
-    for(size_t i=0;i<p->getNDaug();i++){
-      //Need to set the spin density of the daughters to be
-      //diagonal.
-      rho.setDiag(p->getDaug(i)->getSpinStates());
-      p->getDaug(i)->setSpinDensityForward(rho);
-      
-      //Now decay the daughter.  Really!
-      p->getDaug(i)->decay();
-    } 
-  }
-			    
+    if ( !recursive )
+        return;
+
+    //Now decay the daughters.
+    if ( !daugsDecayedByParentModel() ) {
+        for ( size_t i = 0; i < p->getNDaug(); i++ ) {
+            //Need to set the spin density of the daughters to be
+            //diagonal.
+            rho.setDiag( p->getDaug( i )->getSpinStates() );
+            p->getDaug( i )->setSpinDensityForward( rho );
+
+            //Now decay the daughter.  Really!
+            p->getDaug( i )->decay();
+        }
+    }
 }
-
-
-
-

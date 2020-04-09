@@ -26,27 +26,25 @@
 #define EVTBARYONPCR_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicBaryonAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
 #include <memory>
 
 class EvtParticle;
 
-class EvtBaryonPCR:public  EvtDecayAmp  {
+class EvtBaryonPCR : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtBaryonPCR* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtBaryonPCR* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-  void init() override;
-
-private:
-  std::unique_ptr<EvtSemiLeptonicFF> baryonpcrffmodel;
-  std::unique_ptr<EvtSemiLeptonicBaryonAmp> calcamp;
+  private:
+    std::unique_ptr<EvtSemiLeptonicFF> baryonpcrffmodel;
+    std::unique_ptr<EvtSemiLeptonicBaryonAmp> calcamp;
 };
 
 #endif
-

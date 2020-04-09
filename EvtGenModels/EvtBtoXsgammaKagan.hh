@@ -23,102 +23,109 @@
 #ifndef EVTBTOXSGAMMAKAGAN_HH
 #define EVTBTOXSGAMMAKAGAN_HH
 
-#include <vector>
 #include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
 
+#include <vector>
+
 class EvtBtoXsgammaKagan : public EvtBtoXsgammaAbsModel {
+  public:
+    void init( int, double* ) override;
 
-public:
+    void computeHadronicMass( int, double* );
 
-  void init(int, double*) override;
+    void getDefaultHadronicMass();
 
-  void computeHadronicMass(int, double*);
+    double GetMass( int code ) override;
 
-  void getDefaultHadronicMass();
+    double CalcAlphaS( double );
 
-  double GetMass(int code) override;
+    void CalcWilsonCoeffs();
+    void CalcDelta();
+    double Fz( double );
 
-  double CalcAlphaS(double);
+  private:
+    //Input parameters
+    double _mb;
+    double _mB;
+    double _delta;
+    double _nIntervalS;
+    double _nIntervalmH;
+    double _lambdabar;
+    double _lam1;
+    double _mHmin;
+    double _mHmax;
+    //Other parameters
+    double _r7;
+    double _gam77;
+    double _gam27;
+    double _gam87;
+    double _beta0;
+    double _beta1;
+    double _alphasmZ;
+    double _mZ;
+    double _z;
+    double _fz;
+    double _lam2;
+    double _kappabar;
+    double _rer2;
+    double _rer8;
+    double _kSLemmu;
+    double _mW;
+    double _mt;
+    double _ms;
+    double _mu;
 
-  void CalcWilsonCoeffs();
-  void CalcDelta();
-  double Fz(double);
+    double _c2mu;
+    double _c70mu;
+    double _c80mu;
+    double _c71mu;
+    double _c7emmu;
 
-private:
+    double _cDeltatot;
 
-  //Input parameters
-  double _mb;
-  double _mB;
-  double _delta;
-  double _nIntervalS;
-  double _nIntervalmH;
-  double _lambdabar;
-  double _lam1;
-  double _mHmin;
-  double _mHmax;
-  //Other parameters
-  double _r7;
-  double _gam77;
-  double _gam27;
-  double _gam87;
-  double _beta0;
-  double _beta1;
-  double _alphasmZ;
-  double _mZ;
-  double _z;
-  double _fz;
-  double _lam2;
-  double _kappabar;
-  double _rer2;
-  double _rer8;
-  double _kSLemmu;
-  double _mW;
-  double _mt;
-  double _ms;
-  double _mu;
+    double _alpha;
+    double _alphasmW;
+    double _alphasmt;
+    double _alphasmu;
+    double _alphasmubar;
+    double _etamu;
 
-  double _c2mu;
-  double _c70mu;
-  double _c80mu;
-  double _c71mu;
-  double _c7emmu;
+    std::vector<double> _mHVect;
 
-  double _cDeltatot;
+    static double ReG( double );
+    static double ImG( double );
+    static double s77( double );
+    static double s88( double, double, double );
+    static double s78( double );
+    static double s22Func( double var, const std::vector<double>& coeffs );
+    static double s27Func( double var, const std::vector<double>& coeffs );
 
-  double _alpha;
-  double _alphasmW;
-  double _alphasmt;
-  double _alphasmu;
-  double _alphasmubar;
-  double _etamu;
-
-  std::vector<double> _mHVect;
-
-  static double ReG(double);
-  static double ImG(double);
-  static double s77(double);
-  static double s88(double, double, double);
-  static double s78(double);
-  static double s22Func(double var, const std::vector<double> &coeffs);
-  static double s27Func(double var, const std::vector<double> &coeffs);
-
-  static double Delta(double, double);
-  static double DeltaFermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, const std::vector<double> &coeffs3);
-  static double s77FermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2);
-  static double s88FermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, const std::vector<double> &coeffs3);
-  static double s78FermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2);
-  static double s22FermiFunc(double, std::vector<double> &coeffs);
-  static double s27FermiFunc(double, std::vector<double> &coeffs);
-  static double s28FermiFunc(double, std::vector<double> &coeffs);
-  static double GetArrayVal(double, double, double, double, std::vector<double>);
-  static double sFermiFunc(double, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2,
-			   const std::vector<double> &coeffs3, const std::vector<double> &coeffs4);
-  static double FermiFunc(double, const std::vector<double> &coeffs);
-  static double diLogFunc(double);
-  static double diLogMathematica(double);
-  std::vector<double> massHad, brHad;
-  static double intervalMH;
-  static bool bbprod;
+    static double Delta( double, double );
+    static double DeltaFermiFunc( double, const std::vector<double>& coeffs1,
+                                  const std::vector<double>& coeffs2,
+                                  const std::vector<double>& coeffs3 );
+    static double s77FermiFunc( double, const std::vector<double>& coeffs1,
+                                const std::vector<double>& coeffs2 );
+    static double s88FermiFunc( double, const std::vector<double>& coeffs1,
+                                const std::vector<double>& coeffs2,
+                                const std::vector<double>& coeffs3 );
+    static double s78FermiFunc( double, const std::vector<double>& coeffs1,
+                                const std::vector<double>& coeffs2 );
+    static double s22FermiFunc( double, std::vector<double>& coeffs );
+    static double s27FermiFunc( double, std::vector<double>& coeffs );
+    static double s28FermiFunc( double, std::vector<double>& coeffs );
+    static double GetArrayVal( double, double, double, double,
+                               std::vector<double> );
+    static double sFermiFunc( double, const std::vector<double>& coeffs1,
+                              const std::vector<double>& coeffs2,
+                              const std::vector<double>& coeffs3,
+                              const std::vector<double>& coeffs4 );
+    static double FermiFunc( double, const std::vector<double>& coeffs );
+    static double diLogFunc( double );
+    static double diLogMathematica( double );
+    std::vector<double> massHad, brHad;
+    static double intervalMH;
+    static bool bbprod;
 };
 
 #endif

@@ -24,28 +24,22 @@
 #include <vector>
 
 class EvtAmpIndex {
+    friend class EvtAmpSubIndex;
 
-  friend class EvtAmpSubIndex;
+  public:
+    EvtAmpIndex( std::vector<int> ind );
+    virtual ~EvtAmpIndex() {}
 
-public:
+    void reset();
+    bool next();
 
-  EvtAmpIndex(std::vector<int> ind);
-  virtual ~EvtAmpIndex() {}
+    int index();
 
-  void reset();
-  bool next();
-
-  int index();
-
-private:
-
-  std::vector<int> _ind;
-  int _size;
-  std::vector<int> _state;
-  std::vector<int> _nstate;
-
+  private:
+    std::vector<int> _ind;
+    int _size;
+    std::vector<int> _state;
+    std::vector<int> _nstate;
 };
 
-
 #endif
-

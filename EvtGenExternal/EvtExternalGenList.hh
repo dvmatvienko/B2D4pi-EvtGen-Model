@@ -28,23 +28,20 @@
 #include <list>
 
 class EvtExternalGenList {
+  public:
+    EvtExternalGenList( bool convertPythiaCodes = false,
+                        std::string pythiaXmlDir = "",
+                        std::string photonType = "gamma",
+                        bool useEvtGenRandom = true );
 
-public:
+    virtual ~EvtExternalGenList();
 
-  EvtExternalGenList(bool convertPythiaCodes = false, std::string pythiaXmlDir = "",
-		     std::string photonType = "gamma", bool useEvtGenRandom = true);
+    std::list<EvtDecayBase*> getListOfModels();
 
-  virtual ~EvtExternalGenList();
+    EvtAbsRadCorr* getPhotosModel();
 
-  std::list<EvtDecayBase*> getListOfModels();
-
-  EvtAbsRadCorr* getPhotosModel();
-
-protected:
-
-private:
-
+  protected:
+  private:
 };
 
 #endif
-

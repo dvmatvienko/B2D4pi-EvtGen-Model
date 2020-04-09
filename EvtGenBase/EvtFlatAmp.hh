@@ -16,14 +16,19 @@
 
 template <class T>
 class EvtFlatAmp : public EvtAmplitude<T> {
-public:
+  public:
+    EvtFlatAmp() {}
+    EvtFlatAmp( const EvtFlatAmp<T>& other ) : EvtAmplitude<T>( other ) {}
+    virtual ~EvtFlatAmp() {}
 
-  EvtFlatAmp() {}
-  EvtFlatAmp(const EvtFlatAmp<T>& other) : EvtAmplitude<T>(other) {}
-  virtual ~EvtFlatAmp() {}
-
-  EvtAmplitude<T>* clone() const override { return new EvtFlatAmp<T>(*this); }
-  EvtComplex amplitude(const T& ) const override { return EvtComplex(1.,0.); }
+    EvtAmplitude<T>* clone() const override
+    {
+        return new EvtFlatAmp<T>( *this );
+    }
+    EvtComplex amplitude( const T& ) const override
+    {
+        return EvtComplex( 1., 0. );
+    }
 };
 
 #endif

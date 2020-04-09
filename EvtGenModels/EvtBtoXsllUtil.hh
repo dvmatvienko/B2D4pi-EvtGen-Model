@@ -27,27 +27,23 @@
 
 class EvtComplex;
 
-class EvtBtoXsllUtil{
+class EvtBtoXsllUtil {
+  public:
+    EvtComplex GetC7Eff0( double sh, bool nnlo = true );
+    EvtComplex GetC7Eff1( double sh, double mb, bool nnlo = true );
+    EvtComplex GetC9Eff0( double sh, double mb, bool nnlo = true,
+                          bool btod = false );
+    EvtComplex GetC9Eff1( double sh, double mb, bool nnlo = true,
+                          bool btod = false );
+    EvtComplex GetC10Eff( double sh, bool nnlo = true );
 
-public:
+    double dGdsProb( double mb, double ms, double ml, double s );
 
-  EvtComplex GetC7Eff0(double sh, bool nnlo=true);
-  EvtComplex GetC7Eff1(double sh, double mb, bool nnlo=true);
-  EvtComplex GetC9Eff0(double sh, double mb, bool nnlo=true, bool btod=false);
-  EvtComplex GetC9Eff1(double sh, double mb, bool nnlo=true, bool btod=false);
-  EvtComplex GetC10Eff(double sh, bool nnlo=true);
+    double dGdsdupProb( double mb, double ms, double ml, double s, double u );
 
-  double dGdsProb(double mb, double ms, double ml,
-                  double s);
+    double FermiMomentum( double pf );
 
-  double dGdsdupProb(double mb, double ms, double ml,
-                     double s,  double u);
-  
-  double FermiMomentum( double pf );
-  
-  double FermiMomentumProb( double pb, double pf );
-
+    double FermiMomentumProb( double pb, double pf );
 };
 
 #endif
-

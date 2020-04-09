@@ -19,20 +19,21 @@
 #ifndef EvtBcBsNpi_HH
 #define EvtBcBsNpi_HH
 
-#include "EvtGenModels/EvtBcToNPi.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
+
+#include "EvtGenModels/EvtBcToNPi.hh"
+
 #include <string>
 
 class EvtBcBsNPi : public EvtBcToNPi {
-public:
-   EvtBcBsNPi();
+  public:
+    EvtBcBsNPi();
 
-  void init() override;
-  void initProbMax() override;
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtBcBsNPi* clone() override;
-
+    std::string getName() override;
+    EvtBcBsNPi* clone() override;
 };
 
 #endif

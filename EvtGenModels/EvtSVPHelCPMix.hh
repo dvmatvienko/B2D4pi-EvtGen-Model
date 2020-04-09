@@ -26,22 +26,17 @@
 
 #include "EvtGenBase/EvtDecayAmp.hh"
 
-
 class EvtParticle;
 
-
 class EvtSVPHelCPMix : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void initProbMax() override;
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

@@ -32,21 +32,17 @@ class EvtId;
 
 class EvtComplex;
 
-class Evtbs2llGammaFFMNT : public Evtbs2llGammaFF{
-
+class Evtbs2llGammaFFMNT : public Evtbs2llGammaFF {
   public:
-
     Evtbs2llGammaFFMNT();
 
-    void getPhotonFF(int decay_id, double fb, EvtId parent,
-                     double q2, double M1, double mb, double mq,
-                     EvtComplex c7gam, EvtComplex a1,
-                     EvtComplex lambda_qu, EvtComplex lambda_qc,
-                     EvtComplex& Fv,  EvtComplex& Fa, EvtComplex& Ftv, EvtComplex& Fta) override;
+    void getPhotonFF( int decay_id, double fb, EvtId parent, double q2,
+                      double M1, double mb, double mq, EvtComplex c7gam,
+                      EvtComplex a1, EvtComplex lambda_qu, EvtComplex lambda_qc,
+                      EvtComplex& Fv, EvtComplex& Fa, EvtComplex& Ftv,
+                      EvtComplex& Fta ) override;
 
-    double getQuarkMass(int i) override;
-
+    double getQuarkMass( int i ) override;
 };
 
 #endif
-

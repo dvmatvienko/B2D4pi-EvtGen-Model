@@ -18,17 +18,17 @@
 //    Jane Tinslay            March 21, 2000      Module Created
 //------------------------------------------------------------------------
 //
+#include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
+
 #include "EvtGenBase/EvtPatches.hh"
 
 #include <stdlib.h>
-#include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
 
-void EvtBtoXsgammaAbsModel::init(int, double*) {
+void EvtBtoXsgammaAbsModel::init( int, double* )
+{
+    //This default version of init does nothing;
+    //A specialized version of this function can be
+    //supplied for each decay model to do initialization.
 
-  //This default version of init does nothing;
-  //A specialized version of this function can be
-  //supplied for each decay model to do initialization.
-
-  return;
-
+    return;
 }

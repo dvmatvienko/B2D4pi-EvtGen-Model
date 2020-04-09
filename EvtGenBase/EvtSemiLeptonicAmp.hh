@@ -26,22 +26,18 @@ class EvtParticle;
 class EvtSemiLeptonicFF;
 class EvtId;
 
-class EvtSemiLeptonicAmp{
+class EvtSemiLeptonicAmp {
+  public:
+    virtual ~EvtSemiLeptonicAmp(){};
 
- public:
-  virtual ~EvtSemiLeptonicAmp( ) { } ;
-   
-  //Daughters are initialized and have been added to the parent.
-  //No need to carry around the daughters seperately!
+    //Daughters are initialized and have been added to the parent.
+    //No need to carry around the daughters seperately!
 
-  virtual void CalcAmp( EvtParticle *parent, EvtAmp& amp,
-			EvtSemiLeptonicFF *FormFactors  ) = 0;
+    virtual void CalcAmp( EvtParticle* parent, EvtAmp& amp,
+                          EvtSemiLeptonicFF* FormFactors ) = 0;
 
-  double CalcMaxProb( EvtId parent, EvtId meson, EvtId lepton,
-		      EvtId nudaug, EvtSemiLeptonicFF *FormFactors,
-		      int nQ2Bins = 25);
-
-
+    double CalcMaxProb( EvtId parent, EvtId meson, EvtId lepton, EvtId nudaug,
+                        EvtSemiLeptonicFF* FormFactors, int nQ2Bins = 25 );
 };
 
 #endif

@@ -10,7 +10,7 @@
 //
 // Module: EvtGen/EvtModelReg.hh
 //
-// Description: 
+// Description:
 //
 // Modification history:
 //
@@ -23,21 +23,13 @@
 
 #include <list>
 
-class EvtDecayBase ;
+class EvtDecayBase;
 
-class EvtModelReg{
+class EvtModelReg {
+  public:
+    EvtModelReg( const std::list<EvtDecayBase*>* extraModels = 0 );
 
-public:
-
-  EvtModelReg(const std::list<EvtDecayBase*>* extraModels=0);
-
-private:
-
-
+  private:
 };
 
-
 #endif
-
-
-

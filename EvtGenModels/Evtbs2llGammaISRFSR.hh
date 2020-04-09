@@ -24,29 +24,26 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
-class Evtbs2llGammaFF;          // my class with ff for rare semileptonic B-decays
-class Evtbs2llGammaISRFSRAmp;   // my class with amplitudes for rare radiative leptonic B-decays
+class Evtbs2llGammaFF;    // my class with ff for rare semileptonic B-decays
+class Evtbs2llGammaISRFSRAmp;    // my class with amplitudes for rare radiative leptonic B-decays
 class EvtbTosllWilsCoeffNLO;    // my class with Wilson coefficients in NLO
 
-class Evtbs2llGammaISRFSR:public  EvtDecayAmp{
+class Evtbs2llGammaISRFSR : public EvtDecayAmp {
+  public:
+    Evtbs2llGammaISRFSR() {}
+    virtual ~Evtbs2llGammaISRFSR();
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  Evtbs2llGammaISRFSR() {}
-  virtual ~Evtbs2llGammaISRFSR();
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-  void decay(EvtParticle *p) override;
-
-private:
-  Evtbs2llGammaFF *_mntffmodel;
-  Evtbs2llGammaISRFSRAmp *_calcamp;
-  EvtbTosllWilsCoeffNLO *_wilscoeff;
+  private:
+    Evtbs2llGammaFF* _mntffmodel;
+    Evtbs2llGammaISRFSRAmp* _calcamp;
+    EvtbTosllWilsCoeffNLO* _wilscoeff;
 };
 
 #endif
-

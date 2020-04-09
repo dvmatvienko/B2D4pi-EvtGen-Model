@@ -18,61 +18,59 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtScalarParticle.hh"
-#include "EvtGenBase/EvtVectorParticle.hh"
-#include "EvtGenBase/EvtPhotonParticle.hh"
-#include "EvtGenBase/EvtTensorParticle.hh"
+#include "EvtGenModels/EvtKstarstargamma.hh"
+
+#include "EvtGenBase/EvtEvalHelAmp.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtPhotonParticle.hh"
+#include "EvtGenBase/EvtPropBreitWignerRel.hh"
+#include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtScalarParticle.hh"
+#include "EvtGenBase/EvtTensorParticle.hh"
+#include "EvtGenBase/EvtTwoBodyVertex.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtKstarstargamma.hh"
+#include "EvtGenBase/EvtVectorParticle.hh"
+
+#include <stdlib.h>
 #include <string>
-#include "EvtGenBase/EvtEvalHelAmp.hh"
-#include "EvtGenBase/EvtPropBreitWignerRel.hh"
-#include "EvtGenBase/EvtTwoBodyVertex.hh"
 
-std::string EvtKstarstargamma::getName(){
-
-  return "KSTARSTARGAMMA";
-
+std::string EvtKstarstargamma::getName()
+{
+    return "KSTARSTARGAMMA";
 }
 
-
-EvtDecayBase* EvtKstarstargamma::clone(){
-
-  return new EvtKstarstargamma;
-
+EvtDecayBase* EvtKstarstargamma::clone()
+{
+    return new EvtKstarstargamma;
 }
 
-void EvtKstarstargamma::init(){
+void EvtKstarstargamma::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
 
-  // check that there are 0 arguments
-  checkNArg(0);
+    // check that there are 3 daughters
+    checkNDaug( 3 );
 
-  // check that there are 3 daughters
-  checkNDaug(3);
-
-  // check the parent and daughter spins
-  checkSpinParent(EvtSpinType::SCALAR);
-  checkSpinDaughter(0,EvtSpinType::SCALAR);
-  checkSpinDaughter(1,EvtSpinType::SCALAR);
-  checkSpinDaughter(2,EvtSpinType::PHOTON);
+    // check the parent and daughter spins
+    checkSpinParent( EvtSpinType::SCALAR );
+    checkSpinDaughter( 0, EvtSpinType::SCALAR );
+    checkSpinDaughter( 1, EvtSpinType::SCALAR );
+    checkSpinDaughter( 2, EvtSpinType::PHOTON );
 }
 
-void EvtKstarstargamma::initProbMax() {
-
-  //setProbMax(1.0);
-
+void EvtKstarstargamma::initProbMax()
+{
+    //setProbMax(1.0);
 }
 
-void EvtKstarstargamma::decay( EvtParticle * /*p*/){
-
-/*
+void EvtKstarstargamma::decay( EvtParticle* /*p*/ )
+{
+    /*
 
   The EvtEvalHelAmp is completely broken...
 
@@ -176,10 +174,5 @@ void EvtKstarstargamma::decay( EvtParticle * /*p*/){
 
 */
 
-  return;
+    return;
 }
-
-
-
-
-

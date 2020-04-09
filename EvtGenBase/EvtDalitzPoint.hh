@@ -25,50 +25,46 @@
 #include "EvtGenBase/EvtDalitzPlot.hh"
 
 class EvtDalitzPoint final {
+  public:
+    EvtDalitzPoint();
+    EvtDalitzPoint( double mA, double mB, double mC, double qAB, double qBC,
+                    double qCA );
+    EvtDalitzPoint( double mA, double mB, double mC, EvtCyclic3::Pair i,
+                    double qres, double qhel, double qsum );
+    EvtDalitzPoint( const EvtDalitzPlot&, const EvtDalitzCoord& );
 
-public:
+    EvtDalitzCoord getDalitzPoint( EvtCyclic3::Pair i, EvtCyclic3::Pair j ) const;
+    EvtDalitzPlot getDalitzPlot() const;
 
-  EvtDalitzPoint();
-  EvtDalitzPoint(double mA, double mB, double mC,
-		 double qAB, double qBC, double qCA);
-  EvtDalitzPoint(double mA, double mB, double mC,
-		 EvtCyclic3::Pair i, double qres, double qhel, double qsum);
-  EvtDalitzPoint(const EvtDalitzPlot&, const EvtDalitzCoord&);
+    double q( EvtCyclic3::Pair ) const;
+    double bigM() const;
+    double m( EvtCyclic3::Index ) const;
 
-  EvtDalitzCoord getDalitzPoint(EvtCyclic3::Pair i, EvtCyclic3::Pair j) const;
-  EvtDalitzPlot  getDalitzPlot() const;
+    // Zemach variables
 
-  double q(EvtCyclic3::Pair) const;
-  double bigM() const;
-  double m(EvtCyclic3::Index) const;
+    double qres( EvtCyclic3::Pair i ) const;
+    double qhel( EvtCyclic3::Pair i ) const;
+    double qsum() const;
 
-  // Zemach variables
+    // Kinematic quantities
+    //
+    // pp  - 4 momentum product
+    // e,p,cosTh - energy/moementum in rest-frame of j
 
-  double qres(EvtCyclic3::Pair i) const;
-  double qhel(EvtCyclic3::Pair i) const;
-  double qsum() const;
+    double qMin( EvtCyclic3::Pair i, EvtCyclic3::Pair j ) const;
+    double qMax( EvtCyclic3::Pair i, EvtCyclic3::Pair j ) const;
+    double pp( EvtCyclic3::Index i, EvtCyclic3::Index j ) const;
+    double e( EvtCyclic3::Index i, EvtCyclic3::Pair j ) const;
+    double p( EvtCyclic3::Index i, EvtCyclic3::Pair j ) const;
+    double cosTh( EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes ) const;
 
-  // Kinematic quantities
-  //
-  // pp  - 4 momentum product
-  // e,p,cosTh - energy/moementum in rest-frame of j
+    bool isValid() const;
 
+    void print() const;
 
-  double qMin(EvtCyclic3::Pair i, EvtCyclic3::Pair j) const;
-  double qMax(EvtCyclic3::Pair i, EvtCyclic3::Pair j) const;
-  double pp(EvtCyclic3::Index i, EvtCyclic3::Index j) const;
-  double e(EvtCyclic3::Index i, EvtCyclic3::Pair j) const;
-  double p(EvtCyclic3::Index i, EvtCyclic3::Pair j) const;
-  double cosTh(EvtCyclic3::Pair pairAng, EvtCyclic3::Pair pairRes) const;
-
-  bool isValid() const;
-
-  void print() const;
-
-private:
-
-  double _mA, _mB, _mC;     // masses
-  double _qAB, _qBC, _qCA;  // masses squared
+  private:
+    double _mA, _mB, _mC;       // masses
+    double _qAB, _qBC, _qCA;    // masses squared
 };
 
 #endif

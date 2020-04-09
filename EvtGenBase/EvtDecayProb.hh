@@ -25,30 +25,19 @@
 
 class EvtParticle;
 
-class EvtDecayProb : public EvtDecayBase{
+class EvtDecayProb : public EvtDecayBase {
+  public:
+    void makeDecay( EvtParticle* p, bool recursive = true ) override;
 
-public:
+    void setProb( double prob ) { _prob = prob; }
+    double getProb() { return _prob; }
+    inline void setWeight( double weight ) { _weight = weight; }
 
-  void makeDecay(EvtParticle* p, bool recursive=true) override;
+    virtual ~EvtDecayProb() {}
 
-  void setProb(double prob) { _prob=prob;}
-  double getProb() { return _prob;}
-  inline void setWeight(double weight) {_weight=weight;}
-
-  virtual ~EvtDecayProb() {}
-
-
-private:
-
-  double _prob;
-  double _weight;
-
+  private:
+    double _prob;
+    double _weight;
 };
 
-
-
 #endif
-
-
-
-

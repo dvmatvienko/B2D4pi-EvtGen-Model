@@ -10,9 +10,9 @@
 //
 // Module: EvtGen/EvtEvalHelAmp.hh
 //
-// Description: Class for evaluation of amplitudes in the 
+// Description: Class for evaluation of amplitudes in the
 //              helicity formalism.
-//             
+//
 //
 // Modification history:
 //
@@ -24,58 +24,44 @@
 #define EVTEVALHELAMP_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSpinType.hh"
 #include "EvtGenBase/EvtId.hh"
+#include "EvtGenBase/EvtSpinType.hh"
 
 class EvtParticle;
 class EvtAmp;
 
-class EvtEvalHelAmp{
+class EvtEvalHelAmp {
+  public:
+    EvtEvalHelAmp( EvtId idA, EvtId idB, EvtId idC, EvtComplexPtrPtr HBC );
 
-public:
+    virtual ~EvtEvalHelAmp();
 
-  EvtEvalHelAmp(EvtId idA,
-		EvtId idB,
-		EvtId idC,
-		EvtComplexPtrPtr HBC);
+    double probMax();
 
-  virtual ~EvtEvalHelAmp();
+    void evalAmp( EvtParticle* p, EvtAmp& amp );
 
-  double probMax();
+  private:
+    void fillHelicity( int* lambda2, int n, int J2, EvtId id );
+    void setUpRotationMatrices( EvtParticle* p, double theta, double phi );
+    void applyRotationMatrices();
 
-  void evalAmp(EvtParticle *p, EvtAmp& amp); 
+    //spins states available for particle A, B, and C.
+    int _nA, _nB, _nC;
 
+    //helicity amplitudes
+    EvtComplexPtrPtr _HBC;
 
-private:
+    //2 times spin for each of the particles
+    int _JA2, _JB2, _JC2;
 
-  void fillHelicity(int* lambda2,int n,int J2, EvtId id);
-  void setUpRotationMatrices(EvtParticle *p,double theta, double phi);
-  void applyRotationMatrices();
+    //2 times the helicity for the states
+    int *_lambdaA2, *_lambdaB2, *_lambdaC2;
 
-  //spins states available for particle A, B, and C.
-  int _nA,_nB,_nC;
+    //Rotation matrices
+    EvtComplexPtrPtr _RA, _RB, _RC;
 
-  //helicity amplitudes
-  EvtComplexPtrPtr _HBC;
-
-  //2 times spin for each of the particles
-  int _JA2,_JB2,_JC2;
-
-  //2 times the helicity for the states
-  int *_lambdaA2,*_lambdaB2,*_lambdaC2;
-
-  //Rotation matrices
-  EvtComplexPtrPtr _RA,_RB,_RC;
-
-  //temporary array for amplitudes
-  EvtComplexPtrPtrPtr _amp,_amp1,_amp3;
-
+    //temporary array for amplitudes
+    EvtComplexPtrPtrPtr _amp, _amp1, _amp3;
 };
 
 #endif
-
-
-
-
-
-

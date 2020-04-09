@@ -22,30 +22,20 @@
 #ifndef EVTSYMTABLE_HH
 #define EVTSYMTABLE_HH
 
-#include <string>
 #include <map>
+#include <string>
 
 class EvtSymTable {
+  public:
+    EvtSymTable();
+    ~EvtSymTable();
 
-public:
+    static void define( const std::string& name, std::string d );
 
-  EvtSymTable(); 
-  ~EvtSymTable();
+    static std::string get( const std::string& name, int& ierr );
 
-  static void define(const std::string& name,std::string d);
-
-  static std::string get(const std::string& name,int &ierr);
-
-private:
-
-  static std::map<std::string,std::string> _symMap;
-  
-}; 
+  private:
+    static std::map<std::string, std::string> _symMap;
+};
 
 #endif
-
-
-
-
-
-

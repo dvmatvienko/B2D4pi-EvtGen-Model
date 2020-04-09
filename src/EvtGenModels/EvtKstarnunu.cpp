@@ -29,117 +29,117 @@
 // Created:     Sept. 29 1997
 //
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include <iostream>
-#include <string>
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtGenKine.hh"
-#include "EvtGenBase/EvtDiracSpinor.hh"
-#include "EvtGenBase/EvtTensor4C.hh"
 #include "EvtGenModels/EvtKstarnunu.hh"
+
+#include "EvtGenBase/EvtDiracSpinor.hh"
+#include "EvtGenBase/EvtGenKine.hh"
+#include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtTensor4C.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-std::string EvtKstarnunu::getName(){
+#include <iostream>
+#include <stdlib.h>
+#include <string>
 
-  return "KSTARNUNU";
-
+std::string EvtKstarnunu::getName()
+{
+    return "KSTARNUNU";
 }
 
-
-EvtDecayBase* EvtKstarnunu::clone(){
-
-  return new EvtKstarnunu;
-
+EvtDecayBase* EvtKstarnunu::clone()
+{
+    return new EvtKstarnunu;
 }
 
-void EvtKstarnunu::init(){
+void EvtKstarnunu::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
+    checkNDaug( 3 );
 
-  // check that there are 0 arguments
-  checkNArg(0);
-  checkNDaug(3);
+    //We expect the parent to be a scalar
+    //and the daughters to be K neutrino netrino
 
-  //We expect the parent to be a scalar
-  //and the daughters to be K neutrino netrino
+    checkSpinParent( EvtSpinType::SCALAR );
 
-  checkSpinParent(EvtSpinType::SCALAR);
-
-  checkSpinDaughter(0,EvtSpinType::VECTOR);
-  checkSpinDaughter(1,EvtSpinType::NEUTRINO);
-  checkSpinDaughter(2,EvtSpinType::NEUTRINO);
-
+    checkSpinDaughter( 0, EvtSpinType::VECTOR );
+    checkSpinDaughter( 1, EvtSpinType::NEUTRINO );
+    checkSpinDaughter( 2, EvtSpinType::NEUTRINO );
 }
 
+void EvtKstarnunu::decay( EvtParticle* p )
+{
+    static EvtId NUE = EvtPDL::getId( "nu_e" );
+    static EvtId NUM = EvtPDL::getId( "nu_mu" );
+    static EvtId NUT = EvtPDL::getId( "nu_tau" );
+    static EvtId NUEB = EvtPDL::getId( "anti-nu_e" );
+    static EvtId NUMB = EvtPDL::getId( "anti-nu_mu" );
+    static EvtId NUTB = EvtPDL::getId( "anti-nu_tau" );
 
-void EvtKstarnunu::decay(EvtParticle *p){
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
 
-  static EvtId NUE=EvtPDL::getId("nu_e");
-  static EvtId NUM=EvtPDL::getId("nu_mu");
-  static EvtId NUT=EvtPDL::getId("nu_tau");
-  static EvtId NUEB=EvtPDL::getId("anti-nu_e");
-  static EvtId NUMB=EvtPDL::getId("anti-nu_mu");
-  static EvtId NUTB=EvtPDL::getId("anti-nu_tau");
+    double m_b = p->mass();
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
+    EvtParticle *meson, *neutrino1, *neutrino2;
+    meson = p->getDaug( 0 );
+    neutrino1 = p->getDaug( 1 );
+    neutrino2 = p->getDaug( 2 );
+    EvtVector4R momnu1 = neutrino1->getP4();
+    EvtVector4R momnu2 = neutrino2->getP4();
+    EvtVector4R momkstar = meson->getP4();
 
-  double m_b = p->mass();
+    double v0_0, a1_0, a2_0;
+    double m2v0, a1_b, a2_b;
+    v0_0 = 0.47;
+    a1_0 = 0.37;
+    a2_0 = 0.40;
+    m2v0 = 5. * 5.;
+    a1_b = -0.023;
+    a2_b = 0.034;
 
-  EvtParticle *meson, *neutrino1, *neutrino2;
-  meson = p->getDaug(0);
-  neutrino1 = p->getDaug(1);
-  neutrino2 = p->getDaug(2);
-  EvtVector4R momnu1 = neutrino1->getP4();
-  EvtVector4R momnu2 = neutrino2->getP4();
-  EvtVector4R momkstar = meson->getP4();
+    EvtVector4R q = momnu1 + momnu2;
+    double q2 = q.mass2();
 
-  double v0_0, a1_0, a2_0;
-  double m2v0, a1_b, a2_b;
-  v0_0 = 0.47;
-  a1_0 = 0.37;
-  a2_0 = 0.40;
-  m2v0 = 5.*5.;
-  a1_b = -0.023;
-  a2_b = 0.034;
+    double v0, a1, a2;
+    v0 = v0_0 / ( 1 - q2 / m2v0 );
+    a1 = a1_0 * ( 1 + a1_b * q2 );
+    a2 = a2_0 * ( 1 + a2_b * q2 );
 
-  EvtVector4R q = momnu1+momnu2;
-  double q2 = q.mass2();
+    EvtVector4R p4b;
+    p4b.set( m_b, 0., 0., 0. );    // Do calcs in mother rest frame
 
-  double v0, a1, a2;
-  v0 = v0_0/(1-q2/m2v0);
-  a1 = a1_0*(1+a1_b*q2);
-  a2 = a2_0*(1+a2_b*q2);
+    double m_k = meson->mass();
 
-  EvtVector4R p4b; p4b.set(m_b,0.,0.,0.);  // Do calcs in mother rest frame
+    EvtTensor4C tds = ( -2 * v0 / ( m_b + m_k ) ) *
+                          dual( EvtGenFunctions::directProd( p4b, momkstar ) ) -
+                      EvtComplex( 0.0, 1.0 ) *
+                          ( ( m_b + m_k ) * a1 * EvtTensor4C::g() -
+                            ( a2 / ( m_b + m_k ) ) *
+                                EvtGenFunctions::directProd( p4b - momkstar,
+                                                             p4b + momkstar ) );
 
-  double m_k = meson->mass();
+    EvtVector4C l;
 
-  EvtTensor4C tds=(-2*v0/(m_b+m_k))*dual(EvtGenFunctions::directProd(p4b,momkstar))
-    - EvtComplex(0.0,1.0)*
-    ( (m_b+m_k)*a1*EvtTensor4C::g()
-      - (a2/(m_b+m_k))*EvtGenFunctions::directProd(p4b-momkstar,p4b+momkstar));
+    if ( getDaug( 1 ) == NUE || getDaug( 1 ) == NUM || getDaug( 1 ) == NUT ) {
+        l = EvtLeptonVACurrent( neutrino1->spParentNeutrino(),
+                                neutrino2->spParentNeutrino() );
+    }
+    if ( getDaug( 1 ) == NUEB || getDaug( 1 ) == NUMB || getDaug( 1 ) == NUTB ) {
+        l = EvtLeptonVACurrent( neutrino2->spParentNeutrino(),
+                                neutrino1->spParentNeutrino() );
+    }
 
-  EvtVector4C l;
+    EvtVector4C et0, et1, et2;
+    et0 = tds.cont1( meson->epsParent( 0 ).conj() );
+    et1 = tds.cont1( meson->epsParent( 1 ).conj() );
+    et2 = tds.cont1( meson->epsParent( 2 ).conj() );
 
-  if (getDaug(1)==NUE||getDaug(1)==NUM||getDaug(1)==NUT) {
-        l=EvtLeptonVACurrent(neutrino1->spParentNeutrino(),
-			     neutrino2->spParentNeutrino());
-  }
-  if (getDaug(1)==NUEB||getDaug(1)==NUMB||getDaug(1)==NUTB) {
-        l=EvtLeptonVACurrent(neutrino2->spParentNeutrino(),
-			     neutrino1->spParentNeutrino());
-  }
+    vertex( 0, l * et0 );
+    vertex( 1, l * et1 );
+    vertex( 2, l * et2 );
 
-  EvtVector4C et0,et1,et2;
-  et0 = tds.cont1( meson->epsParent(0).conj() );
-  et1 = tds.cont1( meson->epsParent(1).conj() );
-  et2 = tds.cont1( meson->epsParent(2).conj() );
-
-  vertex(0,l*et0);
-  vertex(1,l*et1);
-  vertex(2,l*et2);
-
-  return;
+    return;
 }
-

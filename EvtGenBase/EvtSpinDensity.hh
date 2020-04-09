@@ -23,31 +23,26 @@
 #define EVTSPINDENSITY_HH
 #include "EvtGenBase/EvtComplex.hh"
 
-
 class EvtSpinDensity {
+  public:
+    EvtSpinDensity( const EvtSpinDensity& density );
+    EvtSpinDensity& operator=( const EvtSpinDensity& density );
+    virtual ~EvtSpinDensity();
 
-public:
+    EvtSpinDensity();
+    void setDim( int n );
+    int getDim() const;
+    void set( int i, int j, const EvtComplex& rhoij );
+    const EvtComplex& get( int i, int j ) const;
+    double normalizedProb( const EvtSpinDensity& d );
+    friend std::ostream& operator<<( std::ostream& s, const EvtSpinDensity& d );
+    void setDiag( int n );
 
-  EvtSpinDensity(const EvtSpinDensity& density);
-  EvtSpinDensity& operator=(const EvtSpinDensity& density);
-  virtual ~EvtSpinDensity();
+    int check();
 
-  EvtSpinDensity();
-  void setDim(int n);
-  int getDim() const;
-  void set(int i,int j,const EvtComplex& rhoij);
-  const EvtComplex& get(int i,int j) const;
-  double normalizedProb(const EvtSpinDensity& d);
-  friend std::ostream& operator<<(std::ostream& s,const EvtSpinDensity& d);
-  void setDiag(int n);
-
-  int check();
-
-private:
-
-  EvtComplexPtrPtr rho;
-  int dim;
+  private:
+    EvtComplexPtrPtr rho;
+    int dim;
 };
 
 #endif
-

@@ -24,19 +24,15 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtParticle.hh"
 
+class EvtBtoKpiCPiso : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-class EvtBtoKpiCPiso:public  EvtDecayAmp  {
+    void init() override;
+    void initProbMax() override;
 
-public:
-
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-
-  void decay(EvtParticle *p) override;
-
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

@@ -17,46 +17,36 @@
 #include <iostream>
 
 class EvtDalitzCoord final {
+  public:
+    // ctor, dtor
 
+    EvtDalitzCoord();
+    EvtDalitzCoord( EvtCyclic3::Pair i1, double q1, EvtCyclic3::Pair i2,
+                    double q2 );
+    EvtDalitzCoord( const EvtDalitzCoord& other );
 
-public:
+    inline EvtCyclic3::Pair pair1() const { return _i1; }
+    inline EvtCyclic3::Pair pair2() const { return _i2; }
+    inline double q1() const { return _q1; }
+    inline double q2() const { return _q2; }
 
-  // ctor, dtor
+    // It's nice to have an equality operator for
+    // a coordinate. However, beware effects of numerical precision
 
-  EvtDalitzCoord();
-  EvtDalitzCoord(EvtCyclic3::Pair i1, double q1, EvtCyclic3::Pair i2, double q2);
-  EvtDalitzCoord(const EvtDalitzCoord& other);
+    bool operator==( const EvtDalitzCoord& ) const;
 
-  inline EvtCyclic3::Pair pair1() const { return _i1; }
-  inline EvtCyclic3::Pair pair2() const { return _i2; }
-  inline double q1() const { return _q1; }
-  inline double q2() const { return _q2; }
+    void print( std::ostream& ) const;
 
+  private:
+    // Two coordinates define the point
 
-  // It's nice to have an equality operator for
-  // a coordinate. However, beware effects of numerical precision
+    EvtCyclic3::Pair _i1;
+    EvtCyclic3::Pair _i2;
 
-  bool operator==(const EvtDalitzCoord&) const;
-
-  void print(std::ostream&) const;
-
-private:
-
-  // Two coordinates define the point
-
-  EvtCyclic3::Pair _i1;
-  EvtCyclic3::Pair _i2;
-
-  double _q1;
-  double _q2;
+    double _q1;
+    double _q2;
 };
 
-std::ostream& operator<<(std::ostream&,const EvtDalitzCoord&);
+std::ostream& operator<<( std::ostream&, const EvtDalitzCoord& );
 
 #endif
-
-
-
-
-
-

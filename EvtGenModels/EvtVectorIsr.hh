@@ -30,42 +30,27 @@
 
 class EvtParticle;
 
+class EvtVectorIsr : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-class EvtVectorIsr:public  EvtDecayIncoherent  {
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
+    void init() override;
 
-  EvtDecayBase* clone() override;
+    void initProbMax() override;
 
-  void decay(EvtParticle *p) override;
+    double ckhrad1( double xx, double a, double b );
 
-  void init() override;
+    void ckhrad( const double& e_beam, const double& q2_min, double& e01,
+                 double& e02, double& f );
 
-  void initProbMax() override;
-
-  double ckhrad1(double xx, double a, double b);
-
-  void ckhrad(const double& e_beam,const double& q2_min,double& e01,double& e02,double& f);
-
-
-private:
-
-  double csfrmn,csbkmn;
-  double fmax;
-  bool firstorder;
+  private:
+    double csfrmn, csbkmn;
+    double fmax;
+    bool firstorder;
 };
 
 #endif
-
-
-
-
-
-
-
-
-
-
-

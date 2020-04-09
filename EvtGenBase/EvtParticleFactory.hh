@@ -28,21 +28,14 @@ class EvtId;
 class EvtVector4R;
 class EvtSpinDensity;
 
-class EvtParticleFactory{
+class EvtParticleFactory {
+  public:
+    static EvtParticle* particleFactory( EvtSpinType::spintype spinType );
 
-public:
+    static EvtParticle* particleFactory( EvtId id, EvtVector4R p4 );
 
-
-static EvtParticle* particleFactory(EvtSpinType::spintype spinType);
-
-static EvtParticle* particleFactory(EvtId id, 
-				    EvtVector4R p4);
-
-static EvtParticle* particleFactory(EvtId id, 
-				    EvtVector4R p4,
-				    EvtSpinDensity rho);
-
+    static EvtParticle* particleFactory( EvtId id, EvtVector4R p4,
+                                         EvtSpinDensity rho );
 };
-
 
 #endif

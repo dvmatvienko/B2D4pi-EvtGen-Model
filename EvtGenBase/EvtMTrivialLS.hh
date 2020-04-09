@@ -4,15 +4,13 @@
 #include "EvtGenBase/EvtMRes.hh"
 
 class EvtMTrivialLS : public EvtMLineShape {
+  public:
+    EvtMTrivialLS( const EvtId& /*id*/, const vector<string>& /*args*/ ){};
+    ~EvtMTrivialLS(){};
 
-    public:
+    EvtComplex shape( const vector<EvtVector4R>& product ) const override;
 
-        EvtMTrivialLS( const EvtId& /*id*/, const vector<string>& /*args*/ ) {};
-        ~EvtMTrivialLS() {};
-
-        EvtComplex shape( const vector<EvtVector4R>& product ) const override;
-
-        EvtMLineShape* duplicate() const override;
+    EvtMLineShape* duplicate() const override;
 };
 
 #endif

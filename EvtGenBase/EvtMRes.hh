@@ -6,43 +6,38 @@
 class EvtMRes;
 
 class EvtMLineShape {
+  public:
+    virtual ~EvtMLineShape(){};
 
-    public:
+    void setres( EvtMRes* n ) { _node = n; }
+    virtual EvtComplex shape( const vector<EvtVector4R>& product ) const = 0;
 
-        virtual ~EvtMLineShape() {};
+    virtual EvtMLineShape* duplicate() const = 0;
 
-        void setres( EvtMRes * n ) { _node = n; }
-        virtual EvtComplex shape( const vector<EvtVector4R>& product ) const=0;
-
-        virtual EvtMLineShape * duplicate() const=0;
-
-    protected:
-
-        EvtMRes * _node;
+  protected:
+    EvtMRes* _node;
 };
 
 class EvtMRes : public EvtMNode {
+  public:
+    ~EvtMRes();
 
-    public:
+    int getnchild() const override { return _children.size(); }
 
-        ~EvtMRes();
+    EvtComplex line( const vector<EvtVector4R>& product ) const override
+    {
+        return _lineshape->shape( product );
+    }
 
-        int getnchild() const override { return _children.size(); }
+  protected:
+    // store the child nodes
+    vector<EvtMNode*> _children;
 
-        EvtComplex line( const vector<EvtVector4R>& product ) const override
-        { return _lineshape->shape( product ); }
+    // store the parametrization amplitudes in some kind
+    EvtSpinAmp _amp;
 
-    protected:
-
-        // store the child nodes
-        vector<EvtMNode *> _children;
-
-        // store the parametrization amplitudes in some kind
-        EvtSpinAmp _amp;
-
-        // store the lineshape of the resonance
-        EvtMLineShape * _lineshape;
-
+    // store the lineshape of the resonance
+    EvtMLineShape* _lineshape;
 };
 
 #endif

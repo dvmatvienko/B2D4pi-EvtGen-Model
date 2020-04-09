@@ -13,18 +13,16 @@
  */
 
 class EvtBToDDalitzCPK : public EvtDecayAmp {
-public:
+  public:
+    std::string getName() override;
+    EvtBToDDalitzCPK* clone() override;
 
-  std::string getName ( ) override;
-  EvtBToDDalitzCPK* clone ( ) override;
+    void decay( EvtParticle* p ) override;
+    void init() override;
 
-  void decay ( EvtParticle * p ) override;
-  void init ( ) override;
+    void initProbMax() override;
 
-  void initProbMax ( ) override;
-
-private:
-  int _flag ;
-
+  private:
+    int _flag;
 };
-#endif // EVTGENMODELS_EVTBTODDALITZCPK_HH
+#endif    // EVTGENMODELS_EVTBTODDALITZCPK_HH

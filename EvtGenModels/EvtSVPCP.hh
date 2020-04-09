@@ -33,22 +33,19 @@ class EvtParticle;
 //fourth arguements are the phases.
 //Calls EvtSVPHel.
 
-class EvtSVPCP:public  EvtDecayAmp  {
+class EvtSVPCP : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* p ) override;
+    static void SVPHel( EvtParticle* parent, EvtAmp& amp, EvtId n_v1,
+                        EvtId n_v2, const EvtComplex& hp, const EvtComplex& hm );
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-  void decay(EvtParticle *p) override;
-  static void SVPHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
-	      const EvtComplex& hp,const EvtComplex& hm);
-
-  std::string getParamName(int i) override;
-  std::string getParamDefault(int i) override;
-
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 };
 
 #endif

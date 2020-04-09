@@ -46,19 +46,16 @@
 
 class EvtParticle;
 
-class EvtYmSToYnSpipiCLEO:public  EvtDecayAmp  {
-  //EvtDecayProb  {
+class EvtYmSToYnSpipiCLEO : public EvtDecayAmp {
+    //EvtDecayProb  {
 
-public:
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 };
 
 #endif
-

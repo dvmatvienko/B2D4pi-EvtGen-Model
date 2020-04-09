@@ -27,18 +27,15 @@ class EvtParticle;
 //Class to handle decays of the form SCALAR->VECTOR SCALAR
 //Calls EvtScalarToVectorScalar.
 
-class EvtSVS:public  EvtDecayAmp {
+class EvtSVS : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-
-  void initProbMax() override;
-
+    void initProbMax() override;
 };
 
 #endif

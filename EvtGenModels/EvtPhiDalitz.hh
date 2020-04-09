@@ -6,28 +6,25 @@
 
 class EvtParticle;
 
-class EvtPhiDalitz:public  EvtDecayAmp  {
+class EvtPhiDalitz : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
-private:
-  double _mRho;
-  double _gRho;
-  double _aD;
-  double _phiD;
-  double _aOmega;
-  double _phiOmega;
-  int _locPip;
-  int _locPim;
-  int _locPi0;
-
+  private:
+    double _mRho;
+    double _gRho;
+    double _aD;
+    double _phiD;
+    double _aOmega;
+    double _phiOmega;
+    int _locPip;
+    int _locPim;
+    int _locPi0;
 };
 
 #endif

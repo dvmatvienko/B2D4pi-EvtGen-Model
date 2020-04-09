@@ -21,8 +21,8 @@
 #ifndef EVTBTOSLLALI_HH
 #define EVTBTOSLLALI_HH
 
-
 #include "EvtGenBase/EvtDecayAmp.hh"
+
 #include <memory>
 
 class EvtbTosllFF;
@@ -30,22 +30,19 @@ class EvtbTosllFF;
 #include "EvtGenModels/EvtbTosllFF.hh"
 class EvtParticle;
 
-class EvtbTosllAli:public  EvtDecayAmp  {
+class EvtbTosllAli : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
-private:
-  std::unique_ptr<EvtbTosllFF> _aliffmodel;
-  std::unique_ptr<EvtbTosllAmp> _calcamp;
-  double _poleSize;
+  private:
+    std::unique_ptr<EvtbTosllFF> _aliffmodel;
+    std::unique_ptr<EvtbTosllAmp> _calcamp;
+    double _poleSize;
 };
 
 #endif
-

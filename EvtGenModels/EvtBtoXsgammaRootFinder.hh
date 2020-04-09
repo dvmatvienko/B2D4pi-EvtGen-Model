@@ -33,19 +33,18 @@ extern "C" {
 //#include "EvtGenBase/EvtItgAbsFunction.hh"
 class EvtItgAbsFunction;
 
-class EvtBtoXsgammaRootFinder final{
+class EvtBtoXsgammaRootFinder final {
+  public:
+    double GetRootSingleFunc( const EvtItgAbsFunction* theFunc,
+                              double functionValue, double lowerValue,
+                              double upperValue, double precision );
 
-public:
-
-  double GetRootSingleFunc(const EvtItgAbsFunction* theFunc, double functionValue,
-			   double lowerValue, double upperValue, double precision);
-
-  double GetGaussIntegFcnRoot(EvtItgAbsFunction *theFunc1, EvtItgAbsFunction *theFunc2,
-			      double integ1Precision, double integ2Precision,
-			      int maxLoop1, int maxLoop2, double integLower,
-			      double integUpper, double lowerValue, double upperValue,
-			      double precision);
-
+    double GetGaussIntegFcnRoot( EvtItgAbsFunction* theFunc1,
+                                 EvtItgAbsFunction* theFunc2,
+                                 double integ1Precision, double integ2Precision,
+                                 int maxLoop1, int maxLoop2, double integLower,
+                                 double integUpper, double lowerValue,
+                                 double upperValue, double precision );
 };
 
 #endif

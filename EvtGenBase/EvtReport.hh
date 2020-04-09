@@ -19,10 +19,10 @@
 //
 //------------------------------------------------------------------------
 
-#if !defined(TOOLBOX_FUNCTIONS_HH)
+#if !defined( TOOLBOX_FUNCTIONS_HH )
 #define TOOLBOX_FUNCTIONS_HH
 
-#if !defined(FILENAME_ONLY) /* relative path includes */
+#if !defined( FILENAME_ONLY ) /* relative path includes */
 
 // system include files
 #include <iostream>
@@ -42,22 +42,21 @@
 //
 // constants, enums and typedefs
 //
-enum EvtGenSeverity {
-   EVTGEN_EMERGENCY,           // fatal
-   EVTGEN_ALERT,               // requires immediate action
-   EVTGEN_CRITICAL,            // serious
-   EVTGEN_ERROR,
-   EVTGEN_WARNING,
-   EVTGEN_NOTICE,              // "normal but significant"
-   EVTGEN_INFO,                // informational
-   EVTGEN_DEBUG                // debug
+enum EvtGenSeverity
+{
+    EVTGEN_EMERGENCY,    // fatal
+    EVTGEN_ALERT,        // requires immediate action
+    EVTGEN_CRITICAL,     // serious
+    EVTGEN_ERROR,
+    EVTGEN_WARNING,
+    EVTGEN_NOTICE,    // "normal but significant"
+    EVTGEN_INFO,      // informational
+    EVTGEN_DEBUG      // debug
 };
 
 // function declaration
-std::ostream& EvtGenReport(EvtGenSeverity severity,
-			   const char* facility = 0);
+std::ostream& EvtGenReport( EvtGenSeverity severity, const char* facility = 0 );
 
 // inline function definitions
 
 #endif /* TOOLBOX_FUNCTIONS_HH */
-

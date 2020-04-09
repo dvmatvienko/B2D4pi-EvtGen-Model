@@ -21,44 +21,43 @@
 #ifndef EVT_MASSAMP_HH
 #define EVT_MASSAMP_HH
 
-#include "EvtGenBase/EvtPoint1D.hh"
 #include "EvtGenBase/EvtAmplitude.hh"
+#include "EvtGenBase/EvtPoint1D.hh"
 #include "EvtGenBase/EvtPropBreitWignerRel.hh"
 #include "EvtGenBase/EvtTwoBodyVertex.hh"
 
 class EvtMassAmp : public EvtAmplitude<EvtPoint1D> {
-public:
+  public:
+    EvtMassAmp( const EvtPropBreitWignerRel& prop, const EvtTwoBodyVertex& vd );
+    EvtMassAmp( const EvtMassAmp& other );
+    EvtMassAmp& operator=( const EvtMassAmp& other );
 
-  EvtMassAmp(const EvtPropBreitWignerRel& prop, const EvtTwoBodyVertex& vd);
-  EvtMassAmp(const EvtMassAmp& other);
-  EvtMassAmp& operator=(const EvtMassAmp& other);
+    EvtComplex amplitude( const EvtPoint1D& p ) const override;
 
-  EvtComplex amplitude(const EvtPoint1D& p) const override;
+    EvtAmplitude<EvtPoint1D>* clone() const override
+    {
+        return new EvtMassAmp( *this );
+    }
 
-  EvtAmplitude<EvtPoint1D>* clone() const override
-  { return new EvtMassAmp(*this); }
+    void setBirthVtx( const EvtTwoBodyVertex& vb )
+    {
+        _vb = std::make_unique<EvtTwoBodyVertex>( vb );
+    }
 
-  void setBirthVtx(const EvtTwoBodyVertex& vb)
-  {
-    _vb = std::make_unique<EvtTwoBodyVertex>(vb);
-  }
+    void addBirthFact() { _useBirthFact = true; }
+    void addDeathFact() { _useDeathFact = true; }
+    void addBirthFactFF() { _useBirthFactFF = true; }
+    void addDeathFactFF() { _useDeathFactFF = true; }
 
-  void addBirthFact() { _useBirthFact = true; }
-  void addDeathFact() { _useDeathFact = true; }
-  void addBirthFactFF() { _useBirthFactFF = true; }
-  void addDeathFactFF() { _useDeathFactFF = true; }
+  private:
+    EvtPropBreitWignerRel _prop;
+    EvtTwoBodyVertex _vd;
+    std::unique_ptr<EvtTwoBodyVertex> _vb;
 
-private:
-
-  EvtPropBreitWignerRel _prop;
-  EvtTwoBodyVertex  _vd;
-  std::unique_ptr<EvtTwoBodyVertex> _vb;
-
-  bool _useBirthFact;
-  bool _useDeathFact;
-  bool _useBirthFactFF;
-  bool _useDeathFactFF;
+    bool _useBirthFact;
+    bool _useDeathFact;
+    bool _useBirthFactFF;
+    bool _useDeathFactFF;
 };
-
 
 #endif

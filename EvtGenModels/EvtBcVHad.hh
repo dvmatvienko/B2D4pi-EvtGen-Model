@@ -26,26 +26,24 @@
 #include "EvtGenModels/EvtBCVFF2.hh"
 #include "EvtGenModels/EvtWHad.hh"
 
-#include <string>
 #include <memory>
+#include <string>
 
 class EvtParticle;
 
 class EvtBcVHad : public EvtDecayAmp {
-public:
-
+  public:
     std::string getName() override;
     EvtDecayBase* clone() override;
     void initProbMax() override;
     void init() override;
-    void decay(EvtParticle *p) override;
+    void decay( EvtParticle* p ) override;
 
-protected:
-
+  protected:
     // Hadronic current function
-    EvtVector4C hardCurr(EvtParticle *root_particle) const;
+    EvtVector4C hardCurr( EvtParticle* root_particle ) const;
 
-private:
+  private:
     // whichfit --- code of the Bc -> VW formfactor set:
     //   1 - SR
     //   2 - PM
@@ -67,7 +65,6 @@ private:
 
     std::unique_ptr<EvtBCVFF2> ffmodel;
     std::unique_ptr<EvtWHad> wcurr;
-
 };
 
 #endif

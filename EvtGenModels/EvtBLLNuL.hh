@@ -9,8 +9,8 @@
 //              B^-(p) -> ell^+(k_1) ell^-(k_2) neu (k_3) ell^-(k_4)
 //
 // Modification history:
-// 
-// Anna Danilina (anna.danilina@cern.ch) and 
+//
+// Anna Danilina (anna.danilina@cern.ch) and
 // Nikolai Nikitin (Nikolai.Nikitine@cern.ch) Nov 2018  Module created
 //
 //------------------------------------------------------------------------
@@ -19,17 +19,16 @@
 #define EVTBLLNUL_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+
 #include "EvtGenModels/EvtBLLNuLAmp.hh"
 
 #include <string>
 
 class EvtParticle;
-class EvtbTosllMSFF;  // Form factor class
+class EvtbTosllMSFF;    // Form factor class
 
-class EvtBLLNuL: public EvtDecayAmp {
-
-public:
-
+class EvtBLLNuL : public EvtDecayAmp {
+  public:
     EvtBLLNuL();
 
     virtual std::string getName() override;
@@ -37,12 +36,10 @@ public:
 
     virtual void init() override;
     virtual void initProbMax() override;
-    virtual void decay(EvtParticle *p) override;
+    virtual void decay( EvtParticle* p ) override;
 
-private:
-  
+  private:
     EvtBLLNuLAmp calcAmp_;
-
 };
 
 #endif

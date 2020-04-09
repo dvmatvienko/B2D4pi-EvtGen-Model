@@ -21,9 +21,9 @@
 //                                                     EvtGen
 //
 //------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
 #include "EvtGenModels/EvtItgSimpsonIntegrator.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
 
 //-------------
 // C Headers --
@@ -41,52 +41,55 @@ extern "C" {
 // Collaborating Class Headers --
 //-------------------------------
 
-#include "EvtGenModels/EvtItgAbsFunction.hh"
 #include "EvtGenBase/EvtReport.hh"
+
+#include "EvtGenModels/EvtItgAbsFunction.hh"
 using std::endl;
 
+EvtItgSimpsonIntegrator::EvtItgSimpsonIntegrator(
+    const EvtItgAbsFunction& theFunction, double precision, int maxLoop ) :
+    EvtItgAbsIntegrator( theFunction ),
+    _precision( precision ),
+    _maxLoop( maxLoop )
+{
+}
 
-EvtItgSimpsonIntegrator::EvtItgSimpsonIntegrator(const EvtItgAbsFunction &theFunction, double precision, int maxLoop):
-  EvtItgAbsIntegrator(theFunction),
-  _precision(precision),
-  _maxLoop(maxLoop)
-{}
+double EvtItgSimpsonIntegrator::evaluateIt( double lower, double higher ) const
+{
+    // EvtGenReport(EVTGEN_INFO,"EvtGen")<<"in evaluate"<<endl;
+    int j;
+    double result( 0.0 );
+    double s, st, ost( 0.0 );
+    for ( j = 1; j < 4; j++ ) {
+        st = trapezoid( lower, higher, j, result );
+        s = ( 4.0 * st - ost ) / 3.0;
+        ost = st;
+    }
 
+    double olds( s );
+    st = trapezoid( lower, higher, j, result );
+    s = ( 4.0 * st - ost ) / 3.0;
 
-double
-EvtItgSimpsonIntegrator::evaluateIt(double lower, double higher) const{
+    if ( fabs( s - olds ) < _precision * fabs( olds ) ||
+         ( s == 0.0 && olds == 0.0 ) )
+        return s;
 
-  // EvtGenReport(EVTGEN_INFO,"EvtGen")<<"in evaluate"<<endl;
-  int j;
-  double result(0.0);
-  double s, st, ost(0.0);
-  for (j=1;j<4;j++) {
-    st = trapezoid(lower, higher, j, result);
-    s = (4.0 * st - ost)/3.0;
-    ost=st;
-  }
+    ost = st;
 
-  double olds(s);
-  st = trapezoid(lower, higher, j, result);
-  s = (4.0 * st - ost)/3.0;
+    for ( j = 5; j < _maxLoop; j++ ) {
+        st = trapezoid( lower, higher, j, result );
+        s = ( 4.0 * st - ost ) / 3.0;
 
-  if (fabs(s - olds) < _precision*fabs(olds) || (s==0.0 && olds==0.0))     return s;
+        if ( fabs( s - olds ) < _precision * fabs( olds ) ||
+             ( s == 0.0 && olds == 0.0 ) )
+            return s;
+        olds = s;
+        ost = st;
+    }
 
-  ost=st;
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+        << "Severe error in EvtItgSimpsonIntegrator.  Failed to converge after loop with 2**"
+        << _maxLoop << " calls to the integrand in." << endl;
 
-  for (j=5;j<_maxLoop;j++){
-
-    st = trapezoid(lower, higher, j, result);
-    s = (4.0 * st - ost)/3.0;
-
-    if (fabs(s - olds) < _precision*fabs(olds) || (s==0.0 && olds==0.0))    return s;
-    olds=s;
-    ost=st;
-  }
-
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Severe error in EvtItgSimpsonIntegrator.  Failed to converge after loop with 2**"
-		 << _maxLoop << " calls to the integrand in." << endl;
-
-  return 0.0;
-
+    return 0.0;
 }

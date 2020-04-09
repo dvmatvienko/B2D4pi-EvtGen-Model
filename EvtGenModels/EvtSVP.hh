@@ -25,30 +25,26 @@
 #define EvtSVP_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+
 #include <string>
 
 class EvtParticle;
 class EvtDecayBase;
 
-class EvtSVP: public EvtDecayAmp  {
+class EvtSVP : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void initProbMax() override;
 
-  void decay(EvtParticle *p) override;
-  void init() override;
-
-  void initProbMax() override;
-
-private:
-
-  void decay_2body(EvtParticle *p);
-  void decay_3body(EvtParticle *p);
-  double delta; // form factor parameter
-
+  private:
+    void decay_2body( EvtParticle* p );
+    void decay_3body( EvtParticle* p );
+    double delta;    // form factor parameter
 };
 
 #endif
-

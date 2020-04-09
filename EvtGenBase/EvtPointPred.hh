@@ -13,19 +13,15 @@
 #ifndef EVT_POINT_PRED_HH
 #define EVT_POINT_PRED_HH
 
-template <class Point> class EvtPointPred {
-public:
-  
-  typedef Point argument_type;
-  typedef bool result_type;
-  
-  EvtPointPred() {}
-  EvtPointPred(const EvtPointPred&) {}
-  ~EvtPointPred() {}
-  
-  result_type operator()(argument_type x) 
-  {
-    return x.isValid();
-  }
-};
+template <class Point>
+class EvtPointPred {
+  public:
+    typedef Point argument_type;
+    typedef bool result_type;
 
+    EvtPointPred() {}
+    EvtPointPred( const EvtPointPred& ) {}
+    ~EvtPointPred() {}
+
+    result_type operator()( argument_type x ) { return x.isValid(); }
+};

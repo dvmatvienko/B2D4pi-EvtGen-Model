@@ -25,19 +25,14 @@
 
 class EvtComplex;
 
-
-
 class EvtResonance final {
-public:
-
-    EvtResonance& operator = (const EvtResonance &);
+  public:
+    EvtResonance& operator=( const EvtResonance& );
 
     //constructor with all information about the resonance
-    EvtResonance(const EvtVector4R& p4_p, const EvtVector4R& p4_d1,
-		 const EvtVector4R& p4_d2,
-		 double ampl = 0.0, double theta = 0.0, double gamma = 0.0,
-		 double bwm = 0.0, int spin = 0);
-
+    EvtResonance( const EvtVector4R& p4_p, const EvtVector4R& p4_d1,
+                  const EvtVector4R& p4_d2, double ampl = 0.0, double theta = 0.0,
+                  double gamma = 0.0, double bwm = 0.0, int spin = 0 );
 
     //accessors
     //return 4-momenta of the particles involved
@@ -45,8 +40,7 @@ public:
     inline const EvtVector4R& p4_d1() { return _p4_d1; }
     inline const EvtVector4R& p4_d2() { return _p4_d2; }
 
-
-     //return amplitude
+    //return amplitude
     inline double amplitude() { return _ampl; }
 
     //return theta
@@ -65,15 +59,12 @@ public:
     EvtComplex resAmpl();
 
     //calculate relativistic Breit-Wigner amplitude for P-decays of scalars
-    EvtComplex relBrWig(int i);
+    EvtComplex relBrWig( int i );
 
-private:
-
+  private:
     EvtVector4R _p4_p, _p4_d1, _p4_d2;
     double _ampl, _theta, _gamma, _bwm;
     int _spin;
-
 };
 
 #endif
-

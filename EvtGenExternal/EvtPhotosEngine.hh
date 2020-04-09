@@ -21,15 +21,16 @@
 #ifndef EVTPHOTOSENGINE_HH
 #define EVTPHOTOSENGINE_HH
 
-#include "EvtGenModels/EvtAbsExternalGen.hh"
-#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtId.hh"
+#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
+#include "EvtGenModels/EvtAbsExternalGen.hh"
 
 #ifdef EVTGEN_HEPMC3
 #include "Photos/PhotosHepMC3Event.h"
 #include "Photos/PhotosHepMC3Particle.h"
+
 #include "HepMC3/Units.h"
 #else
 #include "Photos/PhotosHepMCEvent.h"
@@ -41,26 +42,23 @@
 #include <string>
 
 class EvtPhotosEngine : public EvtAbsExternalGen {
+  public:
+    EvtPhotosEngine( std::string photonType = "gamma",
+                     bool useEvtGenRandom = true );
 
-public:
+    bool doDecay( EvtParticle* theMother ) override;
 
-  EvtPhotosEngine(std::string photonType = "gamma", bool useEvtGenRandom = true);
+    void initialise() override;
 
-  bool doDecay(EvtParticle* theMother) override;
+  private:
+    std::string _photonType;
+    EvtId _gammaId;
+    int _gammaPDG;
+    double _mPhoton;
+    bool _initialised;
 
-  void initialise() override;
-
-private:
-
-  std::string _photonType;
-  EvtId _gammaId;
-  int _gammaPDG;
-  double _mPhoton;
-  bool _initialised;
-
-  GenParticlePtr createGenParticle(EvtParticle* theParticle, bool incoming);
-  int getNumberOfPhotons(const GenVertexPtr theVertex) const;
-
+    GenParticlePtr createGenParticle( EvtParticle* theParticle, bool incoming );
+    int getNumberOfPhotons( const GenVertexPtr theVertex ) const;
 };
 
 #endif

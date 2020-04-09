@@ -21,39 +21,27 @@
 #ifndef EVTSVSCPLH_HH
 #define EVTSVSCPLH_HH
 
-#include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
 
-class EvtSVSCPLH:public  EvtDecayAmp  {
+class EvtSVSCPLH : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void decay( EvtParticle* p ) override;
 
-  void initProbMax() override;
-  void init() override;
+  private:
+    EvtComplex _Af, _Abarf;
+    EvtComplex _qop, _poq;
 
-  void decay(EvtParticle *p) override;
-
-
-private:
-
-  EvtComplex _Af,_Abarf;
-  EvtComplex _qop,_poq;
-
-  double _dm;
-  double _dgamma;
-
-
-
-
+    double _dm;
+    double _dgamma;
 };
 
 #endif
-
-
-
-

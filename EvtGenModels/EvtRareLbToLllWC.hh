@@ -13,14 +13,11 @@
  *  @date   2013-11-27
  */
 
-
 class EvtRareLbToLllWC final {
-public:
-
-  EvtComplex GetC7Eff( const double q2 ) const;
-  EvtComplex GetC9Eff( const double q2, const bool btod=false) const;
-  EvtComplex GetC10Eff( const double q2 ) const ;
-
+  public:
+    EvtComplex GetC7Eff( const double q2 ) const;
+    EvtComplex GetC9Eff( const double q2, const bool btod = false ) const;
+    EvtComplex GetC10Eff( const double q2 ) const;
 };
 
-#endif //
+#endif    //

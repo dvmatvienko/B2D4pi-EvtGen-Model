@@ -23,42 +23,37 @@
 
 #include "EvtGenBase/EvtDecayBase.hh"
 
+class EvtParticleDecay {
+  public:
+    EvtParticleDecay()
+    {
+        _decay = 0;
+        _brfrsum = 0.0;
+        _massmin = 0.0;
+    }
 
-class EvtParticleDecay{
+    ~EvtParticleDecay()
+    {
+        if ( _decay != 0 )
+            delete _decay;
+    }
 
-public:
+    void chargeConj( EvtParticleDecay* decay );
 
-  EvtParticleDecay(){
-    _decay=0;
-    _brfrsum=0.0;
-    _massmin=0.0;
-  }
+    void setDecayModel( EvtDecayBase* decay ) { _decay = decay; }
+    EvtDecayBase* getDecayModel() { return _decay; }
+    double getBrfrSum() { return _brfrsum; }
+    void setBrfrSum( double brfrsum ) { _brfrsum = brfrsum; }
+    double getMassMin() { return _massmin; }
+    void setMassMin( double massmin ) { _massmin = massmin; }
 
-  ~EvtParticleDecay(){
+    void printSummary();
 
-    if (_decay!=0) delete _decay;
+  private:
+    EvtDecayBase* _decay;
 
-  }
-
-  void chargeConj(EvtParticleDecay* decay);
-
-  void setDecayModel(EvtDecayBase* decay) {_decay=decay;}
-  EvtDecayBase* getDecayModel() {return _decay;}
-  double getBrfrSum() {return _brfrsum;}
-  void setBrfrSum(double brfrsum) {_brfrsum=brfrsum;}
-  double getMassMin() {return _massmin;}
-  void setMassMin(double massmin) {_massmin=massmin;}
-
-  void printSummary();
-
-private:
-
-  EvtDecayBase* _decay;
-
-  double _brfrsum;
-  double _massmin;
-
+    double _brfrsum;
+    double _massmin;
 };
 
 #endif
-

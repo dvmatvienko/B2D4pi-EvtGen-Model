@@ -18,56 +18,55 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
-#include <ctype.h>
 #include "EvtGenBase/EvtDecayParm.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
+
+#include <ctype.h>
+#include <fstream>
+#include <iostream>
+#include <stdlib.h>
 #include <string>
 using std::fstream;
 
-void EvtDecayParm::init(fcnPtr pfcn, int ndaug, int *daugs, int narg,
-	       double *args, std::string name) {
+void EvtDecayParm::init( fcnPtr pfcn, int ndaug, int* daugs, int narg,
+                         double* args, std::string name )
+{
+    int i;
 
-  int i;
+    itsfcn = pfcn;
+    itsndaug = ndaug;
+    itsnarg = narg;
 
-  itsfcn=pfcn;
-  itsndaug=ndaug;
-  itsnarg=narg;
-  
-  itsdaugs=new int [itsndaug];
-  for(i=0;i<itsndaug;i++){
-    itsdaugs[i]=daugs[i];
-  }
-  itsargs=new double [itsnarg];
-  for(i=0;i<itsnarg;i++){
-    itsargs[i]=args[i];
-  }
-  modelname=name;
+    itsdaugs = new int[itsndaug];
+    for ( i = 0; i < itsndaug; i++ ) {
+        itsdaugs[i] = daugs[i];
+    }
+    itsargs = new double[itsnarg];
+    for ( i = 0; i < itsnarg; i++ ) {
+        itsargs[i] = args[i];
+    }
+    modelname = name;
 }
 
-EvtDecayParm::EvtDecayParm() {
+EvtDecayParm::EvtDecayParm()
+{
+    itsfcn = 0;
+    itsndaug = 0;
+    itsnarg = 0;
+    itsdaugs = 0;
+    itsargs = 0;
 
-  itsfcn=0;
-  itsndaug=0;
-  itsnarg=0;
-  itsdaugs=0;
-  itsargs=0;
-
-  modelname="**********";
-
+    modelname = "**********";
 }
 
-EvtDecayParm::~EvtDecayParm() {
+EvtDecayParm::~EvtDecayParm()
+{
+    if ( itsdaugs != 0 ) {
+        delete[] itsdaugs;
+    }
 
-  if (itsdaugs!=0){
-     delete [] itsdaugs;
-  }
-
-  if (itsargs!=0){
-     delete [] itsargs;
-  }
-
+    if ( itsargs != 0 ) {
+        delete[] itsargs;
+    }
 }
-

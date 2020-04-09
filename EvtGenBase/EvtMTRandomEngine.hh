@@ -26,20 +26,16 @@
 #include <random>
 
 class EvtMTRandomEngine : public EvtRandomEngine {
-
-public:
-
-    EvtMTRandomEngine(unsigned int seed = 1430957218);
+  public:
+    EvtMTRandomEngine( unsigned int seed = 1430957218 );
 
     virtual double random();
 
-private:
-
+  private:
     std::mt19937 engine_;
 
     typedef std::uniform_real_distribution<double> URDist;
     URDist distribution_;
-
 };
 
 #endif

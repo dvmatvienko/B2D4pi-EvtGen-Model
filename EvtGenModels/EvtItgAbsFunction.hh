@@ -32,38 +32,41 @@ extern "C" {
 }
 
 class EvtItgAbsFunction {
+  public:
+    // Constructors
 
-public:
+    EvtItgAbsFunction( double lowerRange, double upperRange );
 
-  // Constructors
+    // Destructor
+    virtual ~EvtItgAbsFunction() = default;
 
-  EvtItgAbsFunction(double lowerRange, double upperRange);
+    virtual double value( double x ) const;
 
-  // Destructor
-  virtual ~EvtItgAbsFunction( ) = default;
+    virtual double operator()( double x ) const;
 
-  virtual double value( double x) const;
+    // Selectors (const)
 
-  virtual double operator()(double x) const;
+    inline double upperRange() const { return _upperRange; }
+    inline double lowerRange() const { return _lowerRange; }
+    inline void getRange( double& lower, double& upper ) const
+    {
+        lower = _lowerRange;
+        upper = _upperRange;
+    }
+    virtual void setCoeff( int, int, double ) = 0;
+    virtual double getCoeff( int, int ) = 0;
 
-  // Selectors (const)
+  protected:
+    virtual double myFunction( double x ) const = 0;
+    void setRange( double x1, double x2 )
+    {
+        _lowerRange = x1;
+        _upperRange = x2;
+    };
 
-  inline double upperRange() const {return _upperRange;}
-  inline double lowerRange() const {return _lowerRange;}
-  inline void   getRange(double &lower,double &upper) const { lower = _lowerRange; upper = _upperRange; }
-  virtual void setCoeff(int, int, double)=0;
-  virtual double getCoeff(int, int)=0;
-
-protected:
-
-  virtual double myFunction(double x) const=0;
-  void    setRange(double x1,double x2) { _lowerRange=x1; _upperRange=x2; };
-
-private:
-
-  double _upperRange;
-  double _lowerRange;
-
+  private:
+    double _upperRange;
+    double _lowerRange;
 };
 
-#endif // EVTITGABSFUNCTION_HH
+#endif    // EVTITGABSFUNCTION_HH

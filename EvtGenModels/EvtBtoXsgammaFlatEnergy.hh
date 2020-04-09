@@ -25,20 +25,18 @@
 #include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
 
 class EvtBtoXsgammaFlatEnergy : public EvtBtoXsgammaAbsModel {
+  public:
+    void init( int, double* ) override;
 
-public:
+    double GetMass( int code ) override;
 
-  void init(int, double*) override;
-
-  double GetMass(int code) override;
-
-private:
-  //Input parameters
-  double _eMin;
-  double _eMax;
-  //
-  double _mB0;
-  double _eRange;
+  private:
+    //Input parameters
+    double _eMin;
+    double _eMax;
+    //
+    double _mB0;
+    double _eRange;
 };
 
 #endif

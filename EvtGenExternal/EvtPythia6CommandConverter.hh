@@ -26,6 +26,6 @@
 #ifndef EVTPYTHIA6COMMANDCONVERTER_HH
 #define EVTPYTHIA6COMMANDCONVERTER_HH
 
-std::vector<std::string> convertPythia6Command(Command command);
+std::vector<std::string> convertPythia6Command( Command command );
 
 #endif

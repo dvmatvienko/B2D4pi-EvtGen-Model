@@ -43,18 +43,14 @@
 
 class EvtParticle;
 
-class EvtY3SToY1SpipiMoxhay:public  EvtDecayProb  {
+class EvtY3SToY1SpipiMoxhay : public EvtDecayProb {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
-
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 };
 
 #endif
-

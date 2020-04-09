@@ -22,114 +22,103 @@
 #define EVTRARITASCHWINGER_HH
 
 #include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDiracSpinor.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtDiracSpinor.hh"
 
-class EvtRaritaSchwinger ;
-EvtRaritaSchwinger rotateEuler(const EvtRaritaSchwinger& rs,
-			       double alpha,double beta,double gamma);
-EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
-			   const EvtVector4R p4);
-EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
-			   const EvtVector3R boost);
-EvtRaritaSchwinger dirProd(EvtVector4R v,EvtDiracSpinor u);
-EvtRaritaSchwinger dirProd(EvtVector4C v,EvtDiracSpinor u);
-EvtRaritaSchwinger operator+(const EvtRaritaSchwinger& u1,
-			     const EvtRaritaSchwinger& u2);
-EvtRaritaSchwinger operator-(const EvtRaritaSchwinger& u1,
-			     const EvtRaritaSchwinger& u2);
-EvtComplex operator*(const EvtRaritaSchwinger& u1,
-		     const EvtRaritaSchwinger& u2);
+class EvtRaritaSchwinger;
+EvtRaritaSchwinger rotateEuler( const EvtRaritaSchwinger& rs, double alpha,
+                                double beta, double gamma );
+EvtRaritaSchwinger boostTo( const EvtRaritaSchwinger& rs, const EvtVector4R p4 );
+EvtRaritaSchwinger boostTo( const EvtRaritaSchwinger& rs,
+                            const EvtVector3R boost );
+EvtRaritaSchwinger dirProd( EvtVector4R v, EvtDiracSpinor u );
+EvtRaritaSchwinger dirProd( EvtVector4C v, EvtDiracSpinor u );
+EvtRaritaSchwinger operator+( const EvtRaritaSchwinger& u1,
+                              const EvtRaritaSchwinger& u2 );
+EvtRaritaSchwinger operator-( const EvtRaritaSchwinger& u1,
+                              const EvtRaritaSchwinger& u2 );
+EvtComplex operator*( const EvtRaritaSchwinger& u1, const EvtRaritaSchwinger& u2 );
 
 class EvtRaritaSchwinger final {
+    friend EvtRaritaSchwinger rotateEuler( const EvtRaritaSchwinger& rs,
+                                           double alpha, double beta,
+                                           double gamma );
+    friend EvtRaritaSchwinger boostTo( const EvtRaritaSchwinger& rs,
+                                       const EvtVector4R p4 );
+    friend EvtRaritaSchwinger boostTo( const EvtRaritaSchwinger& rs,
+                                       const EvtVector3R boost );
 
-  friend EvtRaritaSchwinger rotateEuler(const EvtRaritaSchwinger& rs,
-					double alpha,double beta,double gamma);
-  friend EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
-				    const EvtVector4R p4);
-  friend EvtRaritaSchwinger boostTo(const EvtRaritaSchwinger& rs,
-				    const EvtVector3R boost);
+    friend EvtRaritaSchwinger dirProd( EvtVector4R v, EvtDiracSpinor u );
+    friend EvtRaritaSchwinger dirProd( EvtVector4C v, EvtDiracSpinor u );
 
-  friend EvtRaritaSchwinger dirProd(EvtVector4R v,EvtDiracSpinor u);
-  friend EvtRaritaSchwinger dirProd(EvtVector4C v,EvtDiracSpinor u);
+    friend EvtRaritaSchwinger operator+( const EvtRaritaSchwinger& u1,
+                                         const EvtRaritaSchwinger& u2 );
+    friend EvtRaritaSchwinger operator-( const EvtRaritaSchwinger& u1,
+                                         const EvtRaritaSchwinger& u2 );
 
-  friend EvtRaritaSchwinger operator+(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2);
-  friend EvtRaritaSchwinger operator-(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2);
+    friend EvtComplex operator*( const EvtRaritaSchwinger& u1,
+                                 const EvtRaritaSchwinger& u2 );
 
-  friend EvtComplex operator*(const EvtRaritaSchwinger& u1,
-				  const EvtRaritaSchwinger& u2);
+  public:
+    inline EvtRaritaSchwinger();
+    inline EvtRaritaSchwinger( const EvtRaritaSchwinger& rs );
+    inline EvtRaritaSchwinger& operator=( const EvtRaritaSchwinger& rs );
 
-public:
+    void set( int i, int j, const EvtComplex& sp );
 
-  inline EvtRaritaSchwinger();
-  inline EvtRaritaSchwinger(const EvtRaritaSchwinger& rs);
-  inline EvtRaritaSchwinger& operator=(const EvtRaritaSchwinger& rs);
+    void applyRotateEuler( double alpha, double beta, double gamma );
+    void applyBoostTo( const EvtVector4R p4 );
+    void applyBoostTo( const EvtVector3R boost );
 
-  void set(int i,int j,const EvtComplex& sp);
+    EvtRaritaSchwinger& operator+=( const EvtRaritaSchwinger& u2 );
+    EvtRaritaSchwinger& operator-=( const EvtRaritaSchwinger& u2 );
 
-  void applyRotateEuler(double alpha,double beta,double gamma);
-  void applyBoostTo(const EvtVector4R p4);
-  void applyBoostTo(const EvtVector3R boost);
+    EvtComplex get( int i, int j ) const;
+    friend std::ostream& operator<<( std::ostream& s,
+                                     const EvtRaritaSchwinger& rs );
 
-  EvtRaritaSchwinger& operator+=(const EvtRaritaSchwinger& u2);
-  EvtRaritaSchwinger& operator-=(const EvtRaritaSchwinger& u2);
+    EvtVector4C getVector( int i ) const;
+    EvtDiracSpinor getSpinor( int i ) const;
 
-  EvtComplex get(int i,int j) const;
-  friend std::ostream& operator<<(std::ostream& s, const EvtRaritaSchwinger& rs);
+    void setVector( int i, const EvtVector4C& v );
+    void setSpinor( int i, const EvtDiracSpinor& sp );
 
-  EvtVector4C getVector(int i) const;
-  EvtDiracSpinor getSpinor(int i) const;
-
-  void setVector(int i,const EvtVector4C& v);
-  void setSpinor(int i,const EvtDiracSpinor& sp);
-
-
-
-private:
-
-  //First index in spinor index, second is Lorentz index.
-  EvtComplex _rs[4][4];
-
+  private:
+    //First index in spinor index, second is Lorentz index.
+    EvtComplex _rs[4][4];
 };
 
-EvtRaritaSchwinger::EvtRaritaSchwinger(){
-
-  int i,j;
-  for(i=0;i<4;i++){
-    for(j=0;j<4;j++){
-      _rs[i][j]=0.0;
+EvtRaritaSchwinger::EvtRaritaSchwinger()
+{
+    int i, j;
+    for ( i = 0; i < 4; i++ ) {
+        for ( j = 0; j < 4; j++ ) {
+            _rs[i][j] = 0.0;
+        }
     }
-  }
-
 }
 
-EvtRaritaSchwinger::EvtRaritaSchwinger(const EvtRaritaSchwinger& rs){
-
-  int i,j;
-  for(i=0;i<4;i++){
-    for(j=0;j<4;j++){
-      _rs[i][j]=rs._rs[i][j];
+EvtRaritaSchwinger::EvtRaritaSchwinger( const EvtRaritaSchwinger& rs )
+{
+    int i, j;
+    for ( i = 0; i < 4; i++ ) {
+        for ( j = 0; j < 4; j++ ) {
+            _rs[i][j] = rs._rs[i][j];
+        }
     }
-  }
-
 }
 
-EvtRaritaSchwinger& EvtRaritaSchwinger::operator=(const EvtRaritaSchwinger& rs){
-
-  int i,j;
-  for(i=0;i<4;i++){
-    for(j=0;j<4;j++){
-      _rs[i][j]=rs._rs[i][j];
+EvtRaritaSchwinger& EvtRaritaSchwinger::operator=( const EvtRaritaSchwinger& rs )
+{
+    int i, j;
+    for ( i = 0; i < 4; i++ ) {
+        for ( j = 0; j < 4; j++ ) {
+            _rs[i][j] = rs._rs[i][j];
+        }
     }
-  }
 
-  return *this;
-
+    return *this;
 }
 
 #endif
-
-

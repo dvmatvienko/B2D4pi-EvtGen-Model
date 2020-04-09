@@ -44,41 +44,32 @@
 #define EVT_BTOKD3P
 
 class EvtParticle;
-#include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
 
+class EvtBtoKD3P : public EvtDecayAmp {
+  public:
+    EvtDecayBase* clone() override;
 
-class EvtBtoKD3P : public  EvtDecayAmp {
+    // Initialize model
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-public:
-  EvtDecayBase* clone() override;
+    // we really have two daughters, although three are listed in the .dec file:
+    int nRealDaughters() override { return 2; }
 
-  // Initialize model
-  void init() override;
-  void initProbMax() override;
-  void decay(EvtParticle *p) override;
+    std::string getName() override;
 
-  // we really have two daughters, although three are listed in the .dec file:
-  int nRealDaughters() override { return 2;}
+  protected:
+    // parameters:
+    double _r;
+    EvtComplex _exp;
 
-  std::string getName() override;
-
-protected:
-  // parameters:
-  double _r;
-  EvtComplex _exp;
-
-  // other:
-  const EvtDecayBase * _model1 = nullptr;
-  const EvtDecayBase * _model2 = nullptr;
-  bool _decayedOnce = false;
-
+    // other:
+    const EvtDecayBase* _model1 = nullptr;
+    const EvtDecayBase* _model2 = nullptr;
+    bool _decayedOnce = false;
 };
 
-
 #endif
-
-
-
-
-

@@ -18,36 +18,37 @@
 //------------------------------------------------------------------------
 
 #include <map>
-#include <vector>
 #include <string>
+#include <vector>
 
 #ifndef EVTEXTGENERATORCOMMANDSTABLE_HH
 #define EVTEXTGENERATORCOMMANDSTABLE_HH
 
 typedef std::map<std::string, std::string> Command;
 typedef std::vector<Command> GeneratorCommands;
-typedef std::map<std::string, GeneratorCommands > GlobalCommandMap;
+typedef std::map<std::string, GeneratorCommands> GlobalCommandMap;
 
 class EvtExtGeneratorCommandsTable {
+  public:
+    static EvtExtGeneratorCommandsTable* getInstance();
 
-public:
+    void addCommand( std::string extGenerator, Command command )
+    {
+        _commandMap[extGenerator].push_back( command );
+    }
+    const GeneratorCommands& getCommands( std::string extGenerator )
+    {
+        return _commandMap[extGenerator];
+    }
 
-  static EvtExtGeneratorCommandsTable* getInstance();
+  protected:
+    EvtExtGeneratorCommandsTable();
+    ~EvtExtGeneratorCommandsTable();
 
-  void addCommand(std::string extGenerator, Command command) { _commandMap[extGenerator].push_back(command); }
-  const GeneratorCommands& getCommands(std::string extGenerator) { return _commandMap[extGenerator]; }
+  private:
+    GlobalCommandMap _commandMap;
 
-protected:
-
-  EvtExtGeneratorCommandsTable();
-  ~EvtExtGeneratorCommandsTable();
-
-private:
-
-  GlobalCommandMap _commandMap;
-
-  EvtExtGeneratorCommandsTable(const EvtExtGeneratorCommandsTable&) {};
-
+    EvtExtGeneratorCommandsTable( const EvtExtGeneratorCommandsTable& ){};
 };
 
 #endif

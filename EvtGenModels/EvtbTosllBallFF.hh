@@ -25,24 +25,18 @@
 
 class EvtId;
 
-
 class EvtbTosllBallFF : public EvtbTosllFF {
+  public:
+    EvtbTosllBallFF( int );
 
-public:
+    void getScalarFF( EvtId parent, EvtId daught, double t, double mass,
+                      double& fp, double& f0, double& ft ) override;
+    void getVectorFF( EvtId parent, EvtId daught, double t, double mass,
+                      double& a1, double& a2, double& a0, double& v, double& t1,
+                      double& t2, double& t3 ) override;
 
-  EvtbTosllBallFF(int);
-
-  void getScalarFF(EvtId parent, EvtId daught,double t, double mass,
-		   double& fp,double& f0,double& ft) override;
-  void getVectorFF(EvtId parent, EvtId daught,double t, double mass,
-		   double& a1,double& a2,double& a0, double& v,
-		   double& t1, double& t2, double& t3 ) override;
-
-
-
-private:
-  int _theFFModel;
+  private:
+    int _theFFModel;
 };
 
 #endif
-

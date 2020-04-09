@@ -43,33 +43,26 @@ class EvtAbsRadCorr;
 class EvtDecayBase;
 class EvtHepMCEvent;
 
-class EvtGen{
+class EvtGen {
+  public:
+    EvtGen( const char* const decayName, const char* const pdtTableName,
+            EvtRandomEngine* randomEngine = 0, EvtAbsRadCorr* isrEngine = 0,
+            const std::list<EvtDecayBase*>* extraModels = 0, int mixingType = 1,
+            bool useXml = false );
 
-public:
+    ~EvtGen();
 
-  EvtGen(const char* const decayName,const char* const pdtTableName,
-	 EvtRandomEngine* randomEngine=0, EvtAbsRadCorr *isrEngine=0,
-	 const std::list<EvtDecayBase*>* extraModels=0,
-	 int mixingType = 1, bool useXml = false);
+    void readUDecay( const char* const udecay_name, bool useXml = false );
 
-  ~EvtGen();
+    EvtHepMCEvent* generateDecay( int PDGid, EvtVector4R refFrameP4,
+                                  EvtVector4R translation,
+                                  EvtSpinDensity* spinDensity = 0 );
 
-  void readUDecay(const char* const udecay_name, bool useXml = false);
+    void generateDecay( EvtParticle* p );
 
-  EvtHepMCEvent* generateDecay(int PDGid, EvtVector4R refFrameP4,
-			       EvtVector4R translation,
-			       EvtSpinDensity* spinDensity = 0);
-
-  void generateDecay(EvtParticle *p);
-
-private:
-
-  EvtPDL _pdl;
-  int _mixingType;
-
+  private:
+    EvtPDL _pdl;
+    int _mixingType;
 };
 
-
-
 #endif
-

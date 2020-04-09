@@ -25,59 +25,56 @@
 
 typedef EvtParticleDecay* EvtParticleDecayPtr;
 
-class EvtParticleDecayList{
+class EvtParticleDecayList {
+  public:
+    EvtParticleDecayList()
+    {
+        _decaylist = 0;
+        _nmode = 0;
+        _rawbrfrsum = 0;
+    }
 
-public:
+    EvtParticleDecayList( const EvtParticleDecayList& o );
 
-  EvtParticleDecayList(){ 
-   _decaylist=0;
-    _nmode=0;
-    _rawbrfrsum=0;
-  }
+    ~EvtParticleDecayList();
 
-  EvtParticleDecayList(const EvtParticleDecayList &o);
+    EvtParticleDecayList& operator=( const EvtParticleDecayList& o );
 
-  ~EvtParticleDecayList();
+    int getNMode() const { return _nmode; }
 
-  EvtParticleDecayList& operator=(const EvtParticleDecayList &o);
+    void setNMode( int nmode );
 
-  int getNMode() const {return _nmode;}
+    EvtDecayBase* getDecayModel( EvtParticle* p );
+    EvtDecayBase* getDecayModel( int imode );
 
-  void setNMode(int nmode);
+    EvtParticleDecay& getDecay( int nchannel ) const;
 
-  EvtDecayBase* getDecayModel(EvtParticle *p);
-  EvtDecayBase* getDecayModel(int imode);
+    double getRawBrfrSum() { return _rawbrfrsum; }
+    void setRawBrfrSum( double rawbrfrsum ) { _rawbrfrsum = rawbrfrsum; }
 
-  EvtParticleDecay& getDecay(int nchannel) const;
+    void makeChargeConj( EvtParticleDecayList* conjDecayList );
 
-  double getRawBrfrSum() {return _rawbrfrsum;}
-  void setRawBrfrSum(double rawbrfrsum) {_rawbrfrsum=rawbrfrsum;}
-  
-  void makeChargeConj(EvtParticleDecayList* conjDecayList);
+    void removeDecay();
 
-  void removeDecay();
+    void alocateDecay( int nmode )
+    {
+        _decaylist = new EvtParticleDecayPtr[nmode];
+    }
 
-  void alocateDecay(int nmode){
-    _decaylist= new EvtParticleDecayPtr[nmode];
-  }
+    void removeMode( EvtDecayBase* decay );
 
-  void removeMode(EvtDecayBase* decay);
+    void addMode( EvtDecayBase* decay, double brfr, double massmin );
+    void finalize();
 
-  void addMode(EvtDecayBase* decay,double brfr,double massmin);
-  void finalize();
+    void printSummary();
 
-  void printSummary();
+    bool isJetSet() const;
 
-  bool isJetSet() const ;
+  private:
+    EvtParticleDecayPtr* _decaylist;
 
-private:
-
-  EvtParticleDecayPtr* _decaylist;
-
-  double _rawbrfrsum;
-  int _nmode;
-
+    double _rawbrfrsum;
+    int _nmode;
 };
 
 #endif
-

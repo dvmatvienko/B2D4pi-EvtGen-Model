@@ -19,64 +19,65 @@
 //------------------------------------------------------------------------
 //
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtVector4C.hh"
-#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenModels/EvtTSS.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtTensor4C.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtTSS.hh"
+#include "EvtGenBase/EvtTensor4C.hh"
+#include "EvtGenBase/EvtVector4C.hh"
+
+#include <stdlib.h>
 #include <string>
 
-std::string EvtTSS::getName(){
-
-  return "TSS";
-
+std::string EvtTSS::getName()
+{
+    return "TSS";
 }
 
-
-EvtDecayBase* EvtTSS::clone(){
-
-  return new EvtTSS;
-
+EvtDecayBase* EvtTSS::clone()
+{
+    return new EvtTSS;
 }
 
-void EvtTSS::init(){
+void EvtTSS::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
 
-  // check that there are 0 arguments
-  checkNArg(0);
+    checkNDaug( 2 );
 
-  checkNDaug(2);
+    checkSpinParent( EvtSpinType::TENSOR );
 
-  checkSpinParent(EvtSpinType::TENSOR);
-
-  checkSpinDaughter(0,EvtSpinType::SCALAR);
-  checkSpinDaughter(1,EvtSpinType::SCALAR);
-
-
+    checkSpinDaughter( 0, EvtSpinType::SCALAR );
+    checkSpinDaughter( 1, EvtSpinType::SCALAR );
 }
 
-void EvtTSS::initProbMax() {
-
-   setProbMax(1.0);
-
+void EvtTSS::initProbMax()
+{
+    setProbMax( 1.0 );
 }
 
-void EvtTSS::decay( EvtParticle *p){
+void EvtTSS::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
+    EvtVector4R moms1 = p->getDaug( 0 )->getP4();
 
-  EvtVector4R moms1 = p->getDaug(0)->getP4();
+    double norm = 1.0 / ( moms1.d3mag() * moms1.d3mag() );
 
-  double norm = 1.0/(moms1.d3mag()*moms1.d3mag());
+    vertex( 0, norm * ( p->epsTensor( 0 ).cont1( EvtVector4C( moms1 ) ) *
+                        ( moms1 ) ) );
+    vertex( 1, norm * ( p->epsTensor( 1 ).cont1( EvtVector4C( moms1 ) ) *
+                        ( moms1 ) ) );
+    vertex( 2, norm * ( p->epsTensor( 2 ).cont1( EvtVector4C( moms1 ) ) *
+                        ( moms1 ) ) );
+    vertex( 3, norm * ( p->epsTensor( 3 ).cont1( EvtVector4C( moms1 ) ) *
+                        ( moms1 ) ) );
+    vertex( 4, norm * ( p->epsTensor( 4 ).cont1( EvtVector4C( moms1 ) ) *
+                        ( moms1 ) ) );
 
-  vertex(0,norm*(p->epsTensor(0).cont1(EvtVector4C(moms1))*(moms1)));
-  vertex(1,norm*(p->epsTensor(1).cont1(EvtVector4C(moms1))*(moms1)));
-  vertex(2,norm*(p->epsTensor(2).cont1(EvtVector4C(moms1))*(moms1)));
-  vertex(3,norm*(p->epsTensor(3).cont1(EvtVector4C(moms1))*(moms1)));
-  vertex(4,norm*(p->epsTensor(4).cont1(EvtVector4C(moms1))*(moms1)));
-
-  return ;
+    return;
 }

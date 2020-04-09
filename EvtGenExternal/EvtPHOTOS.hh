@@ -24,22 +24,18 @@
 #define EVTPHOTOS_HH
 
 #include "EvtGenBase/EvtAbsRadCorr.hh"
+
 #include <string>
 
 class EvtParticle;
 class EvtAbsExternalGen;
 
 class EvtPHOTOS : public EvtAbsRadCorr {
+  public:
+    void doRadCorr( EvtParticle* p ) override;
 
-public:
-
-  void doRadCorr(EvtParticle *p) override;
-
-private:
-
-  EvtAbsExternalGen* _photosEngine = nullptr;
-
+  private:
+    EvtAbsExternalGen* _photosEngine = nullptr;
 };
 
 #endif
-

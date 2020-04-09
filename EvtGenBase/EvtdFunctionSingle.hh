@@ -21,32 +21,26 @@
 #ifndef EVTDFUNCTIONSINGLE_HH
 #define EVTDFUNCTIONSINGLE_HH
 
-class EvtdFunctionSingle{
+class EvtdFunctionSingle {
+  public:
+    EvtdFunctionSingle();
+    ~EvtdFunctionSingle();
 
-public:
+    void init( int j, int m1, int m2 );
 
-  EvtdFunctionSingle();
-  ~EvtdFunctionSingle();
+    double d( int j, int m1, int m2, double theta );
 
-  void init(int j,int m1,int m2);
+  private:
+    int fact( int n );
 
-  double d(int j,int m1,int m2,double theta);
-  
-private:
+    int _j;
+    int _m1;
+    int _m2;
 
-  int fact(int n);
-  
-  int _j;
-  int _m1;
-  int _m2;
+    double* _coef;
 
-  double *_coef;
-
-
-  int _kmin;
-  int _kmax;
-
+    int _kmin;
+    int _kmax;
 };
 
 #endif
-

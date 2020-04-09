@@ -27,33 +27,32 @@
 
 class EvtParticle;
 
-class EvtPhspFlatLifetime : public  EvtDecayIncoherent  {
-public:
-  /// Constructor
-  EvtPhspFlatLifetime() : m_maxLifetime( 0. ) {} ;
+class EvtPhspFlatLifetime : public EvtDecayIncoherent {
+  public:
+    /// Constructor
+    EvtPhspFlatLifetime() : m_maxLifetime( 0. ){};
 
-  /// Destructor
-  virtual ~EvtPhspFlatLifetime() {} ;
+    /// Destructor
+    virtual ~EvtPhspFlatLifetime(){};
 
-  /// return name of the model
-  std::string getName() override;
+    /// return name of the model
+    std::string getName() override;
 
-  /// Clone
-  EvtDecayBase* clone() override;
+    /// Clone
+    EvtDecayBase* clone() override;
 
-  /// Compute maximum weight
-  void initProbMax() override;
+    /// Compute maximum weight
+    void initProbMax() override;
 
-  /// Initialize the model
-  void init() override;
+    /// Initialize the model
+    void init() override;
 
-  /// Perform the decay
-   void decay(EvtParticle *p) override;
+    /// Perform the decay
+    void decay( EvtParticle* p ) override;
 
-private:
-  /// parameter of the model: maximum of the generated lifetime (in ps)
-  double m_maxLifetime ;
+  private:
+    /// parameter of the model: maximum of the generated lifetime (in ps)
+    double m_maxLifetime;
 };
 
 #endif
-

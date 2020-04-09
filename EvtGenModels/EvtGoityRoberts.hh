@@ -26,25 +26,20 @@
 class EvtParticle;
 class EvtId;
 
-class EvtGoityRoberts:public  EvtDecayAmp  {
+class EvtGoityRoberts : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+  private:
+    void DecayBDstarpilnuGR( EvtParticle* pb, EvtId ndstar, EvtId nlep,
+                             EvtId nnu );
 
-  void init() override;
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-
-private:
-
-  void DecayBDstarpilnuGR(EvtParticle *pb,EvtId ndstar,
-			  EvtId nlep, EvtId nnu);
-
-  void DecayBDpilnuGR(EvtParticle *pb,EvtId nd,
-		      EvtId nlep, EvtId nnu);
-
+    void DecayBDpilnuGR( EvtParticle* pb, EvtId nd, EvtId nlep, EvtId nnu );
 };
 
 #endif

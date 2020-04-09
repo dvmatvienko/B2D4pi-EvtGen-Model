@@ -17,61 +17,61 @@
 //    RYD       March 11, 1998       Module created
 //
 //------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
-#include <iostream>
-#include <iomanip>
-#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtStdHep.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtVector4R.hh"
+
+#include <iomanip>
+#include <iostream>
 using namespace std;
 
-
-void EvtStdHep::init(){
-  _npart=0;
-}
-  
-int EvtStdHep::getNPart(){
-  return _npart;
+void EvtStdHep::init()
+{
+    _npart = 0;
 }
 
-void EvtStdHep::createParticle(EvtVector4R p4,EvtVector4R x,int prntfirst,
-				int prntlast, int id){
+int EvtStdHep::getNPart()
+{
+    return _npart;
+}
 
-  _p4[_npart]=p4;
-  _x[_npart]=x;
-  _prntfirst[_npart]=prntfirst;
-  _prntlast[_npart]=prntlast;
-  _daugfirst[_npart]=-1;
-  _dauglast[_npart]=-1;
-  _id[_npart]=id;
-  _istat[_npart]=1;
+void EvtStdHep::createParticle( EvtVector4R p4, EvtVector4R x, int prntfirst,
+                                int prntlast, int id )
+{
+    _p4[_npart] = p4;
+    _x[_npart] = x;
+    _prntfirst[_npart] = prntfirst;
+    _prntlast[_npart] = prntlast;
+    _daugfirst[_npart] = -1;
+    _dauglast[_npart] = -1;
+    _id[_npart] = id;
+    _istat[_npart] = 1;
 
-  //we also need to fix up the parents pointer to the daughter!
+    //we also need to fix up the parents pointer to the daughter!
 
-  if (prntfirst>=0) {
-    int i;
-    for (i=prntfirst;i<=prntlast;i++){
-      _istat[i]=2;
-      if (_daugfirst[i]==-1) _daugfirst[i]=_npart;
-      if (_dauglast[i]<_npart) _dauglast[i]=_npart;
+    if ( prntfirst >= 0 ) {
+        int i;
+        for ( i = prntfirst; i <= prntlast; i++ ) {
+            _istat[i] = 2;
+            if ( _daugfirst[i] == -1 )
+                _daugfirst[i] = _npart;
+            if ( _dauglast[i] < _npart )
+                _dauglast[i] = _npart;
+        }
     }
- 
-  }
 
-  _npart++;
-
+    _npart++;
 }
 
-void EvtStdHep::translate(EvtVector4R d){
-
-  int i;
-  for(i=0;i<_npart;i++){
-    _x[i]+=d;
-  }
-
+void EvtStdHep::translate( EvtVector4R d )
+{
+    int i;
+    for ( i = 0; i < _npart; i++ ) {
+        _x[i] += d;
+    }
 }
 
- 
 /*
 ostream& operator<<(ostream& s, const EvtStdHep& stdhep){
 

@@ -16,36 +16,29 @@
 
 template <class T>
 class EvtAmplitude {
-public:
+  public:
+    EvtAmplitude() = default;
+    EvtAmplitude( const EvtAmplitude& ) = default;
+    EvtAmplitude( EvtAmplitude&& ) = default;
+    EvtAmplitude& operator=( const EvtAmplitude& ) = default;
+    EvtAmplitude& operator=( EvtAmplitude&& ) = default;
+    virtual ~EvtAmplitude() = default;
 
-  EvtAmplitude() = default;
-  EvtAmplitude(const EvtAmplitude&) = default;
-  EvtAmplitude(EvtAmplitude&&) = default;
-  EvtAmplitude& operator=(const EvtAmplitude&) = default;
-  EvtAmplitude& operator=(EvtAmplitude&&) = default;
-  virtual ~EvtAmplitude() = default;
+    virtual EvtAmplitude<T>* clone() const = 0;
 
-  virtual EvtAmplitude<T>* clone() const = 0;
+    EvtComplex evaluate( const T& p ) const
+    {
+        EvtComplex ret( 0., 0. );
+        if ( p.isValid() )
+            ret = amplitude( p );
+        return ret;
+    }
 
-  EvtComplex evaluate(const T& p) const
-  {
-    EvtComplex ret(0.,0.);
-    if(p.isValid()) ret = amplitude(p);
-    return ret;
-  }
+  protected:
+    // Derive in subclasses to define amplitude computation
+    // for a fully constructed amplitude object.
 
-protected:
-
-  // Derive in subclasses to define amplitude computation
-  // for a fully constructed amplitude object. 
-  
-  virtual EvtComplex amplitude(const T&) const = 0;
-
-}; 
+    virtual EvtComplex amplitude( const T& ) const = 0;
+};
 
 #endif
-
-
-
-
-

@@ -18,130 +18,121 @@
 //
 //------------------------------------------------------------------------
 //
+#include "EvtGenBase/EvtNeutrinoParticle.hh"
+
+#include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtVector4R.hh"
+
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include "EvtGenBase/EvtComplex.hh"
-#include "EvtGenBase/EvtNeutrinoParticle.hh"
-#include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtReport.hh"
 using std::endl;
 
+void EvtNeutrinoParticle::init( EvtId part_n, const EvtVector4R& p4 )
+{
+    _validP4 = true;
+    setp( p4 );
+    setpart_num( part_n );
 
-void EvtNeutrinoParticle::init(EvtId part_n,const EvtVector4R& p4){
+    double e, px, py, pz;
+    e = p4.get( 0 );
+    px = p4.get( 1 );
+    py = p4.get( 2 );
+    pz = p4.get( 3 );
 
-  _validP4=true;
-  setp(p4);
-  setpart_num(part_n);
+    if ( EvtPDL::getStdHep( part_n ) == 0 ) {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Error in EvtNeutrinoParticle::init, part_n=" << part_n.getId()
+            << endl;
+    }
 
-  double e,px,py,pz;
-  e=p4.get(0);
-  px=p4.get(1);
-  py=p4.get(2);
-  pz=p4.get(3);
+    if ( EvtPDL::getStdHep( part_n ) > 0 ) {
+        double beta, alpha, p2, norm;
 
-  if (EvtPDL::getStdHep(part_n)==0){
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Error in EvtNeutrinoParticle::init, part_n="
-			   << part_n.getId()<<endl;
-  }
+        // See Sakurai p. 167-169
+        // and Renton p. 126
 
-  if (EvtPDL::getStdHep(part_n)>0){
+        p2 = px * px + py * py + pz * pz;
 
-    double beta,alpha,p2,norm;
+        beta = acos( pz / sqrt( p2 ) );
+        alpha = atan2( py, px );
 
-    // See Sakurai p. 167-169
-    // and Renton p. 126
+        norm = sqrt( 2 * e );
 
-    p2=px*px+py*py+pz*pz;
+        double cosb, sinb, cosa, sina;
 
-    beta=acos(pz/sqrt(p2));
-    alpha=atan2(py,px);
+        cosb = cos( 0.5 * beta );
+        sinb = sin( 0.5 * beta );
 
-    norm=sqrt(2*e);
+        cosa = cos( 0.5 * alpha );
+        sina = sin( 0.5 * alpha );
 
-    double cosb,sinb,cosa,sina;
+        spinor_parent.set( -norm * sinb * EvtComplex( cosa, -sina ),
+                           norm * cosb * EvtComplex( cosa, sina ),
+                           norm * sinb * EvtComplex( cosa, -sina ),
+                           -norm * cosb * EvtComplex( cosa, sina ) );
 
-    cosb=cos(0.5*beta);
-    sinb=sin(0.5*beta);
+    } else {
+        px = -p4.get( 1 );
+        py = -p4.get( 2 );
+        pz = -p4.get( 3 );
 
-    cosa=cos(0.5*alpha);
-    sina=sin(0.5*alpha);
+        double pn, sqrpn;
 
-    spinor_parent.set(-norm*sinb*EvtComplex(cosa,-sina),
-	  	    norm*cosb*EvtComplex(cosa,sina),
-		    norm*sinb*EvtComplex(cosa,-sina),
-		    -norm*cosb*EvtComplex(cosa,sina));
+        pn = e;
+        sqrpn = sqrt( pn - pz );
 
-  }
-  else{
+        spinor_parent.set( ( 1.0 / sqrpn ) * EvtComplex( px, -py ),
+                           EvtComplex( sqrpn, 0.0 ),
+                           ( -1.0 / sqrpn ) * EvtComplex( px, -py ),
+                           -EvtComplex( sqrpn, 0.0 ) );
+    }
 
-    px=-p4.get(1);
-    py=-p4.get(2);
-    pz=-p4.get(3);
-
-    double pn,sqrpn;
-
-    pn=e;
-    sqrpn=sqrt(pn-pz);
-
-    spinor_parent.set((1.0/sqrpn)*EvtComplex(px,-py),
-                      EvtComplex(sqrpn,0.0),
-	 	      (-1.0/sqrpn)*EvtComplex(px,-py),
-		      -EvtComplex(sqrpn,0.0));
-
-
-  }
-
-  setLifetime();
-
+    setLifetime();
 }
 
-
-EvtDiracSpinor EvtNeutrinoParticle::spParentNeutrino() const {
-
-  return spinor_parent;
+EvtDiracSpinor EvtNeutrinoParticle::spParentNeutrino() const
+{
+    return spinor_parent;
 }
 
-EvtDiracSpinor EvtNeutrinoParticle::spNeutrino() const {
+EvtDiracSpinor EvtNeutrinoParticle::spNeutrino() const
+{
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+        << "Tried to get neutrino spinor in restframe";
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" ) << "Will terminate execution.";
 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Tried to get neutrino spinor in restframe";
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution.";
+    ::abort();
 
-  ::abort();
-
-  return spinor_rest;
+    return spinor_rest;
 }
 
+EvtSpinDensity EvtNeutrinoParticle::rotateToHelicityBasis() const
+{
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+        << "rotateToHelicityBasis not implemented for neutrino.";
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" ) << "Will terminate execution.";
 
-EvtSpinDensity EvtNeutrinoParticle::rotateToHelicityBasis() const{
+    ::abort();
 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis not implemented for neutrino.";
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution.";
-
-  ::abort();
-
-  EvtSpinDensity rho;
-  return rho;
-
+    EvtSpinDensity rho;
+    return rho;
 }
 
-EvtSpinDensity EvtNeutrinoParticle::rotateToHelicityBasis(double,
-							  double,
-							  double) const{
+EvtSpinDensity EvtNeutrinoParticle::rotateToHelicityBasis( double, double,
+                                                           double ) const
+{
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+        << "rotateToHelicityBasis(alpha,beta,gama) not implemented for neutrino.";
+    EvtGenReport( EVTGEN_ERROR, "EvtGen" ) << "Will terminate execution.";
 
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rotateToHelicityBasis(alpha,beta,gama) not implemented for neutrino.";
-  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution.";
+    ::abort();
 
-  ::abort();
+    EvtSpinDensity R;
+    R.setDiag( 1 );
 
-  EvtSpinDensity R;
-  R.setDiag(1);
-
-  return R;
-
+    return R;
 }
-
-
-

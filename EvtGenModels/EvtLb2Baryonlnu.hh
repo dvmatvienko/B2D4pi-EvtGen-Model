@@ -25,28 +25,26 @@
 
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
 #include "EvtGenModels/EvtSLBaryonAmp.hh"
 
 class EvtParticle;
 
-class EvtLb2Baryonlnu:public  EvtDecayAmp  {
+class EvtLb2Baryonlnu : public EvtDecayAmp {
+  public:
+    EvtLb2Baryonlnu();
+    ~EvtLb2Baryonlnu();
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtLb2Baryonlnu();
-  ~EvtLb2Baryonlnu();
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-  void init() override;
-
-private:
-  EvtSemiLeptonicFF *ffmodel;
-  EvtSLBaryonAmp *calcamp;
+  private:
+    EvtSemiLeptonicFF* ffmodel;
+    EvtSLBaryonAmp* calcamp;
 };
 
 #endif
-

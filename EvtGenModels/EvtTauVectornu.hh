@@ -25,19 +25,16 @@
 
 class EvtParticle;
 
-class EvtTauVectornu:public  EvtDecayAmp  {
+class EvtTauVectornu : public EvtDecayAmp {
+  public:
+    EvtTauVectornu() {}
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtTauVectornu() {}
-
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 };
 
 #endif

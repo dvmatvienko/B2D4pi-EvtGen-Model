@@ -18,88 +18,79 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include <iostream>
-#include <string>
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenModels/EvtSLN.hh"
+
 #include "EvtGenBase/EvtDiracSpinor.hh"
+#include "EvtGenBase/EvtGenKine.hh"
+#include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 
-std::string EvtSLN::getName(){
+#include <iostream>
+#include <stdlib.h>
+#include <string>
 
-  return "SLN";
-
+std::string EvtSLN::getName()
+{
+    return "SLN";
 }
 
-EvtDecayBase* EvtSLN::clone(){
-
-  return new EvtSLN;
-
+EvtDecayBase* EvtSLN::clone()
+{
+    return new EvtSLN;
 }
 
+void EvtSLN::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
+    checkNDaug( 2 );
 
-void EvtSLN::init(){
+    checkSpinParent( EvtSpinType::SCALAR );
 
-  // check that there are 0 arguments
-  checkNArg(0);
-  checkNDaug(2);
-
-  checkSpinParent(EvtSpinType::SCALAR);
-
-  checkSpinDaughter(0,EvtSpinType::DIRAC);
-  checkSpinDaughter(1,EvtSpinType::NEUTRINO);
-
+    checkSpinDaughter( 0, EvtSpinType::DIRAC );
+    checkSpinDaughter( 1, EvtSpinType::NEUTRINO );
 }
 
+void EvtSLN::initProbMax()
+{
+    double M = EvtPDL::getMeanMass( getParentId() );
+    double m = EvtPDL::getMeanMass( getDaug( 0 ) );
 
-void EvtSLN::initProbMax(){
+    double probMax = 8.0 * ( M * M - m * m ) * m * m;
 
-  double M=EvtPDL::getMeanMass(getParentId());
-  double m=EvtPDL::getMeanMass(getDaug(0));
-
-  double probMax=8.0*(M*M-m*m)*m*m;
-
-  setProbMax(probMax);
-
+    setProbMax( probMax );
 }
 
+void EvtSLN::decay( EvtParticle* p )
+{
+    static EvtId EM = EvtPDL::getId( "e-" );
+    static EvtId MUM = EvtPDL::getId( "mu-" );
+    static EvtId TAUM = EvtPDL::getId( "tau-" );
 
-void EvtSLN::decay(EvtParticle *p){
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
 
-  static EvtId EM=EvtPDL::getId("e-");
-  static EvtId MUM=EvtPDL::getId("mu-");
-  static EvtId TAUM=EvtPDL::getId("tau-");
+    EvtParticle *l, *nul;
+    l = p->getDaug( 0 );
+    nul = p->getDaug( 1 );
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
+    EvtVector4R p4_p;
+    p4_p.set( p->mass(), 0.0, 0.0, 0.0 );
 
-  EvtParticle *l, *nul;
-  l= p->getDaug(0);
-  nul= p->getDaug(1);
+    EvtVector4C l1, l2;
 
-  EvtVector4R p4_p;
-  p4_p.set(p->mass(),0.0,0.0,0.0);
+    if ( getDaug( 0 ) == TAUM || getDaug( 0 ) == MUM || getDaug( 0 ) == EM ) {
+        l1 = EvtLeptonVACurrent( l->spParent( 0 ), nul->spParentNeutrino() );
+        l2 = EvtLeptonVACurrent( l->spParent( 1 ), nul->spParentNeutrino() );
+    } else {
+        l1 = EvtLeptonVACurrent( nul->spParentNeutrino(), l->spParent( 0 ) );
+        l2 = EvtLeptonVACurrent( nul->spParentNeutrino(), l->spParent( 1 ) );
+    }
 
-  EvtVector4C l1, l2;
+    vertex( 0, p4_p * l1 );
+    vertex( 1, p4_p * l2 );
 
-  if (getDaug(0)==TAUM || getDaug(0)==MUM || getDaug(0)==EM) {
-    l1=EvtLeptonVACurrent(l->spParent(0),nul->spParentNeutrino());
-    l2=EvtLeptonVACurrent(l->spParent(1),nul->spParentNeutrino());
-  }
-  else{
-    l1=EvtLeptonVACurrent(nul->spParentNeutrino(),l->spParent(0));
-    l2=EvtLeptonVACurrent(nul->spParentNeutrino(),l->spParent(1));
-  }
-
-  vertex(0,p4_p*l1);
-  vertex(1,p4_p*l2);
-
-  return;
-
+    return;
 }
-
-

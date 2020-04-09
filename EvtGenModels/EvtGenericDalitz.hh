@@ -21,32 +21,30 @@
 #ifndef EVTGENERICDALITZ_HH
 #define EVTGENERICDALITZ_HH
 
+#include "EvtGenBase/EvtDalitzReso.hh"
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtFlatte.hh"
-#include "EvtGenBase/EvtDalitzReso.hh"
+
 #include <string>
 #include <vector>
 
 class EvtParticle;
 
-class EvtGenericDalitz:public  EvtDecayAmp  {
+class EvtGenericDalitz : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void initProbMax() override{};    //prob max will be set in init
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-  void initProbMax() override {};//prob max will be set in init
+    std::string getParamName( int i ) override;
 
-  void decay(EvtParticle *p) override;
-
-  std::string getParamName(int i) override;
-
-private:
-
-  int _d1,_d2,_d3;
-  std::vector<std::pair<EvtComplex,EvtDalitzReso> > _resonances;
+  private:
+    int _d1, _d2, _d3;
+    std::vector<std::pair<EvtComplex, EvtDalitzReso>> _resonances;
 };
 
 #endif

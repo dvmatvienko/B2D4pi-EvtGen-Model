@@ -25,24 +25,21 @@
 
 class EvtParticle;
 
-class EvtSVVNONCPEIGEN:public  EvtDecayAmp  {
+class EvtSVVNONCPEIGEN : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void decay( EvtParticle* p ) override;
 
-  void initProbMax() override;
-  void init() override;
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 
-  void decay(EvtParticle *p) override;
-
-  std::string getParamName(int i) override;
-  std::string getParamDefault(int i) override;
-
-private:
-
-  EvtComplex _A_f[12];
+  private:
+    EvtComplex _A_f[12];
 };
 
 #endif

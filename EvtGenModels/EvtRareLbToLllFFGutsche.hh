@@ -10,34 +10,31 @@
  *  @date   2014-10-21
  */
 
-#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtIdSet.hh"
+#include "EvtGenBase/EvtParticle.hh"
+
 #include "EvtGenModels/EvtRareLbToLllFFBase.hh"
 
-#include <string>
 #include <map>
+#include <string>
 
-class EvtRareLbToLllFFGutsche : public EvtRareLbToLllFFBase{
+class EvtRareLbToLllFFGutsche : public EvtRareLbToLllFFBase {
+  public:
+    void init() override;
 
-public:
+    void getFF( EvtParticle* parent, EvtParticle* lambda,
+                EvtRareLbToLllFFBase::FormFactors& FF ) override;
 
-  void init() override;
+  private:
+    double formFactorParametrization( double s, double f0, double a, double b );
 
-  void getFF( EvtParticle* parent,
-              EvtParticle* lambda,
-              EvtRareLbToLllFFBase::FormFactors& FF ) override;
+    double fVconsts[3][3];
+    double fAconsts[3][3];
+    double fTVconsts[3][3];
+    double fTAconsts[3][3];
 
-
-private:
-  double formFactorParametrization(double s, double f0, double a, double b);
-
-  double fVconsts[3][3];
-  double fAconsts[3][3];
-  double fTVconsts[3][3];
-  double fTAconsts[3][3];
-
-  static EvtIdSet fParents;
-  static EvtIdSet fDaughters;
+    static EvtIdSet fParents;
+    static EvtIdSet fDaughters;
 };
 
-#endif // EVTRARELBTOLLLFF_HH
+#endif    // EVTRARELBTOLLLFF_HH

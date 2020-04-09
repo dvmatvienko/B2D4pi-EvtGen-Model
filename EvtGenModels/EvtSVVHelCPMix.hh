@@ -32,33 +32,31 @@ class EvtAmp;
 class EvtParticle;
 class EvtId;
 
-class EvtSVVHelCPMix:public  EvtDecayAmp  {
+class EvtSVVHelCPMix : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    EvtComplex hp;
+    EvtComplex h0;
+    EvtComplex hm;
+    double averageM;
+    double deltaM;
+    double gamma;
+    double deltagamma;
+    EvtComplex strongphase1;
+    EvtComplex strongphase2;
+    EvtComplex weakmixingphase;
+    EvtComplex weakdirectphase;
 
-  void init() override;
+    void initProbMax() override;
 
-  EvtComplex hp;
-  EvtComplex h0;
-  EvtComplex hm;
-  double averageM;
-  double deltaM;
-  double gamma;
-  double deltagamma;
-  EvtComplex strongphase1;
-  EvtComplex strongphase2;
-  EvtComplex weakmixingphase;
-  EvtComplex weakdirectphase;
+    void decay( EvtParticle* p ) override;
 
-  void initProbMax() override;
-
-  void decay(EvtParticle *p) override;
-  
-  std::string getParamName(int i) override;
-  std::string getParamDefault(int i) override;
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 };
 
 #endif

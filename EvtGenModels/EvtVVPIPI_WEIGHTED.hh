@@ -23,21 +23,19 @@
 #define EVTVVPIPI_WEIGHTED_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+
 #include <string>
 
 class EvtParticle;
 
-class EvtVVPIPI_WEIGHTED:public  EvtDecayAmp  {
+class EvtVVPIPI_WEIGHTED : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
-
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 };
 
 #endif

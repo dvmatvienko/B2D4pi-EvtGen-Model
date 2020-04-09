@@ -10,8 +10,8 @@
 //
 // Module: EvtGen/EvtBToDiBaryonlnupQCDFF.hh.hh
 //
-// Description: Module for computation of B->ppbar form factors according 
-// to pQCD counting rules, see arXiv:1107.0801.  
+// Description: Module for computation of B->ppbar form factors according
+// to pQCD counting rules, see arXiv:1107.0801.
 //
 // Modification history:
 //
@@ -27,35 +27,29 @@ class EvtParticle;
 #include <vector>
 
 class EvtBToDiBaryonlnupQCDFF {
-
-public:
-
+  public:
     class FormFactors final {
-    public:
-
-	double F1, F2, F3, F4, F5;
-	double G1, G2, G3, G4, G5;
-
+      public:
+        double F1, F2, F3, F4, F5;
+        double G1, G2, G3, G4, G5;
     };
 
     EvtBToDiBaryonlnupQCDFF();
 
-    EvtBToDiBaryonlnupQCDFF(std::vector<double>& DParameters);
+    EvtBToDiBaryonlnupQCDFF( std::vector<double>& DParameters );
 
-    void getDiracFF(EvtParticle* parent, double dibaryonMass,
-		    EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
-    
-    void getRaritaFF(EvtParticle* parent, double dibaryonMass,
-		     EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
+    void getDiracFF( EvtParticle* parent, double dibaryonMass,
+                     EvtBToDiBaryonlnupQCDFF::FormFactors& FF ) const;
 
-    void getFF(EvtParticle* parent, double dibaryonMass,
-	       EvtBToDiBaryonlnupQCDFF::FormFactors& FF) const;
+    void getRaritaFF( EvtParticle* parent, double dibaryonMass,
+                      EvtBToDiBaryonlnupQCDFF::FormFactors& FF ) const;
 
-private:
+    void getFF( EvtParticle* parent, double dibaryonMass,
+                EvtBToDiBaryonlnupQCDFF::FormFactors& FF ) const;
 
+  private:
     std::vector<double> DPars;
     int nDPars;
-
 };
 
 #endif

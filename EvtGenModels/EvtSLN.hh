@@ -27,20 +27,17 @@ class EvtParticle;
 
 //Class to handle decays of the type SCALAR -> DIRAC NEUTRINO
 
-class EvtSLN:public  EvtDecayAmp  {
+class EvtSLN : public EvtDecayAmp {
+  public:
+    EvtSLN() {}
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtSLN() {}
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-
-  void decay(EvtParticle *p) override;
-
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

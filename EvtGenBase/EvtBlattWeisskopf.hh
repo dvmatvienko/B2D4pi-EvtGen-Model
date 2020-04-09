@@ -14,26 +14,19 @@
 #define EVT_BLATT_WEISSKOPF_HH
 
 class EvtBlattWeisskopf {
+  public:
+    EvtBlattWeisskopf( int LL, double R, double p0 );
+    EvtBlattWeisskopf( const EvtBlattWeisskopf& );
 
+    double operator()( double p ) const;
 
-public:
+  private:
+    int _LL;           // angular momentum of daughters
+    double _radial;    // resonance radial parameter
+    double _p0;
 
-  EvtBlattWeisskopf(int LL, double R, double p0);
-  EvtBlattWeisskopf(const EvtBlattWeisskopf&);
-
-  double operator()(double p) const;
-
-private:
-
-  int    _LL;   // angular momentum of daughters
-  double _radial;    // resonance radial parameter
-  double _p0;
-
-  double _F0;   // formula evaluated at _p0
-  double compute(double p) const;
-
+    double _F0;    // formula evaluated at _p0
+    double compute( double p ) const;
 };
 
 #endif
-
-

@@ -27,60 +27,58 @@ class EvtParticle;
 class EvtId;
 
 class EvtCPUtil {
+  public:
+    EvtCPUtil( int mixingType );
+    ~EvtCPUtil();
 
-public:
+    enum MixingType
+    {
+        Coherent = 0,
+        Incoherent = 1
+    };
 
-  EvtCPUtil(int mixingType);
-  ~EvtCPUtil();
+    static EvtCPUtil* getInstance();
 
-  enum MixingType {Coherent = 0, Incoherent = 1};
+    void setMixingType( int mixingType ) { _mixingType = mixingType; }
+    int getMixingType() { return _mixingType; }
 
-  static EvtCPUtil* getInstance();
+    void fractB0CP( EvtComplex Af, EvtComplex Abarf, double deltam, double beta,
+                    double& fract );
 
-  void setMixingType(int mixingType) {_mixingType = mixingType;}
-  int getMixingType() {return _mixingType;}
+    void fractB0nonCP( EvtComplex Af, EvtComplex Abarf, EvtComplex Afbar,
+                       EvtComplex Abarfbar, double deltam, double beta,
+                       int flip, double& fract );
 
-  void fractB0CP(EvtComplex Af, EvtComplex Abarf, 
-			double deltam, double beta, double &fract);
+    // Mark Whitehead 7/12/2009
+    // Add required lines from EvtIncoherentMixing.hh to fix CPV
 
-  void fractB0nonCP(EvtComplex Af, EvtComplex Abarf, 
-		    EvtComplex Afbar, EvtComplex Abarfbar, 
-		    double deltam, double beta, int flip, 
-		    double &fract);
+    // Functions to check if a B has mixed (comes from a B)
+    bool isB0Mixed( EvtParticle* );
+    bool isBsMixed( EvtParticle* );
 
-  // Mark Whitehead 7/12/2009
-  // Add required lines from EvtIncoherentMixing.hh to fix CPV
+    bool flipIsEnabled();
+    void enableFlip();
+    void disableFlip();
 
-  // Functions to check if a B has mixed (comes from a B)
-  bool isB0Mixed( EvtParticle * ) ;
-  bool isBsMixed( EvtParticle * ) ;
+    void OtherB( EvtParticle* p, double& t, EvtId& otherb );
 
-  bool flipIsEnabled() ;
-  void enableFlip() ;
-  void disableFlip() ;
+    void OtherCoherentB( EvtParticle* p, double& t, EvtId& otherb, double probB0 );
+    void OtherIncoherentB( EvtParticle* p, double& t, EvtId& otherb,
+                           double probB0 );
 
-  void OtherB(EvtParticle *p, double &t, EvtId &otherb);
+    void OtherB( EvtParticle* p, double& t, EvtId& otherb, double probB0 );
 
-  void OtherCoherentB(EvtParticle *p, double &t, EvtId &otherb, double probB0);
-  void OtherIncoherentB(EvtParticle *p, double &t, EvtId &otherb, double probB0);
+    //id is the produced particle
+    //t returns the lifetime of the particle
+    //and mix will be 1 if it mixed otherwise 0
+    void incoherentMix( const EvtId id, double& t, int& mix );
 
-  void OtherB(EvtParticle *p, double &t, EvtId &otherb, double probB0);
+    double getDeltaGamma( const EvtId id );
+    double getDeltaM( const EvtId id );
 
-  //id is the produced particle
-  //t returns the lifetime of the particle
-  //and mix will be 1 if it mixed otherwise 0
-  void incoherentMix(const EvtId id, double &t, int &mix);
-
-  double getDeltaGamma(const EvtId id);
-  double getDeltaM(const EvtId id);
-
-private:
-
-  bool _enableFlip;
-  int _mixingType;
-
+  private:
+    bool _enableFlip;
+    int _mixingType;
 };
 
-
 #endif
-

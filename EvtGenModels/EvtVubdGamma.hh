@@ -36,56 +36,49 @@
 #define EVTVUBDGAMMA_HH
 
 class EvtVubdGamma final {
+  public:
+    // Constructors
 
-public:
+    EvtVubdGamma( const double& alphas );
 
-  // Constructors
+    // Operators
 
-  EvtVubdGamma(const double &alphas);
+    // Selectors
 
-  // Operators
+    // Modifiers
 
-  // Selectors
+    // Methods
 
-  // Modifiers
+    double getdGdxdzdp( const double& x, const double& z, const double& p2 );
 
-  // Methods
+  protected:
+    // Helper functions
 
-  double getdGdxdzdp(const double &x, const double &z, const double &p2);
+    double delta( const double& x, const double& xmin, const double& xmax );
 
-protected:
+    double getW1nodelta( const double& x, const double& z, const double& p2 );
 
-  // Helper functions
+    double getW2nodelta( const double& x, const double& z, const double& p2 );
 
-  double delta(const double &x, const double &xmin, const double &xmax);
+    double getW3nodelta( const double& x, const double& z, const double& p2 );
 
-  double getW1nodelta(const double &x, const double &z, const double &p2);
+    double getW4nodelta( const double& x, const double& z, const double& p2 );
 
-  double getW2nodelta(const double &x, const double &z, const double &p2);
+    double getW5nodelta( const double& x, const double& z, const double& p2 );
 
-  double getW3nodelta(const double &x, const double &z, const double &p2);
+    double getW1delta( const double& x, const double& z );
 
-  double getW4nodelta(const double &x, const double &z, const double &p2);
+    double getW4plus5delta( const double& x, const double& z );
 
-  double getW5nodelta(const double &x, const double &z, const double &p2);
+  private:
+    // Friends
 
-  double getW1delta(const double &x, const double &z);
+    // Data members
 
-  double getW4plus5delta(const double &x, const double &z);
-
-private:
-
-  // Friends
-
-  // Data members
-
-  double _alphas;
-  double _epsilon1;
-  double _epsilon2;
-  double _epsilon3;
+    double _alphas;
+    double _epsilon1;
+    double _epsilon2;
+    double _epsilon3;
 };
 
-
-#endif // EVTVUBDGAMMA_HH
-
-
+#endif    // EVTVUBDGAMMA_HH

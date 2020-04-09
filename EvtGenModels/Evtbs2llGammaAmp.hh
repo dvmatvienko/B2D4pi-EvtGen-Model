@@ -28,29 +28,19 @@ class Evtbs2llGammaFF;
 class EvtbTosllWilsCoeffNLO;
 
 class Evtbs2llGammaAmp {
-
   public:
+    void CalcAmp( EvtParticle* parent, EvtAmp& amp, Evtbs2llGammaFF* formFactors,
+                  EvtbTosllWilsCoeffNLO* WilsCoeff, double mu, int Nf,
+                  int res_swch, int ias, double Egamma_min, double CKM_A,
+                  double CKM_lambda, double CKM_barrho, double CKM_bareta );
 
-    void CalcAmp( EvtParticle *parent, EvtAmp& amp,
-		  Evtbs2llGammaFF *formFactors,
-                  EvtbTosllWilsCoeffNLO *WilsCoeff, 
-                  double mu, int Nf,   
-                  int res_swch, int ias,
-                  double Egamma_min, 
-                  double CKM_A, double CKM_lambda, 
-                  double CKM_barrho, double CKM_bareta);
+    double CalcMaxProb( EvtId parnum, EvtId photnum, EvtId l1num, EvtId l2num,
+                        Evtbs2llGammaFF* formFactors,
+                        EvtbTosllWilsCoeffNLO* WilsCoeff, double mu, int Nf,
+                        int res_swch, int ias, double Egamma_min, double CKM_A,
+                        double CKM_lambda, double CKM_barrho, double CKM_bareta );
 
-    double CalcMaxProb(EvtId parnum, EvtId photnum, EvtId l1num, EvtId l2num, 
-		       Evtbs2llGammaFF *formFactors,
-                       EvtbTosllWilsCoeffNLO *WilsCoeff, 
-                       double mu, int Nf, int res_swch, int ias, 
-                       double Egamma_min,
-                       double CKM_A, double CKM_lambda, 
-                       double CKM_barrho, double CKM_bareta);
-
-    double lambda(double a, double b, double c); 
-
+    double lambda( double a, double b, double c );
 };
 
 #endif
-

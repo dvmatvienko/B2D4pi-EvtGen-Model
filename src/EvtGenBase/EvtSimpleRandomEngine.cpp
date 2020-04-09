@@ -11,7 +11,7 @@
 // Module: EvtRandomEngine.cc
 //
 // Description: routines to generate random numbers
-//              really trivial random number 
+//              really trivial random number
 //              implementation.
 //
 // Modification history:
@@ -20,22 +20,18 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-
-
-#include <stdio.h>
-#include <math.h>
-#include <iostream>
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
 
-double EvtSimpleRandomEngine::random(){
-  
-  _next=_next*1103515245+123345;
-  unsigned temp=(unsigned)(_next/65536) % 32768;
-  
-  return ( temp + 1.0 ) / 32769.0;
+#include "EvtGenBase/EvtPatches.hh"
 
+#include <iostream>
+#include <math.h>
+#include <stdio.h>
+
+double EvtSimpleRandomEngine::random()
+{
+    _next = _next * 1103515245 + 123345;
+    unsigned temp = (unsigned)( _next / 65536 ) % 32768;
+
+    return ( temp + 1.0 ) / 32769.0;
 }
-
-
-

@@ -24,25 +24,22 @@
 #include <string>
 
 class EvtParser {
-public:
-  EvtParser();
-  ~EvtParser();
+  public:
+    EvtParser();
+    ~EvtParser();
 
-  int read(const std::string filename);
-  int getNToken();
-  const std::string& getToken(int i);
-  int getLineofToken(int i);
+    int read( const std::string filename );
+    int getNToken();
+    const std::string& getToken( int i );
+    int getLineofToken( int i );
 
-private:
+  private:
+    int _ntoken;
+    std::string* _tokenlist;
+    int* _linelist;
+    int _lengthoftokenlist;
 
-  int _ntoken;
-  std::string* _tokenlist;
-  int * _linelist;
-  int _lengthoftokenlist;
-
-  void addToken(int line,const std::string& string);
-
-}; 
+    void addToken( int line, const std::string& string );
+};
 
 #endif
-

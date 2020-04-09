@@ -22,33 +22,40 @@
 #ifndef EVTITFOURCOEFFFCN_HH
 #define EVTITFOURCOEFFFCN_HH
 
-#include <vector>
 #include "EvtGenModels/EvtItgAbsFunction.hh"
 
-class EvtItgFourCoeffFcn: public EvtItgAbsFunction {
+#include <vector>
 
-public:
+class EvtItgFourCoeffFcn : public EvtItgAbsFunction {
+  public:
+    EvtItgFourCoeffFcn( double ( *theFunction )( double,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>& ),
+                        double lowerRange, double upperRange,
+                        const std::vector<double>& coeffs1,
+                        const std::vector<double>& coeffs2,
+                        const std::vector<double>& coeffs3,
+                        const std::vector<double>& coeffs4 );
 
-  EvtItgFourCoeffFcn( double (*theFunction)(double, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &),
-		     double lowerRange, double upperRange, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, const std::vector<double> &coeffs3, const std::vector<double> &coeffs4);
+    void setCoeff( int, int, double ) override;
+    double getCoeff( int, int ) override;
 
-  void setCoeff(int, int, double) override;
-  double getCoeff(int, int) override;
+  protected:
+    double myFunction( double x ) const override;
 
-protected:
+  private:
+    // Data members
+    double ( *_myFunction )( double x, const std::vector<double>& coeffs1,
+                             const std::vector<double>& coeffs2,
+                             const std::vector<double>& coeffs3,
+                             const std::vector<double>& coeffs4 );
 
-  double myFunction(double x) const override;
-
-private:
-
-  // Data members
-  double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2, const std::vector<double> & coeffs3, const std::vector<double> & coeffs4);
-
-  std::vector<double> _coeffs1;
-  std::vector<double> _coeffs2;
-  std::vector<double> _coeffs3;
-  std::vector<double> _coeffs4;
-
+    std::vector<double> _coeffs1;
+    std::vector<double> _coeffs2;
+    std::vector<double> _coeffs3;
+    std::vector<double> _coeffs4;
 };
 
-#endif // EvtITGPTRFUNCTION_HH
+#endif    // EvtITGPTRFUNCTION_HH

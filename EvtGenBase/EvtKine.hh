@@ -24,22 +24,19 @@
 class EvtVector4R;
 class EvtComplex;
 
-double EvtDecayAngle(const EvtVector4R&, const EvtVector4R&,
-		     const EvtVector4R&);
+double EvtDecayAngle( const EvtVector4R&, const EvtVector4R&, const EvtVector4R& );
 
-double EvtDecayAngleChi(const EvtVector4R&, const EvtVector4R&, 
-			const EvtVector4R&, const EvtVector4R&, 
-			const EvtVector4R& );
+double EvtDecayAngleChi( const EvtVector4R&, const EvtVector4R&,
+                         const EvtVector4R&, const EvtVector4R&,
+                         const EvtVector4R& );
 
 //
 // This routine calculates the cosine of the angle between
 // the normal of the decay plane and the flight direction of particle q
 // in the parent frame.
 //
-double EvtDecayPlaneNormalAngle(const EvtVector4R& p,const EvtVector4R& q,
-				const EvtVector4R& d1,const EvtVector4R& d2);
-
-
+double EvtDecayPlaneNormalAngle( const EvtVector4R& p, const EvtVector4R& q,
+                                 const EvtVector4R& d1, const EvtVector4R& d2 );
 
 // Added by AJB
 //
@@ -53,7 +50,7 @@ double EvtDecayPlaneNormalAngle(const EvtVector4R& p,const EvtVector4R& q,
 // azymuthal angels can simply be calculated.
 //
 double EvtDecayAnglePhi( const EvtVector4R& g, const EvtVector4R& p,
-			 const EvtVector4R& q, const EvtVector4R& d );
+                         const EvtVector4R& q, const EvtVector4R& d );
 
 // Wigner big-D function in Jackson convention
 //
@@ -63,14 +60,6 @@ double EvtDecayAnglePhi( const EvtVector4R& g, const EvtVector4R& p,
 //    spin 1/2 particles
 //
 EvtComplex wignerD( int j, int m1, int m2, double phi, double theta,
-		    double gamma );
-
+                    double gamma );
 
 #endif
-
-
-
-
-
-
-

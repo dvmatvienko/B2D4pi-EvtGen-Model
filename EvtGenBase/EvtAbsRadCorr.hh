@@ -10,7 +10,7 @@
 //
 // Module: EvtGenBase/EvtAbsRadCorr.hh
 //
-// Description: 
+// Description:
 //
 // Modification history:
 //
@@ -26,16 +26,12 @@
 class EvtParticle;
 
 class EvtAbsRadCorr {
+  public:
+    EvtAbsRadCorr(){};
+    virtual ~EvtAbsRadCorr(){};
+    virtual void doRadCorr( EvtParticle* p ) = 0;
 
-public:
-
-  EvtAbsRadCorr() {};
-  virtual ~EvtAbsRadCorr() {};
-  virtual void doRadCorr(EvtParticle *p)=0;
-
-
-private:
-
+  private:
 };
 
 #endif

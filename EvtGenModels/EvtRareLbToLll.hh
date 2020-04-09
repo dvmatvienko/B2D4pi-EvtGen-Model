@@ -10,53 +10,42 @@
  *  @date   2013-11-27
  */
 
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtAmp.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
+#include "EvtGenBase/EvtParticle.hh"
 
 #include "EvtGenModels/EvtRareLbToLllFFBase.hh"
 #include "EvtGenModels/EvtRareLbToLllWC.hh"
+
 #include <memory>
 
-class EvtRareLbToLll : public  EvtDecayAmp {
+class EvtRareLbToLll : public EvtDecayAmp {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void init() override;
 
-  EvtDecayBase* clone() override;
+    void initProbMax() override;
 
-  void init() override;
+    void decay( EvtParticle* parent ) override;
 
-  void initProbMax() override;
+  protected:
+    void calcAmp( EvtAmp& amp, EvtParticle* parent );
 
-  void decay( EvtParticle *parent ) override;
+    void HadronicAmp( EvtParticle* parent, EvtParticle* lambda, EvtVector4C* T,
+                      const int i, const int j );
 
-protected:
+    void HadronicAmpRS( EvtParticle* parent, EvtParticle* lambda,
+                        EvtVector4C* T, const int i, const int j );
 
-  void calcAmp( EvtAmp& amp, EvtParticle *parent ) ;
+    bool isParticle( EvtParticle* parent ) const;
 
-  void HadronicAmp( EvtParticle* parent,
-                    EvtParticle* lambda,
-                    EvtVector4C* T,
-                    const  int i,
-                    const  int j );
+  private:
+    double m_maxProbability;
 
-  void HadronicAmpRS( EvtParticle* parent,
-                      EvtParticle* lambda,
-                      EvtVector4C* T,
-                      const  int i,
-                      const  int j );
-
-  bool isParticle( EvtParticle* parent ) const ;
-
-
-private:
-
-  double m_maxProbability;
-
-  std::unique_ptr<EvtRareLbToLllFFBase> ffmodel_;
-  std::unique_ptr<EvtRareLbToLllWC> wcmodel_;
-
+    std::unique_ptr<EvtRareLbToLllFFBase> ffmodel_;
+    std::unique_ptr<EvtRareLbToLllWC> wcmodel_;
 };
-#endif //
+#endif    //

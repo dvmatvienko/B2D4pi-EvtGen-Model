@@ -19,64 +19,58 @@
 #ifndef EvtBcToNPi_HH
 #define EvtBcToNPi_HH
 
-#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
-#include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
 #include <string>
 
-class EvtBcToNPi: public EvtDecayAmp {
+class EvtBcToNPi : public EvtDecayAmp {
+  public:
+    EvtBcToNPi( bool printAuthorInfo = false );
 
-public:
+    std::string getName() override;
 
-  EvtBcToNPi(bool printAuthorInfo = false);
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
+  protected:
+    int nCall;
+    double maxAmp2;
 
-  void decay(EvtParticle *p) override;
+    // Bc form factors
+    double _maxProb;
+    double FA0_N, FA0_c1, FA0_c2;
+    double FAm_N, FAm_c1, FAm_c2;
+    double FAp_N, FAp_c1, FAp_c2;
+    double FV_N, FV_c1, FV_c2;
 
-protected:
+    double Fp_N, Fp_c1, Fp_c2;
+    double Fm_N, Fm_c1, Fm_c2;
 
-  int nCall;
-  double maxAmp2;
+    // W -> pi... form factors
+    double _beta;
+    double _mRho;
+    double _gammaRho;
+    double _mRhopr;
+    double _gammaRhopr;
+    double _mA1;
+    double _gammaA1;
 
-  // Bc form factors
-  double _maxProb;
-  double FA0_N, FA0_c1, FA0_c2;
-  double FAm_N, FAm_c1, FAm_c2;
-  double FAp_N, FAp_c1, FAp_c2;
-  double FV_N, FV_c1, FV_c2;
+    double _ee( double M, double m1, double m2 );
+    double _pp( double M, double m1, double m2 );
+    EvtComplex Fpi( EvtVector4R q1, EvtVector4R q2 );
+    double pi3G( double m2, int dupD );
 
-  double Fp_N, Fp_c1, Fp_c2;
-  double Fm_N, Fm_c1, Fm_c2;
-
-  // W -> pi... form factors
-  double _beta;
-  double  _mRho;
-  double  _gammaRho;
-  double  _mRhopr;
-  double  _gammaRhopr;
-  double _mA1;
-  double _gammaA1;
-
-  double _ee(double M, double m1, double m2);
-  double _pp(double M, double m1, double m2);
-  EvtComplex Fpi( EvtVector4R q1, EvtVector4R q2);
-  double pi3G(double m2,int dupD);
-
-private:
-
-  void printAuthorInfo();
-
+  private:
+    void printAuthorInfo();
 };
 
 #endif
-

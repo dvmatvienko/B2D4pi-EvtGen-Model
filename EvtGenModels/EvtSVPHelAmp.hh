@@ -36,22 +36,18 @@ class EvtParticle;
 class EvtAmp;
 class EvtId;
 
-class EvtSVPHelAmp:public  EvtDecayAmp  {
+class EvtSVPHelAmp : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-  void initProbMax() override;
-
-  void decay(EvtParticle *p) override;
-
-  static void SVPHel(EvtParticle *parent, EvtAmp& amp, EvtId n_v1, EvtId n_ph,
-		     const EvtComplex& hp, const EvtComplex& hm);
-
-
+    static void SVPHel( EvtParticle* parent, EvtAmp& amp, EvtId n_v1,
+                        EvtId n_ph, const EvtComplex& hp, const EvtComplex& hm );
 };
 
 #endif

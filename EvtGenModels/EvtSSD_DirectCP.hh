@@ -9,25 +9,23 @@
 
 class EvtParticle;
 
-class EvtSSD_DirectCP : public  EvtDecayAmp  {
+class EvtSSD_DirectCP : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void initProbMax() override;
+    void init() override;
+    void decay( EvtParticle* p ) override;
+    std::string getParamName( int i ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+  private:
+    bool isB0Mixed( EvtParticle* p );
+    bool isBsMixed( EvtParticle* p );
 
-  void initProbMax() override;
-  void init() override;
-  void decay(EvtParticle *p) override;
-  std::string getParamName(int i) override;
+    //Arguments
 
-private:
-  bool isB0Mixed( EvtParticle * p ) ;
-  bool isBsMixed( EvtParticle * p ) ;
-
-  //Arguments
-
-  double _acp;
+    double _acp;
 };
 
 #endif

@@ -27,20 +27,17 @@
 
 class EvtParticle;
 
-class EvtLNuGamma:public  EvtDecayAmp  {
+class EvtLNuGamma : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
+    double getFormFactor( double photonEnergy );
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-  double getFormFactor(double photonEnergy);
-
-  bool _fafvzero = false;
-
+    bool _fafvzero = false;
 };
 
 #endif

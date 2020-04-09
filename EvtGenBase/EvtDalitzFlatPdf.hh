@@ -14,27 +14,26 @@
 #ifndef EVT_DALITZ_FLAT_PDF_HH
 #define EVT_DALITZ_FLAT_PDF_HH
 
-#include <assert.h>
-#include "EvtGenBase/EvtPdf.hh"
 #include "EvtGenBase/EvtDalitzPlot.hh"
 #include "EvtGenBase/EvtDalitzPoint.hh"
+#include "EvtGenBase/EvtPdf.hh"
+
+#include <assert.h>
 
 class EvtDalitzFlatPdf : public EvtPdf<EvtDalitzPoint> {
-public:
+  public:
+    EvtDalitzFlatPdf( const EvtDalitzPlot& dp );
+    EvtDalitzFlatPdf( const EvtDalitzFlatPdf& other );
+    EvtPdf<EvtDalitzPoint>* clone() const override;
 
-  EvtDalitzFlatPdf(const EvtDalitzPlot& dp);
-  EvtDalitzFlatPdf(const EvtDalitzFlatPdf& other);
-  EvtPdf<EvtDalitzPoint>* clone() const override;
+    using EvtPdf<EvtDalitzPoint>::compute_integral;
+    EvtValError compute_integral( int N ) const override;
+    EvtDalitzPoint randomPoint() override;
 
-  using EvtPdf<EvtDalitzPoint>::compute_integral;
-  EvtValError compute_integral(int N) const override;
-  EvtDalitzPoint randomPoint() override;
+  protected:
+    double pdf( const EvtDalitzPoint& ) const override;
 
-protected:
-
-  double pdf(const EvtDalitzPoint&) const override;
-
-  EvtDalitzPlot _dp;
+    EvtDalitzPlot _dp;
 };
 
 #endif

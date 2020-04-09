@@ -17,71 +17,61 @@
 //    DJL/RYD     August 11, 1998         Module created
 //
 //------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtDecayIncoherent.hh"
 
 #include "EvtGenBase/EvtDecayBase.hh"
-#include "EvtGenBase/EvtDecayIncoherent.hh"
+#include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtPDL.hh"
 
+void EvtDecayIncoherent::makeDecay( EvtParticle* p, bool recursive )
+{
+    //initialize this the hard way..
+    //Lange June 26, 2000
+    for ( size_t i = 0; i < static_cast<unsigned int>( MAX_DAUG ); i++ ) {
+        spinDensitySet[i] = 0;
+    }
 
-void EvtDecayIncoherent::makeDecay(EvtParticle* p, bool recursive){
+    _daugsDecayedByParentModel = false;
 
-  //initialize this the hard way..
-  //Lange June 26, 2000
-  for (size_t i=0; i<static_cast<unsigned int>(MAX_DAUG); i++ ) { 
-    spinDensitySet[i]=0;
-  }
+    decay( p );
+    p->setDecayProb( 1.0 );
 
-  _daugsDecayedByParentModel=false;
+    EvtSpinDensity rho;
 
-  decay(p);
-  p->setDecayProb(1.0);
+    rho.setDiag( p->getSpinStates() );
 
-  EvtSpinDensity rho;
+    p->setSpinDensityBackward( rho );
 
-  rho.setDiag(p->getSpinStates());
+    if ( getPHOTOS() || EvtRadCorr::alwaysRadCorr() ) {
+        EvtRadCorr::doRadCorr( p );
+    }
 
-  p->setSpinDensityBackward(rho);
+    if ( !recursive )
+        return;
 
-  if (getPHOTOS() || EvtRadCorr::alwaysRadCorr()) {
-    EvtRadCorr::doRadCorr(p);
-  }
+    //Now decay the daughters.
 
-  if(!recursive) return;
-
-  //Now decay the daughters.
-
-  if ( !daugsDecayedByParentModel()) {
-    
-    for(size_t i=0;i<p->getNDaug();i++){
-      //Need to set the spin density of the daughters to be
-      //diagonal.
-      rho.setDiag(p->getDaug(i)->getSpinStates());
-      //if (p->getDaug(i)->getNDaug()==0){
-      //only do this if the user has not already set the 
-      //spin density matrix herself.
-      //Lange June 26, 2000
-      if ( isDaughterSpinDensitySet(i)==0 ) { 
-	p->getDaug(i)->setSpinDensityForward(rho);
-      }
-      else{
-	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
-	EvtSpinDensity temp=p->getDaug(i)->getSpinDensityForward();
-	//	EvtGenReport(EVTGEN_INFO,"EvtGen") <<temp<<endl;
-      }
-      //Now decay the daughter.  Really!
-      p->getDaug(i)->decay();
-    } 
-  }
-			    
+    if ( !daugsDecayedByParentModel() ) {
+        for ( size_t i = 0; i < p->getNDaug(); i++ ) {
+            //Need to set the spin density of the daughters to be
+            //diagonal.
+            rho.setDiag( p->getDaug( i )->getSpinStates() );
+            //if (p->getDaug(i)->getNDaug()==0){
+            //only do this if the user has not already set the
+            //spin density matrix herself.
+            //Lange June 26, 2000
+            if ( isDaughterSpinDensitySet( i ) == 0 ) {
+                p->getDaug( i )->setSpinDensityForward( rho );
+            } else {
+                //EvtGenReport(EVTGEN_INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
+                EvtSpinDensity temp = p->getDaug( i )->getSpinDensityForward();
+                //	EvtGenReport(EVTGEN_INFO,"EvtGen") <<temp<<endl;
+            }
+            //Now decay the daughter.  Really!
+            p->getDaug( i )->decay();
+        }
+    }
 }
-
-
-
-
-
-
-

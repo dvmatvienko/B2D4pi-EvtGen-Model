@@ -25,43 +25,36 @@
 #define EVTPFERMI_HH
 
 class EvtPFermi final {
+  public:
+    // Constructors
 
-public:
+    EvtPFermi( const double& a, const double& mB, const double& mb );
+    EvtPFermi( const double& Lambda, const double& b );
 
-  // Constructors
+    // Operators
 
-  EvtPFermi(const double &a, const double &mB, const double &mb);
-  EvtPFermi(const double &Lambda, const double &b);
+    // Selectors
 
-  // Operators
+    // Modifiers
 
-  // Selectors
+    // Methods
 
-  // Modifiers
+    double getFPFermi( const double& kplus );
+    double getSFBLNP( const double& what );
 
-  // Methods
+  protected:
+    // Helper functions
 
-  double getFPFermi(const double &kplus);
-  double getSFBLNP(const double &what);
+  private:
+    // Friends
 
-protected:
+    // Data members
 
-  // Helper functions
-
-private:
-
-  // Friends
-
-  // Data members
-
-  double _a;
-  double _mb;
-  double _mB;
-  double _Lambda;
-  double _b;
+    double _a;
+    double _mb;
+    double _mB;
+    double _Lambda;
+    double _b;
 };
 
-
-#endif // EVTPFERMI_HH
-
-
+#endif    // EVTPFERMI_HH

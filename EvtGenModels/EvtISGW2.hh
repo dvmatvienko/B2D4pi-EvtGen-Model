@@ -27,25 +27,24 @@
 #define EVTISGW2_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
 #include <memory>
 class EvtParticle;
 
-class EvtISGW2:public  EvtDecayAmp  {
+class EvtISGW2 : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-  void init() override;
-
-private:
-  std::unique_ptr<EvtSemiLeptonicFF> isgw2ffmodel;
-  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
+  private:
+    std::unique_ptr<EvtSemiLeptonicFF> isgw2ffmodel;
+    std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif

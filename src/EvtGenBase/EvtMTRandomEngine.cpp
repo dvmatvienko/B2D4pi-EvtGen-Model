@@ -9,7 +9,7 @@
 //
 // Module: EvtMTRandomEngine
 //
-// Generate random numbers using the Mersenne-Twister MT19937. 
+// Generate random numbers using the Mersenne-Twister MT19937.
 //
 // Modification history:
 //
@@ -24,18 +24,15 @@
 
 #include <iostream>
 
-EvtMTRandomEngine::EvtMTRandomEngine(unsigned int seed) :
-    engine_(seed),
-    distribution_(URDist(0.0, 1.0))
+EvtMTRandomEngine::EvtMTRandomEngine( unsigned int seed ) :
+    engine_( seed ), distribution_( URDist( 0.0, 1.0 ) )
 {
-
-    EvtGenReport(EVTGEN_INFO,"EvtMTRandomEngine")
-	<<"Mersenne-Twister random number generator with seed = "<<seed<<std::endl;
-
+    EvtGenReport( EVTGEN_INFO, "EvtMTRandomEngine" )
+        << "Mersenne-Twister random number generator with seed = " << seed
+        << std::endl;
 }
 
-double EvtMTRandomEngine::random() {
-  
-    return distribution_(engine_);
-
+double EvtMTRandomEngine::random()
+{
+    return distribution_( engine_ );
 }

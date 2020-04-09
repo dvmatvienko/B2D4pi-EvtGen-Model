@@ -18,60 +18,58 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenModels/EvtVSS.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtVSS.hh"
+
+#include <stdlib.h>
 #include <string>
 
-std::string EvtVSS::getName(){
-
-  return "VSS";
-
+std::string EvtVSS::getName()
+{
+    return "VSS";
 }
 
-
-EvtDecayBase* EvtVSS::clone(){
-
-  return new EvtVSS;
-
+EvtDecayBase* EvtVSS::clone()
+{
+    return new EvtVSS;
 }
 
-void EvtVSS::init(){
+void EvtVSS::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
 
-  // check that there are 0 arguments
-  checkNArg(0);
+    // check that there are 2 daughters
+    checkNDaug( 2 );
 
-  // check that there are 2 daughters
-  checkNDaug(2);
-
-  // check the parent and daughter spins
-  checkSpinParent(EvtSpinType::VECTOR);
-  checkSpinDaughter(0,EvtSpinType::SCALAR);
-  checkSpinDaughter(1,EvtSpinType::SCALAR);
+    // check the parent and daughter spins
+    checkSpinParent( EvtSpinType::VECTOR );
+    checkSpinDaughter( 0, EvtSpinType::SCALAR );
+    checkSpinDaughter( 1, EvtSpinType::SCALAR );
 }
 
-void EvtVSS::initProbMax() {
-
-   setProbMax(1.0);
-
+void EvtVSS::initProbMax()
+{
+    setProbMax( 1.0 );
 }
 
-void EvtVSS::decay( EvtParticle *p){
+void EvtVSS::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
+    EvtVector4R pDaug = p->getDaug( 0 )->getP4();
 
-  EvtVector4R pDaug = p->getDaug(0)->getP4();
+    double norm = 1.0 / pDaug.d3mag();
 
-  double norm=1.0/pDaug.d3mag();
+    for ( int i = 0; i < 3; i++ )
+        vertex( i, norm * pDaug * ( p->eps( i ) ) );
 
-  for (int i=0; i<3; i++) vertex(i,norm*pDaug*(p->eps(i)));
-
-  return;
+    return;
 }
-

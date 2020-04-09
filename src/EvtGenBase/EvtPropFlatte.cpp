@@ -7,36 +7,32 @@
  * Copyright (C) 2005 SLAC
  *******************************************************************************/
 
-#include <math.h>
 #include "EvtGenBase/EvtPropFlatte.hh"
 
 #include <iostream>
+#include <math.h>
 using std::cout;
 using std::endl;
 
-EvtPropFlatte::EvtPropFlatte(double m0,
-			     double g0, double m0a, double m0b,
-			     double g1, double m1a, double m1b) :
-  EvtPropagator( m0, g0),
-  _m0a(m0a),
-  _m0b(m0b),
-  _g1 (g1),
-  _m1a(m1a),
-  _m1b(m1b)
-{}
-
+EvtPropFlatte::EvtPropFlatte( double m0, double g0, double m0a, double m0b,
+                              double g1, double m1a, double m1b ) :
+    EvtPropagator( m0, g0 ),
+    _m0a( m0a ),
+    _m0b( m0b ),
+    _g1( g1 ),
+    _m1a( m1a ),
+    _m1b( m1b )
+{
+}
 
 EvtAmplitude<EvtPoint1D>* EvtPropFlatte::clone() const
 {
-  return new EvtPropFlatte(*this);
+    return new EvtPropFlatte( *this );
 }
 
-
-
-EvtComplex EvtPropFlatte::amplitude(const EvtPoint1D& x) const
+EvtComplex EvtPropFlatte::amplitude( const EvtPoint1D& x ) const
 {
-
-  /*
+    /*
 
   Use BES parameterization:
 
@@ -60,24 +56,24 @@ EvtComplex EvtPropFlatte::amplitude(const EvtPoint1D& x) const
 
   */
 
+    double s = x.value() * x.value();
+    double m = x.value();
 
+    double E0a = 0.5 * ( s + _m0a * _m0a - _m0b * _m0b ) / m;
+    double qSq0 = E0a * E0a - _m0a * _m0a;
 
-  double s = x.value()*x.value();
-  double m = x.value();
+    double E1a = 0.5 * ( s + _m1a * _m1a - _m1b * _m1b ) / m;
+    double qSq1 = E1a * E1a - _m1a * _m1a;
 
-  double E0a  = 0.5 * (s + _m0a*_m0a - _m0b*_m0b) / m;
-  double qSq0 = E0a*E0a - _m0a*_m0a;
+    EvtComplex gamma0 = qSq0 >= 0 ? EvtComplex( _g0 * sqrt( qSq0 ), 0 )
+                                  : EvtComplex( 0, _g0 * sqrt( -qSq0 ) );
+    EvtComplex gamma1 = qSq1 >= 0 ? EvtComplex( _g1 * sqrt( qSq1 ), 0 )
+                                  : EvtComplex( 0, _g1 * sqrt( -qSq1 ) );
 
-  double E1a  = 0.5 * (s + _m1a*_m1a - _m1b*_m1b) / m;
-  double qSq1 = E1a*E1a - _m1a*_m1a;
+    EvtComplex gamma = gamma0 + gamma1;
 
-  EvtComplex gamma0 = qSq0 >= 0 ?  EvtComplex(  _g0 * sqrt(qSq0), 0)  : EvtComplex( 0, _g0 * sqrt(-qSq0) );
-  EvtComplex gamma1 = qSq1 >= 0 ?  EvtComplex(  _g1 * sqrt(qSq1), 0)  : EvtComplex( 0, _g1 * sqrt(-qSq1) );
+    EvtComplex a = 1.0 /
+                   ( _m0 * _m0 - s - EvtComplex( 0.0, 2 * _m0 / m ) * gamma );
 
-  EvtComplex gamma = gamma0 + gamma1;
-
-  EvtComplex a = 1.0/( _m0*_m0 - s - EvtComplex(0.0,2*_m0/m)*gamma  );
-
-  return a;
+    return a;
 }
-

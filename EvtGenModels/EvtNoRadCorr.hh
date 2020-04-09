@@ -10,7 +10,7 @@
 // Module: EvtNoRadCorr
 //
 // Description: Create an empty radiative correction engine which does nothing.
-// This is required since the EvtGen constructor still needs at least one 
+// This is required since the EvtGen constructor still needs at least one
 // concrete implementation of EvtAbsRadCorr for the case when Photos is not used.
 //
 // Modification history:
@@ -24,22 +24,19 @@
 #define EVTNORADCORR_HH
 
 #include "EvtGenBase/EvtAbsRadCorr.hh"
+
 #include <string>
 
 class EvtParticle;
 
 class EvtNoRadCorr : public EvtAbsRadCorr {
+  public:
+    EvtNoRadCorr() { ; }
+    virtual ~EvtNoRadCorr() { ; }
 
-public:
-    
-  EvtNoRadCorr() {;}
-  virtual ~EvtNoRadCorr() {;}
+    virtual void doRadCorr( EvtParticle* ) { ; }
 
-  virtual void doRadCorr(EvtParticle *) {;}
-
-private:
-
+  private:
 };
 
 #endif
-

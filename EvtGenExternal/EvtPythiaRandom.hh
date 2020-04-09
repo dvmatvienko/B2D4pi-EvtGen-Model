@@ -27,17 +27,14 @@
 #include "Pythia8/Basics.h"
 
 class EvtPythiaRandom : public Pythia8::RndmEngine {
+  public:
+    EvtPythiaRandom(){};
 
-public:
+    virtual ~EvtPythiaRandom(){};
 
-  EvtPythiaRandom() {};
+    double flat() override { return EvtRandom::Flat(); }
 
-  virtual ~EvtPythiaRandom() {};
-
-  double flat() override {return EvtRandom::Flat();}
-
-private:
-
+  private:
 };
 
 #endif

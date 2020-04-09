@@ -25,16 +25,14 @@
 #include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
 
 class EvtBtoXsgammaFixedMass : public EvtBtoXsgammaAbsModel {
+  public:
+    void init( int, double* ) override;
 
-public:
+    double GetMass( int code ) override;
 
-  void init(int, double*) override;
-
-  double GetMass(int code) override;
-
-private:
-  //Input parameters
-  double _mH;
+  private:
+    //Input parameters
+    double _mH;
 };
 
 #endif

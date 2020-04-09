@@ -23,17 +23,19 @@
 
 #include "EvtGenBase/EvtVector4R.hh"
 
-class EvtResonance2 {
-public:
+class EvtComplex;
 
+class EvtResonance2 {
+  public:
     //operator
-    EvtResonance2& operator = (const EvtResonance2 &);
+    EvtResonance2& operator=( const EvtResonance2& );
 
     // Constructor
-    EvtResonance2(const EvtVector4R& p4_p, const EvtVector4R& p4_d1,
-		  const EvtVector4R& p4_d2, double ampl = 1.0, double theta = 0.0, 
-		  double gamma = 0.0, double bwm = 0.0, int spin = 0, bool invmass_angdenom = false,
-		  double  barrier1 = 1.5, double  barrier2 = 5.0);
+    EvtResonance2( const EvtVector4R& p4_p, const EvtVector4R& p4_d1,
+                   const EvtVector4R& p4_d2, double ampl = 1.0,
+                   double theta = 0.0, double gamma = 0.0, double bwm = 0.0,
+                   int spin = 0, bool invmass_angdenom = false,
+                   double barrier1 = 1.5, double barrier2 = 5.0 );
 
     //accessors
     //return 4-momenta of the particles involved
@@ -59,13 +61,11 @@ public:
     //calculate amplitude for this resonance
     EvtComplex resAmpl() const;
 
-private:
-
+  private:
     EvtVector4R _p4_p, _p4_d1, _p4_d2;
     double _ampl, _theta, _gamma, _bwm, _barrier1, _barrier2;
     int _spin;
     bool _invmass_angdenom;
-
 };
 
 #endif

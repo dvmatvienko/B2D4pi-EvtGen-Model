@@ -16,18 +16,13 @@
 #include "EvtGenBase/EvtPropagator.hh"
 
 class EvtPropBreitWigner : public EvtPropagator {
-public:
+  public:
+    EvtPropBreitWigner( double m0, double g0 );
 
-  EvtPropBreitWigner(double m0, double g0);
+    EvtAmplitude<EvtPoint1D>* clone() const override;
 
-  EvtAmplitude<EvtPoint1D>* clone() const override;
-
-protected:
-
-  EvtComplex amplitude(const EvtPoint1D& m) const override;
-
+  protected:
+    EvtComplex amplitude( const EvtPoint1D& m ) const override;
 };
 
-
 #endif
-

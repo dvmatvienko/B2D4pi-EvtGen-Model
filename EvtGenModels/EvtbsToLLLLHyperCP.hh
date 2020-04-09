@@ -24,24 +24,22 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
-class EvtbsToLLLLHyperCPAmp;        // my class with amplitudes for rare four-leptonic B-decays
+class EvtbsToLLLLHyperCPAmp;    // my class with amplitudes for rare four-leptonic B-decays
 
-class EvtbsToLLLLHyperCP:public  EvtDecayAmp{
+class EvtbsToLLLLHyperCP : public EvtDecayAmp {
+  public:
+    EvtbsToLLLLHyperCP(){};
+    virtual ~EvtbsToLLLLHyperCP();
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtbsToLLLLHyperCP() {} ;
-  virtual ~EvtbsToLLLLHyperCP();
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-  void initProbMax() override;
-  void decay(EvtParticle *p) override;
-
-private:
-  EvtbsToLLLLHyperCPAmp        *_calcamp;
+  private:
+    EvtbsToLLLLHyperCPAmp* _calcamp;
 };
 
 #endif

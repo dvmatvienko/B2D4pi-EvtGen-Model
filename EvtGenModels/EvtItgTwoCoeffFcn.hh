@@ -32,28 +32,27 @@ extern "C" {
 
 #include "EvtGenModels/EvtItgAbsFunction.hh"
 
-class EvtItgTwoCoeffFcn: public EvtItgAbsFunction {
+class EvtItgTwoCoeffFcn : public EvtItgAbsFunction {
+  public:
+    EvtItgTwoCoeffFcn( double ( *theFunction )( double, const std::vector<double>&,
+                                                const std::vector<double>& ),
+                       double lowerRange, double upperRange,
+                       const std::vector<double>& coeffs1,
+                       const std::vector<double>& coeffs2 );
 
-public:
+    void setCoeff( int, int, double ) override;
+    double getCoeff( int, int ) override;
 
-  EvtItgTwoCoeffFcn( double (*theFunction)(double, const std::vector<double> &, const std::vector<double> &),
-		     double lowerRange, double upperRange, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2);
+  protected:
+    double myFunction( double x ) const override;
 
-  void setCoeff(int, int, double) override;
-  double getCoeff(int, int) override;
+  private:
+    // Data members
+    double ( *_myFunction )( double x, const std::vector<double>& coeffs1,
+                             const std::vector<double>& coeffs2 );
 
-protected:
-
-  double myFunction(double x) const override;
-
-private:
-
-  // Data members
-  double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2);
-
-  std::vector<double> _coeffs1;
-  std::vector<double> _coeffs2;
-
+    std::vector<double> _coeffs1;
+    std::vector<double> _coeffs2;
 };
 
-#endif // EvtITGTWOCOEFFFUNCTION_HH
+#endif    // EvtITGTWOCOEFFFUNCTION_HH

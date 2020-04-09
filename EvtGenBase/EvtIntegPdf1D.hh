@@ -16,28 +16,22 @@
 #include "EvtGenBase/EvtPoint1D.hh"
 
 class EvtIntegPdf1D : public EvtPdf<EvtPoint1D> {
+  public:
+    EvtIntegPdf1D( double min, double max );
+    EvtIntegPdf1D( const EvtIntegPdf1D& );
 
-public:
+    // Pdf integral function and its inverse to be defined in subclasses
 
-  EvtIntegPdf1D(double min, double max);
-  EvtIntegPdf1D(const EvtIntegPdf1D&);
+    virtual double pdfIntegral( double x ) const = 0;
+    virtual double pdfIntegralInverse( double x ) const = 0;
 
-  // Pdf integral function and its inverse to be defined in subclasses
+    using EvtPdf<EvtPoint1D>::compute_integral;
+    EvtValError compute_integral() const override;
+    EvtPoint1D randomPoint() override;
 
-  virtual double pdfIntegral(double x) const = 0;
-  virtual double pdfIntegralInverse(double x) const = 0;
-
-  using EvtPdf<EvtPoint1D>::compute_integral;
-  EvtValError compute_integral() const override;
-  EvtPoint1D randomPoint() override;
-
-protected:
-
-  double _min;
-  double _max;
+  protected:
+    double _min;
+    double _max;
 };
 
-
 #endif
-
-

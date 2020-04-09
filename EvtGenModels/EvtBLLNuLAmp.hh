@@ -3,15 +3,15 @@
 //
 // Module: EvtB2MuMuENuAmp.hh
 //
-// Description: Header file for the amplitude calculation for the "BLLNUL" 
+// Description: Header file for the amplitude calculation for the "BLLNUL"
 //              model which generates rare four-leptonic B-decays
 //              B^-(p) -> ell^+(k_1) ell^-(k_2) neu (k_3) ell^-(k_4)
 //
 // Modification history:
-// 
-// Anna Danilina (anna.danilina@cern.ch) and 
+//
+// Anna Danilina (anna.danilina@cern.ch) and
 // Nikolai Nikitin (Nikolai.Nikitine@cern.ch) Nov 2018  Module created
-// John B                                               Code optimisations 
+// John B                                               Code optimisations
 //
 //------------------------------------------------------------------------
 
@@ -29,57 +29,53 @@
 class EvtParticle;
 
 class EvtBLLNuLAmp {
+  public:
+    EvtBLLNuLAmp( double Vub = 4.09e-3 );
+    EvtBLLNuLAmp( double qSqMin, double kSqMin, bool symmetry,
+                  double Vub = 4.09e-3 );
 
-public:
-
-    EvtBLLNuLAmp(double Vub = 4.09e-3);
-    EvtBLLNuLAmp(double qSqMin, double kSqMin, bool symmetry, double Vub = 4.09e-3);
-
-    void CalcAmp(EvtParticle *parent, EvtAmp& amp) const;
-    void setParameters(double qSqMin, double kSqMin, bool symmetry);
+    void CalcAmp( EvtParticle* parent, EvtAmp& amp ) const;
+    void setParameters( double qSqMin, double kSqMin, bool symmetry );
 
     // Resonance poles
     class ResPole final {
-    public:
-	ResPole(double mass, double width, double coupling);
+      public:
+        ResPole( double mass, double width, double coupling );
 
-	EvtComplex propagator(double qSq, int numForm = 0) const;
+        EvtComplex propagator( double qSq, int numForm = 0 ) const;
 
-	double getMass() const {return m0_;}
-	double getMassSq() const {return m0Sq_;}
-	double getWidth() const {return w0_;}
-	double getCoupling() const {return c_;}
+        double getMass() const { return m0_; }
+        double getMassSq() const { return m0Sq_; }
+        double getWidth() const { return w0_; }
+        double getCoupling() const { return c_; }
 
-    private:
-	double m0_; // pole mass
-	double m0Sq_;
-	double w0_; // width
-	double c_; // coupling constant
-	EvtComplex I_;
-	EvtComplex Imw_;
-
+      private:
+        double m0_;    // pole mass
+        double m0Sq_;
+        double w0_;    // width
+        double c_;     // coupling constant
+        EvtComplex I_;
+        EvtComplex Imw_;
     };
 
-protected:
-    
-    EvtTensor4C getHadronTensor(const EvtVector4R& q, const EvtVector4R& k,
-                                const double qSq, const double kSq, const double MB,
-                                const int sign) const;
+  protected:
+    EvtTensor4C getHadronTensor( const EvtVector4R& q, const EvtVector4R& k,
+                                 const double qSq, const double kSq,
+                                 const double MB, const int sign ) const;
 
-    std::vector<EvtComplex> getVMDTerms(double qSq, double kSq, double MB) const;
+    std::vector<EvtComplex> getVMDTerms( double qSq, double kSq, double MB ) const;
 
-    EvtComplex getBStarTerm(double qSq, double kSq, double MB) const;
+    EvtComplex getBStarTerm( double qSq, double kSq, double MB ) const;
 
-    double FF_B2Bstar(double qSq) const;
-    
-    double FF_V(double kSq) const;
-    
-    double FF_A1(double kSq) const;
-    
-    double FF_A2(double kSq) const;
+    double FF_B2Bstar( double qSq ) const;
 
-private:
+    double FF_V( double kSq ) const;
 
+    double FF_A1( double kSq ) const;
+
+    double FF_A2( double kSq ) const;
+
+  private:
     // Kinematic cut-offs
     double qSqMin_;
     double kSqMin_;
@@ -102,10 +98,10 @@ private:
 
     // Complex number constants
     EvtComplex zero_, unitI_;
-
 };
 
-inline void EvtBLLNuLAmp::setParameters(double qSqMin, double kSqMin, bool symmetry)
+inline void EvtBLLNuLAmp::setParameters( double qSqMin, double kSqMin,
+                                         bool symmetry )
 {
     qSqMin_ = qSqMin;
     kSqMin_ = kSqMin;

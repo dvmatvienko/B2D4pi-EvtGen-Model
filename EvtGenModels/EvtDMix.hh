@@ -27,26 +27,22 @@
 
 class EvtParticle;
 
-class EvtDMix:public  EvtDecayIncoherent  {
+class EvtDMix : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
-private:
-  double _rd;
-  double _xpr;
-  double _ypr;
-
+  private:
+    double _rd;
+    double _xpr;
+    double _ypr;
 };
 
 #endif
-

@@ -24,16 +24,12 @@
 #define EVTBTOXSGAMMAABSMODEL_HH
 
 class EvtBtoXsgammaAbsModel {
+  public:
+    virtual ~EvtBtoXsgammaAbsModel() = default;
 
-public:
+    virtual void init( int, double* );
 
-  virtual ~EvtBtoXsgammaAbsModel() = default;
-
-  virtual void init(int, double*);
-
-  virtual double GetMass(int code)=0;
-
-
+    virtual double GetMass( int code ) = 0;
 };
 
 #endif

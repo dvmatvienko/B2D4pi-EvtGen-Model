@@ -18,54 +18,49 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenModels/EvtPhsp.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtPhsp.hh"
+
+#include <stdlib.h>
 #include <string>
 
-std::string EvtPhsp::getName(){
-
-  return "PHSP";
-
+std::string EvtPhsp::getName()
+{
+    return "PHSP";
 }
 
-EvtDecayBase* EvtPhsp::clone(){
-
-  return new EvtPhsp;
-
+EvtDecayBase* EvtPhsp::clone()
+{
+    return new EvtPhsp;
 }
 
-
-void EvtPhsp::init(){
-
-  // check that there are 0 arguments
-  checkNArg(0);
-
+void EvtPhsp::init()
+{
+    // check that there are 0 arguments
+    checkNArg( 0 );
 }
 
-void EvtPhsp::initProbMax(){
-
-  noProbMax();
-
+void EvtPhsp::initProbMax()
+{
+    noProbMax();
 }
 
-void EvtPhsp::decay( EvtParticle *p ){
-
-  //unneeded - lange - may13-02
-  //if ( p->getNDaug() != 0 ) {
+void EvtPhsp::decay( EvtParticle* p )
+{
+    //unneeded - lange - may13-02
+    //if ( p->getNDaug() != 0 ) {
     //Will end up here because maxrate multiplies by 1.2
-  //  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "In EvtPhsp: has "
-  //			   <<" daugthers should not be here!"<<endl;
-  //  return;
-  //}
+    //  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "In EvtPhsp: has "
+    //			   <<" daugthers should not be here!"<<endl;
+    //  return;
+    //}
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
 
-  return ;
+    return;
 }
-
-

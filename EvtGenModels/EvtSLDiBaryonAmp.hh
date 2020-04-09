@@ -25,39 +25,33 @@
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
 #include "EvtGenBase/EvtId.hh"
-#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
-#include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtVector4C.hh"
+#include "EvtGenBase/EvtVector4R.hh"
+
+#include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
 
 #include <vector>
 
 class EvtParticle;
 
 class EvtSLDiBaryonAmp {
+  public:
+    EvtSLDiBaryonAmp( const EvtBToDiBaryonlnupQCDFF& );
 
-public:
+    void CalcAmp( EvtParticle* parent, EvtAmp& amp ) const;
 
-    EvtSLDiBaryonAmp(const EvtBToDiBaryonlnupQCDFF&);
+  protected:
+    int checkDibaryonParity( const EvtId& id1, const EvtId& id2, const int J1,
+                             const int J2 ) const;
 
-    void CalcAmp(EvtParticle *parent, EvtAmp& amp) const;
+    int getBaryonParity( const EvtId& id ) const;
 
-protected:
+    std::vector<EvtVector4C> getHadronicCurrents(
+        const EvtDiracSpinor& u, const EvtDiracSpinor& v, const EvtVector4R& p,
+        const EvtVector4R& gMtmTerms, const EvtVector4R& fMtmTerms ) const;
 
-    int checkDibaryonParity(const EvtId& id1, const EvtId& id2,
-			    const int J1, const int J2) const;
-
-    int getBaryonParity(const EvtId& id) const;
-
-    std::vector<EvtVector4C> getHadronicCurrents(const EvtDiracSpinor& u, const EvtDiracSpinor& v,
-						 const EvtVector4R& p, const EvtVector4R& gMtmTerms,
-						 const EvtVector4R& fMtmTerms) const;
-
-private:
-
+  private:
     EvtBToDiBaryonlnupQCDFF ffModel_;
-    
 };
 
 #endif
-
-

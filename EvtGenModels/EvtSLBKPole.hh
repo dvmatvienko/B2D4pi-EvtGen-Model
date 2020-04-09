@@ -19,30 +19,28 @@
 //
 //------------------------------------------------------------------------
 
-#ifndef EVTSLBKPOLE_HH//modified
-#define EVTSLBKPOLE_HH//modified
+#ifndef EVTSLBKPOLE_HH    //modified
+#define EVTSLBKPOLE_HH    //modified
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"//modified
 #include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicFF.hh"    //modified
+
 #include <memory>
 class Evtparticle;
 
-class EvtSLBKPole:public  EvtDecayAmp  {
+class EvtSLBKPole : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void initProbMax() override;
-  void init() override;
-
-private:
-  std::unique_ptr<EvtSemiLeptonicFF> SLBKPoleffmodel;//modified
-  std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
+  private:
+    std::unique_ptr<EvtSemiLeptonicFF> SLBKPoleffmodel;    //modified
+    std::unique_ptr<EvtSemiLeptonicAmp> calcamp;
 };
 
 #endif
-

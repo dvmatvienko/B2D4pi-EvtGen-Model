@@ -24,28 +24,26 @@
 #define EVTBTOXSGAMMA_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+
 #include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
+
 #include <memory>
 
 class EvtParticle;
-class EvtBtoXsgamma:public  EvtDecayIncoherent  {
+class EvtBtoXsgamma : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
-private:
-
-  std::unique_ptr<EvtBtoXsgammaAbsModel> _model;
-
+  private:
+    std::unique_ptr<EvtBtoXsgammaAbsModel> _model;
 };
 
 #endif

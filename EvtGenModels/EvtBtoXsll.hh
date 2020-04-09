@@ -22,36 +22,34 @@
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
 #include "EvtGenBase/EvtParticle.hh"
+
 #include "EvtGenModels/EvtBtoXsllUtil.hh"
+
 #include <memory>
 
 class EvtBtoXsllUtil;
 
-class EvtBtoXsll:public  EvtDecayIncoherent  {
+class EvtBtoXsll : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
-private:
-
-  std::unique_ptr<EvtBtoXsllUtil> _calcprob;
-  double         _dGdsProbMax;
-  double         _dGdsdupProbMax;
-  double         _mb;
-  double         _ms;
-  double         _mq;
-  double         _pf;
-  double         _mxmin;
+  private:
+    std::unique_ptr<EvtBtoXsllUtil> _calcprob;
+    double _dGdsProbMax;
+    double _dGdsdupProbMax;
+    double _mb;
+    double _ms;
+    double _mq;
+    double _pf;
+    double _mxmin;
 };
 
 #endif
-

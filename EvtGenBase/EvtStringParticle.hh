@@ -23,30 +23,24 @@
 #ifndef EVTSTRINGPARTICLE_HH
 #define EVTSTRINGPARTICLE_HH
 
-#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtId.hh"
+#include "EvtGenBase/EvtParticle.hh"
 
-class EvtStringParticle:public EvtParticle {
+class EvtStringParticle : public EvtParticle {
+  public:
+    void init( EvtId id, const EvtVector4R& p4 ) override;
+    void initPartons( int npartons, EvtVector4R* p4partons, EvtId* idpartons );
+    int getNPartons();
+    EvtId getIdParton( int i );
+    EvtVector4R getP4Parton( int i );
+    EvtSpinDensity rotateToHelicityBasis() const override;
+    EvtSpinDensity rotateToHelicityBasis( double alpha, double beta,
+                                          double gamma ) const override;
 
-public:
+  private:
+    std::vector<EvtVector4R> _p4partons;
+    std::vector<EvtId> _idpartons;
 
-  void init(EvtId id, const EvtVector4R& p4) override;
-  void initPartons(int npartons,EvtVector4R* p4partons,EvtId* idpartons);
-  int getNPartons();
-  EvtId getIdParton(int i);
-  EvtVector4R getP4Parton(int i);
-  EvtSpinDensity rotateToHelicityBasis() const override;
-  EvtSpinDensity rotateToHelicityBasis(double alpha,
-				       double beta,
-				       double gamma) const override;
-
-private:
-
-  std::vector<EvtVector4R> _p4partons;
-  std::vector<EvtId> _idpartons;
-
-  EvtStringParticle& operator=(const EvtStringParticle& d);
-
+    EvtStringParticle& operator=( const EvtStringParticle& d );
 };
 #endif
-

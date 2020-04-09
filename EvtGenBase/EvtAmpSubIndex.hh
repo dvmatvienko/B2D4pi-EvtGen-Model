@@ -26,23 +26,17 @@
 class EvtAmpIndex;
 
 class EvtAmpSubIndex {
+  public:
+    EvtAmpSubIndex( EvtAmpIndex* ind, std::vector<int> sub );
+    virtual ~EvtAmpSubIndex() {}
 
-public:
+    int index();
 
-  EvtAmpSubIndex(EvtAmpIndex* ind,std::vector<int> sub);
-  virtual ~EvtAmpSubIndex() {}
-
-  int index();
-
-private:
-
-  EvtAmpIndex* _ind;
-  std::vector<int> _sub;
-  int _size;
-  std::vector<int> _nstate;
-
+  private:
+    EvtAmpIndex* _ind;
+    std::vector<int> _sub;
+    int _size;
+    std::vector<int> _nstate;
 };
 
-
 #endif
-

@@ -34,53 +34,57 @@
 #define EVTVUBHYBRID_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+
 #include "EvtGenModels/EvtVubdGamma.hh"
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 class EvtParticle;
 class RandGeneral;
 
-class EvtVubHybrid:public  EvtDecayIncoherent  {
+class EvtVubHybrid : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
+    void readWeights( int startArg = 0 );
 
-  void decay(EvtParticle *p) override;
+    double getWeight( double mX, double q2, double El );
 
-  void readWeights(int startArg=0);
+  private:
+    double findPFermi();
 
-  double getWeight(double mX, double q2, double El);
+    enum
+    {
+        nParameters = 3,
+        nVariables = 3
+    };
 
-private:
-  double findPFermi();
+    bool _noHybrid =
+        false;    // _noHybrid will be set TRUE if the DECAY.DEC file has no binning or weights
+    bool _storeQplus =
+        true;    // _storeQplus should alwasy be TRUE: writes out Fermi motion parameter
 
-  enum { nParameters = 3, nVariables = 3 };
-
-  bool _noHybrid = false;  // _noHybrid will be set TRUE if the DECAY.DEC file has no binning or weights
-  bool _storeQplus = true; // _storeQplus should alwasy be TRUE: writes out Fermi motion parameter
-
-  double _mb = 4.62;     // the b-quark pole mass in GeV (try 4.65 to 4.9)
-  double _a = 2.27;      // Parameter for the Fermi Motion (1.29 is good)
-  double _alphas = 0.22; // Strong Coupling at m_b (around 0.24)
-  double _dGMax = 3.;    // max dGamma*p2 value;
-  int    _nbins = 0;
-  double _masscut = 0.28;
-  std::vector<double> _bins_mX;
-  std::vector<double> _bins_q2;
-  std::vector<double> _bins_El;
-  std::vector<double> _weights;
-  std::unique_ptr<EvtVubdGamma> _dGamma; // calculates the decay rate
-  std::vector<double> _pf;
+    double _mb = 4.62;        // the b-quark pole mass in GeV (try 4.65 to 4.9)
+    double _a = 2.27;         // Parameter for the Fermi Motion (1.29 is good)
+    double _alphas = 0.22;    // Strong Coupling at m_b (around 0.24)
+    double _dGMax = 3.;       // max dGamma*p2 value;
+    int _nbins = 0;
+    double _masscut = 0.28;
+    std::vector<double> _bins_mX;
+    std::vector<double> _bins_q2;
+    std::vector<double> _bins_El;
+    std::vector<double> _weights;
+    std::unique_ptr<EvtVubdGamma> _dGamma;    // calculates the decay rate
+    std::vector<double> _pf;
 };
 
 #endif
-

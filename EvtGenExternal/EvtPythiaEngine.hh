@@ -21,71 +21,66 @@
 #ifndef EVTPYTHIAENGINE_HH
 #define EVTPYTHIAENGINE_HH
 
-#include "EvtGenModels/EvtAbsExternalGen.hh"
-#include "EvtGenExternal/EvtPythiaRandom.hh"
-
-#include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
+#include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
-#include "Pythia8/Pythia.h"
-#include "Pythia8/ParticleData.h"
+#include "EvtGenModels/EvtAbsExternalGen.hh"
 
-#include <string>
-#include <vector>
+#include "EvtGenExternal/EvtPythiaRandom.hh"
+
+#include "Pythia8/ParticleData.h"
+#include "Pythia8/Pythia.h"
+
 #include <map>
 #include <memory>
+#include <string>
+#include <vector>
 
 class EvtPythiaEngine : public EvtAbsExternalGen {
+  public:
+    EvtPythiaEngine( std::string xmlDir = "./xmldoc",
+                     bool convertPhysCodes = false, bool useEvtGenRandom = true );
 
-public:
+    virtual ~EvtPythiaEngine();
 
-  EvtPythiaEngine(std::string xmlDir = "./xmldoc",
-		  bool convertPhysCodes = false,
-		  bool useEvtGenRandom = true);
+    bool doDecay( EvtParticle* theMother ) override;
 
-  virtual ~EvtPythiaEngine();
+    void initialise() override;
 
-  bool doDecay(EvtParticle* theMother) override;
+  protected:
+  private:
+    void updateParticleLists();
+    void updatePhysicsParameters();
 
-  void initialise() override;
+    void createPythiaParticle( EvtId& particleId, int PDGCode );
+    bool validPDGCode( int PDGCode );
+    void updatePythiaDecayTable( EvtId& particleId, int aliasInt, int PDGCode );
+    void storeDaughterInfo( EvtParticle* theParticle, int startInt );
 
-protected:
+    void clearDaughterVectors();
+    void clearPythiaModeMap();
 
-private:
+    void createDaughterEvtParticles( EvtParticle* theParent );
 
-  void updateParticleLists();
-  void updatePhysicsParameters();
+    int getModeInt( EvtDecayBase* decayModel );
 
-  void createPythiaParticle(EvtId& particleId, int PDGCode);
-  bool validPDGCode(int PDGCode);
-  void updatePythiaDecayTable(EvtId& particleId, int aliasInt, int PDGCode);
-  void storeDaughterInfo(EvtParticle* theParticle, int startInt);
+    std::unique_ptr<Pythia8::Pythia> _genericPythiaGen;
+    std::unique_ptr<Pythia8::Pythia> _aliasPythiaGen;
+    Pythia8::Pythia* _thePythiaGenerator;
 
-  void clearDaughterVectors();
-  void clearPythiaModeMap();
+    std::vector<int> _daugPDGVector;
+    std::vector<EvtVector4R> _daugP4Vector;
 
-  void createDaughterEvtParticles(EvtParticle* theParent);
+    typedef std::map<int, std::vector<int>> PythiaModeMap;
+    PythiaModeMap _pythiaModeMap;
 
-  int getModeInt(EvtDecayBase* decayModel);
+    bool _convertPhysCodes, _initialised, _useEvtGenRandom;
 
-  std::unique_ptr<Pythia8::Pythia> _genericPythiaGen;
-  std::unique_ptr<Pythia8::Pythia> _aliasPythiaGen;
-  Pythia8::Pythia* _thePythiaGenerator;
+    std::unique_ptr<EvtPythiaRandom> _evtgenRandom;
 
-  std::vector<int> _daugPDGVector;
-  std::vector<EvtVector4R> _daugP4Vector;
-
-  typedef std::map<int, std::vector<int> > PythiaModeMap;
-  PythiaModeMap _pythiaModeMap;
-
-  bool _convertPhysCodes, _initialised, _useEvtGenRandom;
-
-  std::unique_ptr<EvtPythiaRandom> _evtgenRandom;
-
-  std::map<int, int> _addedPDGCodes;
-
+    std::map<int, int> _addedPDGCodes;
 };
 
 #endif

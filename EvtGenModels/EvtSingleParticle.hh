@@ -19,32 +19,26 @@
 //
 //------------------------------------------------------------------------
 
-
 #ifndef EVTSINGLEPARTICLE_HH
 #define EVTSINGLEPARTICLE_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
 class EvtParticle;
 
-class EvtSingleParticle:public  EvtDecayIncoherent  {
+class EvtSingleParticle : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void decay( EvtParticle* p ) override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void decay(EvtParticle *p) override;
-
-  void init() override;
-
-private:
-
-  double pmin,pmax;
-  double cthetamin,cthetamax;
-  double phimin,phimax;
-
+  private:
+    double pmin, pmax;
+    double cthetamin, cthetamax;
+    double phimin, phimax;
 };
 
 #endif
-

@@ -38,244 +38,233 @@
 //
 //------------------------------------------------------------------------
 
+#include "EvtGenModels/EvtYmSToYnSpipiCLEO.hh"
 
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtVector4C.hh"
-#include "EvtGenBase/EvtTensor4C.hh"
-#include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRandom.hh"
-#include "EvtGenModels/EvtYmSToYnSpipiCLEO.hh"
+#include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtTensor4C.hh"
+#include "EvtGenBase/EvtVector4C.hh"
+
+#include <stdlib.h>
 #include <string>
 using std::endl;
 
-std::string EvtYmSToYnSpipiCLEO::getName(){
-
-  return "YMSTOYNSPIPICLEO";
-
+std::string EvtYmSToYnSpipiCLEO::getName()
+{
+    return "YMSTOYNSPIPICLEO";
 }
 
-
-EvtDecayBase* EvtYmSToYnSpipiCLEO::clone(){
-
-  return new EvtYmSToYnSpipiCLEO;
-
+EvtDecayBase* EvtYmSToYnSpipiCLEO::clone()
+{
+    return new EvtYmSToYnSpipiCLEO;
 }
 
-void EvtYmSToYnSpipiCLEO::init(){
+void EvtYmSToYnSpipiCLEO::init()
+{
+    static EvtId PIP = EvtPDL::getId( "pi+" );
+    static EvtId PIM = EvtPDL::getId( "pi-" );
+    static EvtId PI0 = EvtPDL::getId( "pi0" );
 
-  static EvtId PIP=EvtPDL::getId("pi+");
-  static EvtId PIM=EvtPDL::getId("pi-");
-  static EvtId PI0=EvtPDL::getId("pi0");
+    // check that there are 2 arguments
+    checkNArg( 2 );
+    checkNDaug( 3 );
 
-  // check that there are 2 arguments
-  checkNArg(2);
-  checkNDaug(3);
+    checkSpinParent( EvtSpinType::VECTOR );
+    checkSpinDaughter( 0, EvtSpinType::VECTOR );
 
-  checkSpinParent(EvtSpinType::VECTOR);
-  checkSpinDaughter(0,EvtSpinType::VECTOR);
-
-
-
-  if ((!(getDaug(1)==PIP&&getDaug(2)==PIM))&&
-      (!(getDaug(1)==PI0&&getDaug(2)==PI0))) {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtYmSToYnSpipiCLEO generator expected "
-                           << " pi+ and pi- (or pi0 and pi0) "
-			   << "as 2nd and 3rd daughter. "<<endl;
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
-    ::abort();
-  }
-
+    if ( ( !( getDaug( 1 ) == PIP && getDaug( 2 ) == PIM ) ) &&
+         ( !( getDaug( 1 ) == PI0 && getDaug( 2 ) == PI0 ) ) ) {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "EvtYmSToYnSpipiCLEO generator expected "
+            << " pi+ and pi- (or pi0 and pi0) "
+            << "as 2nd and 3rd daughter. " << endl;
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Will terminate execution!" << endl;
+        ::abort();
+    }
 }
 
-void EvtYmSToYnSpipiCLEO::initProbMax() {
-  setProbMax(2.0);
+void EvtYmSToYnSpipiCLEO::initProbMax()
+{
+    setProbMax( 2.0 );
 }
 
-void EvtYmSToYnSpipiCLEO::decay( EvtParticle *p){
+void EvtYmSToYnSpipiCLEO::decay( EvtParticle* p )
+{
+    // We want to simulate the following process:
+    //
+    // Y(mS) -> Y(nS) X, X -> pi+ pi- (pi0 pi0)
+    //
+    // The CLEO analysis assumed such an intermediate process
+    // were occurring, and wrote down the matrix element
+    // and its components according to this assumption.
+    //
+    //
 
+    double ReB_over_A = getArg( 0 );
+    double ImB_over_A = getArg( 1 );
 
-  // We want to simulate the following process:
-  //
-  // Y(mS) -> Y(nS) X, X -> pi+ pi- (pi0 pi0)
-  //
-  // The CLEO analysis assumed such an intermediate process
-  // were occurring, and wrote down the matrix element
-  // and its components according to this assumption.
-  //
-  //
+    p->makeDaughters( getNDaug(), getDaugs() );
+    EvtParticle *v, *s1, *s2;
+    v = p->getDaug( 0 );
+    s1 = p->getDaug( 1 );
+    s2 = p->getDaug( 2 );
 
+    double m_pi = s1->getP4().mass();
+    double M_mS = p->getP4().mass();
+    double M_nS = v->getP4().mass();
 
-  double ReB_over_A = getArg(0);
-  double ImB_over_A = getArg(1);
+    // //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M_nS = " << v->getP4().mass() << endl;
 
-  p->makeDaughters(getNDaug(),getDaugs());
-  EvtParticle *v,*s1,*s2;
-  v=p->getDaug(0);
-  s1=p->getDaug(1);
-  s2=p->getDaug(2);
+    EvtVector4R P_nS;
+    EvtVector4R P_pi1;
+    EvtVector4R P_pi2;
 
-  double m_pi = s1->getP4().mass();
-  double M_mS = p->getP4().mass();
-  double M_nS = v->getP4().mass();
+    // Perform a simple accept/reject until we get a configuration of the
+    // dipion system that passes
+    bool acceptX = false;
 
-// //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M_nS = " << v->getP4().mass() << endl;
+    while ( false == acceptX ) {
+        // Begin by generating a random X mass between the kinematic
+        // boundaries, 2*m_pi and M(mS) - M(nS)
 
-  EvtVector4R P_nS;
-  EvtVector4R P_pi1;
-  EvtVector4R P_pi2;
+        double mX = EvtRandom::Flat( 2.0 * m_pi, M_mS - M_nS );
 
-  // Perform a simple accept/reject until we get a configuration of the
-  // dipion system that passes
-  bool acceptX = false;
+        //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_X = " << mX << endl;
 
-  while( false == acceptX )
-    {
+        // Now create a two-body decay from the Y(mS) in its rest frame
+        // of Y(mS) -> Y(nS) + X
 
-      // Begin by generating a random X mass between the kinematic
-      // boundaries, 2*m_pi and M(mS) - M(nS)
+        double masses[2];
+        masses[0] = M_nS;
+        masses[1] = mX;
 
-      double mX = EvtRandom::Flat(2.0 * m_pi, M_mS-M_nS);
+        EvtVector4R p4[2];
 
-      //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_X = " << mX << endl;
+        EvtGenKine::PhaseSpace( 2, masses, p4, M_mS );
 
-      // Now create a two-body decay from the Y(mS) in its rest frame
-      // of Y(mS) -> Y(nS) + X
+        P_nS = p4[0];
+        EvtVector4R P_X = p4[1];
 
-      double masses[2];
-      masses[0] = M_nS;
-      masses[1] = mX;
+        // Now create the four-vectors for the two pions in the X
+        // rest frame, X -> pi pi
 
-      EvtVector4R p4[2];
+        masses[0] = s1->mass();
+        masses[1] = s2->mass();
 
-      EvtGenKine::PhaseSpace( 2, masses, p4, M_mS );
+        EvtGenKine::PhaseSpace( 2, masses, p4, P_X.mass() );
 
-      P_nS = p4[0];
-      EvtVector4R P_X  = p4[1];
+        // compute cos(theta), the polar helicity angle between a pi+ and
+        // the direction opposite the Y(mS) in the X rest frame. If the pions are pi0s, then
+        // choose the one where cos(theta) = [0:1].
 
-      // Now create the four-vectors for the two pions in the X
-      // rest frame, X -> pi pi
+        EvtVector4R P_YmS_X = boostTo( p->getP4(), P_X );
+        double costheta = -p4[0].dot( P_YmS_X ) /
+                          ( p4[0].d3mag() * P_YmS_X.d3mag() );
+        if ( EvtPDL::name( s1->getId() ) == "pi0" ) {
+            if ( costheta < 0 ) {
+                costheta = -p4[1].dot( P_YmS_X ) /
+                           ( p4[1].d3mag() * P_YmS_X.d3mag() );
+            }
+        }
+        if ( EvtPDL::name( s1->getId() ) == "pi-" ) {
+            costheta = -p4[1].dot( P_YmS_X ) /
+                       ( p4[1].d3mag() * P_YmS_X.d3mag() );
+        }
 
-      masses[0] = s1->mass();
-      masses[1] = s2->mass();
+        // //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "cos(theta) = " << costheta << endl;
 
-      EvtGenKine::PhaseSpace( 2, masses, p4, P_X.mass() );
+        // Now boost the pion four vectors into the Y(mS) rest frame
+        P_pi1 = boostTo( p4[0], P_YmS_X );
+        P_pi2 = boostTo( p4[1], P_YmS_X );
 
-      // compute cos(theta), the polar helicity angle between a pi+ and
-      // the direction opposite the Y(mS) in the X rest frame. If the pions are pi0s, then
-      // choose the one where cos(theta) = [0:1].
+        // Use a simple accept-reject to test this dipion system
 
-      EvtVector4R P_YmS_X = boostTo(p->getP4(), P_X);
-      double costheta = - p4[0].dot(P_YmS_X)/(p4[0].d3mag()*P_YmS_X.d3mag());
-      if (EvtPDL::name(s1->getId()) == "pi0") {
-	if (costheta < 0) {
-	  costheta = - p4[1].dot(P_YmS_X)/(p4[1].d3mag()*P_YmS_X.d3mag());
-	}
-      }
-      if (EvtPDL::name(s1->getId()) == "pi-") {
-	costheta = - p4[1].dot(P_YmS_X)/(p4[1].d3mag()*P_YmS_X.d3mag());
-      }
+        // Now compute the components of the matrix-element squared
+        //
+        // M(x,y)^2 = Q(x,y)^2 + |B/A|^2 * E1E2(x,y)^2 + 2*Re(B/A)*Q(x,y)*E1E2(x,y)
+        //
+        // x=m_pipi^2 and y = cos(theta), and where
+        //
+        //   Q(x,y) = (x^2 + 2*m_pi^2)
+        //
+        //   E1E2(x,y) = (1/4) * ( (E1 + E2)^2 - (E2 - E1)^2_max * cos(theta)^2 )
+        //
+        // and E1 + E2 = M_mS - M_nS and (E2 - E1)_max is the maximal difference
+        // in the energy of the two pions allowed for a given mX value.
+        //
 
-      // //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "cos(theta) = " << costheta << endl;
+        double Q = ( mX * mX - 2.0 * m_pi * m_pi );
 
+        double deltaEmax = -2.0 *
+                           sqrt( P_nS.get( 0 ) * P_nS.get( 0 ) - M_nS * M_nS ) *
+                           sqrt( 0.25 - pow( m_pi / mX, 2.0 ) );
 
+        double sumE = ( M_mS * M_mS - M_nS * M_nS + mX * mX ) / ( 2.0 * M_mS );
 
-      // Now boost the pion four vectors into the Y(mS) rest frame
-      P_pi1 = boostTo(p4[0],P_YmS_X);
-      P_pi2 = boostTo(p4[1],P_YmS_X);
+        double E1E2 = 0.25 *
+                      ( pow( sumE, 2.0 ) - pow( deltaEmax * costheta, 2.0 ) );
 
-      // Use a simple accept-reject to test this dipion system
+        double M2 = Q * Q +
+                    ( pow( ReB_over_A, 2.0 ) + pow( ImB_over_A, 2.0 ) ) * E1E2 *
+                        E1E2 +
+                    2.0 * ReB_over_A * Q * E1E2;
 
-      // Now compute the components of the matrix-element squared
-      //
-      // M(x,y)^2 = Q(x,y)^2 + |B/A|^2 * E1E2(x,y)^2 + 2*Re(B/A)*Q(x,y)*E1E2(x,y)
-      //
-      // x=m_pipi^2 and y = cos(theta), and where
-      //
-      //   Q(x,y) = (x^2 + 2*m_pi^2)
-      //
-      //   E1E2(x,y) = (1/4) * ( (E1 + E2)^2 - (E2 - E1)^2_max * cos(theta)^2 )
-      //
-      // and E1 + E2 = M_mS - M_nS and (E2 - E1)_max is the maximal difference
-      // in the energy of the two pions allowed for a given mX value.
-      //
+        // phase space factor
+        //
+        // this is given as d(PS) = C * p(*)_X * p(X)_{pi+} * d(cosTheta) * d(m_X)
+        //
+        // where C is a normalization constant, p(*)_X is the X momentum magnitude in the
+        // Y(mS) rest frame, and p(X)_{pi+} is the pi+/pi0 momentum in the X rest frame
+        //
 
-      double Q    = (mX*mX - 2.0 * m_pi * m_pi);
+        double dPS = sqrt( ( M_mS * M_mS - pow( M_nS + mX, 2.0 ) ) *
+                           ( M_mS * M_mS - pow( M_nS - mX, 2.0 ) ) ) *    // p(*)_X
+                     sqrt( mX * mX - 4 * m_pi * m_pi );    // p(X)_{pi}
 
-      double deltaEmax =
-	- 2.0 *
-	sqrt( P_nS.get(0)*P_nS.get(0) - M_nS*M_nS ) *
-	sqrt( 0.25 - pow(m_pi/mX,2.0));
+        // the double-differential decay rate dG/(dcostheta dmX)
+        double dG = M2 * dPS;
 
-      double sumE = (M_mS*M_mS - M_nS*M_nS + mX*mX)/(2.0 * M_mS);
+        // Throw a uniform random number from 0 --> probMax and do accept/reject on this
 
-      double E1E2 = 0.25 * ( pow(sumE, 2.0) - pow( deltaEmax * costheta, 2.0) );
+        double rnd = EvtRandom::Flat( 0.0, getProbMax( 0.0 ) );
 
-      double M2 = Q*Q + (pow(ReB_over_A,2.0) + pow(ImB_over_A,2.0)) * E1E2*E1E2 + 2.0 * ReB_over_A * Q * E1E2;
-
-      // phase space factor
-      //
-      // this is given as d(PS) = C * p(*)_X * p(X)_{pi+} * d(cosTheta) * d(m_X)
-      //
-      // where C is a normalization constant, p(*)_X is the X momentum magnitude in the
-      // Y(mS) rest frame, and p(X)_{pi+} is the pi+/pi0 momentum in the X rest frame
-      //
-
-      double dPS =
-	sqrt( (M_mS*M_mS - pow(M_nS + mX,2.0)) * (M_mS*M_mS - pow(M_nS - mX,2.0)) ) * // p(*)_X
-	sqrt(mX*mX - 4*m_pi*m_pi); // p(X)_{pi}
-
-      // the double-differential decay rate dG/(dcostheta dmX)
-      double dG = M2 * dPS;
-
-      // Throw a uniform random number from 0 --> probMax and do accept/reject on this
-
-      double rnd = EvtRandom::Flat(0.0,getProbMax(0.0));
-
-      if (rnd < dG)
-	acceptX = true;
-
+        if ( rnd < dG )
+            acceptX = true;
     }
 
+    // initialize the daughters
+    v->init( getDaugs()[0], P_nS );
+    s1->init( getDaugs()[1], P_pi1 );
+    s2->init( getDaugs()[2], P_pi2 );
 
-  // initialize the daughters
-  v->init(  getDaugs()[0], P_nS);
-  s1->init( getDaugs()[1], P_pi1);
-  s2->init( getDaugs()[2], P_pi2);
+    //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M_nS = " << v->getP4().mass() << endl;
+    //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s1->getP4().mass() << endl;
+    //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s2->getP4().mass() << endl;
+    //   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M2 = "   << M2 << endl;
 
-//   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M_nS = " << v->getP4().mass() << endl;
-//   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s1->getP4().mass() << endl;
-//   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "m_pi = " << s2->getP4().mass() << endl;
-//   EvtGenReport(EVTGEN_INFO,"EvtYmSToYnSpipiCLEO")  << "M2 = "   << M2 << endl;
+    // Pass the polarization of the parent Upsilon
+    EvtVector4C ep0, ep1, ep2;
 
-  // Pass the polarization of the parent Upsilon
-  EvtVector4C ep0,ep1,ep2;
+    ep0 = p->eps( 0 );
+    ep1 = p->eps( 1 );
+    ep2 = p->eps( 2 );
 
-  ep0=p->eps(0);
-  ep1=p->eps(1);
-  ep2=p->eps(2);
+    vertex( 0, 0, ( ep0 * v->epsParent( 0 ).conj() ) );
+    vertex( 0, 1, ( ep0 * v->epsParent( 1 ).conj() ) );
+    vertex( 0, 2, ( ep0 * v->epsParent( 2 ).conj() ) );
 
+    vertex( 1, 0, ( ep1 * v->epsParent( 0 ).conj() ) );
+    vertex( 1, 1, ( ep1 * v->epsParent( 1 ).conj() ) );
+    vertex( 1, 2, ( ep1 * v->epsParent( 2 ).conj() ) );
 
-  vertex(0,0,(ep0*v->epsParent(0).conj()));
-  vertex(0,1,(ep0*v->epsParent(1).conj()));
-  vertex(0,2,(ep0*v->epsParent(2).conj()));
+    vertex( 2, 0, ( ep2 * v->epsParent( 0 ).conj() ) );
+    vertex( 2, 1, ( ep2 * v->epsParent( 1 ).conj() ) );
+    vertex( 2, 2, ( ep2 * v->epsParent( 2 ).conj() ) );
 
-  vertex(1,0,(ep1*v->epsParent(0).conj()));
-  vertex(1,1,(ep1*v->epsParent(1).conj()));
-  vertex(1,2,(ep1*v->epsParent(2).conj()));
-
-  vertex(2,0,(ep2*v->epsParent(0).conj()));
-  vertex(2,1,(ep2*v->epsParent(1).conj()));
-  vertex(2,2,(ep2*v->epsParent(2).conj()));
-
-
-  return ;
-
+    return;
 }
-
-
-
-

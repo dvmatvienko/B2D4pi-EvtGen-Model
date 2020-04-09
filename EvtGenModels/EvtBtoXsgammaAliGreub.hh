@@ -26,14 +26,10 @@
 #include "EvtGenModels/EvtBtoXsgammaAbsModel.hh"
 
 class EvtBtoXsgammaAliGreub : public EvtBtoXsgammaAbsModel {
+  public:
+    void init( int, double* ) override;
 
-public:
-
-  void init(int, double*) override;
-
-  double GetMass(int code) override;
-
-
+    double GetMass( int code ) override;
 };
 
 #endif

@@ -18,41 +18,34 @@
 //
 //------------------------------------------------------------------------
 //
-#include "EvtGenBase/EvtPatches.hh"
-
 #include "EvtGenBase/EvtReport.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
 using std::cerr;
 using std::cout;
 using std::endl;
 using std::ostream;
 
-
 //
 // constants, enums and typedefs
 //
 
-
-ostream& EvtGenReport(EvtGenSeverity severity,
-		      const char* facility )
+ostream& EvtGenReport( EvtGenSeverity severity, const char* facility )
 {
-   int printNoFacility=1;
+    int printNoFacility = 1;
 
-   if ( ( facility == 0 ) &&
-        ( printNoFacility ==1) ) {
-      cout << "There is no `facility' implemented in `report'"
-                        << endl ;
-      printNoFacility = 0 ;
-   }
-   if ( severity < EVTGEN_WARNING ) {
-     if (facility[0]!=0){
-       cerr<<facility<<":";
-     }
-     return ( cerr ) ;
-   }
-   if (facility[0]!=0){
-     cout<<facility<<":";
-   }    
-   return cout;
+    if ( ( facility == 0 ) && ( printNoFacility == 1 ) ) {
+        cout << "There is no `facility' implemented in `report'" << endl;
+        printNoFacility = 0;
+    }
+    if ( severity < EVTGEN_WARNING ) {
+        if ( facility[0] != 0 ) {
+            cerr << facility << ":";
+        }
+        return ( cerr );
+    }
+    if ( facility[0] != 0 ) {
+        cout << facility << ":";
+    }
+    return cout;
 }
-
-

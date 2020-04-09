@@ -25,17 +25,14 @@
 
 class EvtParticle;
 
-class EvtKstarnunu:public  EvtDecayAmp  {
+class EvtKstarnunu : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void init() override;
-
-  void decay(EvtParticle *p) override;
-
+    void decay( EvtParticle* p ) override;
 };
 
 #endif

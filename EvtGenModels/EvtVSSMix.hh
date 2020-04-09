@@ -25,20 +25,18 @@
 
 class EvtParticle;
 
-class EvtVSSMix:public  EvtDecayAmp  {
+class EvtVSSMix : public EvtDecayAmp {
+  public:
+    EvtVSSMix() {}
 
-public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtVSSMix() {}
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
-
-  void decay(EvtParticle *p) override;
-  void init() override;
-  void initProbMax() override;
-
-  std::string getParamName(int i) override;
+    std::string getParamName( int i ) override;
 };
 
 #endif

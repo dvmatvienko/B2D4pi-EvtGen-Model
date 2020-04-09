@@ -24,34 +24,33 @@
 #ifndef EVT_DALITZ_RES_PDF_HH
 #define EVT_DALITZ_RES_PDF_HH
 
-#include "EvtGenBase/EvtPdf.hh"
-#include "EvtGenBase/EvtDalitzPoint.hh"
 #include "EvtGenBase/EvtCyclic3.hh"
+#include "EvtGenBase/EvtDalitzPoint.hh"
+#include "EvtGenBase/EvtPdf.hh"
 
 class EvtDalitzResPdf : public EvtPdf<EvtDalitzPoint> {
+  public:
+    EvtDalitzResPdf( const EvtDalitzPlot& dp, double m0, double g0,
+                     EvtCyclic3::Pair pairRes );
 
-public:
+    EvtPdf<EvtDalitzPoint>* clone() const override
+    {
+        return new EvtDalitzResPdf( *this );
+    }
 
-  EvtDalitzResPdf(const EvtDalitzPlot& dp,double m0, double g0, EvtCyclic3::Pair pairRes);
+    using EvtPdf<EvtDalitzPoint>::compute_integral;
+    EvtValError compute_integral( int N ) const override;
+    EvtDalitzPoint randomPoint() override;
+    double pdfMaxValue() const;
 
-  EvtPdf<EvtDalitzPoint>* clone() const override { return new EvtDalitzResPdf(*this); }
+  protected:
+    double pdf( const EvtDalitzPoint& ) const override;
 
-  using EvtPdf<EvtDalitzPoint>::compute_integral;
-  EvtValError compute_integral(int N) const override;
-  EvtDalitzPoint randomPoint() override;
-  double pdfMaxValue() const;
-
-protected:
-
-  double pdf(const EvtDalitzPoint&) const override;
-
-private:
-
-  EvtDalitzPlot _dp;
-  double _m0;                  // mass
-  double _g0;                  // width
-  EvtCyclic3::Pair _pair;      // resonant pair
+  private:
+    EvtDalitzPlot _dp;
+    double _m0;                // mass
+    double _g0;                // width
+    EvtCyclic3::Pair _pair;    // resonant pair
 };
 
 #endif
-

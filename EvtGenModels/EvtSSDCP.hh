@@ -27,48 +27,44 @@
 
 class EvtParticle;
 
-class EvtSSDCP:public  EvtDecayAmp  {
+class EvtSSDCP : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void initProbMax() override;
+    void init() override;
+    void decay( EvtParticle* p ) override;
 
-  std::string getName() override;
-  EvtDecayBase* clone() override;
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 
-  void initProbMax() override;
-  void init() override;
-  void decay(EvtParticle *p) override;
+  private:
+    //Arguments
 
-  std::string getParamName(int i) override;
-  std::string getParamDefault(int i) override;
+    double _dm;
 
-private:
+    double _dgog;
 
-  //Arguments
+    EvtComplex _qoverp;
+    EvtComplex _poverq;
+    EvtComplex _z;    //FS CPTV parameter
 
-  double _dm;
+    // FS commented next line becuse not used
+    //  int _cp;
 
-  double _dgog;
+    EvtComplex _A_f;
+    EvtComplex _Abar_f;
 
-  EvtComplex _qoverp;
-  EvtComplex _poverq;
-  EvtComplex _z;  //FS CPTV parameter
+    EvtComplex _A_fbar;
+    EvtComplex _Abar_fbar;
 
-  // FS commented next line becuse not used
-  //  int _cp;
+    //Derived quantities
 
-  EvtComplex _A_f;
-  EvtComplex _Abar_f;
+    double _gamma;
+    double _dgamma;
 
-  EvtComplex _A_fbar;
-  EvtComplex _Abar_fbar;
-
-  //Derived quantities
-
-  double _gamma;
-  double _dgamma;
-
-  bool _eigenstate;
-
+    bool _eigenstate;
 };
 
 #endif

@@ -34,36 +34,30 @@ class EvtParticle;
 class EvtAbsExternalGen;
 class EvtDecayBase;
 
-class EvtPythia: public  EvtDecayIncoherent  {
+class EvtPythia : public EvtDecayIncoherent {
+  public:
+    EvtPythia();
+    ~EvtPythia();
 
-public:
+    std::string getName() override;
 
-  EvtPythia();
-  ~EvtPythia();
+    EvtDecayBase* clone() override;
 
-  std::string getName() override;
+    void initProbMax() override;
 
-  EvtDecayBase* clone() override;
+    void init() override;
 
-  void initProbMax() override;
+    void decay( EvtParticle* p ) override;
 
-  void init() override;
+    std::string commandName() override;
+    void command( std::string ) override;
 
-  void decay(EvtParticle *p) override;
+  protected:
+    EvtAbsExternalGen* _pythiaEngine;
 
-  std::string commandName() override;
-  void command(std::string) override;
-
-protected:
-
-  EvtAbsExternalGen* _pythiaEngine;
-
-private:
-
-  void fixPolarisations(EvtParticle *p);
-  std::vector<std::string> _commandList;
-
+  private:
+    void fixPolarisations( EvtParticle* p );
+    std::vector<std::string> _commandList;
 };
 
 #endif
-
