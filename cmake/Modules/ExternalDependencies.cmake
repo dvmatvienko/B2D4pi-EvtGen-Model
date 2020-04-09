@@ -1,16 +1,12 @@
 
-set(HEPMC2_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/HepMC"  CACHE PATH "Location of HepMC 2 installation")
-set(HEPMC3_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/HepMC3" CACHE PATH "Location of HepMC 3 installation")
+set(HEPMC2_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of HepMC 2 installation")
+set(HEPMC3_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of HepMC 3 installation")
 
-if(DEFINED ENV{PYTHIAVER})
-    set(PYTHIA8_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/pythia$ENV{PYTHIAVER}" CACHE PATH "Location of Pythia8 installation")
-else()
-    set(PYTHIA8_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/pythia8" CACHE PATH "Location of Pythia8 installation")
-endif()
-set(Photos++_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/PHOTOS" CACHE PATH "Location of Photos++ installation")
-set(Tauola++_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/TAUOLA" CACHE PATH "Location of Tauola++ installation")
-set(PHOTOSPP_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/PHOTOS" CACHE PATH "Location of Photos++ installation/alternative spelling")
-set(TAUOLAPP_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../external/TAUOLA" CACHE PATH "Location of Tauola++ installation/alternative spelling")
+set(PYTHIA8_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of Pythia8 installation")
+set(Photos++_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of Photos++ installation")
+set(Tauola++_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of Tauola++ installation")
+set(PHOTOSPP_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of Photos++ installation - alternative spelling")
+set(TAUOLAPP_ROOT_DIR "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Location of Tauola++ installation - alternative spelling")
 
 # The components we search for in the external generators depend on the version
 # of HepMC we're working with

@@ -33,12 +33,19 @@ endif()
 # Make sure our project's include directories always come first
 set(CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE ON)
 
+# Prioritise UNIX-style packages over macOS frameworks
+set(CMAKE_FIND_FRAMEWORK LAST)
+
 # Control verbosity of the build
 set(CMAKE_VERBOSE_MAKEFILE OFF CACHE BOOL "Control verbosity of generated Makefiles")
 
 # C++ standard settings
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 14 CACHE STRING "C++ standard")
+if(DEFINED ENV{CMAKE_CXX_STANDARD})
+    set(CMAKE_CXX_STANDARD $ENV{CMAKE_CXX_STANDARD} CACHE STRING "C++ standard")
+else()
+    set(CMAKE_CXX_STANDARD 14 CACHE STRING "C++ standard")
+endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 message(STATUS "EvtGen: Using C++${CMAKE_CXX_STANDARD} standard")
 

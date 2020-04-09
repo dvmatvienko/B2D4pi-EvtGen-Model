@@ -1,204 +1,242 @@
 #!/bin/bash
 
-# This script installs EvtGen with all external dependencies. The variable VERSION specifies the
-# tag of EvtGen you want to use. The list of available tags can be found by either going to the url
+# This script installs EvtGen with all external dependencies.
+# The variable INSTALL_PREFIX specifies the installation location.
+# The variable VERSION specifies the tag of EvtGen you want to use.
+# The list of available tags can be found by either going to the url
 # https://phab.hepforge.org/source/evtgen/tags/master
 # or issuing the command (without the need to clone the git repository)
 # git ls-remote --tags http://phab.hepforge.org/source/evtgen.git | cut -d '/' -f3
-# Note that some earlier EvtGen versions will not be compatible with all external dependency
-# versions given below, owing to C++ interface differences; see the specific tagged version of
-# the EvtGen/README file for guidance.
+# The recommended versions of the external dependencies are given below.
+# Later versions should be OK as well, assuming their C++ interfaces do not change.
+# HepMC (either HepMC2 or HepMC3, the latter is recommended) is mandatory.
+# Note that some earlier EvtGen versions will not be compatible with all
+# external dependency versions given below, owing to C++ interface differences;
+# see the specific tagged version of the EvtGen/README file for guidance.
+# It is also not possible to compile Tauola++ on macOS at present, unless you
+# are building on a volume with a case sensitive file system, so this is
+# disabled by default.
 # To obtain this script use the "Download File" option on the right of the webpage:
 # https://phab.hepforge.org/source/evtgen/browse/master/setupEvtGen.sh?view=raw
 
-# Version or tag number. No extra spaces on this line!
-VERSION=smallerissuesav3
+# Location in which to install
+INSTALL_PREFIX="/usr/local"
+
+# EvtGen version or tag number (or branch name). No extra spaces on this line!
+VERSION=master
+
+# HepMC version numbers - change HEPMCMAJORVERSION to 2 in order to use HepMC2
+HEPMCMAJORVERSION="3"
+HEPMC2VER="2.06.10"
+HEPMC3VER="3.2.0"
+HEPMC2PKG="HepMC-"$HEPMC2VER
+HEPMC3PKG="HepMC3-"$HEPMC3VER
+HEPMC2TAR="hepmc"$HEPMC2VER".tgz"
+HEPMC3TAR=$HEPMC3PKG".tar.gz"
+
 # Pythia version number with no decimal points, e.g. 8230 corresponds to version 8.230. This
-# follows the naming convention of Pythia install tar files. Again, no extra spaces allowed
+# follows the naming convention of Pythia install tar files. Again, no extra spaces allowed.
 PYTHIAVER=8243
 PYTHIAPKG="pythia"$PYTHIAVER
 PYTHIATAR=$PYTHIAPKG".tgz"
-echo Pythia version set to $PYTHIAVER, package tar name $PYTHIATAR
 
-HEPMCMAJORVERSION="3"
+# Photos++ version number
+PHOTOSVER="3.64"
+PHOTOSPKG="PHOTOS"
+PHOTOSDIR="PHOTOS."$PHOTOSVER
+PHOTOSTAR=$PHOTOSDIR".tar.gz"
+
+# Tauola++ version number
+TAUOLAVER="1.1.8"
+TAUOLAPKG="TAUOLA"
+TAUOLADIR="TAUOLA."$TAUOLAVER
+TAUOLATAR=$TAUOLADIR".tar.gz"
+
+# Determine OS
+osArch=`uname`
 
 #This is for systems with cmake and cmake3
 if command -v cmake3; then
-CMAKE=cmake3
+    CMAKE=cmake3
 else
-CMAKE=cmake
+    CMAKE=cmake
 fi
 
+echo Will install EvtGen version $VERSION and its dependencies in $INSTALL_PREFIX
 
-mkdir -p EvtGen
-cd EvtGen
+BUILD_BASE=`mktemp -d` || exit 1
 
-INSTALL_BASE=`pwd`
+echo Temporary build area is $BUILD_BASE
 
-echo Will setup EvtGen $VERSION in $INSTALL_BASE
+cd $BUILD_BASE
 
-echo Downloading EvtGen from GIT
-git clone https://phab.hepforge.org/source/evtgen.git evtgen.git
-cd evtgen.git
-#git checkout -b $VERSION $VERSION
+mkdir -p tarfiles
+mkdir -p sources
+mkdir -p builds
+
+echo Downloading EvtGen source from GIT
+
+cd sources
+git clone https://phab.hepforge.org/source/evtgen.git evtgen
+cd evtgen
 git checkout $VERSION
-cd $INSTALL_BASE
-# Replace the above lines with the following one for the "head" version
-#git clone http://phab.hepforge.org/source/evtgen.git evtgen.git
 
-osArch=`uname`
+echo Downloading sources of external dependencies
 
-echo Downloading external dependencies
-mkdir -p external
-cd external
+cd $BUILD_BASE/tarfiles
 
 if [ "$osArch" == "Darwin" ]
 then
-  export LANG=en_US.UTF-8
-  export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
 fi
-# Recommended versions of the external packages. HepMC is mandatory.
-# Later versions should be OK as well, assuming their C++ interfaces do not change
-curl -O http://hepmc.web.cern.ch/hepmc/releases/hepmc2.06.10.tgz
-curl -O http://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.2.0.tar.gz
+
+if [ "$HEPMCMAJORVERSION" -lt "3" ]
+then
+    curl -O http://hepmc.web.cern.ch/hepmc/releases/$HEPMC2TAR
+else
+    curl -O http://hepmc.web.cern.ch/hepmc/releases/$HEPMC3TAR
+fi
 curl -O http://home.thep.lu.se/~torbjorn/pythia8/$PYTHIATAR
-curl -O http://photospp.web.cern.ch/photospp/resources/PHOTOS.3.64/PHOTOS.3.64.tar.gz
-curl -O http://tauolapp.web.cern.ch/tauolapp/resources/TAUOLA.1.1.8/TAUOLA.1.1.8.tar.gz
+curl -O http://photospp.web.cern.ch/photospp/resources/$PHOTOSDIR/$PHOTOSTAR
+curl -O http://tauolapp.web.cern.ch/tauolapp/resources/$TAUOLADIR/$TAUOLATAR
+
+cd $BUILD_BASE/sources
 
 echo Extracting external dependencies
-tar -xzf hepmc2.06.10.tgz
-tar -xzf HepMC3-3.2.0.tar.gz
-tar -xzf $PYTHIATAR
-tar -xzf PHOTOS.3.64.tar.gz
-tar -xzf TAUOLA.1.1.8.tar.gz
+if [ "$HEPMCMAJORVERSION" -lt "3" ]
+then
+    tar -xzf $BUILD_BASE/tarfiles/$HEPMC2TAR
+else
+    tar -xzf $BUILD_BASE/tarfiles/$HEPMC3TAR
+fi
+tar -xzf $BUILD_BASE/tarfiles/$PYTHIATAR
+tar -xzf $BUILD_BASE/tarfiles/$PHOTOSTAR
+tar -xzf $BUILD_BASE/tarfiles/$TAUOLATAR
 
 # Patch TAUOLA and PHOTOS on Darwin (Mac)
 if [ "$osArch" == "Darwin" ]
 then
-  sed -i '' 's/soname/install_name/g'  PHOTOS/Makefile
-  sed -i '' 's/soname/install_name/g'  TAUOLA/Makefile
-  patch -p0 < $INSTALL_BASE/evtgen.git/platform/tauola_Darwin.patch
-  patch -p0 < $INSTALL_BASE/evtgen.git/platform/photos_Darwin.patch
-# Uncomment the lines below to force usage of clang
-#  export CC=clang
-#  export CXX=clang++
-#  sed -i '' 's/\-lstdc++/-lc++/g' PHOTOS/platform/make.inc.in
-#  sed -i '' 's/\-lstdc++/-lc++/g' TAUOLA/platform/make.inc.in
+    sed -i '' 's/soname/install_name/g' PHOTOS/Makefile
+    sed -i '' 's/soname/install_name/g' TAUOLA/Makefile
+    patch -p0 < $BUILD_BASE/sources/evtgen/platform/tauola_Darwin.patch
+    patch -p0 < $BUILD_BASE/sources/evtgen/platform/photos_Darwin.patch
+    # Uncomment the lines below to force usage of clang
+    # export CC=clang
+    # export CXX=clang++
+    # sed -i '' 's/\-lstdc++/-lc++/g' PHOTOS/platform/make.inc.in
+    # sed -i '' 's/\-lstdc++/-lc++/g' TAUOLA/platform/make.inc.in
 fi
 
+cd $BUILD_BASE
 
 if [ "$HEPMCMAJORVERSION" -lt "3" ]
 then
-echo Installing HepMC in $INSTALL_BASE/external/HepMC
-mkdir -p HepMC
-mkdir -p HepMC.build
-cd HepMC.build
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/external/HepMC $INSTALL_BASE/external/HepMC-2.06.10 -Dmomentum:STRING=GEV -Dlength:STRING=MM
-make
-make install
+    echo Installing HepMC from $BUILD_BASE/sources/$HEPMC2PKG
+    mkdir -p $BUILD_BASE/builds/HepMC2
+    cd $BUILD_BASE/builds/HepMC2
+    $CMAKE -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/$HEPMC2PKG -Dmomentum:STRING=GEV -Dlength:STRING=MM
+    make
+    make install
 
-echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
-cd ../$PYTHIAPKG
-./configure --enable-shared  --prefix=$INSTALL_BASE/external/$PYTHIAPKG
+    echo Installing pythia8 from $BUILD_BASE/sources/$PYTHIAPKG
+    cd $BUILD_BASE/sources/$PYTHIAPKG
+    ./configure --enable-shared --prefix=$INSTALL_PREFIX
+    make
+    make install
 
-make
-make install
+    echo Installing PHOTOS from $BUILD_BASE/sources/$PHOTOSPKG
+    cd $BUILD_BASE/sources/$PHOTOSPKG
+    ./configure --with-hepmc3= --with-hepmc=$INSTALL_PREFIX --prefix=$INSTALL_PREFIX
+    make
+    make install
 
-echo Installing PHOTOS in $INSTALL_BASE/external/PHOTOS
-cd ../PHOTOS
-./configure --with-hepmc3= --with-hepmc=$INSTALL_BASE/external/HepMC --prefix=$INSTALL_BASE/external/PHOTOS
-make
-make install
-
-if [ "$osArch" != "Darwin" ]
-then
-echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
-cd ../TAUOLA
-./configure --without-hepmc3 --with-hepmc=$INSTALL_BASE/external/HepMC  --prefix=$INSTALL_BASE/external/TAUOLA
-make
-make install
-fi
+    if [ "$osArch" != "Darwin" ]
+    then
+        echo Installing TAUOLA from $BUILD_BASE/sources/$TAUOLAPKG
+        cd $BUILD_BASE/sources/$TAUOLAPKG
+        ./configure --without-hepmc3 --with-hepmc=$INSTALL_PREFIX --prefix=$INSTALL_PREFIX
+        make
+        make install
+    fi
 
 else
 
-echo Installing HepMC3 in $INSTALL_BASE/external/HepMC3
-mkdir -p HepMC3
-mkdir -p HepMC3.build
-cd HepMC3.build
-$CMAKE  -DHEPMC3_ENABLE_ROOTIO=OFF -DHEPMC3_ENABLE_PYTHON=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/external/HepMC3 $INSTALL_BASE/external/HepMC3-3.2.0
-make
-make install
+    echo Installing HepMC3 from $BUILD_BASE/sources/$HEPMC3PKG
+    mkdir -p $BUILD_BASE/builds/HepMC3
+    cd $BUILD_BASE/builds/HepMC3
+    $CMAKE -DHEPMC3_ENABLE_ROOTIO:BOOL=OFF -DHEPMC3_ENABLE_PYTHON:BOOL=OFF -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/$HEPMC3PKG
+    make
+    make install
 
-echo Installing pythia8 in $INSTALL_BASE/external/$PYTHIAPKG
-cd ../$PYTHIAPKG
-./configure --enable-shared  --prefix=$INSTALL_BASE/external/$PYTHIAPKG
-make
-make install
+    echo Installing pythia8 from $BUILD_BASE/souces/$PYTHIAPKG
+    cd $BUILD_BASE/sources/$PYTHIAPKG
+    ./configure --enable-shared --prefix=$INSTALL_PREFIX
+    make
+    make install
 
-echo Installing PHOTOS in $INSTALL_BASE/external/PHOTOS
-cd ../PHOTOS 
-./configure --without-hepmc --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/PHOTOS
-make
-make install 
+    echo Installing PHOTOS from $BUILD_BASE/sources/$PHOTOSPKG
+    cd $BUILD_BASE/sources/$PHOTOSPKG
+    ./configure --without-hepmc --with-hepmc3=$INSTALL_PREFIX --prefix=$INSTALL_PREFIX
+    make
+    make install
 
-if [ "$osArch" != "Darwin" ]
-then
-echo Installing TAUOLA in $INSTALL_BASE/external/TAUOLA
-cd ../TAUOLA
-./configure  --without-hepmc --with-hepmc3=$INSTALL_BASE/external/HepMC3 --prefix=$INSTALL_BASE/external/TAUOLA
-make
-make install 
+    if [ "$osArch" != "Darwin" ]
+    then
+        echo Installing TAUOLA from $BUILD_BASE/sources/$TAUOLAPKG
+        cd $BUILD_BASE/sources/$TAUOLAPKG
+        ./configure --without-hepmc --with-hepmc3=$INSTALL_PREFIX --prefix=$INSTALL_PREFIX
+        make
+        make install
+    fi
 fi
-fi
 
-echo Building EvtGen
-cd $INSTALL_BASE
-mkdir -p evtgen.build
-mkdir -p evtgen
-cd evtgen.build
+echo Installing EvtGen from $BUILD_BASE/sources/evtgen
+mkdir -p $BUILD_BASE/builds/evtgen
+cd $BUILD_BASE/builds/evtgen
 if [ "$osArch" == "Darwin" ]
 then
-
-if [ "$HEPMCMAJORVERSION" -lt "3" ]
-then
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=OFF -DEVTGEN_HEPMC3=OFF \
--DHEPMC2_ROOT_DIR=$INSTALL_BASE/external/HepMC \
--DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
--DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS 
+    if [ "$HEPMCMAJORVERSION" -lt "3" ]
+    then
+        $CMAKE -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/evtgen \
+		-DEVTGEN_HEPMC3:BOOL=OFF -DHEPMC2_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PYTHIA:BOOL=ON  -DPYTHIA8_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PHOTOS:BOOL=ON  -DPHOTOSPP_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_TAUOLA:BOOL=OFF
+    else
+        $CMAKE -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/evtgen \
+		-DEVTGEN_HEPMC3:BOOL=ON  -DHEPMC3_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PYTHIA:BOOL=ON  -DPYTHIA8_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PHOTOS:BOOL=ON  -DPHOTOSPP_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_TAUOLA:BOOL=OFF
+    fi
 else
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=OFF -DEVTGEN_HEPMC3=ON \
--DHepMC3_DIR=$INSTALL_BASE/external/HepMC3/share/HepMC3/cmake/ \
--DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
--DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS 
-fi
-
-
-else
-
-if [ "$HEPMCMAJORVERSION" -lt "3" ]
-then
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=OFF \
--DHEPMC2_ROOT_DIR=$INSTALL_BASE/external/HepMC \
--DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
--DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS \
--DTAUOLAPP_ROOT_DIR=$INSTALL_BASE/external/TAUOLA 
-else
-$CMAKE -DCMAKE_INSTALL_PREFIX=$INSTALL_BASE/evtgen $INSTALL_BASE/evtgen.git -DEVTGEN_PYTHIA=ON -DEVTGEN_PHOTOS=ON -DEVTGEN_TAUOLA=ON -DEVTGEN_HEPMC3=ON \
--DHepMC3_DIR=$INSTALL_BASE/external/HepMC3/share/HepMC3/cmake/ \
--DPYTHIA8_ROOT_DIR=$INSTALL_BASE/external/$PYTHIAPKG \
--DPHOTOSPP_ROOT_DIR=$INSTALL_BASE/external/PHOTOS \
--DTAUOLAPP_ROOT_DIR=$INSTALL_BASE/external/TAUOLA
-fi
+    if [ "$HEPMCMAJORVERSION" -lt "3" ]
+    then
+        $CMAKE -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/evtgen \
+		-DEVTGEN_HEPMC3:BOOL=OFF -DHEPMC2_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PYTHIA:BOOL=ON  -DPYTHIA8_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PHOTOS:BOOL=ON  -DPHOTOSPP_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_TAUOLA:BOOL=ON  -DTAUOLAPP_ROOT_DIR:PATH=$INSTALL_PREFIX
+    else
+        $CMAKE -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BUILD_BASE/sources/evtgen \
+		-DEVTGEN_HEPMC3:BOOL=ON  -DHEPMC3_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PYTHIA:BOOL=ON  -DPYTHIA8_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_PHOTOS:BOOL=ON  -DPHOTOSPP_ROOT_DIR:PATH=$INSTALL_PREFIX \
+		-DEVTGEN_TAUOLA:BOOL=ON  -DTAUOLAPP_ROOT_DIR:PATH=$INSTALL_PREFIX
+    fi
 fi
 make
 make install
-cd $INSTALL_BASE/evtgen
 
 echo Setup done.
 echo To complete, set the Pythia8 data path:
 if [ "$PYTHIAVER" -lt "8200" ]
 then
-  echo PYTHIA8DATA=$INSTALL_BASE/external/$PYTHIAPKG/xmldoc
+    echo PYTHIA8DATA=$INSTALL_PREFIX/xmldoc
 else
-  echo PYTHIA8DATA=$INSTALL_BASE/external/$PYTHIAPKG/share/Pythia8/xmldoc
+    echo PYTHIA8DATA=$INSTALL_PREFIX/share/Pythia8/xmldoc
 fi
+
+echo If installation fully successful you can remove the temporary build area $BUILD_BASE
+cd $BUILD_BASE
