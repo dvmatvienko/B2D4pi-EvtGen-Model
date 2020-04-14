@@ -97,11 +97,12 @@ include(CMakePackageConfigHelpers)
 
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR})
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+set(DATA_INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/EvtGen)
 
 configure_package_config_file(cmake/Templates/EvtGenConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
     INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
-    PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR
+    PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR DATA_INSTALL_DIR
     )
 
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfigVersion.cmake
