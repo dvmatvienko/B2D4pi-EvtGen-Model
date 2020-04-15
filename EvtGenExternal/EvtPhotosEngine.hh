@@ -28,10 +28,10 @@
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 
 #ifdef EVTGEN_HEPMC3
+#include "HepMC3/Units.h"
+
 #include "Photos/PhotosHepMC3Event.h"
 #include "Photos/PhotosHepMC3Particle.h"
-
-#include "HepMC3/Units.h"
 #else
 #include "Photos/PhotosHepMCEvent.h"
 #include "Photos/PhotosHepMCParticle.h"

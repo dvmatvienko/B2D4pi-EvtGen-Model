@@ -64,7 +64,7 @@ IncludeCategories:
     Priority:        3
   - Regex:           '^"EvtGenExternal/'
     Priority:        4
-  - Regex:           '^"HepMC/'
+  - Regex:           '^"(HepMC|HepMC3)/'
     Priority:        5
   - Regex:           '^"(Pythia8|Photos|Tauola)/'
     Priority:        6

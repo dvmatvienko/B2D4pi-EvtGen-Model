@@ -157,7 +157,6 @@
 #include "EvtGenModels/Evtbs2llGammaISRFSR.hh"
 #include "EvtGenModels/Evtbs2llGammaMNT.hh"
 #include "EvtGenModels/EvtbsToLLLL.hh"
-#include "EvtGenModels/EvtbsToLLLL.hh"
 #include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
 
 #include <assert.h>
