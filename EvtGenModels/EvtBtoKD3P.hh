@@ -1,18 +1,9 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtBtoKD3P.hh,v 1.1 2009-03-16 16:49:00 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 2003, Colorado State University
-//
-// Module creator:
-//      Abi soffer, CSU, 2003
-//-----------------------------------------------------------------------
+#ifndef EVT_BTOKD3P
+#define EVT_BTOKD3P
+
+class EvtParticle;
+#include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
 
 // Decay model that does the decay B+ -> K+ D , D -> 3 psudoscalars.
 //
@@ -38,14 +29,6 @@
 // sign of the phase, so when specifying the decay of a B- you need to
 // change the order of D0 and D0bar and change the total phase so that
 // the sign of the weak phase flips with respect to the parameters of B+.
-//
-
-#ifndef EVT_BTOKD3P
-#define EVT_BTOKD3P
-
-class EvtParticle;
-#include "EvtGenBase/EvtComplex.hh"
-#include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtBtoKD3P : public EvtDecayAmp {
   public:

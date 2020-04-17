@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtSVPCP.cc
-//
-// Description: Routine to decay scalar -> vectors+photon
-//              including CP violation effects
-//
-// Modification history:
-//
-//    Maurizio pierini   Nov 11, 2003       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSVPCP.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

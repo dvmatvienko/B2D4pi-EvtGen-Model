@@ -6,6 +6,9 @@
 #include "EvtGenBase/EvtVector4C.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
+// Description: Routine to calculate W -> (n pi) current
+//			according to [Kuhn, Was, Acta.Phys.Polon B39 (2008) 147]
+
 class EvtWnPi {
   public:
     EvtVector4C WCurrent( EvtVector4R q1 );

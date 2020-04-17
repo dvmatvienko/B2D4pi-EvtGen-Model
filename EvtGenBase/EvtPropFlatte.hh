@@ -1,18 +1,10 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- * Author:  Denis Dujmic, SLAC
- *
- * Copyright (C) 2005 SLAC
- *******************************************************************************/
-
-// Flatte propagator: S.M.Flatte, Phys. Lett. B63, 224 (1976)
-
 #ifndef EVT_PROP_FLATTE_HH
 #define EVT_PROP_FLATTE_HH
 
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtPropagator.hh"
+
+// Flatte propagator: S.M.Flatte, Phys. Lett. B63, 224 (1976)
 
 class EvtPropFlatte : public EvtPropagator {
   public:

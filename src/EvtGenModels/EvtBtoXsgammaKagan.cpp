@@ -1,33 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsgammaKagan.cc
-//
-// Description:
-//       Routine to perform two-body non-resonant B->Xs,gamma decays.
-//       The X_s mass spectrum generated is based on the Kagan-Neubert model.
-//       See hep-ph/9805303 for the model details and input parameters.
-//
-//       The input parameters are 1:fermi_model, 2:mB, 3:mb, 4:mu, 5:lam1,
-//       6:delta, 7:z, 8:nIntervalS, 9:nIntervalmH. Choosing fermi_model=1
-//       uses an exponential shape function, fermi_model=2 uses a gaussian
-//       shape function and fermi_model=3 a roman shape function. The complete mass
-//       spectrum for a given set of input parameters is calculated from
-//       scratch in bins of nIntervalmH. The s22, s27 and s28 coefficients are calculated
-//       in bins of nIntervalS. As the program includes lots of integration, the
-//       theoretical hadronic mass spectra is computed for the first time
-//       the init method is called. Then, all the other times (eg if we want to decay a B0
-//       as well as an anti-B0) the vector mass info stored the first time is used again.
-//
-// Modification history:
-//
-//      Jane Tinslay, Francesca Di Lodovico  March 21, 2001       Module created
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBtoXsgammaKagan.hh"
 
 #include "EvtGenBase/EvtConst.hh"

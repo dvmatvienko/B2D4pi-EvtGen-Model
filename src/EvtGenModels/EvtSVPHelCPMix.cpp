@@ -1,30 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1999      Caltech, UCSB
-//
-// Module: EvtSVPHelCPMix.cpp
-//
-// Description: The decay of a scalar Bs meson to a vector particle and a photon is
-//              performed with CP violation and different widths for
-//              the heavy and light states (DeltaGamma_s =! 0). E.g. Bs->phi gamma.
-//
-// Modification history:
-//
-//    Clara Remon (Clara.Remon@ific.uv.es)       September 24, 2015      Module EvtSVPHelCPMix created
-//
-//------------------------------------------------------------------------
-//
-// Model input arguments:
-//   |H+| arg|H+| |H-| arg|H-| beta_s
-// H+ and H- don't need to be normalized.
-// beta_s in radians.
-
 #include "EvtGenModels/EvtSVPHelCPMix.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

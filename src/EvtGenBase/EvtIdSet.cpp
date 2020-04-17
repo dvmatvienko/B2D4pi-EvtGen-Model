@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtId.cc
-//
-// Description: Class for particle Id used in EvtGen.
-//
-// Modification history:
-//
-//    DJL     Jan 4, 2000        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtIdSet.hh"
 
 #include "EvtGenBase/EvtPDL.hh"

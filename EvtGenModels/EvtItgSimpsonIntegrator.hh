@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgSimpsonIntegrator.hh
-//
-// Description:
-//      Simpson integrator (Stolen and modified from
-//      the BaBar IntegrationUtils package - author: Phil Strother).
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module adapted for use in
-//                                                     EvtGen
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTITGSIMPSONINTEGRATOR_HH
 #define EVTITGSIMPSONINTEGRATOR_HH
 
@@ -31,6 +8,10 @@ extern "C" {
 }
 
 #include "EvtGenModels/EvtItgAbsIntegrator.hh"
+
+// Description:
+//      Simpson integrator (Stolen and modified from
+//      the BaBar IntegrationUtils package - author: Phil Strother).
 
 class EvtItgSimpsonIntegrator : public EvtItgAbsIntegrator {
   public:

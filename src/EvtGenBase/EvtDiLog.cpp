@@ -1,7 +1,3 @@
-// $Id: EvtDiLog.cpp,v 1.3 2009-03-16 15:52:42 robbep Exp $
-// Include files
-
-// local
 #include "EvtGenBase/EvtDiLog.hh"
 
 #include <cmath>

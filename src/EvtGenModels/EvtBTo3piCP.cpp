@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBTo3piCP.cc
-//
-// Description: Routine to decay B->pi+ pi- pi0
-//              and has CP violation.
-//
-// Modification history:
-//
-//    MK               September, 2016     Reimplementation to C++
-//    RYD/VERSILLE     March 2, 1997        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBTo3piCP.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

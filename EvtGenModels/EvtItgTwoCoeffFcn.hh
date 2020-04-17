@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgTwoCoeffFcn.hh
-//
-// Description:
-//      Class describing a function with two vectors of coefficients.
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTITTWOCOEFFFCN_HH
 #define EVTITTWOCOEFFFCN_HH
 
@@ -31,6 +10,9 @@ extern "C" {
 }
 
 #include "EvtGenModels/EvtItgAbsFunction.hh"
+
+// Description:
+//      Class describing a function with two vectors of coefficients.
 
 class EvtItgTwoCoeffFcn : public EvtItgAbsFunction {
   public:

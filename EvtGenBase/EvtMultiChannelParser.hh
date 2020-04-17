@@ -1,21 +1,3 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtMultiChannelParser.hh,v 1.2 2009-03-16 16:41:09 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-
-// Parse decay file tokens from a file or a vector
-
 #ifndef EVT_MULTI_CHANNEL_PARSER
 #define EVT_MULTI_CHANNEL_PARSER
 
@@ -23,6 +5,8 @@
 
 #include <string>
 #include <vector>
+
+// Parse decay file tokens from a file or a vector
 
 class EvtDecayMode;
 

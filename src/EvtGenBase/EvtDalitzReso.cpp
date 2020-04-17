@@ -1,23 +1,11 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*****************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzReso.cpp,v 1.1 2009-03-16 16:47:51 robbep Exp $
- *
- * Description:
- *   Class to compute Dalitz amplitudes based on many models that cannot be
- *     handled with EvtResonance.
- *
- * Modification history:
- *   Jordi Garra Ticó     2008/07/03         File created
- *****************************************************************************/
+#include "EvtGenBase/EvtDalitzReso.hh"
 
 #include "EvtGenBase/EvtCyclic3.hh"
-#include "EvtGenBase/EvtDalitzReso.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtMatrix.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtdFunction.hh"
 

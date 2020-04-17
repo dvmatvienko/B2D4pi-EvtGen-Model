@@ -1,29 +1,18 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtbsToLLLLHyperCPAmp.hh
-//
-// Description:
-//
-// Modification history:
-//
-//  N.Nikitin	May 11, 2012	Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBSTOLLLL_HYPERCPAMP_HH
 #define EVTBSTOLLLL_HYPERCPAMP_HH
 
 class EvtId;
 class EvtAmp;
 class EvtParticle;
+
+// Description: Preparation of the decay amplitude for the process:
+//              B^0_{q}(p,M1) -> ell^+(k1,m) ell^-(k2,m) ell^+(k3,m) ell^-(k4,m)
+//              in the HyperCP model.
+//
+//              [1] D.S.Gorbunov, Nucl.Phys.B602, pp.213-237 (2001);
+//              [2] S.V. Demidov, D.S.Gorbunov, hep-ph/1112.5230v2, 17 April 2012.
+//
+// Note: The code of this module is based on the EvtbsToLLLLAmp.cpp module code.
 
 class EvtbsToLLLLHyperCPAmp {
   public:

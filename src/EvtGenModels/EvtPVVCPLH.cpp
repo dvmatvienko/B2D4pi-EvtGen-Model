@@ -1,31 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1999      Caltech, UCSB
-//
-// Module: EvtPVVCPLH.cc
-//
-// Description: The decay of a scalar to two vector particles are
-//              performed with CP violation and different widths for
-//              the CP-even and CP-odd states. E.g. Bs->J/psi phi.
-//
-// Modification history:
-//
-//    RYD       November 5, 1999       Module EvtSVVCPLH created
-//
-//    DUPREE    October 10, 2006       Large modification: EvtSVVCPLH->EvtPVVCPLH
-//                                     Time-dependence correctly
-//
-//    COWAN	June 10, 2009	       Modified to use the new EvtCPUtils class.
-//				       EvtIncoherentMixing removed.
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtPVVCPLH.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

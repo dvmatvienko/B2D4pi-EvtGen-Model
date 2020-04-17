@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtbTosllScalarAmpNew.hh
-//
-// Description:
-//
-// Modification history:
-//
-//  N.Nikitin   May 06, 2008  Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOSLLSCALARAMPNEWEXT_HH
 #define EVTBTOSLLSCALARAMPNEWEXT_HH
 

@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtHepMCEvent
-//
-// Description: Create an HepMC::GenEvent for the complete EvtParticle
-//              decay tree.
-//
-// Modification history:
-//
-//    John Back       June 2011            Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTHEPMCEVENT_HH
 #define EVTHEPMCEVENT_HH
 

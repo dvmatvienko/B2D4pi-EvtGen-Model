@@ -1,22 +1,4 @@
 #ifdef EVTGEN_TAUOLA
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtTauolaEngine
-//
-// Description: Interface to the TAUOLA external generator
-//
-// Modification history:
-//
-//    John Back       May 2011            Module created
-//
-//------------------------------------------------------------------------
 
 #ifndef EVTTAUOLAENGINE_HH
 #define EVTTAUOLAENGINE_HH
@@ -43,6 +25,8 @@
 
 #include <map>
 #include <vector>
+
+// Description: Interface to the TAUOLA external generator
 
 class EvtTauolaEngine : public EvtAbsExternalGen {
   public:

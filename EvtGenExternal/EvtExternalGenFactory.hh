@@ -1,30 +1,12 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtExternalGenFactory
-//
-// Description: A factory type method to create engines for external physics
-// generators like Pythia.
-//
-// Modification history:
-//
-//    John Back       April 2011            Module created
-//
-//------------------------------------------------------------------------------
-//
-
 #ifndef EVTEXTERNALGENFACTORY_HH
 #define EVTEXTERNALGENFACTORY_HH
 
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 
 #include <map>
+
+// Description: A factory type method to create engines for external physics
+// generators like Pythia.
 
 class EvtExternalGenFactory {
   public:

@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSVVCP.cc
-//
-// Description: The decay of a scalar to two vector particles are
-//              performed with CP violation. E.g. B->J/psi K*.
-//
-// Modification history:
-//
-//    RYD       January 19, 1997       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSVVCP.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

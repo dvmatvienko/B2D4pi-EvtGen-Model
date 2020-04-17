@@ -1,25 +1,5 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtDecayMode.cpp,v 1.3 2009-03-16 15:53:27 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
-// Parses a decay string to identify the name
-// of the mother and of the daughters. The string should
-// be in standard format e.g. "B+ -> pi+ pi+ pi-"
-
 #include "EvtGenBase/EvtDecayMode.hh"
+
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 

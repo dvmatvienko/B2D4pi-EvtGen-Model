@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtCPUtil.cc
-//
-// Description: Utilities needed for generation of CP violating
-//              decays.
-//
-// Modification history:
-//
-//    RYD     March 24, 1998         Module created
-//
-//    COWAN   June 10, 2009	     Added methods for getting dGamma(s)
-//				     and dm(s) using B(s)0H and B(s)0L.
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtCPUtil.hh"
 
 #include "EvtGenBase/EvtConst.hh"

@@ -1,30 +1,11 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgAbsIntegrator.hh
-//
-// Description:
-//      Abstraction of a generic integrator (Stolen and modified from
-//      the BaBar IntegrationUtils package - author: Phil Strother).
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module adapted for use in
-//                                                     EvtGen
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTITGABSINTEGRATOR_HH
 #define EVTITGABSINTEGRATOR_HH
 
 #include "EvtGenModels/EvtItgAbsFunction.hh"
+
+// Description:
+//      Abstraction of a generic integrator (Stolen and modified from
+//      the BaBar IntegrationUtils package - author: Phil Strother).
 
 class EvtItgAbsIntegrator {
   public:

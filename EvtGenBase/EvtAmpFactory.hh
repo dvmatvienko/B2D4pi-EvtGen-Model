@@ -1,20 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-//    Alexei Dvoretskii     2001-2002
-//------------------------------------------------------------------------
-
-// Abstract amplitude factory parameterized by a vector of
-// strings. Derived classes construct the amplitude, and PDFs for sampling
-// points.
-
 #ifndef EVT_AMP_FACTORY_HH
 #define EVT_AMP_FACTORY_HH
 
@@ -28,6 +11,10 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+
+// Abstract amplitude factory parameterized by a vector of
+// strings. Derived classes construct the amplitude, and PDFs for sampling
+// points.
 
 template <class T>
 class EvtAmpFactory {

@@ -1,15 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtStreamInputIterator.hh,v 1.2 2009-03-16 16:41:09 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Adapters are used to convert various types of input streams
-// into an iteratable interface.
-
 #ifndef EVT_STREAM_INPUT_ITERATOR_HH
 #define EVT_STREAM_INPUT_ITERATOR_HH
 
@@ -19,6 +7,9 @@
 #include <iterator>
 
 using std::input_iterator_tag;
+
+// Adapters are used to convert various types of input streams
+// into an iteratable interface.
 
 template <class Point>
 class EvtStreamInputIterator {

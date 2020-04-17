@@ -1,22 +1,13 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPredGen.hh,v 1.2 2009-03-16 16:40:16 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+#ifndef EVT_PRED_GEN_HH
+#define EVT_PRED_GEN_HH
+
+#include <stdio.h>
 
 // A predicate is applied to a generator to get another generator.
 // Accept-reject can be implemented in this way.
 //
 //           Predicate
 // Generator    ->     Generator
-
-#ifndef EVT_PRED_GEN_HH
-#define EVT_PRED_GEN_HH
-
-#include <stdio.h>
 
 template <class Generator, class Predicate>
 class EvtPredGen {

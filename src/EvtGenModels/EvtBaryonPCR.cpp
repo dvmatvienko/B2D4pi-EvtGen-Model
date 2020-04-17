@@ -1,28 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBaryonVminusA.cc
-//
-// Description: Routine to implement semileptonic decays using realistic
-//              dynamics.  The form factors are from
-//              M.Pervin,S.Capstick,W. Roberts, Phys.Rev. C72 035201(2005).
-//
-//
-// Modification history:
-//
-//    R.J. Tesarek     May 28, 2004     Module created
-//    Karen Gibson     1/20/2006        Module updated for 1/2+->1/2+,
-//                                      1/2+->1/2-, 1/2+->3/2- Lambda decays
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtBaryonPCR.hh"
 
 #include "EvtGenBase/EvtConst.hh"

@@ -1,39 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: Evtbs2llGammaAmp.cpp
-//
-// Description: Preparation of the decay amplitude for the process:
-//              B^0_{q}(p,M1) -> gamma(k) ell^+(p1,m) ell^-(p2,m).
-//
-// Note: The code of this module is based on the EvtbTosllVectorAmp.cpp
-//	 module code.
-//	 The main functiom for the amplitude calculation retuns the
-//	 amplitude for the decay  B -> gamma ell^+ ell^-
-//	 In our calculations we assume, that photon is the first
-//       daughter particle (iG=0) and leptons are the second and thirds
-//       daughter particles (il1=1 and il2=2).
-//
-//
-// Modification history:
-//
-//  A.Popov & N.Nikitin    Oktober   01, 2008     Module created
-//  A.Popov		   Oktober   22, 2008     Add Bramsstrahlung in the amplidude
-//  A.Popov & N.Nikitin    March     02, 2010     New description for CP-violation
-//  N.Nikitin              March     07, 2010     New algorithm for maximum calculation
-//  N.Nikitin              July      16, 2010     Correction of the found bugs
-//  N.Nikitin              September 22, 2010     Close all reports in this file
-//  N.Nikitin              September 24, 2012     Memory distribution optimization
-//
-//-----------------------------------------------------------------------------------------
-//
+#include "EvtGenModels/Evtbs2llGammaAmp.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
@@ -51,8 +17,6 @@
 
 #include "EvtGenModels/EvtbTosllWilsCoeffNLO.hh"
 #include "EvtGenModels/Evtbs2llGammaFFMNT.hh"
-// The header file for current class memeber functions description
-#include "EvtGenModels/Evtbs2llGammaAmp.hh"
 
 #include <cstdlib>
 

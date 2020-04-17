@@ -1,9 +1,7 @@
-// Lange
-// September 29, 2006
 //
 // Script to automate reference comparisons
 //
-//
+
 #include "TCanvas.h"
 #include "TCollection.h"
 #include "TFile.h"

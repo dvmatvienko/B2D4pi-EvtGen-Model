@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2015      University of Warwick, UK
-//
-// Module: EvtMTRandomEngine
-//
-// Generate random numbers using the Mersenne-Twister MT19937.
-//
-// Modification history:
-//
-//    John Back       Aug 2015            Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtMTRandomEngine.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

@@ -1,19 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtLambdacPHH.cpp
-//
-// Description: Decay model for Lambda_c -> K- pi+ p using amplitudes
-//              from the Fermilab E791 analysis: arXiv:hep-ex/9912003v1
-//
-// Modification history:
-//
-// Elisabeth Niel (elisabeth.maria.niel@cern.ch) and
-// Patrick Robbe  (robbe@lal.in2p3.fr)    Jan 2019      Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtLambdacPHH.hh"
 
 #include "EvtGenBase/EvtConst.hh"

@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsgammaKagan.cc
-//
-// Description:
-//       Routine to perform two-body B->Xs,gamma decays with a fixed hadronic
-//       mass. For spectrum measurements.
-//       The input parameters are 1: the hadronic mass
-// Modification history:
-//
-//      Jim Libby October 11 2002
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBtoXsgammaFlatEnergy.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

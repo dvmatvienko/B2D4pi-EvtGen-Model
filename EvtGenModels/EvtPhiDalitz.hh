@@ -1,4 +1,3 @@
-
 #ifndef EVTPHIDALITZ_HH
 #define EVTPHIDALITZ_HH
 

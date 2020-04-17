@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtVub.hh
-//
-// Description:
-// Class to generate inclusive B to X_u l nu decays according to various
-// decay models. Implemtented are ACCM, parton-model and a QCD model.
-//
-// Modification history:
-//
-//   Sven Menke     January 17, 2001         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTVUB_HH
 #define EVTVUB_HH
 
@@ -31,6 +9,10 @@
 #include <vector>
 
 class EvtParticle;
+
+// Description:
+// Class to generate inclusive B to X_u l nu decays according to various
+// decay models. Implemtented are ACCM, parton-model and a QCD model.
 
 class EvtVub : public EvtDecayIncoherent {
   public:

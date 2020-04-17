@@ -1,26 +1,3 @@
-
-
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtLb2Baryonlnu.cc
-//
-// Description: Routine to implement Lb->N*+ l nu semileptonic decays using form factor predictions based on the quark model.  The form factors are from W. Roberts, M. Pervin, S. Chapstick, (2011). arXiv:nucl-th/0503030v1.  The model can be used for decays to all N*+ states with J^{P} = 1/2^{+}, 1/2^{-}, 3/2^{+}, 3/2^{-} and, in addition, decays to p, Lc+, Lc(2593)+, Lc(2625)+
-//
-//
-// Modification history:
-//
-//   William Sutcliffe     21/11/2013        Module created
-//
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtLb2Baryonlnu.hh"
 
 #include "EvtGenBase/EvtConst.hh"

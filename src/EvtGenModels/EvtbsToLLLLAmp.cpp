@@ -1,30 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtbsToLLLLAmp.cpp
-//
-// Description: Preparation of the decay amplitude for the process:
-//              B^0_{q}(p,M1) -> ell^+(k1,m) ell^-(k2,m) ell^+(k3,m) ell^-(k4,m).
-//
-// Note: The code of this module is based on the EvtbTosllVectorAmp.cpp
-//	 module code.
-//	 The main functiom for the amplitude calculation retuns the
-//	 amplitude for the decay  B^0_q -> ell^+ ell^- ell^+ ell^-
-//
-//
-// Modification history:
-//
-//  N.Nikitin (nnikit@mail.cerrn.ch)   July      21, 2011     Module created
-//
-//-----------------------------------------------------------------------------------------
-//
+#include "EvtGenModels/EvtbsToLLLLAmp.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
@@ -41,8 +16,6 @@
 
 #include "EvtGenModels/EvtbTosllWilsCoeffNLO.hh"
 #include "EvtGenModels/Evtbs2llGammaFFMNT.hh"
-// The header file for current class memeber functions description
-#include "EvtGenModels/EvtbsToLLLLAmp.hh"
 
 #include <cstdlib>
 

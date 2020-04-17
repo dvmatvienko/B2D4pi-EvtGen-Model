@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Module: EvtHQET2FF.cc
-//
-// Description: form factors for B->D*lnu & B->Dlnu according to HQET
-//              with dispersive FF
-//              Now with added functionality for B->D(*)taunu with FFs
-//              as in the 2013 BaBar measurement
-//
-// Modification history:
-//
-//    Marco Bomben     March 10, 2003        Module created
-//
-//    Brian Hamilton     Feb 12, 2016       Added "extened" functionality
-//      <brian.hamilton -=AT=- cern.ch>       to include scalar amplitude
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtHQET2FF.hh"
 
 #include "EvtGenBase/EvtId.hh"

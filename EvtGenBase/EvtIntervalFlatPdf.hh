@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtIntervalFlatPdf.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-/*
- * Uniform PDF defined on a 1D interval.
- */
-
 #ifndef EVT_INTERVAL_FLAT_PDF_HH
 #define EVT_INTERVAL_FLAT_PDF_HH
 
@@ -18,6 +5,10 @@
 #include "EvtGenBase/EvtPoint1D.hh"
 
 #include <assert.h>
+
+/*
+ * Uniform PDF defined on a 1D interval.
+ */
 
 class EvtIntervalFlatPdf : public EvtPdf<EvtPoint1D> {
   public:

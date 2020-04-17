@@ -1,16 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Module: EvtGen/EvtHQET2.hh
-//
-// Description:Implementation of the HQET model with dispersive FF due to
-//             Caprini et al.
-//
-// Modification history:
-//
-//    Marco Bomben   March 11, 2003         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTHQET2_HH
 #define EVTHQET2_HH
 
@@ -21,6 +8,9 @@
 #include <memory>
 
 class EvtParticle;
+
+// Description:Implementation of the HQET model with dispersive FF due to
+//             Caprini et al.
 
 class EvtHQET2 : public EvtDecayAmp {
   public:

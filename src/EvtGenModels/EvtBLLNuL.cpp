@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtBLLNuL.cpp
-//
-// Description: The main file for the model "BLLNUL" which simulates
-//              the rare four-leptonic B-decays
-//              B^-(p) -> ell^+(k_1) ell^-(k_2) neu (k_3) ell^-(k_4)
-//
-// Modification history:
-//
-// Anna Danilina (anna.danilina@cern.ch) and
-// Nikolai Nikitin (Nikolai.Nikitine@cern.ch) Nov 2018  Module created
-// John B                                               Code optimisations
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBLLNuL.hh"
 
 #include "EvtGenBase/EvtIdSet.hh"

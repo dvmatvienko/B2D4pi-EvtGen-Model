@@ -1,35 +1,8 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-//
-// Description:
-//   DFN model:
-//      F(k+) = N (1-x)^a exp((1+a)x) ,x=k+/(mB-mb)
-//      the fermi motion distribution according to
-//      hep-ph/9905351 v2
-//   BLNP model:
-//      F(wtilde,Lambda,b) = pow(_b,_b)/(tgamma(_b)*_Lambda)*pow(wtilde/_Lambda,_b-1)*
-//                           exp(-_b*wtilde/Lambda);
-//      the leading order shape function (exp) (hep-ph/0504071)
-// Environment:
-//      Software developed for the BaBar Detector at the SLAC B-Factory.
-//
-// Author List:
-//      Sven Menke (DFN model)
-//      Alexei Volk (BLNP model)
-//-----------------------------------------------------------------------
-//-----------------------
-// This Class's Header --
-//-----------------------
 #include "EvtGenModels/EvtPFermi.hh"
 
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-//---------------
-// C Headers --
-//---------------
+
 #include <math.h>
 #include <stdlib.h>
 

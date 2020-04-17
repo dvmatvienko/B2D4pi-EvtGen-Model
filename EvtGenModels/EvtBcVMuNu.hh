@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBcVMuNu.hh
-//
-// Description:Implementation of the model for semileptonic Bc decays
-//
-// Modification history:
-//
-//    AVL     Jul 6, 2012             Module created
-//    AVL     Feb 5, 2018            D0, D*0 modes added
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBcVMuNu_HH
 #define EVTBcVMuNu_HH
 
@@ -29,6 +8,8 @@
 #include <memory>
 
 class EvtParticle;
+
+// Description:Implementation of the model for semileptonic Bc decays
 
 class EvtBcVMuNu : public EvtDecayAmp {
   public:

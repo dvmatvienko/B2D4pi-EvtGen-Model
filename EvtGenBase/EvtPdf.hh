@@ -1,11 +1,15 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPdf.hh,v 1.2 2009-03-16 16:40:15 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+#ifndef EVT_PDF_HH
+#define EVT_PDF_HH
+
+#include "EvtGenBase/EvtMacros.hh"
+#include "EvtGenBase/EvtPdfMax.hh"
+#include "EvtGenBase/EvtPredGen.hh"
+#include "EvtGenBase/EvtRandom.hh"
+#include "EvtGenBase/EvtStreamInputIterator.hh"
+#include "EvtGenBase/EvtValError.hh"
+
+#include <assert.h>
+#include <stdio.h>
 
 /*
  *  All classes are templated on the point type T
@@ -38,19 +42,6 @@
  * original PDF is divided by the analytic comparison function. EvtPdfDiv is
  * used to represent the modified PDF.
  */
-
-#ifndef EVT_PDF_HH
-#define EVT_PDF_HH
-
-#include "EvtGenBase/EvtMacros.hh"
-#include "EvtGenBase/EvtPdfMax.hh"
-#include "EvtGenBase/EvtPredGen.hh"
-#include "EvtGenBase/EvtRandom.hh"
-#include "EvtGenBase/EvtStreamInputIterator.hh"
-#include "EvtGenBase/EvtValError.hh"
-
-#include <assert.h>
-#include <stdio.h>
 
 template <class T>
 class EvtPdfPred;

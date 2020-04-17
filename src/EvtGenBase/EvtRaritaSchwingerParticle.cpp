@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtRaritaSchwingerParticle.cc
-//
-// Description: Class to describe spin 1/2 particles.
-//
-// Modification history:
-//
-//   RYD     August 9, 2000         Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtRaritaSchwingerParticle.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

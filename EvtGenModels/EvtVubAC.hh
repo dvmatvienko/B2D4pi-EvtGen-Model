@@ -1,9 +1,3 @@
-//////////////////////////////////////////////////////////////////////
-//
-// Module: EvtVubAC.hh
-//
-//////////////////////////////////////////////////////////////////
-
 #ifndef EVTVUBAC_HH
 #define EVTVUBAC_HH
 
@@ -12,6 +6,8 @@
 #include <vector>
 
 class EvtParticle;
+
+// Analytic Coupling Model (based on hep-ph/0608047 by Aglietti, Ferrera and Ricciardi)
 
 class EvtVubAC : public EvtDecayIncoherent {
   public:

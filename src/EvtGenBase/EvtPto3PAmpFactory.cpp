@@ -1,22 +1,4 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtPto3PAmpFactory.cpp,v 1.3 2009-03-16 15:44:04 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
-// AmpFactory for building a P -> 3P decay
-// (pseudoscalar to three pseudoscalars)
+#include "EvtGenBase/EvtPto3PAmpFactory.hh"
 
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtConst.hh"
@@ -28,11 +10,11 @@
 #include "EvtGenBase/EvtLASSAmp.hh"
 #include "EvtGenBase/EvtNonresonantAmp.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPropBreitWigner.hh"
 #include "EvtGenBase/EvtPropBreitWignerRel.hh"
 #include "EvtGenBase/EvtPropFlatte.hh"
 #include "EvtGenBase/EvtPto3PAmp.hh"
-#include "EvtGenBase/EvtPto3PAmpFactory.hh"
 #include "EvtGenBase/EvtSpinType.hh"
 
 #include <assert.h>

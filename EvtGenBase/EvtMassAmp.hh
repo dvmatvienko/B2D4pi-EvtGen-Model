@@ -1,23 +1,3 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtMassAmp.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-
-// Relativistic lineshape for a two-body decay of a resonance to two
-// pseudoscalars. The mass dependence of the width and the vertex factors
-// are included in the calculation.
-
 #ifndef EVT_MASSAMP_HH
 #define EVT_MASSAMP_HH
 
@@ -25,6 +5,10 @@
 #include "EvtGenBase/EvtPoint1D.hh"
 #include "EvtGenBase/EvtPropBreitWignerRel.hh"
 #include "EvtGenBase/EvtTwoBodyVertex.hh"
+
+// Relativistic lineshape for a two-body decay of a resonance to two
+// pseudoscalars. The mass dependence of the width and the vertex factors
+// are included in the calculation.
 
 class EvtMassAmp : public EvtAmplitude<EvtPoint1D> {
   public:

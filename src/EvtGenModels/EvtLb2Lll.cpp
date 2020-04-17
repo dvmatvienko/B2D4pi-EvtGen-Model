@@ -1,25 +1,3 @@
-//----------------------------------------------------------------------------------
-//
-// Module: EvtLb2Lll.cpp
-//
-// Desription: Routine to implement Lambda_b0 -> Lambda_0 l+ l- decays accroding to
-//             several models: Chen. Geng.
-//                             Aliev. Ozpineci. Savci.
-//
-// Modification history:
-//
-//  10/07/2012  MK   Fix calculation of N1, N2; based on hep-ph/021144
-//  09/02/2009  PR   Commented check for (anti-)Lambda0 names
-//  15/09/2004  PR   Module created according to PHSP model
-//  20/02/2005  PR   Added parameters, created matrix element (without polarization)
-//  04/03/2005  PR   LD contrib., corrected WC eff. according to Chen. Geng.
-//
-// Todo list:
-//
-//   - Properly handle antiparticles, needs change of u, ubar to v, vbar in
-//     hadronic current, or other way of putting that in
-//----------------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtLb2Lll.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

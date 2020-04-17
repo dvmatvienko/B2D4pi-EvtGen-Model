@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBcTMuNu.cc
-//
-// Description: Routine to implement semileptonic B->T lnu decays
-//
-// Modification history:
-//
-//    AVL     July 6, 2012        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBcTMuNu.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

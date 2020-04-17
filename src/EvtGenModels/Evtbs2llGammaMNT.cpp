@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech, UCSB
-//
-// Module: Evtbs2llGammaMNT.ccp
-//
-// Description:  decay model BSTOGLLMNT
-//
-// Modification history:
-//
-//    A.Popov      October 24, 2008        Module created
-//    A.Popov and N.Nikitin  February 25, 2010    New description of CP-violation
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/Evtbs2llGammaMNT.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

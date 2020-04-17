@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtVub.cc
-//
-// Description: Routine to decay a particle according th phase space
-//
-// Modification history:
-//
-//    Sven Menke       January 17, 2001       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVub.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSVSCPiso.cc
-//
-// Description: Routine to decay scalar -> vectors scalar
-//              with CP violation and isospin amplitudes.
-//              More specifically, it is indended to handle
-//              decays like B->rho pi and B->a1 pi.
-//
-// Modification history:
-//
-//    RYD/NK    Febuary 16, 1998          Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSVSCPiso.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtSLDiBaryonAmp.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    Mark Smith July 18, 2017 Created
-//    John B     Oct 2018      Code simplification
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTSLDIBARYONAMP_HH
 #define EVTSLDIBARYONAMP_HH
 
@@ -33,6 +12,9 @@
 #include <vector>
 
 class EvtParticle;
+
+// Description: Routine to implement semileptonic decays to dibaryonic final
+// state. Details of amplitude calculation to be found in arXiv:1107.0801.
 
 class EvtSLDiBaryonAmp {
   public:

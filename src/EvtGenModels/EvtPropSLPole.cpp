@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtPropSLPole.cc
-//
-// Description: Routine to implement semileptonic decays according
-//              to light cone sum rules
-//
-// Modification history:
-//
-//    DJL       April 23, 1998       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtPropSLPole.hh"
 
 #include "EvtGenBase/EvtAmpPdf.hh"

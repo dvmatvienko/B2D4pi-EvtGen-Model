@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsll.cc
-//
-// Description: Routine to generate non-resonant B -> Xs l+ l- decays.
-// It generates a dilepton mass spectrum according to Kruger and Sehgal
-// and then generates the two lepton momenta accoring to Ali et al.
-// The resultant X_s particles may be decayed by JETSET.
-//
-// Modification history:
-//
-//    Stephane Willocq     Jan  17, 2001    Module created
-//    Stephane Willocq     Jul  15, 2003    Input model parameters
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBtoXsll.hh"
 
 #include "EvtGenBase/EvtConst.hh"

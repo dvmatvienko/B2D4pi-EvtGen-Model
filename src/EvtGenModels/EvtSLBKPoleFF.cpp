@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSLBKPoleFF.cc
-//
-// Description: Routine to implement semileptonic form factors
-//              according to the model SLBKPoles
-//
-// Modification history:
-//
-//    liheng       October 20,2005       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSLBKPoleFF.hh"    //modified
 
 #include "EvtGenBase/EvtPDL.hh"

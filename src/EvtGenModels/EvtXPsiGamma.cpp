@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtXPsiGamma.cc
-//
-// Description: Routine to implement radiative decay X3872(2-+) -> J/psi gamma
-//      according to [F. Brazzi et al, arXiv:1103.3155
-//
-// Modification history:
-//
-//    May, 7, 2012        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtXPsiGamma.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

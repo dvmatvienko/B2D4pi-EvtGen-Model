@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtbTosllVectorAmpNew.hh
-//
-// Description:
-//
-// Modification history:
-//
-//  A.Popov	October 21, 2008	Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBSTOLLGAMMA_AMP_HH
 #define EVTBSTOLLGAMMA_AMP_HH
 
@@ -26,6 +6,17 @@ class EvtAmp;
 class EvtParticle;
 class Evtbs2llGammaFF;
 class EvtbTosllWilsCoeffNLO;
+
+// Description: Preparation of the decay amplitude for the process:
+//              B^0_{q}(p,M1) -> gamma(k) ell^+(p1,m) ell^-(p2,m).
+//
+// Note: The code of this module is based on the EvtbTosllVectorAmp.cpp
+//	 module code.
+//	 The main functiom for the amplitude calculation retuns the
+//	 amplitude for the decay  B -> gamma ell^+ ell^-
+//	 In our calculations we assume, that photon is the first
+//       daughter particle (iG=0) and leptons are the second and thirds
+//       daughter particles (il1=1 and il2=2).
 
 class Evtbs2llGammaAmp {
   public:

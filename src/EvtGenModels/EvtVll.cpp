@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtVll.cc
-//
-// Description: The decay of a vector meson to two leptons,
-//              or generally, two spin 1/2 particles.
-//              E.g., J/psi -> e+ e-
-//
-// Modification history:
-//
-//    RYD       January 17, 1997       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVll.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

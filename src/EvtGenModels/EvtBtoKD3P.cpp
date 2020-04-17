@@ -1,31 +1,14 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtBtoKD3P.cpp,v 1.2 2009-04-02 15:22:28 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 2003, Colorado State University
-//
-// Module creator:
-//      Abi soffer, CSU, 2003
-//-----------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
-// Decay model that does the decay B+->D0K, D0->3 psudoscalars
+#include "EvtGenModels/EvtBtoKD3P.hh"
 
 #include "EvtGenBase/EvtCyclic3.hh"
 #include "EvtGenBase/EvtDalitzPoint.hh"
 #include "EvtGenBase/EvtDecayTable.hh"
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-#include "EvtGenModels/EvtBtoKD3P.hh"
 #include "EvtGenModels/EvtPto3P.hh"
 
 #include <assert.h>

@@ -1,31 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtbTosllVectorAmpNewExt.cpp
-//
-// Description: Preparation of the decay amplitude for the process:
-//              B_{d,s}(p1,M1) -> (V(p2,M2) or A(p2,M2)) ell^+(k1,m) ell^-(k2,m)
-//              for the SM extensions.
-//
-//              1. The code of this module is based on the EvtbTosllVectorAmpNew.cpp
-//                 module code.
-//
-// Modification history:
-//
-// N.Nikitin (nnikit@mail.cern.ch)   June 18,2011    Module created
-// N.Nikitin (nnikit@mail.cern.ch)   Nov  09,2011    Module retested
-// N.Nikitin (nnikit@mail.cern.ch)   Jan  26,2012    Add B -> (K_1(1270), B -> K_1(1400)) ell^+ ell^- decya channels
-// N.Nikitin                         Sept 24 2012    Memory distribution optimization
-//
-//------------------------------------------------------------------------
-//
+#include "EvtGenModels/EvtbTosllVectorAmpNewExt.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
@@ -44,8 +18,6 @@
 #include "EvtGenModels/EvtbTosllAmpNewExt.hh"
 #include "EvtGenModels/EvtbTosllFFNew.hh"
 #include "EvtGenModels/EvtbTosllWilsCoeffNLO.hh"
-// The header file for current class memeber functions description
-#include "EvtGenModels/EvtbTosllVectorAmpNewExt.hh"
 
 #include <cstdlib>
 

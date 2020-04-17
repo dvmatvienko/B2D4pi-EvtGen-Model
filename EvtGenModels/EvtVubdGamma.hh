@@ -1,9 +1,6 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-//
+#ifndef EVTVUBDGAMMA_HH
+#define EVTVUBDGAMMA_HH
+
 // Description:
 //    3                                         2                2
 //   d Gamma                 /   _      _ _2  mb           _2  mb
@@ -23,17 +20,6 @@
 //
 //   the triple differential decay rate according to
 //   hep-ph/9905351 v2
-//
-// Environment:
-//      Software developed for the BaBar Detector at the SLAC B-Factory.
-//
-// Author List:
-//      Sven Menke
-//
-//-----------------------------------------------------------------------
-
-#ifndef EVTVUBDGAMMA_HH
-#define EVTVUBDGAMMA_HH
 
 class EvtVubdGamma final {
   public:

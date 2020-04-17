@@ -1,35 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: Evtbs2llGammaISRFSRAmp.cpp
-//
-// Description: Preparation of the decay amplitude for the process:
-//              B^0_{q}(p,M1) -> gamma(k) ell^+(p1,m) ell^-(p2,m).
-//              See the Internal LHCb Note LHCb-INT-2011-011.
-//
-// Note: The code of this module is based on the EvtbTosllVectorAmp.cpp
-//	 module code.
-//	 The main functiom for the amplitude calculation retuns the
-//	 amplitude for the decay  B -> gamma ell^+ ell^-
-//	 In our calculations we assume, that photon is the first
-//       daughter particle (iG=0) and leptons are the second and thirds
-//       daughter particles (il1=1 and il2=2).
-//
-//
-// Modification history:
-//
-//  N.Nikitin    December   09, 2014    Module create and added the tool for selecting
-//                                      the ISR and FSR parts in the decay amplitude.
-//
-//-----------------------------------------------------------------------------------------
-//
+#include "EvtGenModels/Evtbs2llGammaISRFSRAmp.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
@@ -47,8 +17,6 @@
 
 #include "EvtGenModels/EvtbTosllWilsCoeffNLO.hh"
 #include "EvtGenModels/Evtbs2llGammaFFMNT.hh"
-// The header file for current class memeber functions description
-#include "EvtGenModels/Evtbs2llGammaISRFSRAmp.hh"
 
 #include <cstdlib>
 

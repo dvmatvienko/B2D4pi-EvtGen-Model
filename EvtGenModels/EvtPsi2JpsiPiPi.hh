@@ -1,16 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtPsi2JpsiPiPi.hh
-//
-// Description: Header file for the model "PSI2JPSIPIPI" which generates
-//              psi2S -> J/psi pi+ pi- decays based on hep-ph/1507.07985
-//
-// Modification history: A Luchinsky    Nov 2019     Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTPSI2JPSIPIPI_HH
 #define EVTPSI2JPSIPIPI_HH
 
@@ -21,6 +8,9 @@
 
 class EvtDecayBase;
 class EvtParticle;
+
+// Description: Header file for the model "PSI2JPSIPIPI" which generates
+//              psi2S -> J/psi pi+ pi- decays based on hep-ph/1507.07985
 
 class EvtPsi2JpsiPiPi : public EvtDecayAmp {
   public:

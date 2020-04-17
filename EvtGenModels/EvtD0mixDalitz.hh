@@ -1,15 +1,3 @@
-/*****************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenModels
- *    File: $Id: EvtD0mixDalitz.hh,v 1.1 2009-03-16 16:49:00 robbep Exp $
- *
- * Description:
- *   The D0mixDalitz model, with many resonances and mixing implemented.
- *
- * Modification history:
- *   Jordi Garra Ticó     2008/07/03         File created
- *****************************************************************************/
-
 #ifndef __EVTD0MIXDALITZ_HH__
 #define __EVTD0MIXDALITZ_HH__
 
@@ -21,6 +9,9 @@
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtSpinType.hh"
+
+// Description:
+//   The D0mixDalitz model, with many resonances and mixing implemented.
 
 class EvtD0mixDalitz : public EvtDecayAmp {
   private:

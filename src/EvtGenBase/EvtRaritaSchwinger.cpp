@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtGen/EvtRaritaSchwing.hh
-//
-// Description:Class to handle spin 3/2
-//
-// Modification history:
-//
-//    RYD     April 23, 2000         Module created
-//
-//------------------------------------------------------------------------
 #include "EvtGenBase/EvtRaritaSchwinger.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

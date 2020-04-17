@@ -1,31 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtHQET2.cc
-//
-// Description: Routine to implement semileptonic B->D*lnu & B->Dlnu
-//              decays according to the model HQET
-//
-//   Lange Nov9/01 adding Dlnu and possible (w-1)^2 term
-//
-//
-// Modification history:
-//
-//    Marco Bomben     March 10, 2003       Module created
-//
-//    Brian Hamilton     Feb 12, 2016       Added "extened" functionality
-//      <brian.hamilton -=AT=- cern.ch>       to include scalar amplitude
-//
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtHQET2.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

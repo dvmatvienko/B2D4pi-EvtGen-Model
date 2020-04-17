@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtTwoBodyVertex.hh,v 1.2 2009-03-16 16:34:38 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Two-body propagator vertex AB->A,B with an attached Blatt-Weisskopf form factor.
-
 #ifndef EVT_TWO_BODY_VERTEX_HH
 #define EVT_TWO_BODY_VERTEX_HH
 
@@ -17,6 +6,8 @@
 
 #include <iostream>
 #include <memory>
+
+// Two-body propagator vertex AB->A,B with an attached Blatt-Weisskopf form factor.
 
 class EvtTwoBodyVertex {
   public:

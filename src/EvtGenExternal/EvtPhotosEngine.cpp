@@ -1,22 +1,4 @@
 #ifdef EVTGEN_PHOTOS
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtPhotosEngine
-//
-// Description: Interface to the PHOTOS external generator
-//
-// Modification history:
-//
-//    John Back       May 2011            Module created
-//
-//------------------------------------------------------------------------
 
 #include "EvtGenExternal/EvtPhotosEngine.hh"
 

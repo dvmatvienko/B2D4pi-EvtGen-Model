@@ -1,32 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtbTosllVectorAmpNew.cpp
-//
-// Description: Preparation of the decay amplitude for the process:
-//              B_{d,s}(p1,M1) -> V(p2,M2) ell^+(k1,m) ell^-(k2,m).
-//              New version.
-//
-//              1. The code of this module is based on the EvtbTosllVectorAmp.cpp
-//                 module code.
-//
-// Modification history:
-//
-// N.Nikitin (nnikit@mail.cern.ch)   April 18,2008    Module created
-// N.Nikitin                         June  04,2008    Add CKM matrix elements
-// N.Nikitin                         Jan   03,2009    Vector meson polarisation modification
-// N.Nikitin                         Feb   21 2011    CalcMaxProb(...) optimisation
-// N.Nikitin                         Sept  24 2012    Memory distribution optimization
-//
-//------------------------------------------------------------------------
-//
+#include "EvtGenModels/EvtbTosllVectorAmpNew.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
@@ -45,8 +18,6 @@
 #include "EvtGenModels/EvtbTosllAmpNew.hh"
 #include "EvtGenModels/EvtbTosllFFNew.hh"
 #include "EvtGenModels/EvtbTosllWilsCoeffNLO.hh"
-// The header file for current class memeber functions description
-#include "EvtGenModels/EvtbTosllVectorAmpNew.hh"
 
 #include <cstdlib>
 

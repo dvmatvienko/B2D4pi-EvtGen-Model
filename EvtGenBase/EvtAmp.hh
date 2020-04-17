@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtAmp.hh
-//
-// Description:This is the (new) amplitude class.
-//
-// Modification history:
-//
-//    DJL/RYD     May 29, 1997         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTAMP_HH
 #define EVTAMP_HH
 

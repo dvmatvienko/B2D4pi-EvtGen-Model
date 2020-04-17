@@ -1,17 +1,5 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtBreitWignerPdf.cpp,v 1.3 2009-03-16 15:55:55 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Breit-Wigner shape PDF. If the width is zero it degenerates into a delta
-// function. The integral and its inverse can be still evaluated.
-
 #include "EvtGenBase/EvtBreitWignerPdf.hh"
+
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtPatches.hh"
 

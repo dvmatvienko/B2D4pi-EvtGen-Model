@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtXPsiGamma.hh
-//
-// Description:Implementation of the X3872(2-+) -> J/psi gamma decay
-//
-// Modification history:
-//
-//    7 May 2012: Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTXPSIGAMMA_HH
 #define EVTXPSIGAMMA_HH
 
@@ -32,6 +12,10 @@ class EvtParticle;
 class EvtTensor4C;
 class EvtVector4C;
 class EvtVector4R;
+
+// Description:Implementation of the X3872(2-+) -> J/psi gamma decay
+// Description: Routine to implement radiative decay X3872(2-+) -> J/psi gamma
+//      according to [F. Brazzi et al, arXiv:1103.3155
 
 class EvtXPsiGamma : public EvtDecayAmp {
   public:

@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package.
-//
-// Module:
-// Description: Form-factors for B_q -> gamma transitions,  q={d,s}
-//              according to the papers:
-//              1) F.Kruger, D.Melikhov,  Phys. Rev. D67, 034002, 2003.
-//              2) D.Melikhov, N.Nikitin, Phys. Rev. D70, 114028, 2004.
-//              3) I.Balakireva, D.Melikhov, N.Nikitin, D.Tlisov,
-//                                        Phys. Rev. D81, 054024, 2010.
-//
-// Modification history:
-//
-//    A.Popov     October 03, 2008         Module created
-//    N.Nikitin   October 10, 2008         Prepare the main classes
-//    A.Popov	  October 30, 2008	   Add the Ftv(0,q^2) and Fta(0,q^2) form-factors
-//    N.Nikitin   March   01, 2010         Add the weak annihilation contribution
-//    N.Nikitin   July    16, 2010         Has corrected the found bugs
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/Evtbs2llGammaFFMNT.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtBcVHad.hh
-//
-// Description: Module to implement Bc -> psi + (n pi) + (m K) decays
-//
-// Modification history:
-//
-//    A V Luchinsky     Jan 29, 2013        Module created
-//    A V Luchinsky     Apr 30, 2019        psi K_S K node added
-//
-//------------------------------------------------------------------------
-
 #ifndef EvtBcVHad_HH
 #define EvtBcVHad_HH
 
@@ -30,6 +11,8 @@
 #include <string>
 
 class EvtParticle;
+
+// Description: Module to implement Bc -> psi + (n pi) + (m K) decays
 
 class EvtBcVHad : public EvtDecayAmp {
   public:

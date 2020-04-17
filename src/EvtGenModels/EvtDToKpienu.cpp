@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtDToKpienu.cpp
-//
-// Description: Decay model for D- --> Kpienu decays based on PWA analysis
-//              in Phys. Rev. D94 (2016) 0032001
-//
-// Modification history:
-//
-// Liaoyuan Dong                     Aug 28 2019
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtDToKpienu.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

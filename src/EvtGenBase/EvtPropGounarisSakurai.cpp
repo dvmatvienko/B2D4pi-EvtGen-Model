@@ -1,13 +1,6 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPropGounarisSakurai.cpp,v 1.1 2009-03-16 16:47:03 robbep Exp $
- *  Author: Matt Graham
- *  modified from EvtPropBreitWignerRel...this should be used for rho's
- *******************************************************************************/
-
 #include "EvtGenBase/EvtPropGounarisSakurai.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
 
 #include <math.h>
 

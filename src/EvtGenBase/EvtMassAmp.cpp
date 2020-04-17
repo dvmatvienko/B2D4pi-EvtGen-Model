@@ -1,18 +1,3 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtMassAmp.cpp,v 1.3 2009-03-16 15:47:10 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
 #include "EvtGenBase/EvtMassAmp.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

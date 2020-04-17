@@ -1,34 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtKstarnunu.cc
-//
-// Description: B ==> K* nu nubar
-//
-// Modification history:
-//
-//    RYD     September 29, 1997        Module created
-//
-//------------------------------------------------------------------------
-//
-// Package:     EVT
-// Module:      EvtKstarnunu
-//
-//
-// Implementation:
-//
-//
-// Author:      RYD
-// Created:     Sept. 29 1997
-//
-//
 #include "EvtGenModels/EvtKstarnunu.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

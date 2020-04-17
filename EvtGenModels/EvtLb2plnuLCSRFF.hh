@@ -1,29 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtLb2plnuLCSRFF.hh
-//
-// Description: Module for computation of Lb->p form factors via LCSR
-//
-// Modification history:
-//
-//    William Sutcliffe     July 27, 2013     Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTLB2PMUNULCSRFF_HH
 #define EVTLB2PMUNULCSRFF_HH
 
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 
 class EvtId;
+
+// Description: Module for computation of Lb->p form factors via LCSR
 
 class EvtLb2plnuLCSRFF : public EvtSemiLeptonicFF {
   public:

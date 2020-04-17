@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtTauScalarnu.cc
-//
-// Description: The leptonic decay of the tau meson.
-//              E.g., tau- -> e- nueb nut
-//
-// Modification history:
-//
-//    RYD       January 17, 1997       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtTauScalarnu.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

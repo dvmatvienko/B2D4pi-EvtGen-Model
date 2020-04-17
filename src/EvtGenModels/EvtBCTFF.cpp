@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBCTFF.cc
-//
-// Description: form factors for Bc->Tlnu
-//
-// Modification history:
-//
-//    AVL Jul 6, Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBCTFF.hh"
 
 #include "EvtGenBase/EvtId.hh"

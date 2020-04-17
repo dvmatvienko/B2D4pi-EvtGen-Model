@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtWHad.cc
-//
-// Description: Routine to calculate W -> (n pi) + (m K) current
-//			according to [Kuhn, Was, Acta.Phys.Polon B39 (2008) 147]
-//
-// Modification history:
-//	A V Luchinsky	 20 Jan, 2013	Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtWHad.hh"
 
 #include "EvtGenBase/EvtPDL.hh"

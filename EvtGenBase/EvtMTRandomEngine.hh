@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2015      University of Warwick, UK
-//
-// Module: EvtGenBase/EvtMTRandomEngine.hh
-//
-// Generate random numbers using the Mersenne-Twister MT19937.
-// Member function random returns a random number in the range ]0..1[.
-//
-// Modification history:
-//
-//    John Back       Aug 2015            Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTMTRANDOMENGINE_HH
 #define EVTMTRANDOMENGINE_HH
 

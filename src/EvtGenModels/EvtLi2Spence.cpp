@@ -1,4 +1,3 @@
-
 #include <math.h>
 
 const double a1 = -0.250000000000000;

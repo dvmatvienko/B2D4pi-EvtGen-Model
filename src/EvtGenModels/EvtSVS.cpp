@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSVS.cc
-//
-// Description: Routine to decay scalar -> vector + scalar
-//
-// Modification history:
-//
-//    RYD       November 24, 1996       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSVS.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

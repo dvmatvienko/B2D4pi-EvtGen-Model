@@ -1,29 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtLb2NstlnuLCSRFF.hh
-//
-// Description: Module for computation of Lb->N*+ and  Lb->Lc*+ form factors.  Uses predictions based  from  W. Roberts, M. Pervin, S. Chapstick, (2011). arXiv:nucl-th/0503030v1
-//
-// Modification history:
-//
-//    William Sutcliffe     November 21, 2013     Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTLB2BARYONLNUFF_HH
 #define EVTLB2BARYONLNUFF_HH
 
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 
 class EvtId;
+
+// Description: Module for computation of Lb->N*+ and  Lb->Lc*+ form factors.  Uses predictions based  from  W. Roberts, M. Pervin, S. Chapstick, (2011). arXiv:nucl-th/0503030v1
 
 class EvtLb2BaryonlnuFF : public EvtSemiLeptonicFF {
   public:

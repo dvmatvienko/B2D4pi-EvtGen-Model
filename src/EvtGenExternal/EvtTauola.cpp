@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C)  2011      University of Warwick, UK
-//
-// Description: Use the Tauola external generator for tau decays
-//
-// Modification history:
-//
-//    John Back    May 2011   Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenExternal/EvtTauola.hh"
 
 #include "EvtGenBase/EvtDecayBase.hh"

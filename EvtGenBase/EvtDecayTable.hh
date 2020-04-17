@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtDecayTable.hh
-//
-// Description: Class to read in and handle the decays available
-//              to EvtGen for each particle, and the model to be
-//              used for each one.
-//
-// Modification history:
-//
-//    DJL/RYD     September 25, 1996         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTDECAYTABLE_HH
 #define EVTDECAYTABLE_HH
 
@@ -29,6 +7,10 @@
 #include <vector>
 
 class EvtId;
+
+// Description: Class to read in and handle the decays available
+//              to EvtGen for each particle, and the model to be
+//              used for each one.
 
 class EvtDecayTable {
   public:

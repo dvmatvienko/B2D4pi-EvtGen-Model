@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtLb2plnuLCSRFF.cc
-//
-// Description: Routine to implement Lb->p l nu form factors
-//              according to predictions from LCSR
-//
-// Modification history:
-//
-//   William Sutcliffe     27/07/2013        Module created
-//
-//
-//--------------------------------------------------------------------------
 #include "EvtGenModels/EvtLb2plnuLCSRFF.hh"
 
 #include "EvtGenBase/EvtConst.hh"

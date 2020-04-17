@@ -1,16 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtPsi2JpsiPiPi.cpp
-//
-// Description: Source file for the model "PSI2JPSIPIPI" which generates
-//              psi2S -> J/psi pi+ pi- decays based on hep-ph/1507.07985
-//
-// Modification history: A Luchinsky    Nov 2019     Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtPsi2JpsiPiPi.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

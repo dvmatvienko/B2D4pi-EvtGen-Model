@@ -1,12 +1,3 @@
-
-//////////////////////////////////////////////////////////////////////
-//
-// Module: EvtVubAC.cc
-// Analytic Coupling Model (based on hep-ph/0608047 by Aglietti, Ferrera and Ricciardi)
-// Author: Michael Sigamani           May 2008
-//
-///////////////////////////////////////////////////////////////
-
 #include "EvtGenModels/EvtVubAC.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

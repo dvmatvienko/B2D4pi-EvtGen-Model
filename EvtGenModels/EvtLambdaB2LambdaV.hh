@@ -1,24 +1,3 @@
-//------------------------------------------------------------------------
-//
-// Module: EvtGen/EvtLambdaB2LambdaV.hh
-//
-// Description:
-//   Class to generate LambdaB -> Lambda(p pi) V(Vp Vm) decays
-//   with V a vector meson such as J/psi (mu+mu-)
-//                                 Rho (pi+pi-)
-//                                 Omega (pi+pi-)
-//                                 Rho-omega mixing (pi+pi-)
-//
-// Author : Eric Conte (LPC Clermont-Ferrand)
-//          econte@clermont.in2p3.fr / ziad@clermont.in2p3.fr
-//
-// Modification history:
-//
-//    E. Conte        April 13, 2006         Module created
-//    E. Conte        February 5, 2006       First draft
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTLAMBDAB2LAMBDAV_HH
 #define EVTLAMBDAB2LAMBDAV_HH
 
@@ -41,11 +20,12 @@ namespace VID {
     };
 }
 
-//*******************************************************************
-//*                                                                 *
-//*                   Class EvtLambdaB2LambdaV                      *
-//*                                                                 *
-//*******************************************************************
+// Description:
+//   Class to generate LambdaB -> Lambda(p pi) V(Vp Vm) decays
+//   with V a vector meson such as J/psi (mu+mu-)
+//                                 Rho (pi+pi-)
+//                                 Omega (pi+pi-)
+//                                 Rho-omega mixing (pi+pi-)
 //
 // DECAY : LambdaB -> Lambda + vector meson
 //

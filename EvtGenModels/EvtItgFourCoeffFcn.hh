@@ -1,30 +1,12 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgFourCoeffFcn.hh
-//
-// Description:
-//      Class describing a function with Four vectors of coefficients.
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTITFOURCOEFFFCN_HH
 #define EVTITFOURCOEFFFCN_HH
 
 #include "EvtGenModels/EvtItgAbsFunction.hh"
 
 #include <vector>
+
+// Description:
+//      Class describing a function with Four vectors of coefficients.
 
 class EvtItgFourCoeffFcn : public EvtItgAbsFunction {
   public:

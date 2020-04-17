@@ -1,7 +1,3 @@
-// Include files
-
-// local
-
 #include "EvtGenModels/EvtRareLbToLllFFGutsche.hh"
 
 #include "EvtGenBase/EvtIdSet.hh"

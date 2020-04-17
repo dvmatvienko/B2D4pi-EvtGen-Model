@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGenBase/EvtSpinType.cc
-//
-// Description: Class for enumarating the different types of
-//              particles and the number of states they have.
-//
-// Modification history:
-//
-//    RYD     Jan 26,  2006         Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenBase/EvtSpinType.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

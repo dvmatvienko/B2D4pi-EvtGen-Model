@@ -2,31 +2,11 @@
 //#@# 1: Mass(K-, pi+)
 //#@# 2: Mass(pi+,pi0)
 //
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: testEvtGen.cc
-//
 //  Description:
 //
 //     This program invokes the EvtGen event generator package
 //     for testing various decay models that are implemented.
-//
-// Modification history:
-//
-//    DJL/RYD     Sometime long ago         Module created
-//
-//------------------------------------------------------------------------
-//
-//
-//
+
 #include "EvtGen/EvtGen.hh"
 
 #include "EvtGenBase/EvtAbsRadCorr.hh"

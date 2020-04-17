@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2002      Caltech
-//
-// Module: EvtGen/EvtEvalHelAmp.hh
-//
-// Description: Class for evaluation of amplitudes in the
-//              helicity formalism.
-//
-//
-// Modification history:
-//
-//    RYD      October 24, 2002         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTEVALHELAMP_HH
 #define EVTEVALHELAMP_HH
 

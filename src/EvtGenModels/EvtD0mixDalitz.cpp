@@ -1,16 +1,3 @@
-/*********************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenModels
- *    File: $Id: EvtD0mixDalitz.cpp,v 1.2 2009-10-19 15:47:44 robbep Exp $
- *
- * Description:
- *   The D0mixDalitz model, with many resonances and mixing implemented.
- *
- * Modification history:
- *   Jordi Garra Ticó     2008/07/03         File created
- *   Jordi Garra Ticó     2015/06/29         Bug solved for negative values of y
- *********************************************************************************/
-
 #include "EvtGenModels/EvtD0mixDalitz.hh"
 
 #include "EvtGenBase/EvtDalitzPlot.hh"

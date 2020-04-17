@@ -1,9 +1,6 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-//
+#ifndef EVTPFERMI_HH
+#define EVTPFERMI_HH
+
 // Description:
 //   DFN model:
 //      F(k+) = N (1-x)^a exp((1+a)x) ,x=k+/(mB-mb)
@@ -13,16 +10,6 @@
 //      F(what,Lambda,b) = pow(_b,_b)/(tgamma(_b)*_Lambda)*pow(what/_Lambda,_b-1)*
 //                           exp(-_b*what/Lambda);
 //      the leading order shape function (exp) (hep-ph/0504071)
-// Environment:
-//      Software developed for the BaBar Detector at the SLAC B-Factory.
-//
-// Author List:
-//      Sven Menke (DFN model)
-//      Alexei Volk (BLNP model)
-//-----------------------------------------------------------------------
-
-#ifndef EVTPFERMI_HH
-#define EVTPFERMI_HH
 
 class EvtPFermi final {
   public:

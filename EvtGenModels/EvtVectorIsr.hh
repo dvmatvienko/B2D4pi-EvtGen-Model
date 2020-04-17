@@ -1,34 +1,14 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtVectorIsr2.hh
-//
-// Description:
-//   This is a special decay model to generate e+e- -> phi gamma + soft gammas
-//   using soft collinear ISR calculation from AfkQed
-//   This is implemented as a decay of the VPHO.
-//
-// Modification history:
-//
-//    Joe Izen        Oct, 2005             Soft Colinear Photons (secondary ISR) ported from AfkQed
-//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1
-//    RYD/Adriano     June 16, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTVECTORISR_HH
 #define EVTVECTORISR_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
 
 class EvtParticle;
+
+// Description:
+//   This is a special decay model to generate e+e- -> phi gamma + soft gammas
+//   using soft collinear ISR calculation from AfkQed
+//   This is implemented as a decay of the VPHO.
 
 class EvtVectorIsr : public EvtDecayIncoherent {
   public:

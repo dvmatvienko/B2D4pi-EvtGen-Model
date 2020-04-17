@@ -1,21 +1,12 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtValError.hh,v 1.2 2009-03-16 16:34:38 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Value and its associated error. E.g. this could be interval size and
-// the error associated with numerical integration.
-
 #ifndef EVT_VAL_ERROR_HH
 #define EVT_VAL_ERROR_HH
 
 #include <assert.h>
 #include <iostream>
 #include <math.h>
+
+// Value and its associated error. E.g. this could be interval size and
+// the error associated with numerical integration.
 
 class EvtValError final {
   public:

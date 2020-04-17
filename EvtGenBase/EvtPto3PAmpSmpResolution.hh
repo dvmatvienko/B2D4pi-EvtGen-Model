@@ -1,11 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *  Author: D. Dujmic, ddujmic@slac.stanford.edu
- *
- * Copyright (C) 2005 SLAC
- *******************************************************************************/
-
 #ifndef EVT_PTO3P_AMP_SMPRSL_HH
 #define EVT_PTO3P_AMP_SMPRSL_HH
 

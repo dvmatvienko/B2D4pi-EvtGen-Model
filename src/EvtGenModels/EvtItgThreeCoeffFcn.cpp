@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgThreeCoeffFcn.cc
-//
-// Description:
-//      Class describing a function with three vectors of coefficients.
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module created
-//
-//------------------------------------------------------------------------
 #include "EvtGenModels/EvtItgThreeCoeffFcn.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

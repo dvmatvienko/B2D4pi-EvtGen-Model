@@ -1,17 +1,6 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPoint1D.cpp,v 1.3 2009-03-16 15:44:41 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Point on a finite 1-D interval. isValid shows whether for a given specification,
-// the coordinate _value is inside the interval defined by _min, _max.
-
 #include "EvtGenBase/EvtPoint1D.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
 
 #include <stdio.h>
 

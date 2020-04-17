@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtPhspFlatlifetime.cc
-//
-// Description: Routine to decay a particle according to phase space,
-//              with a flat lifetime distribution
-//
-// Modification history:
-//
-//    RYD       January 8, 1997       Module created
-//    PR        July 10, 2013         Add flat lifetime generation
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtPhspFlatLifetime.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

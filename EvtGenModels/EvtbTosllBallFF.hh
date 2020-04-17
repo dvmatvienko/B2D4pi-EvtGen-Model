@@ -1,29 +1,12 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module:
-// Description: Form factors for b->sll according to Ali, Ball et al.
-//              hep-ph/9910221v2
-//
-// Modification history:
-//
-//    Ryd     January 5, 2000         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOSLLBALLFF_HH
 #define EVTBTOSLLBALLFF_HH
 
 #include "EvtGenModels/EvtbTosllFF.hh"
 
 class EvtId;
+
+// Description: Form factors for b->sll according to Ali, Ball et al.
+//              hep-ph/9910221v2
 
 class EvtbTosllBallFF : public EvtbTosllFF {
   public:

@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtLb2BaryonlnuFF.cc
-//
-// Description: Module for computation of Lb->N*+ and  Lb->Lc*+ form factors.  Uses predictions based  from  W. Roberts, M. Pervin, S. Chapstick, (2011). arXiv:nucl-th/0503030v1
-//
-// Modification history:
-//
-//    William Sutcliffe     November 21, 2013     Module created
-//
-//
-//--------------------------------------------------------------------------
 #include "EvtGenModels/EvtLb2BaryonlnuFF.hh"
 
 #include "EvtGenBase/EvtConst.hh"

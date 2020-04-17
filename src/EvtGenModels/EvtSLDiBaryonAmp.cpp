@@ -1,28 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSLDiBaryonAmp.cc
-//
-// Description: Routine to implement semileptonic decays to dibaryonic final
-// state. Details of amplitude calculation to be found in arXiv:1107.0801.
-//
-// Modification history:
-//
-//    Mark Smith     July 18, 2017     Module created
-//    Heavily adapted from the EvtSLBaryonAmp module
-//    Ryan Newcombe   May 2018  Added capability for Rarita-Schwinger
-//    daughters.  Indexing convention follows EvtSLBaryonAmp
-//    John B          Oct 2018 Optimise amplitude calculation
-//
-//--------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtSLDiBaryonAmp.hh"
 
 #include "EvtGenBase/EvtGammaMatrix.hh"

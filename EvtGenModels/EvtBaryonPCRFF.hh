@@ -1,31 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBaryonVminusAFF.hh
-//
-// Description:Form factor routines specific to EvtBaryonVminusA
-//
-// Modification history:
-//
-//    R.J. Tesarek     May 28, 2004     Module created
-//    Karen Gibson     1/20/2006        Module updated for 1/2+->1/2+,
-//                                      1/2+->1/2-, 1/2+->3/2- Lambda decays
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBARYONPCRFF_HH
 #define EVTBARYONPCRFF_HH
 
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 
 class EvtId;
+
+// Description:Form factor routines specific to EvtBaryonVminusA
 
 class EvtBaryonPCRFF : public EvtSemiLeptonicFF {
   public:

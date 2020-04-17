@@ -1,7 +1,3 @@
-// $Id: EvtIncoherentMixing.cpp,v 1.13 2009-11-27 09:09:41 mwhitehe Exp $
-// Include files
-
-// local
 #include "EvtGenBase/EvtIncoherentMixing.hh"
 
 #include "EvtGenBase/EvtId.hh"

@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtTauVectornu.cc
-//
-// Description: The vector decay of the tau meson.
-//              E.g., tau- -> rho- + nut
-//
-// Modification history:
-//
-//    RYD/SHY   April 23, 1997           Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtTauVectornu.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

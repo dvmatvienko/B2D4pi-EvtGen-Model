@@ -1,15 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtYmSToYnSpipiCLEO.hh
-//
+#ifndef EVTYMSTOYNSPIPICLEO_HH
+#define EVTYMSTOYNSPIPICLEO_HH
+
+// #include "EvtGenBase/EvtDecayProb.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
+
+class EvtParticle;
+
 // Description: This model is based on matrix element method used by
 //              CLEO in Phys.Rev.D76:072001,2007 to model the dipion mass
 //              and helicity angle distribution in the decays Y(mS) -> pi pi Y(nS),
@@ -31,20 +27,6 @@
 // Enddecay
 //
 //   --> the order of parameters is: Re(B/A) Im(B/A)
-//
-// Modification history:
-//
-//    SEKULA  Jan. 28, 2008         Module created
-//
-//------------------------------------------------------------------------
-
-#ifndef EVTYMSTOYNSPIPICLEO_HH
-#define EVTYMSTOYNSPIPICLEO_HH
-
-// #include "EvtGenBase/EvtDecayProb.hh"
-#include "EvtGenBase/EvtDecayAmp.hh"
-
-class EvtParticle;
 
 class EvtYmSToYnSpipiCLEO : public EvtDecayAmp {
     //EvtDecayProb  {

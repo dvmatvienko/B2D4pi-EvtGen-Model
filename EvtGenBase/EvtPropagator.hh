@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPropagator.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Defines propagator as a function of mass and width
-
 #ifndef EVT_PROPAGATOR_HH
 #define EVT_PROPAGATOR_HH
 
@@ -17,6 +6,8 @@
 #include "EvtGenBase/EvtPoint1D.hh"
 
 #include <assert.h>
+
+// Defines propagator as a function of mass and width
 
 class EvtPropagator : public EvtAmplitude<EvtPoint1D> {
   public:

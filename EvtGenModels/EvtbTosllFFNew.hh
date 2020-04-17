@@ -1,27 +1,9 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech
-//
-// Module: EvtbTosllFFNew.hh
-//
-// Description: This is the NEW base class for form factors in b->sll transitions.
-//
-// Modification history:
-//
-//  N.Nikitin (nnikit@mail.cern.ch) Avril 18, 2008  Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOSLLFFNEW_HH
 #define EVTBTOSLLFFNEW_HH
 
 #include "EvtGenBase/EvtId.hh"
+
+// Description: This is the NEW base class for form factors in b->sll transitions.
 
 class EvtbTosllFFNew {
   public:

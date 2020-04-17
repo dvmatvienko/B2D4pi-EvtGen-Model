@@ -1,29 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBCTFF.hh
-//
-// Description: Form factors for EvtBCTFF model
-//
-// Modification history:
-//
-//    DJL     April 20, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBCTFF_HH
 #define EVTBCTFF_HH
 
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 
 class EvtId;
+
+// Description: Form factors for EvtBCTFF model
 
 class EvtBCTFF : public EvtSemiLeptonicFF {
   public:

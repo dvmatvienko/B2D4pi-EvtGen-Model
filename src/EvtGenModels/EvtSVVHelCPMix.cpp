@@ -1,37 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSVVHelCPMix.cc
-//
-// Description: Routine to decay scalar -> 2 vectors
-//              by specifying the helicity amplitudes, taking appropriate
-//		weak phases into account to get mixing and CP violation through
-//		interference. Based on EvtSVVHelAmp. Particularly appropriate for
-//		Bs->J/Psi+Phi
-//
-// Modification history:
-//
-//    RYD       November 24, 1996       EvtSVVHelAmp Module
-//    CATMORE   March 2004		Modified to EvtSVVHelCPMix
-//
-// Model takes the following as user-specified arguments:
-//	deltaM, averageM - mass diference and average of light and heavy mass eigenstates (real scalars)
-//	gamma, deltagamma - average width and width difference of the l and h eigenstates (real scalars)
-//	delta1, delta2 - strong phases (real scalars)
-//	direct weak phase (real scalar) (for Bs->JPsiPhi this will be zero)
-//	weak mixing phase (real scalar) (this is equal to 2*arg(Vts Vtb) for Bs->JPsiPhi)
-//	Magnitudes of helicity amplitudes as in SVV_HELAMP
-// See Phys Rev D 34 p1404 - p1417 and chapters 5 and 7 of Physics Reports 370 p537-680 for more details
-//------------------------------------------------------------------------
-//
-
 #include "EvtGenModels/EvtSVVHelCPMix.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtBcVHad.cc
-//
-// Description: Module to implement Bc -> psi + (n pi) + (m K) decays
-//
-// Modification history:
-//
-//    A V Luchinsky     Jan 29, 2013        Module created
-//    A V Luchinsky     Apr 30, 2019        psi K_S K mode added
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtBcVHad.hh"
 
 #include "EvtGenBase/EvtIdSet.hh"

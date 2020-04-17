@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBCVFF2.cc
-//
-// Description: form factors for B->Vlnu
-//
-// Modification history:
-//
-//    AVL Jan 29, 2013, Module created
-//
-//------------------------------------------------------------------------
-//
-
 #include "EvtGenModels/EvtBCVFF2.hh"
 
 using namespace std;

@@ -1,13 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Module: EvtGen/EvtD0gammaDalitz.hh
-//
-// Modification history:
-//
-//    JGT     February 13, 2012         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef __EVTD0GAMMADALITZ_HH__
 #define __EVTD0GAMMADALITZ_HH__
 

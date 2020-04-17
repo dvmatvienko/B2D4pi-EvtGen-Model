@@ -1,35 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtVubHybrid.hh
-//
-// Description:
-// Class to generate inclusive B to X_u l nu decays.
-// This class is based on EvtVub by Sven Menke with an update to
-// generate the inclusive decays in such a way that the right
-// mix of inclusive and exclusive decays is obtained:
-// "Hybrid Model" by Dominique Fortin.
-// NOTE:
-// - A set of weights (for bins in the kinematic variables mX, q2, El)
-//   is read from DECAY.DEC. This set of weights must be consistent
-//   with the other parameters specified (excl. BF, non-res BF, mb, a).
-// - If no binning/weights are specified in DECAY.DEC the hybrid
-//   reweighting is not activated
-//
-// Modification history:
-//
-//   Jochen Dingfelder February 1, 2005  Created Module as update of
-//                                       the module EvtVub including
-//                                       hybrid model.
-//------------------------------------------------------------------------
-
 #ifndef EVTVUBHYBRID_HH
 #define EVTVUBHYBRID_HH
 
@@ -42,6 +10,19 @@
 
 class EvtParticle;
 class RandGeneral;
+
+// Description:
+// Class to generate inclusive B to X_u l nu decays.
+// This class is based on EvtVub by Sven Menke with an update to
+// generate the inclusive decays in such a way that the right
+// mix of inclusive and exclusive decays is obtained:
+// "Hybrid Model" by Dominique Fortin.
+// NOTE:
+// - A set of weights (for bins in the kinematic variables mX, q2, El)
+//   is read from DECAY.DEC. This set of weights must be consistent
+//   with the other parameters specified (excl. BF, non-res BF, mb, a).
+// - If no binning/weights are specified in DECAY.DEC the hybrid
+//   reweighting is not activated
 
 class EvtVubHybrid : public EvtDecayIncoherent {
   public:

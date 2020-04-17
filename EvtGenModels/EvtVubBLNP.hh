@@ -1,15 +1,3 @@
-
-//////////////////////////////////////////////////////////////////////
-//
-// Module: EvtVubBLNP.hh
-//
-// Description: Modeled on Riccardo Faccini's EvtVubNLO module
-// author: sheila  date: October 2005
-//
-// tripleDiff from BLNP's notebook, based on hep-ph/0504071
-//
-//////////////////////////////////////////////////////////////////
-
 #ifndef EVTVUBBLNP_HH
 #define EVTVUBBLNP_HH
 
@@ -18,6 +6,9 @@
 #include <vector>
 
 class EvtParticle;
+
+// Description: Modeled on Riccardo Faccini's EvtVubNLO module
+// tripleDiff from BLNP's notebook (based on BLNP4, hep-ph/0504071)
 
 class EvtVubBLNP : public EvtDecayIncoherent {
   public:

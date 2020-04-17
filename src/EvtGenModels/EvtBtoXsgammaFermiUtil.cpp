@@ -1,39 +1,13 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsgammaFermiUtil.cc
-//
-// Description:
-//      Class to hold various fermi functions and their helper functions. The
-//      fermi functions are used in EvtBtoXsgammaKagan.
-//
-// Modification history:
-//
-//      Jane Tinslay       March 21, 2001       Module created
-//------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenModels/EvtBtoXsgammaFermiUtil.hh"
 
-//-----------------------
-// This Class's Header --
-//-----------------------
 #include "EvtGenBase/EvtConst.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-#include "EvtGenModels/EvtBtoXsgammaFermiUtil.hh"
 #include "EvtGenModels/EvtBtoXsgammaRootFinder.hh"
 #include "EvtGenModels/EvtItgFunction.hh"
 #include "EvtGenModels/EvtItgTwoCoeffFcn.hh"
 
-//---------------
-// C++ Headers --
-//---------------
 #include <iostream>
 #include <math.h>
 using std::endl;

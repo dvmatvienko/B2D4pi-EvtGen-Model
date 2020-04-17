@@ -1,6 +1,3 @@
-// Generation of direct CP violation in hadronic environment
-// Patrick Robbe, LHCb,  08 Nov 2006
-//
 #include "EvtGenModels/EvtSSD_DirectCP.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

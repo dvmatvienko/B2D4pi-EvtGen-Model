@@ -1,18 +1,3 @@
-//---------------------------------------------------------------------------------
-//
-// Wilson coeficients according to A.J.Buras and M.Munz, Phys.Rev. D52, 186. (1995)
-// Thanks to N. Nikitine for example code for Pythia
-// Coefficient C8eff and C2 correction to C7eff taken from:
-//   A.J.Buras, M.Misiak, M.Munz, S.Pokorski, Nucl.Phys. B424, 374 (1994)
-//
-// Used constants come from PDG 2004
-//
-// P. Reznicek 18.02.2005
-//
-//  04/03/2005  PR   Added h-function
-//
-//---------------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtWilsonCoefficients.hh"
 
 #include "EvtGenBase/EvtConst.hh"

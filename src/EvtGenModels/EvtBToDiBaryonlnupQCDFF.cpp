@@ -1,29 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBTopplnupQCDFF.cc
-//
-// Description: Routine to implement form factor calculation for
-// B->Baryon Anti-baryon l nu from pQCD counting rules.
-// Taken from arXiv:1107.0801
-//
-//
-// Modification history:
-//
-//  Mark Smith     17/07/2017        Module created
-//  Ryan Newcombe  May 2018          Added function to get form factors for
-//  Rarita-Schwinger daughters
-//  John B         Oct 2018          Added FormFactors class
-//
-//--------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtBToDiBaryonlnupQCDFF.hh"
 
 #include "EvtGenBase/EvtParticle.hh"

@@ -1,13 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Module: EvtD0gammaDalitz.cc
-//
-// Modification history:
-//
-//    JGT     February 13, 2012         Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtD0gammaDalitz.hh"
 
 #include "EvtGenBase/EvtConst.hh"

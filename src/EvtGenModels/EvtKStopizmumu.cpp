@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtKStopizmumu.cc
-//
-// Description: Routine to implement KS -> pi0 mu mu; see JHEP08(1998)004.
-//
-// Modification history:
-//
-// Veronika Chobanova, Diego Martinez Santos    November 25,2015  Module created
-// With the assistance of Jeremy Dalseno
-// LHCb collaboration
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtKStopizmumu.hh"
 
 #include "EvtGenBase/EvtConst.hh"

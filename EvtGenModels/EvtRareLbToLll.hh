@@ -1,15 +1,6 @@
 #ifndef EVTRARELBTOLLL_HH
 #define EVTRARELBTOLLL_HH 1
 
-// Include files
-
-/** @class EvtRareLbToLll EvtRareLbToLll.hh EvtGenModels/EvtRareLbToLll.hh
- *
- *
- *  @author Thomas Blake
- *  @date   2013-11-27
- */
-
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtParticle.hh"
@@ -18,6 +9,10 @@
 #include "EvtGenModels/EvtRareLbToLllWC.hh"
 
 #include <memory>
+
+// Description:
+//      Implements the rare Lb --> Lambda^(*) ell ell models described in
+//      http://arxiv.org/pdf/1108.6129.pdf
 
 class EvtRareLbToLll : public EvtDecayAmp {
   public:

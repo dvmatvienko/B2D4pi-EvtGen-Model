@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtPi0Dalitz.cc
-//
-// Description: pi0 -> e+ e- gamma
-//
-// Modification history:
-//
-//    DJL/RYD    June 30, 1998          Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtEta2MuMuGamma.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

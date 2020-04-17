@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001      Brunel University
-//
-// Module: EvtGen/EvtBtoXsgammaRootFinder.hh
-//
-// Description:
-//       Root finding algorithms using the bilear method. Basic structure
-//       lifted from the BaBar IntegrationUtils root finding algorithm
-//       (author John Back).
-//
-// Modification history:
-//
-//       Jane Tinslay     March 21, 2001         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOXSGAMMAROOTFINDER_HH
 #define EVTBTOXSGAMMAROOTFINDER_HH
 
@@ -32,6 +9,11 @@ extern "C" {
 
 //#include "EvtGenBase/EvtItgAbsFunction.hh"
 class EvtItgAbsFunction;
+
+// Description:
+//       Root finding algorithms using the bilear method. Basic structure
+//       lifted from the BaBar IntegrationUtils root finding algorithm
+//       (author John Back).
 
 class EvtBtoXsgammaRootFinder final {
   public:

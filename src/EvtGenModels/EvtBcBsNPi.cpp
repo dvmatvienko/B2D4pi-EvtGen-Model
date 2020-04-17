@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtGenModels/EvtBcBsNPi.hh
-//
-// Description: Decay model for Bc -> Bs + npi
-//
-// Modification history:
-//
-//    A.Berezhnoy, A.Likhoded, A.Luchinsky  July 2011   Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtBcBsNPi.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

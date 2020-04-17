@@ -1,7 +1,3 @@
-// Include files
-
-// local
-
 #include "EvtGenModels/EvtRareLbToLllFFlQCD.hh"
 
 #include "EvtGenBase/EvtConst.hh"

@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSSSCPpng.cc
-//
-// Description: Routine to decay B -> 2 scalars taking into account penguin
-//              contributions (assuming single quark dominance for penguins)
-//
-// Modification history:
-//
-//    RYD/NK    December 3, 1997          Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSSSCPpng.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

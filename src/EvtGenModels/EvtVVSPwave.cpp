@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtVVSPwave.cc
-//
-// Description: Routine to decay vector-> vector scalar in Partial-wave
-//              Routine to decay a vector into a vector and scalar.  Started
-//              by ryd on Aug 20, 1996.
-//
-// Modification history:
-//
-//    RYD       November 24, 1996       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVVSPwave.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtLb2plnuLCSR.hh
-//
-// Description:Implementation of the Lb2plnuLCSR model
-// Class to handle semileptonic Lb -> p l nu decays using the using form factor predictions from Light Cone Sum Rules.
-//
-//
-// Modification history:
-//
-//    William Sutcliffe     July 27, 2013     Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTLB2PMUNULCSR_HH
 #define EVTLB2PMUNULCSR_HH
 
@@ -29,6 +7,12 @@
 #include "EvtGenModels/EvtSLBaryonAmp.hh"
 
 class EvtParticle;
+
+// Description:Implementation of the Lb2plnuLCSR model
+// Class to handle semileptonic Lb -> p l nu decays using the using form factor predictions from Light Cone Sum Rules.
+// Description: Routine to implement Lb->p l nu semileptonic decays using form factor
+//              predictions form Light Cone Sum Rules.  The form factors are from
+//              A. Khodjamirian, C. Klein, T. Mannel and Y.-M. Wang, arXiv.1108.2971 (2011)
 
 class EvtLb2plnuLCSR : public EvtDecayAmp {
   public:

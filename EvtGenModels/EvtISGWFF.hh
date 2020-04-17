@@ -1,29 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtISGWFF.hh
-//
-// Description:Form factor routines specific to EvtISGW
-//
-// Modification history:
-//
-//    DJL/RYD     September 25, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTISGWFF_HH
 #define EVTISGWFF_HH
 
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
 
 class EvtId;
+
+// Description:Form factor routines specific to EvtISGW
 
 class EvtISGWFF : public EvtSemiLeptonicFF {
     void getscalarff( EvtId parent, EvtId daught, double t, double mass,

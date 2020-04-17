@@ -1,14 +1,5 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtIntervalFlatPdf.cpp,v 1.3 2009-03-16 15:51:08 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
 #include "EvtGenBase/EvtIntervalFlatPdf.hh"
+
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRandom.hh"
 

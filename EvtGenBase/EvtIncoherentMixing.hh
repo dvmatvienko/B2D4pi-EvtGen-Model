@@ -1,4 +1,3 @@
-// $Id: EvtIncoherentMixing.hh,v 1.6 2009-11-25 13:41:59 mwhitehe Exp $
 #ifndef EVTINCOHERENTMIXING_HH
 #define EVTINCOHERENTMIXING_HH 1
 

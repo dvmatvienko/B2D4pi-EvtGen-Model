@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSecondary.cc
-//
-// Description: Class to store the decays of the secondary particles.
-//
-// Modification history:
-//
-//    RYD       March 12, 1998       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtSecondary.hh"
 
 #include "EvtGenBase/EvtPDL.hh"

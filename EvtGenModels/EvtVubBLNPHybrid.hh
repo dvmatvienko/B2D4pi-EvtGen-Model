@@ -1,9 +1,12 @@
+#ifndef EVTVUBBLNPHYBRID_HH
+#define EVTVUBBLNPHYBRID_HH
 
-//////////////////////////////////////////////////////////////////////
-//
-// Module: EvtVubBLNPHybrid.hh
-//
-//
+#include "EvtGenBase/EvtDecayIncoherent.hh"
+
+#include <vector>
+
+class EvtParticle;
+
 // tripleDiff from BLNPHybrid's notebook, based on hep-ph/0504071
 //
 // Description:
@@ -18,18 +21,6 @@
 //   with the other parameters specified (excl. BF, non-res BF, mb, a).
 // - If no binning/weights are specified in DECAY.DEC the hybrid
 //   reweighting is not activated
-//
-//
-//////////////////////////////////////////////////////////////////
-
-#ifndef EVTVUBBLNPHYBRID_HH
-#define EVTVUBBLNPHYBRID_HH
-
-#include "EvtGenBase/EvtDecayIncoherent.hh"
-
-#include <vector>
-
-class EvtParticle;
 
 class EvtVubBLNPHybrid : public EvtDecayIncoherent {
   public:

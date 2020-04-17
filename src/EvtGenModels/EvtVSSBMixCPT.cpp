@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2002      INFN-Pisa
-//
-// Module: EvtVSSBMixCPT.cc
-//
-// Description:
-//    Routine to decay vector-> scalar scalar with coherent BB-like mixing
-//                              including CPT effects
-//    Based on VSSBMIX
-//
-// Modification history:
-//
-//    F. Sandrelli, Fernando M-V March 03, 2002
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVSSBMixCPT.hh"
 
 #include "EvtGenBase/EvtConst.hh"

@@ -1,18 +1,10 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *  Author: D. Dujmic, ddujmic@slac.stanford.edu
- *
- * Copyright (C) 2005 SLAC
- *
- *******************************************************************************/
+#include "EvtGenBase/EvtPto3PAmpSmpResolution.hh"
 
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtCyclic3.hh"
 #include "EvtGenBase/EvtDalitzCoord.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPto3PAmp.hh"
-#include "EvtGenBase/EvtPto3PAmpSmpResolution.hh"
 
 #include <assert.h>
 #include <iostream>

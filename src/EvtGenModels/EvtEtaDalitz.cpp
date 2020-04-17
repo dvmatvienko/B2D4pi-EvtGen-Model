@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtEtaDalitz.cc
-//
-// Description: Routine to decay eta -> pi+ pi- pi0
-//
-// Modification history:
-//
-//    DJL/RYD     July 23, 1997        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtEtaDalitz.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

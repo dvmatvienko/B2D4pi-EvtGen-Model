@@ -2,19 +2,15 @@
 
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtKine.hh"
+#include "EvtGenBase/EvtMBreitWigner.hh"
+#include "EvtGenBase/EvtMHelAmp.hh"
+#include "EvtGenBase/EvtMTrivialLS.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtReport.hh"
 
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
-
-// Make sure to include Lineshapes here
-#include "EvtGenBase/EvtMBreitWigner.hh"
-#include "EvtGenBase/EvtMTrivialLS.hh"
-
-// Make sure to include Parametrizations
-#include "EvtGenBase/EvtMHelAmp.hh"
 
 using std::endl;
 

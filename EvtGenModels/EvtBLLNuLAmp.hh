@@ -1,20 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Module: EvtB2MuMuENuAmp.hh
-//
-// Description: Header file for the amplitude calculation for the "BLLNUL"
-//              model which generates rare four-leptonic B-decays
-//              B^-(p) -> ell^+(k_1) ell^-(k_2) neu (k_3) ell^-(k_4)
-//
-// Modification history:
-//
-// Anna Danilina (anna.danilina@cern.ch) and
-// Nikolai Nikitin (Nikolai.Nikitine@cern.ch) Nov 2018  Module created
-// John B                                               Code optimisations
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBLLNUL_AMP_HH
 #define EVTBLLNUL_AMP_HH
 
@@ -27,6 +10,10 @@
 #include <vector>
 
 class EvtParticle;
+
+// Description: Header file for the amplitude calculation for the "BLLNUL"
+//              model which generates rare four-leptonic B-decays
+//              B^-(p) -> ell^+(k_1) ell^-(k_2) neu (k_3) ell^-(k_4)
 
 class EvtBLLNuLAmp {
   public:

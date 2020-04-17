@@ -1,29 +1,10 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech
-//
-// Module: Evtbs2llGammaFF.hh
-//
-// Description: This is the NEW base class for form factors in b->sll transitions.
-//
-// Modification history:
-//
-//  N.Nikitin (nnikit@mail.cern.ch) October 13, 2008	Module created
-//  A.Popov			    October 30, 2008	Add function "getPhotonFF"
-//
-//--------------------------------------------------------------------------------
-
 #ifndef EVTBS2LLGAMMAFF_HH
 #define EVTBS2LLGAMMAFF_HH
 
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtId.hh"
+
+// Description: This is the NEW base class for form factors in b->sll transitions.
 
 class Evtbs2llGammaFF {
   public:

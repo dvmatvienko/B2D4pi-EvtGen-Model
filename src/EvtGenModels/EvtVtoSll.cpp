@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtVll.cc
-//
-// Description: The decay of a vector meson to a scalar and a
-//              lepton pair. E.g. D_s*+ -> D_s+ e+ e-
-//
-//
-// Modification history:
-//
-//    RYD       February 28, 2009       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVtoSll.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

@@ -1,14 +1,5 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzFlatPdf.cpp,v 1.3 2009-03-16 15:53:27 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
 #include "EvtGenBase/EvtDalitzFlatPdf.hh"
+
 #include "EvtGenBase/EvtPatches.hh"
 
 EvtDalitzFlatPdf::EvtDalitzFlatPdf( const EvtDalitzPlot& dp ) :

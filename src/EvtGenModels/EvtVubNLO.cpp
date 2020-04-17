@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtVubNLO.cc
-//
-// Description: Routine to decay B->Xulnu according to Bosch, Lange, Neubert, and Paz hep-ph/0402094
-//              Equation numbers refer to this paper
-//
-// Modification history:
-//
-//    Riccardo Faccini       Feb. 11, 2004
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtVubNLO.hh"
 
 #include "EvtGenBase/EvtDiLog.hh"

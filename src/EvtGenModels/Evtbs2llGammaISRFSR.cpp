@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech, UCSB
-//
-// Module: Evtbs2llGammaISRFSR.ccp
-//
-// Description:  decay model BSTOGLLISRFSR (see the Internal LHCb Note LHCb-INT-2011-011)
-//
-// Modification history:
-//
-//    N.Nikitin   December 09, 2014   Module create and added the tool for selecting
-//                                    the ISR and FSR parts in the decay amplitude.
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/Evtbs2llGammaISRFSR.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

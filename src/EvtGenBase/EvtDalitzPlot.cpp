@@ -1,24 +1,5 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtDalitzPlot.cpp,v 1.3 2009-03-16 15:53:27 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
-
-// Global 3-body Dalitz decay kinematics as defined by the mass
-// of the mother and the daughters. Spins are not considered.
-
 #include "EvtGenBase/EvtDalitzPlot.hh"
+
 #include "EvtGenBase/EvtDecayMode.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtPatches.hh"

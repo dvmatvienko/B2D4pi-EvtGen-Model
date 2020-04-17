@@ -1,25 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsEtap.cc
-//
-// Description: Routine to perform two-body non-resonant B->Xs,gluon decays.
-// It generates an X_s mass spectrum based on a parameterisation of the
-// b->s,gluon  spectrum of Atwood-Soni. The resultant X_s particles may
-// be decayed by JETSET.
-//
-// Modification history:
-//
-//    Adlene Hicheur       January 10, 2001       Module created
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBtoXsEtap.hh"
 
 #include "EvtGenBase/EvtConst.hh"

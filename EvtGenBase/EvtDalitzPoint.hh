@@ -1,11 +1,9 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzPoint.hh,v 1.2 2009-03-16 16:44:53 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+#ifndef EVT_DALITZ_POINT_HH
+#define EVT_DALITZ_POINT_HH
+
+#include "EvtGenBase/EvtCyclic3.hh"
+#include "EvtGenBase/EvtDalitzCoord.hh"
+#include "EvtGenBase/EvtDalitzPlot.hh"
 
 // This class describes the complete kinematics of the Dalitz decay.
 // It holds all the six invariant momentum products, three daughter
@@ -16,13 +14,6 @@
 // Another way to slice the six coordinate is to make a transformation
 // to the mass of the decaying particle. The four masses make up a
 // Dalitz plot. The other two are coordinates of a point in the plot.
-
-#ifndef EVT_DALITZ_POINT_HH
-#define EVT_DALITZ_POINT_HH
-
-#include "EvtGenBase/EvtCyclic3.hh"
-#include "EvtGenBase/EvtDalitzCoord.hh"
-#include "EvtGenBase/EvtDalitzPlot.hh"
 
 class EvtDalitzPoint final {
   public:

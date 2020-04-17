@@ -1,20 +1,11 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzCoord.hh,v 1.2 2009-03-16 16:43:40 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Two dimensional coordinate of a point in a Dalitz plot
-
 #ifndef EVT_DALITZ_COORD_HH
 #define EVT_DALITZ_COORD_HH
 
 #include "EvtGenBase/EvtCyclic3.hh"
 
 #include <iostream>
+
+// Two dimensional coordinate of a point in a Dalitz plot
 
 class EvtDalitzCoord final {
   public:

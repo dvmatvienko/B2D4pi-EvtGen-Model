@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: Evt3Rank3C.cc
-//
-// Description: Implementation of complex 3Rank 3D tensors.
-//
-// Modification history:
-//
-//    RYD     September 14, 1996         Module created
-//
-//------------------------------------------------------------------------
 #include "EvtGenBase/Evt3Rank3C.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

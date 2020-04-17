@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2012      University of Warwick, UK
-//
-// Module: EvtExtGeneratorCommandsTable
-//
-// Description:  Table of commands to pass to external generators
-//
-// Modification history:
-//
-//    Daniel Craik       March 2012            Module created
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenBase/EvtExtGeneratorCommandsTable.hh"
 
 EvtExtGeneratorCommandsTable::EvtExtGeneratorCommandsTable()

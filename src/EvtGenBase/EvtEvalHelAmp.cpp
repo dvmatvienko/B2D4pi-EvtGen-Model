@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtHelAmp.cc
-//
-// Description: Decay model for implementation of generic 2 body
-//              decay specified by the partial wave amplitudes
-//
-//
-// Modification history:
-//
-//    fkw        February 2, 2001     changes to satisfy KCC
-//    RYD       September 7, 2000       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtEvalHelAmp.hh"
 
 #include "EvtGenBase/EvtAmp.hh"

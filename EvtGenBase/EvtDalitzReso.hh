@@ -1,16 +1,3 @@
-/*****************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzReso.hh,v 1.1 2009-03-16 16:50:49 robbep Exp $
- *
- * Description:
- *   Class to compute Dalitz amplitudes based on many models that cannot be
- *     handled with EvtResonance.
- *
- * Modification history:
- *   Jordi Garra Ticó     2008/07/03         File created
- *****************************************************************************/
-
 #ifndef __EVTDALITZRESO_HH__
 #define __EVTDALITZRESO_HH__
 

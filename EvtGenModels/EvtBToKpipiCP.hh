@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBToKpipiCP.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOKPIPICP_HH
 #define EVTBTOKPIPICP_HH
 
@@ -27,6 +7,17 @@
 #include "EvtGenModels/EvtBTo3hCP.hh"
 
 class EvtParticle;
+
+// Description: Routine to decay B->K pi pi
+//              and has CP violation.
+//       --- This is the routine to be called by the Main generator
+//          to get the decay of B0    -->-- K+ pi- pi0
+//          The decay proceeeds through three channels:
+//          a) B0 -->-- K*+ pi-  ; K*+    -->-- K+ pi0
+//          b)          K*0 pi0  ; K*0bar -->-- K+ pi-
+//          c)          K-  rho+ ; rho+   -->-- pi+ pi0
+//         It provides at the same time the CP conjugate decay
+//                              B0bar -->-- K- pi+ pi0
 
 class EvtBToKpipiCP : public EvtDecayAmp {
   public:

@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPdfMax.hh,v 1.2 2009-03-16 16:40:15 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Pdf maximum and its location
-
 #ifndef EVT_PDF_MAX_HH
 #define EVT_PDF_MAX_HH
 
@@ -16,7 +5,7 @@
 
 #include <cassert>
 
-// PDF maximum - helper class
+// Pdf maximum and its location
 
 template <class Point>
 class EvtPdfMax {

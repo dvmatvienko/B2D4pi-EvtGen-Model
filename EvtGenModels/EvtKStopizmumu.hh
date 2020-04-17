@@ -7,6 +7,8 @@
 
 class EvtParticle;
 
+// Description: Routine to implement KS -> pi0 mu mu; see JHEP08(1998)004.
+
 class EvtKStopizmumu : public EvtDecayAmp {
   public:
     std::string getName() override { return "KS_PI0MUMU"; }

@@ -1,19 +1,10 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtStreamAdapter.hh,v 1.2 2009-03-16 16:40:16 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+#ifndef EVT_STREAM_ADAPTER_HH
+#define EVT_STREAM_ADAPTER_HH
 
 // Stream adapters are used to convert a stream-like input (for example,
 // a file containing N entries) to an STL like iterator interface. There
 // must be a way to get point from the stream, and also an indicator of the
 // end of the stream.
-
-#ifndef EVT_STREAM_ADAPTER_HH
-#define EVT_STREAM_ADAPTER_HH
 
 template <class Point>
 class EvtStreamAdapter {

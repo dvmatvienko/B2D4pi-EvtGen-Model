@@ -1,23 +1,5 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSemiLeptonicAmp.cc
-//
-// Description: Base class for semileptonic decays
-//
-// Modification history:
-//
-//    DJL       April 17,1998       Module created
-//
-//------------------------------------------------------------------------
-//
+#include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtDiracSpinor.hh"
 #include "EvtGenBase/EvtGenKine.hh"
@@ -27,7 +9,6 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtScalarParticle.hh"
-#include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
 #include "EvtGenBase/EvtTensor4C.hh"
 #include "EvtGenBase/EvtTensorParticle.hh"
 #include "EvtGenBase/EvtVector4C.hh"

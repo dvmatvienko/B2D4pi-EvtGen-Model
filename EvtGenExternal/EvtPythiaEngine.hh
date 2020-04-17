@@ -1,22 +1,4 @@
 #ifdef EVTGEN_PYTHIA
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtPythiaEngine
-//
-// Description: Interface to the Pytha 8 external generator
-//
-// Modification history:
-//
-//    John Back       April 2011            Module created
-//
-//------------------------------------------------------------------------
 
 #ifndef EVTPYTHIAENGINE_HH
 #define EVTPYTHIAENGINE_HH
@@ -37,6 +19,8 @@
 #include <memory>
 #include <string>
 #include <vector>
+
+// Description: Interface to the Pytha 8 external generator
 
 class EvtPythiaEngine : public EvtAbsExternalGen {
   public:

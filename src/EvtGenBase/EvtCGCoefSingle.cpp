@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtCGCoefSingle.cc
-//
-// Description: Evaluates Clebsch-Gordon coef for fixed j1 and j2.
-//
-// Modification history:
-//
-//    fkw           February 2, 2001     changes to satisfy KCC
-//    RYD            August 12, 2000         Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtCGCoefSingle.hh"
 
 #include "EvtGenBase/EvtOrthogVector.hh"

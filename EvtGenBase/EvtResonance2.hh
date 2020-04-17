@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtResonance2.hh
-//
-// Description:resonance-defining class
-//
-// Modification history:
-//
-//    lange   Nov 21, 2000         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTRESONANCE2_HH
 #define EVTRESONANCE2_HH
 

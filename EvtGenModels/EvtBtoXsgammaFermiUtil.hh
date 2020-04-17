@@ -1,29 +1,11 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001      Brunel University
-//
-// Module: EvtGen/EvtBtoXsgammaFermiUtil.hh
-//
-// Description:
-//       Class to hold various fermi functions and their helper functions. The
-//       fermi functions are used in EvtBtoXsgammaKagan.
-//
-// Modification history:
-//
-//       Jane Tinslay     March 21, 2001         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOXSGAMMAFERMIUTIL_HH
 #define EVTBTOXSGAMMAFERMIUTIL_HH
 
 #include <vector>
+
+// Description:
+//       Class to hold various fermi functions and their helper functions. The
+//       fermi functions are used in EvtBtoXsgammaKagan.
 
 class EvtBtoXsgammaFermiUtil final {
     //--------------------

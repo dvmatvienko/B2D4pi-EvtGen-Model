@@ -1,27 +1,3 @@
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBToDiBaryonlnupQCD.cc
-//
-// Description: Routine to implement B -> Baryon Anti-baryon l nu decays.
-// The form factors are from  arXiv.1107.0801 (2011)
-//
-//
-// Modification history:
-//
-//   Mark Smith     17/07/2017        Module created
-//   Ryan Newcombe  May 2018          Additional baryons and
-//   Rarita-Schwinger-type particles
-//   John B         Oct 2018          Optimisations
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtBToDiBaryonlnupQCD.hh"
 
 #include "EvtGenBase/EvtId.hh"

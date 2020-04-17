@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech
-//
-// Module: EvtGen/EvtRadiativeBaryonicPenguins.hh
-//
-// Description:Implementation of the decay B- -> lambda p_bar gamma according to
-// Cheng, Yang; hep-ph/0201015
-//
-// Modification history:
-//
-//    JFS     December 16th, 2003         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTLAMBDAPBARGAMMA_HH
 #define EVTLAMBDAPBARGAMMA_HH
 
@@ -27,6 +6,9 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+
+// Description:Implementation of the decay B- -> lambda p_bar gamma according to
+// Cheng, Yang; hep-ph/0201015
 
 class EvtLambdaP_BarGamma : public EvtDecayAmp {
   public:

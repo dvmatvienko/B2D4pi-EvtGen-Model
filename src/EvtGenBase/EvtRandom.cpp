@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtRandom.cc
-//
-// Description: routines to get random numbers from
-//              random number generator.
-//
-// Modification history:
-//
-//    DJL/RYD   September 25, 1996           Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtRandom.hh"
 
 #include "EvtGenBase/EvtConst.hh"

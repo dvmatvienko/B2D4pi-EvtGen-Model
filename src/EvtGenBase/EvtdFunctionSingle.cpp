@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtdFunctionSingle.cc
-//
-// Description: Evaluates one Wigner d-Functions.
-//
-// Modification history:
-//
-//    fkw           February 2, 2001     changes to satisfy KCC
-//    RYD            August 10, 2000         Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenBase/EvtdFunctionSingle.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

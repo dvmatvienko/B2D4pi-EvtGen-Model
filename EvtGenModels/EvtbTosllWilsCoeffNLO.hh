@@ -1,30 +1,12 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtbTosllWilsCoeffNLO.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    N.Nikitin           March   27, 2008         Module created
-//    N.Nikitin           January 12, 2010         New resonant contribution
-//                                                 description
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOSLLWILCNLO_HH
 #define EVTBTOSLLWILCNLO_HH
 class EvtComplex;
 
-// all definicions !
+// Description: The calculation of the Wilson coefficients for
+//              b -> (d,s) ell+ ell-  transitions in the SM at NLO
+//              according to the paper:
+//                    A.J.Buras, M.Munz, Phys.Rev.D52, p.189 (1995).
+
 class EvtbTosllWilsCoeffNLO {
   public:
     double As( double mu, int Nf, int ias );

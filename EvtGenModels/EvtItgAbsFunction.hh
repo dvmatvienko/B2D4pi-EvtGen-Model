@@ -1,27 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgAbsFunction.hh
-//
-// Description:
-//      Abstraction of a generic function for use in integration methods elsewhere
-//      in this package. (Stolen and modified from the BaBar IntegrationUtils package
-//      - author: Phil Strother).
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module adapted for use in
-//                                                     EvtGen
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTITGABSFUNCTION_HH
 #define EVTITGABSFUNCTION_HH
 
@@ -30,6 +6,11 @@
 //-------------
 extern "C" {
 }
+
+// Description:
+//      Abstraction of a generic function for use in integration methods elsewhere
+//      in this package. (Stolen and modified from the BaBar IntegrationUtils package
+//      - author: Phil Strother).
 
 class EvtItgAbsFunction {
   public:

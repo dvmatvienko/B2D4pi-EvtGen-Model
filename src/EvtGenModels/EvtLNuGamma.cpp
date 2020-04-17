@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001      Caltech
-//
-// Module: EvtLNuGamma.cc
-//
-// Description: B+ -> l+ nu gamma
-//
-//
-// Modification history:
-//
-//    Edward Chen   April 24, 2001           Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtLNuGamma.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

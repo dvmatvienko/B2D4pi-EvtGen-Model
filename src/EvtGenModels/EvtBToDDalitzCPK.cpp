@@ -1,11 +1,8 @@
-// $Id: EvtBToDDalitzCPK.cpp,v 1.2 2009-03-16 16:28:42 robbep Exp $
-// Include files
+#include "EvtGenModels/EvtBToDDalitzCPK.hh"
+
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4C.hh"
-
-// local
-#include "EvtGenModels/EvtBToDDalitzCPK.hh"
 
 //-----------------------------------------------------------------------------
 // Implementation file for class : EvtBToDDalitzCPK

@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtISGW2.cc
-//
-// Description: Routine to implement semileptonic decays according
-//              to the model ISGW2
-//
-// Modification history:
-//
-//    DJL/RYD     September 25, 1996         Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtISGW2.hh"
 
 #include "EvtGenBase/EvtConst.hh"

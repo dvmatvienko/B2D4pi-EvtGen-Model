@@ -1,21 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Module: EvtGenModels/EvtBcToNPi.hh
-//
-// Description: General decay model for Bc -> V + npi and Bc -> P + npi
-//
-// Modification history:
-//
-//    A.Berezhnoy, A.Likhoded, A.Luchinsky  April 2011   Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EvtBcToNPi_HH
 #define EvtBcToNPi_HH
 
@@ -26,6 +8,8 @@
 #include "EvtGenBase/EvtVector4R.hh"
 
 #include <string>
+
+// Description: General decay model for Bc -> V + npi and Bc -> P + npi
 
 class EvtBcToNPi : public EvtDecayAmp {
   public:

@@ -1,31 +1,13 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 12001      Caltech
-//
-// Module: EvtGen/EvtSSDCP.hh
-//
-// Description: This module is part of the unification of simulation of CP violation in
-//              B decays. This model handles decays of the type B->SD where D is either
-//              a spin 0, 1, or 2 particle. See long writeup for more information.
-//
-// Modification history:
-//
-//    DJL/RYD     August 12, 2001         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTSSDCP_HH
 #define EVTSSDCP_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
+
+// Description: This module is part of the unification of simulation of CP violation in
+//              B decays. This model handles decays of the type B->SD where D is either
+//              a spin 0, 1, or 2 particle. See long writeup for more information.
 
 class EvtSSDCP : public EvtDecayAmp {
   public:

@@ -1,28 +1,10 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtSLPoleFF.hh
-//
-// Description:Form factor routines for EvtSLPole
-//
-// Modification history:
-//
-//    DJL     April 23, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTSLPOLEFF_HH
 #define EVTSLPOLEFF_HH
 
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
+// Description:Form factor routines for EvtSLPole
 
 class EvtSLPoleFF : public EvtSemiLeptonicFF {
   public:

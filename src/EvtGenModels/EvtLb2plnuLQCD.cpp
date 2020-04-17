@@ -1,28 +1,3 @@
-
-
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtLb2plnuLQCD.cc
-//
-// Description: Routine to implement Lb->p l nu semileptonic decays using form factor predictions from LQCD.
-// The form factors are from:
-//            W. Detmold, C-J. Lin, S. Meinel and M.Wingate, arXiv:1306.0446 (2013)
-//
-//
-// Modification history:
-//
-//   William Sutcliffe     27/07/2013        Module created
-//
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtLb2plnuLQCD.hh"
 
 #include "EvtGenBase/EvtConst.hh"

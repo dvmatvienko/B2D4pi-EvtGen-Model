@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgPtrFunction.hh
-//
-// Description:
-//      Class describing a function with one vector of coefficients. (Stolen and
-//      modified from the BaBar IntegrationUtils package - author: Phil Strother).
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module adapted for use in
-//                                                     EvtGen
-//
-//------------------------------------------------------------------------
 #include "EvtGenModels/EvtItgPtrFunction.hh"
 
 #include "EvtGenBase/EvtPatches.hh"

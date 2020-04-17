@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBCVFF.hh
-//
-// Description: form factors for B->Vlnu
-//
-// Modification history:
-//
-//    AVL Jan 29, 2013, Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBCVFF2_HH
 #define EVTBCVFF2_HH
 
@@ -33,6 +13,8 @@
 #include <string>
 
 class EvtId;
+
+// Description: form factors for B->Vlnu
 
 class EvtBCVFF2 : public EvtSemiLeptonicFF {
   public:

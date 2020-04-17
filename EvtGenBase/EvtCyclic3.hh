@@ -1,18 +1,9 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtCyclic3.hh,v 1.2 2009-03-16 16:42:46 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Cyclic permutations of three indices A,B,C and their parings
-
 #ifndef EVT_CYCLIC3_HH
 #define EVT_CYCLIC3_HH
 
 #include <iosfwd>
+
+// Cyclic permutations of three indices A,B,C and their parings
 
 namespace EvtCyclic3 {
 

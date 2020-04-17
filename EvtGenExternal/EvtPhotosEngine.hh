@@ -1,32 +1,13 @@
 #ifdef EVTGEN_PHOTOS
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtPhotosEngine
-//
-// Description: Interface to the PHOTOS external generator
-//
-// Modification history:
-//
-//    John Back       May 2011            Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTPHOTOSENGINE_HH
 #define EVTPHOTOSENGINE_HH
 
+#include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
 #include "EvtGenModels/EvtAbsExternalGen.hh"
-
 #ifdef EVTGEN_HEPMC3
 #include "HepMC3/Units.h"
 
@@ -37,9 +18,10 @@
 #include "Photos/PhotosHepMCParticle.h"
 #include "Photos/PhotosParticle.h"
 #endif
-#include "EvtGenBase/EvtHepMCEvent.hh"
 
 #include <string>
+
+// Description: Interface to the PHOTOS external generator
 
 class EvtPhotosEngine : public EvtAbsExternalGen {
   public:

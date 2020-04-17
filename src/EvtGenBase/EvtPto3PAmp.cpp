@@ -1,21 +1,9 @@
-#include "EvtGenBase/EvtPatches.hh"
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPto3PAmp.cpp,v 1.3 2009-03-16 15:44:04 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *
- * Modified: May 30, 2005, Denis Dujmic (ddujmic@slac.stanford.edu): flip sign 
- *           for vector resonances (-i -> i at resonance mass).
- *           Introduce Flatte lineshape.
- *******************************************************************************/
+#include "EvtGenBase/EvtPto3PAmp.hh"
 
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtCyclic3.hh"
 #include "EvtGenBase/EvtDalitzCoord.hh"
-#include "EvtGenBase/EvtPto3PAmp.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtdFunction.hh"
 

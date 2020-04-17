@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1999      Caltech, UCSB
-//
-// Module: EvtGen/EvtSVSCPLH.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    Ryd       March 29, 2001         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTSVSCPLH_HH
 #define EVTSVSCPLH_HH
 
@@ -25,6 +5,10 @@
 #include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
+
+// Description: The decay of a scalar to a scalar and a vector particle are
+//              performed with CP violation and different widths for
+//              the cp even and odd states. E.g. B->J/psi K_S.
 
 class EvtSVSCPLH : public EvtDecayAmp {
   public:

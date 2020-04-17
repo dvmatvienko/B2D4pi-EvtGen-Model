@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech
-//
-// Module: EvtGen/EvtBBScalar
-//
-// Description:Implementation of the decay B- -> lambda p_bar pi according to
-// hep-ph/0204185, hep-ph/0211240
-// This model is intended to be applicable to all decays of the type B-> baryon baryon scalar
-//
-// Modification history:
-//
-//    Jan Strube     March 24, 2006         Module created
-//
-//------------------------------------------------------------------------
 #include "EvtGenModels/EvtBBScalar.hh"
 
 #include "EvtGenBase/EvtDiracSpinor.hh"

@@ -1,22 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Environment:                                                               //
-//      This software is part of the EvtGen package.                          //
-//                                                                            //
-// Copyright Information: See EvtGen/COPYRIGHT                                //
-//                                                                            //
-// Module: EvtBsMUMUKK.cc                                                     //
-//                                                                            //
-// Description: Routine to implement Bs -> J/psi KK                           //
-//                                                                            //
-// Modification history:                                                      //
-//      Veronika Chobanova, Jeremy Dalseno, Diego Martinez Santos             //
-//      April 21, 2016       Module created   LHCb collaboration              //
-//      Marcos Romero Lamas                                                   //
-//      February 8, 2019     Module updated   LHCb collaboration              //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
-
 #include "EvtGenModels/EvtBsMuMuKK.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

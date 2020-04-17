@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module: EvtbTosllScalarAmp.cc
-//
-// Description: Routine to implement bTosll decays to pseudo-scalar
-//              mesons.
-//
-// Modification history:
-//
-//    Ryd       January 5,2000       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtbTosllScalarAmp.hh"
 
 #include "EvtGenBase/EvtAmp.hh"

@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-//
-// Module: EvtGen/EvtBtoXsllUtil.hh
-//
-// Description:
-// Class to generate inclusive non-resonant B -> Xs l+ l- decays.
-//
-// Modification history:
-//
-//    Stephane Willocq    Jan 19, 2001   Module created
-//    Stephane Willocq    Nov  6, 2003   Update Wilson Coeffs
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTOXSLLUTIL_HH
 #define EVTBTOXSLLUTIL_HH
 
@@ -26,6 +6,20 @@
 #include "EvtGenBase/EvtParticle.hh"
 
 class EvtComplex;
+
+// Description:
+// Class to generate inclusive non-resonant B -> Xs l+ l- decays.
+// Description: Routine to generate non-resonant B -> Xs l+ l- decays.
+// It generates a dilepton mass spectrum according to
+// F.Kruger and L.M.Sehgal, Phys. Lett. B380, 199 (1996)
+// and then generates the two lepton momenta according to
+// A.Ali, G.Hiller, L.T.Handoko and T.Morozumi, Phys. Rev. D55, 4105 (1997).
+// Expressions for Wilson coefficients and power corrections are taken
+// from A.Ali, E.Lunghi, C.Greub and G.Hiller, Phys. Rev. D66, 034002 (2002).
+// Detailed formulae for shat dependence of these coefficients are taken
+// from H.H.Asatryan, H.M.Asatrian, C.Greub and M.Walker, PRD65, 074004 (2002)
+// and C.Bobeth, M.Misiak and J.Urban, Nucl. Phys. B574, 291 (2000).
+// The resultant Xs particles may be decayed by JETSET.
 
 class EvtBtoXsllUtil {
   public:

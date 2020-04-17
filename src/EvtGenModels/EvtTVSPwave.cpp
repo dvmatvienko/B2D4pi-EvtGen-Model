@@ -1,24 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtTVSPwave.cc
-//
-// Description: Routine to decay tensor-> vector scalar
-//              by specifying the partial waves
-//
-// Modification history:
-//
-//    DJL/RYD   August 11, 1997           Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtTVSPwave.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

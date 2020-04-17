@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBTo3hCP.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    MK     August 26, 2016         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTBTO3HCP_HH
 #define EVTBTO3HCP_HH
 

@@ -1,18 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Module: EvtGen/EvtHQET2FF.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    Marco Bomben   March 10, 2003         Module created
-//
-//    Brian Hamilton     Jan 10, 2016       Added "extened" functionality
-//      <brian.hamilton -=AT=- cern.ch>       to include scalar amplitude
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTHQET2FF_HH
 #define EVTHQET2FF_HH
 

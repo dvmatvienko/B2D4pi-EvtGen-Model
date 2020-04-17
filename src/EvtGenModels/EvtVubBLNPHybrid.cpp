@@ -1,14 +1,3 @@
-
-//////////////////////////////////////////////////////////////////////
-//
-// Module: EvtVubBLNPHybrid.cc
-//
-// Description: Modeled on Riccardo Faccini's EvtVubNLO module
-//
-// tripleDiff from BLNP's notebook (based on BLNP4, hep-ph/0504071)
-//
-//////////////////////////////////////////////////////////////////
-
 #include "EvtGenModels/EvtVubBLNPHybrid.hh"
 
 #include "EvtGenBase/EvtGenKine.hh"

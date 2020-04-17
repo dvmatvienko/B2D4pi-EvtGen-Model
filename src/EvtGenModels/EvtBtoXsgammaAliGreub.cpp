@@ -1,35 +1,3 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsgammaAliGreub.cc
-//
-// Description: Routine to perform two-body non-resonant B->Xs,gamma decays.
-// It generates an X_s mass spectrum based on a parameterisation of the
-// b->s,gamma photon spectrum of Ali-Greub. The resultant X_s particles may
-// be decayed by JETSET.
-//
-// Modification history:
-//
-//    Mark Ian Williams       July 20, 2000       Module created
-//    Mark Ian Williams       July 21, 2000       Module works
-//    Mark Ian Williams       July 25, 2000       Works for all Xs modes
-//    Mark Ian Williams       Aug  09, 2000       New values for mass minima
-//    Mark Ian Williams       Sept 06, 2000       14 parameter M_Xs function
-//    Mark Ian Williams       Sept 07, 2000       18 parameter M_Xs function
-//    Mark Ian Williams       Sept 07, 2000       Tidied up the code
-//    Mark Ian Williams       Sept 10, 2000       Updated parameters
-//    Mark Ian Williams       Sept 11, 2000       Finalised code
-//    Jane Tinslay            March 21, 2000      Separated from EvtBtoXsgamma
-//                                                class to allow choice of input models.
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtBtoXsgammaAliGreub.hh"
 
 #include "EvtGenBase/EvtConst.hh"

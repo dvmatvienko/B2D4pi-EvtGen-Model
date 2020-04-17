@@ -1,28 +1,3 @@
-
-
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtLb2plnuLCSR.cc
-//
-// Description: Routine to implement Lb->p l nu semileptonic decays using form factor
-//              predictions form Light Cone Sum Rules.  The form factors are from
-//              A. Khodjamirian, C. Klein, T. Mannel and Y.-M. Wang, arXiv.1108.2971 (2011)
-//
-//
-// Modification history:
-//
-//   William Sutcliffe     27/07/2013        Module created
-//
-//
-//------------------------------------------------------------------------
-
 #include "EvtGenModels/EvtLb2plnuLCSR.hh"
 
 #include "EvtGenBase/EvtConst.hh"

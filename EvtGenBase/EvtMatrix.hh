@@ -1,16 +1,3 @@
-/*****************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtMatrix.hh,v 1.1 2009-03-16 16:50:49 robbep Exp $
- *
- * Description:
- *   Class to make simple computations with matrices: assignment, product,
- *      determinant, inverse... Still many functions could be implemented.
- *
- * Modification history:
- *   Jordi Garra Ticó     2008/07/03         File created
- *****************************************************************************/
-
 #ifndef __EVT_MATRIX_HH__
 #define __EVT_MATRIX_HH__
 

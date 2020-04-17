@@ -1,23 +1,4 @@
 #ifdef EVTGEN_TAUOLA
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2011      University of Warwick, UK
-//
-// Module: EvtTauolaEngine
-//
-// Description: Interface to the TAUOLA external generator, which
-//              decays tau particles
-//
-// Modification history:
-//
-//    John Back       May 2011            Module created
-//
-//------------------------------------------------------------------------
 
 #include "EvtGenExternal/EvtTauolaEngine.hh"
 

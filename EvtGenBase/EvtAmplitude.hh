@@ -1,18 +1,9 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtAmplitude.hh,v 1.2 2009-03-16 16:43:40 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
-
-// Complex-valued amplitude
-
 #ifndef EVT_AMPLITUDE_HH
 #define EVT_AMPLITUDE_HH
 
 #include "EvtGenBase/EvtComplex.hh"
+
+// Complex-valued amplitude
 
 template <class T>
 class EvtAmplitude {

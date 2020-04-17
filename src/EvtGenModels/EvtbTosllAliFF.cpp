@@ -1,22 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2000      Caltech, UCSB
-//
-// Module:
-// Description: Form factors for b->sll according to Ali '02 et al.
-//              PRD 66 34002
-//
-// Modification history:
-//
-//    Ryd     March 30, 2003         Module created
-//
-//------------------------------------------------------------------------
 #include "EvtGenModels/EvtbTosllAliFF.hh"
 
 #include "EvtGenBase/EvtPDL.hh"

@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001      Caltech
-//
-// Module: EvtSSDCP.cc
-//
-// Description: See EvtSSDCP.hh
-//
-// Modification history:
-//
-//    RYD       August 12, 2001        Module created
-//    F. Sandrelli, Fernando M-V  March 1, 2002     Debugged and added z parameter (CPT violation)
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtSSDCP.hh"
 
 #include "EvtGenBase/EvtCPUtil.hh"

@@ -1,22 +1,3 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtIntervalDecayAmp.hh,v 1.4 2009-03-16 16:39:16 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-
-// Decay model that uses the "amplitude on an interval"
-// templatization
-
 #ifndef EVT_INTERVAL_DECAY_AMP
 #define EVT_INTERVAL_DECAY_AMP
 
@@ -36,6 +17,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+// Decay model that uses the "amplitude on an interval"
+// templatization
 
 template <class T>
 class EvtIntervalDecayAmp : public EvtDecayAmp {

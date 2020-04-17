@@ -1,48 +1,9 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-//
-// Description:
-//    3                                         2                2
-//   d Gamma                 /   _      _ _2  mb           _2  mb
-//  ---------- = 12 Gamma   | (1+x-z)(z-x-p ) -- W  + (1-z+p ) -- W
-//         _ 2           0  \                  2  1             2  2
-//  dx dz dp                                   2
-//                                _   _  _2  mb                 2   \.
-//                             + [x(z-x)-p ] -- (W + 2mb W  + mb W ) |
-//                                            4   3       4       5 /
-//
-//   with
-//        2 E           2
-//           l    _2   p        2 v.p    _
-//   x = ------ , p = --- , z = ------ , x = 1-x
-//         mb           2         mb
-//                    mb
-//
-//   the triple differential decay rate according to
-//   hep-ph/9905351 v2
-//
-// Environment:
-//      Software developed for the BaBar Detector at the SLAC B-Factory.
-//
-// Author List:
-//      Sven Menke
-//
-//-----------------------------------------------------------------------
-//-----------------------
-// This Class's Header --
-//-----------------------
 #include "EvtGenModels/EvtVubdGamma.hh"
 
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtDiLog.hh"
 #include "EvtGenBase/EvtPatches.hh"
 
-//---------------
-// C Headers --
-//---------------
 #include <math.h>
 
 //----------------

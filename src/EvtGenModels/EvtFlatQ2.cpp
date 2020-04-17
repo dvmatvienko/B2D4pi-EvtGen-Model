@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtFlatQ2.cc
-//
-// Description: B->Xu l nu with flat q2 distribution
-//
-// Modification history:
-//
-//    David Cote, U. de Montreal, 11/02/2003    Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtFlatQ2.hh"
 
 #include "EvtGenBase/EvtPDL.hh"

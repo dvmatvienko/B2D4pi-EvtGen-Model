@@ -1,15 +1,10 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtVVpipiMoxhay.hh
-//
+#ifndef EVTY3STOY1SPIPIMOXHAY_HH
+#define EVTY3STOY1SPIPIMOXHAY_HH
+
+#include "EvtGenBase/EvtDecayProb.hh"
+
+class EvtParticle;
+
 // Description: This model is based on the proposal by Tuan and Lipkin
 //              (Phys.Lett.B206:349-353,1988) and the subsequent model
 //              by Moxhay (Phys.Rev.D39:3497,1989) for the dipion spectrum
@@ -28,20 +23,6 @@
 // Enddecay
 //
 //   --> the order of parameters is: Re(B)/A Im(B)/A
-//
-//
-// Modification history:
-//
-//    SEKULA  November 02, 2007         Module created
-//
-//------------------------------------------------------------------------
-
-#ifndef EVTY3STOY1SPIPIMOXHAY_HH
-#define EVTY3STOY1SPIPIMOXHAY_HH
-
-#include "EvtGenBase/EvtDecayProb.hh"
-
-class EvtParticle;
 
 class EvtY3SToY1SpipiMoxhay : public EvtDecayProb {
   public:

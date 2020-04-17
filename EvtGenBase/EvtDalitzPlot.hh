@@ -1,19 +1,3 @@
-//-----------------------------------------------------------------------
-// File and Version Information:
-//      $Id: EvtDalitzPlot.hh,v 1.2 2009-03-16 16:44:53 robbep Exp $
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
-
 #ifndef EVT_DALITZ_PLOT_HH
 #define EVT_DALITZ_PLOT_HH
 

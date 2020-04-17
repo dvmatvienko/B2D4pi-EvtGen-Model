@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtMelikhovFF.cc
-//
-// Description: form factors for B->D*lnu according to HQET
-//
-// Modification history:
-//
-//    DJL     April 17, 1998        Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtMelikhovFF.hh"
 
 #include "EvtGenBase/EvtId.hh"

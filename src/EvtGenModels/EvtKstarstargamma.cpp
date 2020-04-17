@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2002      Caltech
-//
-// Module: EvtKstarstargamma.cc
-//
-// Description: Routine for the decau B->K**gamma
-//
-// Modification history:
-//
-//    Ryd       November 15, 2002       Module created
-//
-//------------------------------------------------------------------------
-//
 #include "EvtGenModels/EvtKstarstargamma.hh"
 
 #include "EvtGenBase/EvtEvalHelAmp.hh"

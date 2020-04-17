@@ -1,26 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech, UCSB
-//
-// Module: EvtRareLbToLll
-//
-// Description:
-//      Implements the rare Lb --> Lambda^(*) ell ell models described in
-//      http://arxiv.org/pdf/1108.6129.pdf
-//
-// Modification history:
-//
-//    T. Blake       November 2013         Created module
-//
-//------------------------------------------------------------------------
-//
-
 #include "EvtGenModels/EvtRareLbToLll.hh"
 
 #include "EvtGenBase/EvtComplex.hh"

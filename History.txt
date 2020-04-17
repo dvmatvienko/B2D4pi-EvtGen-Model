@@ -4,6 +4,15 @@
 //
 //===========================================================================
 
+15th Apr 2020 Tom Latham
+    Add text of GNU GPLv3 in COPYING, add (preliminary) list of authors in
+    AUTHORS, and clean-up all source files, prior to applying copyright and
+    licence notices.
+
+9th Apr 2020 Tom Latham
+    Improve, and document use of, standalone installation script.
+    Apply clang-format formatting to all C++ source files.
+
 8th Apr 2020 Tom Latham
     One small modernisation change to EvtPhotosEngine to match that already
     applied in EvtTauolaEngine.

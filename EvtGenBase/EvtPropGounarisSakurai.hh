@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPropGounarisSakurai.hh,v 1.1 2009-03-16 16:50:50 robbep Exp $
- *  Author: Matt Graham
- *  modified from EvtPropBreitWignerRel...this should be used for rho's
- *******************************************************************************/
-
-// Relativistic Breit-Wigner Propagator
-
 #ifndef EVT_PROP_GOUNARIS_SAKURAI_HH
 #define EVT_PROP_GOUNARIS_SAKURAI_HH
 

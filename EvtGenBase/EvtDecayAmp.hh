@@ -1,28 +1,10 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtDecayAmp.hh
-//
-// Description: Baseclass for models that calculates amplitudes
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTDECAYAMP_HH
 #define EVTDECAYAMP_HH
 
 #include "EvtGenBase/EvtAmp.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
+
+// Description: Baseclass for models that calculates amplitudes
 
 class EvtDecayAmp : public EvtDecayBase {
   public:

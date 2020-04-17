@@ -1,23 +1,3 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtTensor3C.hh
-//
-// Description: Class to handle complex 3 tensors
-//
-// Modification history:
-//
-//    RYD     September 14, 1997         Module created
-//
-//------------------------------------------------------------------------
-
 #ifndef EVTTENSOR3C_HH
 #define EVTTENSOR3C_HH
 

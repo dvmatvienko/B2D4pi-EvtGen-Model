@@ -1,44 +1,14 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtBtoXsllUtil.cc
-//
-// Description: Routine to generate non-resonant B -> Xs l+ l- decays.
-// It generates a dilepton mass spectrum according to
-// F.Kruger and L.M.Sehgal, Phys. Lett. B380, 199 (1996)
-// and then generates the two lepton momenta according to
-// A.Ali, G.Hiller, L.T.Handoko and T.Morozumi, Phys. Rev. D55, 4105 (1997).
-// Expressions for Wilson coefficients and power corrections are taken
-// from A.Ali, E.Lunghi, C.Greub and G.Hiller, Phys. Rev. D66, 034002 (2002).
-// Detailed formulae for shat dependence of these coefficients are taken
-// from H.H.Asatryan, H.M.Asatrian, C.Greub and M.Walker, PRD65, 074004 (2002)
-// and C.Bobeth, M.Misiak and J.Urban, Nucl. Phys. B574, 291 (2000).
-// The resultant Xs particles may be decayed by JETSET.
-//
-// Modification history:
-//
-//    Stephane Willocq    Jan 19, 2001   Module created
-//    Stephane Willocq    Nov  6, 2003   Update Wilson Coeffs & dG's
-//    &Jeff Berryhill
-//
-//------------------------------------------------------------------------
-//
-#include "EvtGenBase/EvtPatches.hh"
-//
+#include "EvtGenModels/EvtBtoXsllUtil.hh"
+
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtDiLog.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
-
-#include "EvtGenModels/EvtBtoXsllUtil.hh"
 
 #include <stdlib.h>
 
