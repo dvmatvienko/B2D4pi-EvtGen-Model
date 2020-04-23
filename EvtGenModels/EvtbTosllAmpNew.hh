@@ -20,8 +20,10 @@
 
 #ifndef EVTBTOSLLAMPNEW_HH
 #define EVTBTOSLLAMPNEW_HH
+
+#include "EvtGenBase/EvtId.hh"
+
 class EvtAmp;
-class EvtId;
 class EvtbTosllFFNew;
 class EvtParticle;
 class EvtbTosllWilsCoeffNLO;
