@@ -122,8 +122,6 @@ class EvtDalitzReso final {
     //Flatte
     EvtDalitzReso( const EvtDalitzPlot& dp, EvtCyclic3::Pair pairRes, double m0 );
 
-    EvtDalitzReso( const EvtDalitzReso& other );
-
     EvtDalitzReso* clone() const { return new EvtDalitzReso( *this ); }
 
     EvtComplex evaluate( const EvtDalitzPoint& p );

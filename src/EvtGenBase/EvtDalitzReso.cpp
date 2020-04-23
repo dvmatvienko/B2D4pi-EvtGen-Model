@@ -321,46 +321,6 @@ EvtDalitzReso::EvtDalitzReso( const EvtDalitzPlot& dp, EvtCyclic3::Pair pairRes,
     _spin = EvtSpinType::SCALAR;
 }
 
-EvtDalitzReso::EvtDalitzReso( const EvtDalitzReso& other ) :
-    _dp( other._dp ),
-    _pairAng( other._pairAng ),
-    _pairRes( other._pairRes ),
-    _spin( other._spin ),
-    _typeN( other._typeN ),
-    _m0( other._m0 ),
-    _g0( other._g0 ),
-    _vb( other._vb ),
-    _vd( other._vd ),
-    _massFirst( other._massFirst ),
-    _massSecond( other._massSecond ),
-    _m0_mix( other._m0_mix ),
-    _g0_mix( other._g0_mix ),
-    _delta_mix( other._delta_mix ),
-    _amp_mix( other._amp_mix ),
-    _g1( other._g1 ),
-    _g2( other._g2 ),
-    _coupling2( other._coupling2 ),
-    _f_b( other._f_b ),
-    _f_d( other._f_d ),
-    _kmatrix_index( other._kmatrix_index ),
-    _fr12prod( other._fr12prod ),
-    _fr13prod( other._fr13prod ),
-    _fr14prod( other._fr14prod ),
-    _fr15prod( other._fr15prod ),
-    _s0prod( other._s0prod ),
-    _a( other._a ),
-    _r( other._r ),
-    _Blass( other._Blass ),
-    _phiB( other._phiB ),
-    _R( other._R ),
-    _phiR( other._phiR ),
-    _cutoff( other._cutoff ),
-    _scaleByMOverQ( other._scaleByMOverQ ),
-    _alpha( other._alpha ),
-    _flatteParams( other._flatteParams )
-{
-}
-
 EvtComplex EvtDalitzReso::evaluate( const EvtDalitzPoint& x )
 {
     double m = sqrt( x.q( _pairRes ) );

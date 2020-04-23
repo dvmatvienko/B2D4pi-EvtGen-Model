@@ -32,7 +32,7 @@ using std::fstream;
 
 void EvtBtoXsgammaFixedMass::init( int nArg, double* args )
 {
-    if ( ( nArg ) > 2 || ( nArg > 1 && nArg < 2 ) ) {
+    if ( nArg > 2 || nArg < 1 ) {
         EvtGenReport( EVTGEN_ERROR, "EvtGen" )
             << "EvtBtoXsgamma generator model "
             << "EvtBtoXsgammaFixedMass expected "
