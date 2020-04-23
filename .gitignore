@@ -2,6 +2,7 @@
 # Text Editor Temp Files
 *~
 *.swp
+*.orig
 
 # Mac Filesystem
 .DS_Store?

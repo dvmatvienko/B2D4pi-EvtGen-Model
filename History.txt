@@ -4,7 +4,10 @@
 //
 //===========================================================================
 
-15th Apr 2020 Tom Latham
+23rd Apr 2020 Tom Latham
+    Apply copyright and licence notices to all relevant files.
+
+17th Apr 2020 Tom Latham
     Add text of GNU GPLv3 in COPYING, add (preliminary) list of authors in
     AUTHORS, and clean-up all source files, prior to applying copyright and
     licence notices.
