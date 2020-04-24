@@ -4,6 +4,9 @@
 //
 //===========================================================================
 
+24th Apr 2020 Michal Kreps
+    Update particle properties file evt.pdl to 2019 version of RPP by PDG.
+
 23rd Apr 2020 Tom Latham
     Apply copyright and licence notices to all relevant files.
 
