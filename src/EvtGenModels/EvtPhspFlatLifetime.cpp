@@ -54,7 +54,7 @@ void EvtPhspFlatLifetime::init()
     // check that there is 1 argument in the decay file
     checkNArg( 1 );
     // this argument is the lifetime upper edge (in ps)
-    m_maxLifetime = getArg( 0 );
+    m_maxLifetime = getArg( 0 ) * EvtConst::c * 1.e-12;
 }
 
 //==============================================================================
@@ -74,5 +74,5 @@ void EvtPhspFlatLifetime::decay( EvtParticle* p )
     // generate the lifetime flat between 0 and max
     double l = EvtRandom::Flat( 0., m_maxLifetime );
     // modify the lifetime of the particle (in mm)
-    p->setLifetime( l * EvtConst::c * 1.e-12 );
+    p->setLifetime( l );
 }

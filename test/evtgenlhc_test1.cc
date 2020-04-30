@@ -43,6 +43,7 @@
 #include "EvtGenBase/EvtParser.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtParticleFactory.hh"
+#include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtRandomEngine.hh"
 #include "EvtGenBase/EvtReport.hh"
@@ -146,6 +147,7 @@ void runCheckRotBoost();
 void runMassCheck( int nevent, EvtGen& myGenerator, int partnum );
 void runJpsiPolarization( int nevent, EvtGen& myGenerator );
 void runDDK( int nevent, EvtGen& myGenerator );
+void runPhspDecaytimeCut( int nevent, EvtGen& myGenerator );
 
 int countInclusive( std::string name, EvtParticle* root, TH1F* mom = 0,
                     TH1F* mass = 0 );
@@ -154,6 +156,7 @@ int countInclusiveParent( std::string name, EvtParticle* root, EvtIdSet setIds,
 int countInclusiveSubTree( std::string name, EvtParticle* root, EvtIdSet setIds,
                            TH1F* mom = 0 );
 void runBaryonic( int nEvent, EvtGen& myGenerator );
+void run3BPhspRegion( int nEvent, EvtGen& myGenerator );
 
 int main( int argc, char* argv[] )
 {
@@ -518,6 +521,17 @@ int main( int argc, char* argv[] )
     if ( !strcmp( argv[1], "jpsipolarization" ) ) {
         int nevent = atoi( argv[2] );
         runJpsiPolarization( nevent, myGenerator );
+    }
+
+    if ( !strcmp( argv[1], "phspdecaytimecut" ) ) {
+        int nevent = atoi( argv[2] );
+        runPhspDecaytimeCut( nevent, myGenerator );
+    }
+
+    if ( !strcmp( argv[1], "3bodyPhsp" ) ) {
+        int nevent = atoi( argv[2] );
+        EvtRadCorr::setNeverRadCorr();
+        run3BPhspRegion( nevent, myGenerator);
     }
 
     //*******************************************************
@@ -5651,5 +5665,91 @@ void runBaryonic( int nEvent, EvtGen& myGenerator )
     }
     f->Write();
     f->Close();
+    EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "SUCCESS\n";
+}
+
+void runPhspDecaytimeCut( int nevent, EvtGen& myGenerator )
+{
+    TFile* file = new TFile( "phspdecaytimecut.root", "RECREATE" );
+
+    TH1F* thist = new TH1F( "h1", "t [ps]", 100, 0.0, 10.0 );
+
+    int count = 1;
+
+    char udecay_name[100];
+    strcpy( udecay_name, "exampleFiles/PhspDecaytimeCut.DEC" );
+    myGenerator.readUDecay( udecay_name );
+
+    static EvtId B = EvtPDL::getId( std::string( "B+" ) );
+
+    std::ofstream outmix;
+
+    do {
+        EvtVector4R pinit( EvtPDL::getMass( B ), 0.0, 0.0, 0.0 );
+
+        EvtParticle* root_part = EvtParticleFactory::particleFactory( B, pinit );
+
+        myGenerator.generateDecay( root_part );
+
+        double t = root_part->getLifetime() / ( 1e-12 * EvtConst::c );
+        thist->Fill( t );
+
+        root_part->deleteTree();
+
+    } while ( count++ < nevent );
+
+    file->Write();
+    file->Close();
+    EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "SUCCESS\n";
+}
+
+void run3BPhspRegion( int nevent, EvtGen& myGenerator )
+{
+    TFile* file = new TFile( "3BodyPhspRegion.root", "RECREATE" );
+
+    TH1F* pxhist = new TH1F( "h1", "p_x ", 100, -3.0, 3.0 );
+    TH1F* pyhist = new TH1F( "h2", "p_y ", 100, -3.0, 3.0 );
+    TH1F* pzhist = new TH1F( "h3", "p_z ", 100, -3.0, 3.0 );
+    TH2F* dalitz = new TH2F( "h4", "Dalitz", 50, 12.5, 27., 50, 0.35, 4.8 );
+    TH2F* pxpyhist = new TH2F( "h5", "px-py", 50, -1.8, 1.8, 50, -1.8, 1.8 );
+    TH2F* pxpzhist = new TH2F( "h6", "px-pz", 50, -1.8, 1.8, 50, -1.8, 1.8 );
+    TH2F* pypzhist = new TH2F( "h7", "py-pz", 50, -1.8, 1.8, 50, -1.8, 1.8 );
+
+    int count = 1;
+
+    char udecay_name[100];
+    strcpy( udecay_name, "exampleFiles/3BodyPhspRegion.DEC" );
+    myGenerator.readUDecay( udecay_name );
+
+    static EvtId B = EvtPDL::getId( std::string( "B+" ) );
+
+    std::ofstream outmix;
+
+    do {
+        EvtVector4R pinit( EvtPDL::getMass( B ), 0.0, 0.0, 0.0 );
+
+        EvtParticle* root_part = EvtParticleFactory::particleFactory( B, pinit );
+
+        myGenerator.generateDecay( root_part );
+
+        EvtParticle* daug1 = root_part->getDaug( 0 );
+        EvtParticle* daug2 = root_part->getDaug( 1 );
+        EvtParticle* daug3 = root_part->getDaug( 2 );
+        pxhist->Fill( daug1->getP4().get( 1 ) );
+        pyhist->Fill( daug1->getP4().get( 2 ) );
+        pzhist->Fill( daug1->getP4().get( 3 ) );
+        pxpyhist->Fill( daug1->getP4().get( 1 ), daug1->getP4().get( 2 ) );
+        pxpzhist->Fill( daug1->getP4().get( 1 ), daug1->getP4().get( 3 ) );
+        pypzhist->Fill( daug1->getP4().get( 2 ), daug1->getP4().get( 3 ) );
+        double m12 = ( daug1->getP4() + daug2->getP4() ).mass();
+        double m23 = ( daug2->getP4() + daug3->getP4() ).mass();
+        dalitz->Fill( m12 * m12, m23 * m23 );
+
+        root_part->deleteTree();
+
+    } while ( count++ < nevent );
+
+    file->Write();
+    file->Close();
     EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "SUCCESS\n";
 }

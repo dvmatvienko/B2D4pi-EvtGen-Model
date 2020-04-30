@@ -92,6 +92,7 @@
 #include "EvtGenModels/EvtPhiDalitz.hh"
 #include "EvtGenModels/EvtPhsp.hh"
 #include "EvtGenModels/EvtPhspFlatLifetime.hh"
+#include "EvtGenModels/EvtPhspDecaytimeCut.hh"
 #include "EvtGenModels/EvtPi0Dalitz.hh"
 #include "EvtGenModels/EvtPropSLPole.hh"
 #include "EvtGenModels/EvtPsi2JpsiPiPi.hh"
@@ -158,6 +159,7 @@
 #include "EvtGenModels/Evtbs2llGammaMNT.hh"
 #include "EvtGenModels/EvtbsToLLLL.hh"
 #include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
+#include "EvtGenModels/EvtThreeBodyPhsp.hh"
 
 #include <assert.h>
 #include <ctype.h>
@@ -213,6 +215,7 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
     modelist.registerModel( new EvtOmegaDalitz );
     modelist.registerModel( new EvtEtaDalitz );
     modelist.registerModel( new EvtPhsp );
+    modelist.registerModel( new EvtPhspDecaytimeCut );
     modelist.registerModel( new EvtBtoXsgamma );
     modelist.registerModel( new EvtBtoXsll );
     modelist.registerModel( new EvtBtoXsEtap );
@@ -336,4 +339,6 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
 
     modelist.registerModel( new EvtDToKpienu );
     modelist.registerModel( new EvtPsi2JpsiPiPi );
+
+    modelist.registerModel( new EvtThreeBodyPhsp );
 }
