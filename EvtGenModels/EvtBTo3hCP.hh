@@ -26,17 +26,8 @@
 
 class EvtParticle;
 
-/*
-struct fcomplex {
-  double re;
-  double im;
-};
-*/
-
 class EvtBTo3hCP {
   public:
-    EvtBTo3hCP();
-    ~EvtBTo3hCP(){};
 
     void EvtKpipi( double alpha, double beta, int iset, EvtVector4R& p_K_plus,
                    EvtVector4R& p_pi_minus, EvtVector4R& p_gamma_1,
@@ -104,11 +95,26 @@ class EvtBTo3hCP {
     EvtComplex Mat_S1, Mat_S2, Mat_S3, Mat_S4, Mat_S5, Nat_S1, Nat_S2, Nat_S3,
         Nat_S4, Nat_S5, MatKstarp, MatKstar0, MatKrho, NatKstarp, NatKstar0,
         NatKrho;
-    double alphaCP, betaCP, pi, MA2, MB2, MC2, Mass_rho, Gam_rho, M_B, M_pip,
-        M_pim, M_pi0, M_Kp, Mass_Kstarp, Mass_Kstar0, Gam_Kstarp, Gam_Kstar0;
+    double alphaCP = 1.365;
+    double betaCP = 0.362;
+    double MA2 = 27.927981186; 
+    double MB2 = 27.929242450; 
+    double MC2 = 28.153482608;
+    double pi = 3.141592653;
+    double Mass_rho = 0.770;
+    double Gam_rho = 0.150;
+    double M_B = 5.2794;
+    double M_pip = 0.13957;
+    double M_pim = 0.13957;
+    double M_pi0 = 0.134976;
+    double M_Kp = 0.49368;
+    double Mass_Kstarp = 0.8916;
+    double Mass_Kstar0 = 0.8961;
+    double Gam_Kstarp = 0.0498;
+    double Gam_Kstar0 = 0.0505;
 
     double rotMatrix[3][3];
-    double factor_max;
+    double factor_max = 1;
 };
 
 #endif

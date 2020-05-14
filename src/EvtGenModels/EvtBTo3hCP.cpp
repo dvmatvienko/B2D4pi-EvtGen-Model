@@ -46,46 +46,6 @@
  * is duplicated and how to simplify it).
  */
 
-EvtBTo3hCP::EvtBTo3hCP() :
-    pi( 3.141592653 ),
-    Mass_rho( 0.770 ),
-    Gam_rho( 0.150 ),
-    M_B( 5.2794 ),
-    M_pip( 0.13957 ),
-    M_pim( 0.13957 ),
-    M_pi0( 0.134976 ),
-    M_Kp( 0.49368 ),
-    Mass_Kstarp( 0.8916 ),
-    Mass_Kstar0( 0.8961 ),
-    Gam_Kstarp( 0.0498 ),
-    Gam_Kstar0( 0.0505 ),
-    factor_max( 1 )
-{
-}
-
-/*
-extern "C" {
-//  extern void evt3pions_(double *,int *,double *,
-//			 double *,double *,double *,double *,
-//			 double *,double *,double *);
-
-//  extern void evtfirst_step_(double *, double *, double *);
-//  extern void evtcompute_(double *, double *, double *, double *, double *,
-//                          double *, double *, int *, int *);
-
-  extern struct
-  {
-    fcomplex Mat_S1, Mat_S2, Mat_S3, Mat_S4, Mat_S5,  Nat_S1, Nat_S2, Nat_S3,
-        Nat_S4, Nat_S5,  MatKstarp, MatKstar0, MatKrho,  NatKstarp, NatKstar0,
-        NatKrho;
-
-    double alphaCP, betaCP, pi, MA2, MB2, MC2, one, eno, Mass_rho, Gam_rho, M_B,
-        M_pip, M_pim, M_pi0, DeltaM, Gam_B, xd, M_Upsi, BetaBabar, ptcut,
-        coscut, M_Kp, Mass_Kstarp, Mass_Kstar0, Gam_Kstarp, Gam_Kstar0;
-  } theory_;
-}
-*/
-
 void EvtBTo3hCP::setConstants( double balpha, double bbeta )
 {
     alphaCP = balpha;
@@ -168,71 +128,6 @@ void EvtBTo3hCP::setConstants( double balpha, double bbeta )
     // B0bar -->-- K+ rho- Amplitudes (Trees + Penguins)
     NatKrho = EvtComplex( 0., 0. );
 
-    // Before we get rid of fortran code completely, need to propagate all
-    // settings to common block, so fortran code has access to everything.
-    // This will also help in testing as there will be no value from previous
-    // run of fortran code.
-    /*
-    theory_.alphaCP = alphaCP;
-    theory_.betaCP = betaCP;
-    theory_.pi = pi;
-    theory_.MA2 = MA2;
-    theory_.MB2 = MB2;
-    theory_.MC2 = MC2;
-    theory_.one = one;
-    theory_.eno = eno;
-    theory_.Mass_rho = Mass_rho;
-    theory_.Gam_rho = Gam_rho;
-    theory_.M_B = M_B;
-    theory_.M_pip = M_pip;
-    theory_.M_pim = M_pim;
-    theory_.M_pi0 = M_pi0;
-    theory_.DeltaM = DeltaM;
-    theory_.Gam_B = Gam_B;
-    theory_.xd = xd;
-    theory_.M_Upsi = M_Upsi;
-    theory_.BetaBabar = BetaBabar;
-    theory_.ptcut = ptcut;
-    theory_.coscut = coscut;
-    theory_.M_Kp = M_Kp;
-    theory_.Mass_Kstarp = Mass_Kstarp;
-    theory_.Mass_Kstar0 = Mass_Kstar0;
-    theory_.Gam_Kstarp = Gam_Kstarp;
-    theory_.Gam_Kstar0 = Gam_Kstar0;
-
-    theory_.Mat_S1.re = real(Mat_S1);
-    theory_.Mat_S2.re = real(Mat_S2);
-    theory_.Mat_S3.re = real(Mat_S3);
-    theory_.Mat_S4.re = real(Mat_S4);
-    theory_.Mat_S5.re = real(Mat_S5);
-    theory_.Nat_S1.re = real(Nat_S1);
-    theory_.Nat_S2.re = real(Nat_S2);
-    theory_.Nat_S3.re = real(Nat_S3);
-    theory_.Nat_S4.re = real(Nat_S4);
-    theory_.Nat_S5.re = real(Nat_S5);
-    theory_.MatKstarp.re = real(MatKstarp);
-    theory_.MatKstar0.re = real(MatKstar0);
-    theory_.MatKrho.re = real(MatKrho);
-    theory_.NatKstarp.re = real(NatKstarp);
-    theory_.NatKstar0.re = real(NatKstar0);
-    theory_.NatKrho.re = real(NatKrho);
-    theory_.Mat_S1.im = imag(Mat_S1);
-    theory_.Mat_S2.im = imag(Mat_S2);
-    theory_.Mat_S3.im = imag(Mat_S3);
-    theory_.Mat_S4.im = imag(Mat_S4);
-    theory_.Mat_S5.im = imag(Mat_S5);
-    theory_.Nat_S1.im = imag(Nat_S1);
-    theory_.Nat_S2.im = imag(Nat_S2);
-    theory_.Nat_S3.im = imag(Nat_S3);
-    theory_.Nat_S4.im = imag(Nat_S4);
-    theory_.Nat_S5.im = imag(Nat_S5);
-    theory_.MatKstarp.im = imag(MatKstarp);
-    theory_.MatKstar0.im = imag(MatKstar0);
-    theory_.MatKrho.im = imag(MatKrho);
-    theory_.NatKstarp.im = imag(NatKstarp);
-    theory_.NatKstar0.im = imag(NatKstar0);
-    theory_.NatKrho.im = imag(NatKrho);
-  */
 }
 
 void EvtBTo3hCP::Evt3pi( double alpha, int iset, EvtVector4R& p_pi_plus,
@@ -244,6 +139,9 @@ void EvtBTo3hCP::Evt3pi( double alpha, int iset, EvtVector4R& p_pi_plus,
     double AB0, AB0bar, Ainter, R1, R2;
     double factor;
     int ierr = 0;
+
+    // Ghm : beta is not needed for this generation - put a default value
+    setConstants( alpha, 0.362 );
 
     if ( iset == 0 ) {
         p_pi_plus.set( M_pip, 0, 0, 0 );
@@ -267,8 +165,6 @@ void EvtBTo3hCP::Evt3pi( double alpha, int iset, EvtVector4R& p_pi_plus,
     } else    // iset > 0
     {
         factor_max = 0;
-        // Ghm : beta is not needed for this generation - put a default value
-        setConstants( alpha, 0.362 );
 
         int endLoop = iset;
         for ( int i = 0; i < endLoop; ++i ) {
@@ -319,6 +215,9 @@ void EvtBTo3hCP::Evt3piMPP( double alpha, int iset, EvtVector4R& p_p1,
     double ABp, ABm;
     int ierr = 0;
 
+    // Ghm : beta is not needed for this generation - put a default value
+    setConstants( alpha, 0.362 );
+
     if ( iset == 0 ) {
         p_p1.set( M_pim, 0, 0, 0 );
         p_p2.set( M_pip, 0, 0, 0 );
@@ -340,8 +239,6 @@ void EvtBTo3hCP::Evt3piMPP( double alpha, int iset, EvtVector4R& p_p1,
     } else    // iset > 0
     {
         factor_max = 0;
-        // Ghm : beta is not needed for this generation - put a default value
-        setConstants( alpha, 0.362 );
 
         int endLoop = iset;
         for ( int i = 0; i < endLoop; ++i ) {
@@ -389,6 +286,9 @@ void EvtBTo3hCP::Evt3piP00( double alpha, int iset, EvtVector4R& p_p1,
     EvtVector4R p_p2, p_p3;
     int ierr = 0;
 
+    // Ghm : beta is not needed for this generation - put a default value
+    setConstants( alpha, 0.362 );
+
     if ( iset == 0 ) {
         p_p1.set( M_pip, 0, 0, 0 );
         p_p2.set( M_pi0, 0, 0, 0 );
@@ -412,8 +312,6 @@ void EvtBTo3hCP::Evt3piP00( double alpha, int iset, EvtVector4R& p_p1,
     } else    // iset > 0
     {
         factor_max = 0;
-        // Ghm : beta is not needed for this generation - put a default value
-        setConstants( alpha, 0.362 );
 
         int endLoop = iset;
         for ( int i = 0; i < endLoop; ++i ) {
@@ -464,6 +362,8 @@ void EvtBTo3hCP::EvtKpipi( double alpha, double beta, int iset,
     double ABp, ABm;
     int ierr = 0;
 
+    setConstants( alpha, beta );
+
     if ( iset == 0 ) {
         p_K_plus.set( M_Kp, 0, 0, 0 );
         p_pi_minus.set( M_pim, 0, 0, 0 );
@@ -486,7 +386,6 @@ void EvtBTo3hCP::EvtKpipi( double alpha, double beta, int iset,
     } else    // iset > 0
     {
         factor_max = 0;
-        setConstants( alpha, beta );
 
         int endLoop = iset;
         for ( int i = 0; i < endLoop; ++i ) {
