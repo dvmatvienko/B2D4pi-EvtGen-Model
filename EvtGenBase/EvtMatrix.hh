@@ -21,6 +21,7 @@
 #ifndef __EVT_MATRIX_HH__
 #define __EVT_MATRIX_HH__
 
+#include <cmath>
 #include <sstream>
 #include <vector>
 
