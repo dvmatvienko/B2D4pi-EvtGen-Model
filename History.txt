@@ -1,8 +1,24 @@
 //==========================================================================
 //
-// History file for EvtGen
+// History file for EvtGen.
+// From version 2.0.0, Tabc labels refer to Maniphest tasks while
+// Dxy labels refer to Differential code reviews on HepForge:
+// https://phab.hepforge.org/Tabc
+// https://phab.hepforge.org/Dxy
 //
 //===========================================================================
+
+21st Aug 2020 John Back
+    T109: Add EvtEtaLLPiPi model for eta' -> l l pi pi decays (l = e or mu),
+    courtesy of Aleksei Luchinsky (LHCb).
+
+29th Jun 2020 Michal Kreps
+    T103: Add missing include in EvtGenBase/EvtMatrix.hh.
+
+15th May 2020 Michal Kreps
+    D28: Add EvtThreeBodyPhsp (rectangular Dalitz plot selection) and
+    EvtPhspDecaytimeCut (minimum decay time requirement) models.
+    D27: Fix initialisation of constants in EvtBTo3hCP model.
 
 R02-00-00-------------------------------------------------------------------
 24th Apr 2020 Michal Kreps
