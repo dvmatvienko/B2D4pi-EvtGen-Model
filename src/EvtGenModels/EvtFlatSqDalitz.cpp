@@ -20,14 +20,13 @@
 
 #include "EvtGenModels/EvtFlatSqDalitz.hh"
 
-#include "EvtGenBase/EvtDiracSpinor.hh"
+#include "EvtGenBase/EvtConst.hh"
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtTensor4C.hh"
-#include "EvtGenBase/EvtVector4C.hh"
 
 #include <fstream>
 #include <stdio.h>
@@ -51,72 +50,66 @@ EvtDecayBase* EvtFlatSqDalitz::clone()
 
 void EvtFlatSqDalitz::initProbMax()
 {
-    setProbMax( 1. );
+    noProbMax();
 }
 
 void EvtFlatSqDalitz::init()
 {
-    // check that there are 0 arguments
-    checkNArg( 0 );
-
     //check there are 3 daughters
     checkNDaug( 3 );
+
+    // check that there are 0 arguments
+    checkNArg( 0, 2, 4 );
+
+    if ( getNArg() > 0 ) {
+        m_mPrimeMin = getArg( 0 );
+        m_mPrimeMax = getArg( 1 );
+    }
+    if ( getNArg() > 2 ) {
+        m_thetaPrimeMin = getArg( 2 );
+        m_thetaPrimeMax = getArg( 3 );
+    }
 }
 
 void EvtFlatSqDalitz::decay( EvtParticle* p )
 {
-    p->initializePhaseSpace( getNDaug(), getDaugs() );
+    p->makeDaughters( getNDaug(), getDaugs() );
+    p->generateMassTree();
+    const double mParent = p->mass();
+    EvtParticle* daug1 = p->getDaug( 0 );
+    EvtParticle* daug2 = p->getDaug( 1 );
+    EvtParticle* daug3 = p->getDaug( 2 );
+    const double mDaug1 = daug1->mass();
+    const double mDaug2 = daug2->mass();
+    const double mDaug3 = daug3->mass();
+    const double mParentSq = mParent * mParent;
+    const double mDaug1Sq = mDaug1 * mDaug1;
+    const double mDaug2Sq = mDaug2 * mDaug2;
+    const double mDaug3Sq = mDaug3 * mDaug3;
 
-    double mB = p->mass();
-    double m1 = p->getDaug( 0 )->mass();
-    double m2 = p->getDaug( 1 )->mass();
-    double m3 = p->getDaug( 2 )->mass();
+    // Generate m' and theta'
+    const double mPrime = EvtRandom::Flat( m_mPrimeMin, m_mPrimeMax );
+    const double thetaPrime = EvtRandom::Flat( m_thetaPrimeMin, m_thetaPrimeMax );
 
-    EvtVector4R p4_1 = p->getDaug( 0 )->getP4();
-    EvtVector4R p4_2 = p->getDaug( 1 )->getP4();
-    EvtVector4R p4_3 = p->getDaug( 2 )->getP4();
+    // calculate m12 and m23
+    const double m12 = 0.5 * ( std::cos( mPrime * EvtConst::pi ) + 1 ) *
+                           ( mParent - ( mDaug1 + mDaug2 + mDaug3 ) ) +
+                       mDaug1 + mDaug2;
+    const double m12Sq = m12 * m12;
 
-    EvtVector4R p4_12 = p4_1 + p4_2;
-    EvtVector4R p4_13 = p4_1 + p4_3;
-    // do not compute p4_23 to avoid breaking p4 conservation ???
-    EvtVector4R p4_23 = p4_2 + p4_3;
+    const double en1 = ( m12Sq - mDaug2Sq + mDaug1Sq ) / ( 2. * m12 );
+    const double en3 = ( mParentSq - m12Sq - mDaug3Sq ) / ( 2. * m12 );
 
-    double m12 = p4_12.mass();
-    double m13 = p4_13.mass();
-    double m23 = p4_23.mass();
+    const double p1 = std::sqrt( en1 * en1 - mDaug1Sq );
+    const double p3 = std::sqrt( en3 * en3 - mDaug3Sq );
+    const double m13Sq =
+        mDaug1Sq + mDaug3Sq +
+        2.0 * ( en1 * en3 - p1 * p3 * std::cos( EvtConst::pi * thetaPrime ) );
+    const double m23Sq = mParentSq - m12Sq - m13Sq + mDaug1Sq + mDaug2Sq +
+                         mDaug3Sq;
 
-    double m12norm = 2 * ( ( m12 - ( m1 + m2 ) ) / ( mB - ( m1 + m2 + m3 ) ) ) -
-                     1;
-    double mPrime = acos( m12norm ) / EvtConst::pi;
-    double thPrime = acos( ( m12 * m12 * ( m23 * m23 - m13 * m13 ) -
-                             ( m2 * m2 - m1 * m1 ) * ( mB * mB - m3 * m3 ) ) /
-                           ( sqrt( pow( m12 * m12 + m1 * m1 - m2 * m2, 2 ) -
-                                   4 * m12 * m12 * m1 * m1 ) *
-                             sqrt( pow( -m12 * m12 + mB * mB - m3 * m3, 2 ) -
-                                   4 * m12 * m12 * m3 * m3 ) ) ) /
-                     EvtConst::pi;
-
-    double p3st = sqrt( pow( mB * mB - m3 * m3 - m12 * m12, 2 ) -
-                        pow( 2 * m12 * m3, 2 ) ) /
-                  ( 2 * m12 );
-    double p1st = sqrt( pow( m2 * m2 - m1 * m1 - m12 * m12, 2 ) -
-                        pow( 2 * m12 * m1, 2 ) ) /
-                  ( 2 * m12 );
-
-    double jacobian = 2 * pow( EvtConst::pi, 2 ) * sin( EvtConst::pi * mPrime ) *
-                      sin( EvtConst::pi * thPrime ) * p1st * p3st * m12 *
-                      ( mB - ( m1 + m2 + m3 ) );
-
-    double prob = 1. / jacobian;    //pow(1./(jacobian),2);
-
-    //  std::cout << mB << " " << mPrime << " " << thPrime << " " << prob << std::endl;
-
-    setProb( prob );
-
-    if ( prob < 1 )
-        setProb( prob );
-    else
-        setProb( 1. );
+    // Turn m12 and m23 into momenta
+    EvtGenKine::ThreeBodyKine( m12Sq, m23Sq, p );
 
     return;
 }

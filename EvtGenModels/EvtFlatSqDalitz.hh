@@ -40,6 +40,12 @@ class EvtFlatSqDalitz : public EvtDecayProb {
     void initProbMax() override;
 
     void decay( EvtParticle* p ) override;
+
+  private:
+    double m_mPrimeMin{ 0. };
+    double m_mPrimeMax{ 1. };
+    double m_thetaPrimeMin{ 0. };
+    double m_thetaPrimeMax{ 1. };
 };
 
 #endif

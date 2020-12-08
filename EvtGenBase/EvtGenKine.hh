@@ -22,6 +22,7 @@
 #define EVTGENKINE_HH
 
 class EvtVector4R;
+class EvtParticle;
 
 class EvtGenKine {
   public:
@@ -30,6 +31,14 @@ class EvtGenKine {
 
     static double PhaseSpacePole( double M, double m1, double m2, double m3,
                                   double a, EvtVector4R p4[10] );
+
+    /*
+     * Function which takes two invariant masses squared in 3-body decay and
+     * parent after makeDaughters() and generateMassTree() and
+     * calculates/generates momenta of daughters and sets those.
+     */
+    static void ThreeBodyKine( const double m12Sq, const double m23Sq,
+                               EvtParticle* p );
 };
 
 #endif

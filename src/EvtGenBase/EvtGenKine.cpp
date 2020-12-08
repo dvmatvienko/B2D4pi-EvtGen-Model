@@ -25,6 +25,7 @@
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4R.hh"
+#include "EvtGenBase/EvtParticle.hh"
 
 #include <iostream>
 #include <math.h>
@@ -339,4 +340,61 @@ double EvtGenKine::PhaseSpacePole( double M, double m1, double m2, double m3,
     p4[2].applyRotateEuler( alpha, beta, gamma );
 
     return 1.0 + a / ( m12sq * m12sq );
+}
+
+/*
+ * Function which takes two invariant masses squared in 3-body decay and
+ * parent after makeDaughters() and generateMassTree() and
+ * calculates/generates momenta of daughters and sets those.
+ */
+void EvtGenKine::ThreeBodyKine( const double m12Sq, const double m23Sq,
+                                EvtParticle* p )
+{
+    const double mParent = p->mass();
+    EvtParticle* daug1 = p->getDaug( 0 );
+    EvtParticle* daug2 = p->getDaug( 1 );
+    EvtParticle* daug3 = p->getDaug( 2 );
+    const double mDaug1 = daug1->mass();
+    const double mDaug2 = daug2->mass();
+    const double mDaug3 = daug3->mass();
+    const double mParentSq{ mParent * mParent };
+    const double mDaug1Sq{ mDaug1 * mDaug1 };
+    const double mDaug2Sq{ mDaug2 * mDaug2 };
+    const double mDaug3Sq{ mDaug3 * mDaug3 };
+    const double invMParent{ 1. / mParent };
+
+    const double En1 = 0.5 * ( mParentSq + mDaug1Sq - m23Sq ) * invMParent;
+    const double En3 = 0.5 * ( mParentSq + mDaug3Sq - m12Sq ) * invMParent;
+    const double En2 = mParent - En1 - En3;
+    const double p1mag = std::sqrt( En1 * En1 - mDaug1Sq );
+    const double p2mag = std::sqrt( En2 * En2 - mDaug2Sq );
+    double cosPhi = 0.5 * ( mDaug1Sq + mDaug2Sq + 2 * En1 * En2 - m12Sq ) /
+                    ( p1mag * p2mag );
+
+    double sinPhi = std::sqrt( 1 - cosPhi * cosPhi );
+    if ( EvtRandom::Flat( 0., 1. ) > 0.5 ) {
+        sinPhi *= -1;
+    }
+    const double p2x = p2mag * cosPhi;
+    const double p2y = p2mag * sinPhi;
+    const double p3x = -p1mag - p2x;
+    const double p3y = -p2y;
+
+    // Construct 4-momenta and rotate them randomly in space
+    EvtVector4R p1( En1, p1mag, 0., 0. );
+    EvtVector4R p2( En2, p2x, p2y, 0. );
+    EvtVector4R p3( En3, p3x, p3y, 0. );
+    const double euler1 = EvtRandom::Flat( 0., EvtConst::twoPi );
+    const double euler2 = std::acos( EvtRandom::Flat( -1.0, 1.0 ) );
+    const double euler3 = EvtRandom::Flat( 0., EvtConst::twoPi );
+    p1.applyRotateEuler( euler1, euler2, euler3 );
+    p2.applyRotateEuler( euler1, euler2, euler3 );
+    p3.applyRotateEuler( euler1, euler2, euler3 );
+
+    // set momenta for daughters
+    daug1->init( daug1->getId(), p1 );
+    daug2->init( daug2->getId(), p2 );
+    daug3->init( daug3->getId(), p3 );
+
+    return;
 }

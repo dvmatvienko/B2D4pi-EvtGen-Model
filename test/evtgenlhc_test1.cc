@@ -157,6 +157,7 @@ int countInclusiveSubTree( std::string name, EvtParticle* root, EvtIdSet setIds,
                            TH1F* mom = 0 );
 void runBaryonic( int nEvent, EvtGen& myGenerator );
 void run3BPhspRegion( int nEvent, EvtGen& myGenerator );
+void runFlatSqDalitz( int nEvent, EvtGen& myGenerator );
 
 int main( int argc, char* argv[] )
 {
@@ -531,7 +532,13 @@ int main( int argc, char* argv[] )
     if ( !strcmp( argv[1], "3bodyPhsp" ) ) {
         int nevent = atoi( argv[2] );
         EvtRadCorr::setNeverRadCorr();
-        run3BPhspRegion( nevent, myGenerator);
+        run3BPhspRegion( nevent, myGenerator );
+    }
+
+    if ( !strcmp( argv[1], "flatSqDalitz" ) ) {
+        int nevent = atoi( argv[2] );
+        EvtRadCorr::setNeverRadCorr();
+        runFlatSqDalitz( nevent, myGenerator );
     }
 
     //*******************************************************
@@ -5747,6 +5754,65 @@ void run3BPhspRegion( int nevent, EvtGen& myGenerator )
 
         root_part->deleteTree();
 
+    } while ( count++ < nevent );
+
+    file->Write();
+    file->Close();
+    EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "SUCCESS\n";
+}
+
+void runFlatSqDalitz( int nevent, EvtGen& myGenerator )
+{
+    TFile* file = new TFile( "flatSqDalitz.root", "RECREATE" );
+
+    TH2F* dalitz = new TH2F( "h4", "Dalitz", 50, 0.0, 1.0, 50, 0.0, 1.0 );
+
+    int count = 1;
+
+    char udecay_name[100];
+    strcpy( udecay_name, "exampleFiles/flatSqDalitz.dec" );
+    myGenerator.readUDecay( udecay_name );
+
+    static EvtId B = EvtPDL::getId( std::string( "Lambda_b0" ) );
+
+    do {
+        EvtVector4R pinit( EvtPDL::getMass( B ), 0.0, 0.0, 0.0 );
+
+        EvtParticle* root_part = EvtParticleFactory::particleFactory( B, pinit );
+
+        myGenerator.generateDecay( root_part );
+
+        double mB = root_part->mass();
+        double m1 = root_part->getDaug( 0 )->mass();
+        double m2 = root_part->getDaug( 1 )->mass();
+        double m3 = root_part->getDaug( 2 )->mass();
+        double mBSq{ mB * mB };
+        double m1Sq{ m1 * m1 };
+        double m2Sq{ m2 * m2 };
+        double m3Sq{ m3 * m3 };
+
+        EvtParticle* daug1 = root_part->getDaug( 0 );
+        EvtParticle* daug2 = root_part->getDaug( 1 );
+        EvtParticle* daug3 = root_part->getDaug( 2 );
+        double m12 = ( daug1->getP4() + daug2->getP4() ).mass();
+        double m13 = ( daug1->getP4() + daug3->getP4() ).mass();
+        double m12Sq{ m12 * m12 };
+        double m13Sq{ m13 * m13 };
+
+        double m12norm =
+            2 * ( ( m12 - ( m1 + m2 ) ) / ( mB - ( m1 + m2 + m3 ) ) ) - 1;
+        double mPrime = acos( m12norm ) / EvtConst::pi;
+        double en1 = ( m12Sq - m2Sq + m1Sq ) / ( 2.0 * m12 );
+        double en3 = ( mBSq - m12Sq - m3Sq ) / ( 2.0 * m12 );
+        double p1 = std::sqrt( en1 * en1 - m1Sq );
+        double p3 = std::sqrt( en3 * en3 - m3Sq );
+        double cosTheta = ( -m13Sq + m1Sq + m3Sq + 2. * en1 * en3 ) /
+                          ( 2. * p1 * p3 );
+        double thPrime = acos( cosTheta ) / EvtConst::pi;
+
+        dalitz->Fill( mPrime, thPrime );
+
+        root_part->deleteTree();
     } while ( count++ < nevent );
 
     file->Write();
