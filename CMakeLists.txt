@@ -41,11 +41,13 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12.0)
     project(EvtGen
         VERSION 2.0.0
         DESCRIPTION "Monte Carlo generator of particle decays, in particular the weak decays of heavy flavour particles such as B mesons."
+        LANGUAGES C CXX
         )
 else()
     project(EvtGen
         VERSION 2.0.0
         DESCRIPTION "Monte Carlo generator of particle decays, in particular the weak decays of heavy flavour particles such as B mesons."
+        LANGUAGES C CXX
         HOMEPAGE_URL "https://evtgen.hepforge.org"
         )
 endif()

@@ -56,7 +56,7 @@ set(_hepmcinterface_names pythia8tohepmc)
 
 foreach(component ${Pythia8_FIND_COMPONENTS})
   find_library(PYTHIA8_${component}_LIBRARY NAMES ${component} ${_${component}_names}
-               HINTS $ENV{PYTHIA8_ROOT_DIR}/lib ${PYTHIA8_ROOT_DIR}/lib)
+               HINTS $ENV{PYTHIA8_ROOT_DIR}/lib ${PYTHIA8_ROOT_DIR}/lib $ENV{PYTHIA8_ROOT_DIR}/lib64 ${PYTHIA8_ROOT_DIR}/lib64 )
   if (PYTHIA8_${component}_LIBRARY)
     set(PYTHIA8_${component}_FOUND 1)
     list(APPEND PYTHIA8_LIBRARIES ${PYTHIA8_${component}_LIBRARY})
