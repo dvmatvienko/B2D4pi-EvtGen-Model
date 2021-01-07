@@ -59,10 +59,35 @@ EvtGen::~EvtGen()
     }
 }
 
-EvtGen::EvtGen( const char* const decayName, const char* const pdtTableName,
+EvtGen::EvtGen( const std::string& decayName, const std::string& pdtTableName,
                 EvtRandomEngine* randomEngine, EvtAbsRadCorr* isrEngine,
                 const std::list<EvtDecayBase*>* extraModels, int mixingType,
                 bool useXml )
+{
+    std::ifstream pdtIn( pdtTableName );
+    if ( !pdtIn ) {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Could not open:" << pdtTableName << "EvtPDL" << endl;
+        return;
+    }
+    initialize( decayName, pdtIn, randomEngine, isrEngine, extraModels,
+                mixingType, useXml );
+    pdtIn.close();
+}
+
+EvtGen::EvtGen( const std::string& decayName, std::istream& pdtTableData,
+                EvtRandomEngine* randomEngine, EvtAbsRadCorr* isrEngine,
+                const std::list<EvtDecayBase*>* extraModels, int mixingType,
+                bool useXml )
+{
+    initialize( decayName, pdtTableData, randomEngine, isrEngine, extraModels,
+                mixingType, useXml );
+}
+
+void EvtGen::initialize( const std::string& decayName, std::istream& pdtTable,
+                         EvtRandomEngine* randomEngine, EvtAbsRadCorr* isrEngine,
+                         const std::list<EvtDecayBase*>* extraModels,
+                         int mixingType, bool useXml )
 {
     EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "Initializing EvtGen" << endl;
 
@@ -82,10 +107,8 @@ EvtGen::EvtGen( const char* const decayName, const char* const pdtTableName,
 
     EvtGenReport( EVTGEN_INFO, "EvtGen" )
         << "Main decay file name  :" << decayName << endl;
-    EvtGenReport( EVTGEN_INFO, "EvtGen" )
-        << "PDT table file name   :" << pdtTableName << endl;
 
-    _pdl.readPDT( pdtTableName );
+    _pdl.readPDT( pdtTable );
 
     if ( useXml ) {
         EvtDecayTable::getInstance()->readXMLDecayFile( decayName, false );
@@ -113,11 +136,11 @@ EvtGen::EvtGen( const char* const decayName, const char* const pdtTableName,
     EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "Done initializing EvtGen" << endl;
 }
 
-void EvtGen::readUDecay( const char* const uDecayName, bool useXml )
+void EvtGen::readUDecay( const std::string& uDecayName, bool useXml )
 {
     ifstream indec;
 
-    if ( uDecayName[0] == 0 ) {
+    if ( uDecayName.size() == 0 ) {
         EvtGenReport( EVTGEN_INFO, "EvtGen" )
             << "Is not reading a user decay file!" << endl;
     } else {

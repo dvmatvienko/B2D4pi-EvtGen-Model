@@ -28,6 +28,8 @@
 
 #include <map>
 #include <vector>
+#include <string>
+#include <iostream>
 
 const int SPIN_NAME_LENGTH = 100;
 
@@ -35,8 +37,8 @@ class EvtPDL final {
   public:
     EvtPDL();
 
-    void read( const char* fname );
-    void readPDT( const std::string fname );
+    void read( const std::string& fname );
+    void readPDT( std::istream& data );
 
     static double getMeanMass( EvtId i );
     static double getMass( EvtId i );

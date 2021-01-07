@@ -51,17 +51,20 @@ EvtPDL::EvtPDL()
     }
 }
 
-void EvtPDL::read( const char* fname )
+void EvtPDL::read( const std::string& fname )
 {
-    readPDT( fname );
+    std::ifstream pdtIn( fname );
+    if ( !pdtIn ) {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Could not open:" << fname << "EvtPDL" << endl;
+        return;
+    }
+    readPDT( pdtIn );
+    pdtIn.close();
 }
 
-void EvtPDL::readPDT( const std::string fname )
+void EvtPDL::readPDT( std::istream& indec )
 {
-    ifstream indec;
-
-    indec.open( fname.c_str() );
-
     char cmnd[100];
     char xxxx[100];
 
@@ -76,11 +79,7 @@ void EvtPDL::readPDT( const std::string fname )
     int lundkc;
     EvtId i;
 
-    if ( !indec ) {
-        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
-            << "Could not open:" << fname.c_str() << "EvtPDL" << endl;
-        return;
-    }
+    indec.seekg( 0, std::ios::beg );
 
     do {
         char ch, ch1;
