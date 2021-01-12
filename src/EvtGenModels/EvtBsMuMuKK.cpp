@@ -553,15 +553,22 @@ double EvtBsMuMuKK::Integral( const double Gamma0, const double m0, const int JR
     int bins = 1000;
     double bin_width = ( M_KK_ul - M_KK_ll ) / static_cast<double>( bins );
     EvtComplex integral( 0.0, 0.0 );
-    double MKpiKm2 = pow( MKp + MKm, 2 );
+    double sumMKpKm2 = pow( MKp + MKm, 2 );
+    double diffMKpKm2 = pow( MKp - MKm, 2 );
     double MBs2 = pow( MBs, 2 );
 
     for ( int i = 0; i < bins; i++ ) {
         double M_KK_i = M_KK_ll + static_cast<double>( i ) * bin_width;
         double M_KK_f = M_KK_ll + static_cast<double>( i + 1 ) * bin_width;
+        double M_KK_i_sq = M_KK_i * M_KK_i;
+        double M_KK_f_sq = M_KK_f * M_KK_f;
 
-        double p3Kp_KK_CMS_i = ( pow( M_KK_i, 2 ) - MKpiKm2 ) / ( 2.0 * M_KK_i );
-        double p3Kp_KK_CMS_f = ( pow( M_KK_f, 2 ) - MKpiKm2 ) / ( 2.0 * M_KK_f );
+        double p3Kp_KK_CMS_i = sqrt( ( M_KK_i_sq - sumMKpKm2 ) *
+                                     ( M_KK_i_sq - diffMKpKm2 ) ) /
+                               ( 2.0 * M_KK_i );
+        double p3Kp_KK_CMS_f = sqrt( ( M_KK_f_sq - sumMKpKm2 ) *
+                                     ( M_KK_f_sq - diffMKpKm2 ) ) /
+                               ( 2.0 * M_KK_f );
 
         double p3Jpsi_Bs_CMS_i = sqrt( ( MBs2 - pow( M_KK_i + MJpsi, 2 ) ) *
                                        ( MBs2 - pow( M_KK_i - MJpsi, 2 ) ) ) /
