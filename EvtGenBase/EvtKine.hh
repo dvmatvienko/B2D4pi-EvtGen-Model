@@ -62,4 +62,9 @@ double EvtDecayAnglePhi( const EvtVector4R& g, const EvtVector4R& p,
 EvtComplex wignerD( int j, int m1, int m2, double phi, double theta,
                     double gamma );
 
+//
+// Function to calculate momentum of daughters in two body decay in mothers
+// rest frame.
+double twoBodyMomentum( const double M, const double m1, const double m2 );
+
 #endif

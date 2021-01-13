@@ -160,6 +160,7 @@
 #include "EvtGenModels/EvtbsToLLLL.hh"
 #include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
 #include "EvtGenModels/EvtThreeBodyPhsp.hh"
+#include "EvtGenModels/EvtFourBodyPhsp.hh"
 #include "EvtGenModels/EvtEtaLLPiPi.hh"
 
 #include <assert.h>
@@ -342,5 +343,6 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
     modelist.registerModel( new EvtPsi2JpsiPiPi );
 
     modelist.registerModel( new EvtThreeBodyPhsp );
+    modelist.registerModel( new EvtFourBodyPhsp );
     modelist.registerModel( new EvtEtaLLPiPi );
 }

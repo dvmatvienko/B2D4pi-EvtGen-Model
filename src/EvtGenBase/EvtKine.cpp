@@ -28,7 +28,7 @@
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtdFunction.hh"
 
-#include <math.h>
+#include <cmath>
 
 double EvtDecayAngle( const EvtVector4R& p, const EvtVector4R& q,
                       const EvtVector4R& d )
@@ -41,7 +41,7 @@ double EvtDecayAngle( const EvtVector4R& p, const EvtVector4R& q,
     double md2 = d.mass2();
 
     double cost = ( pd * mq2 - pq * qd ) /
-                  sqrt( ( pq * pq - mq2 * mp2 ) * ( qd * qd - mq2 * md2 ) );
+                  std::sqrt( ( pq * pq - mq2 * mp2 ) * ( qd * qd - mq2 * md2 ) );
 
     return cost;
 }
@@ -80,7 +80,7 @@ double EvtDecayAngleChi( const EvtVector4R& p4_p, const EvtVector4R& p4_d1,
     x = d1_perp.dot( h1_perp );
     y = d1_prime.dot( h1_perp );
 
-    double chi = atan2( y, x );
+    double chi = std::atan2( y, x );
 
     if ( chi < 0.0 )
         chi += EvtConst::twoPi;
@@ -99,7 +99,7 @@ double EvtDecayPlaneNormalAngle( const EvtVector4R& p, const EvtVector4R& q,
     double pq = p * q;
 
     return q.mass() * ( p * l ) /
-           sqrt( -( pq * pq - p.mass2() * q.mass2() ) * l.mass2() );
+           std::sqrt( -( pq * pq - p.mass2() * q.mass2() ) * l.mass2() );
 }
 
 // Calculate phi using the given 4 vectors (all in the same frame)
@@ -117,9 +117,9 @@ double EvtDecayAnglePhi( const EvtVector4R& z, const EvtVector4R& p,
 
     double y = p.scalartripler3( z, q, d ) + alpha * p.scalartripler3( z, q, q );
     double x = ( zq * ( qd + alpha * q2 ) - q2 * ( zd + alpha * zq ) ) /
-               sqrt( q2 );
+               std::sqrt( q2 );
 
-    double phi = atan2( y, x );
+    double phi = std::atan2( y, x );
 
     return phi < 0 ? ( phi + EvtConst::twoPi ) : phi;
 }
@@ -130,4 +130,16 @@ EvtComplex wignerD( int j, int m1, int m2, double phi, double theta, double gamm
     EvtComplex gm( 0.0, -gamma * m2 );
 
     return exp( gp ) * EvtdFunction::d( j, m1, m2, theta ) * exp( gm );
+}
+
+double twoBodyMomentum( const double M, const double m1, const double m2 )
+{
+    const double MSq = M * M;
+    const double mSum = m1 + m2;
+    const double mDiff = m1 - m2;
+    double result = ( MSq - mDiff * mDiff ) * ( MSq - mSum * mSum );
+    if ( result < 0 ) {
+        return 0;
+    }
+    return std::sqrt( result ) / ( 2 * M );
 }
