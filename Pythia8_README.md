@@ -1,3 +1,4 @@
+# Pythia8 README
 This README file contains development notes for the EvtGen-Pythia8 interface.
 Pythia8 version number 8.153 or above is required.
 
@@ -15,10 +16,10 @@ and Photos, use this same abstract factory interface.
 The configure script has been modified to specify the location of the new 
 Pythia 8 libraries. This can be done by using the PYTHIA8DATA environment 
 variable, which is usually set when building Pythia 8 libraries. Otherwise it should
-be set using the --pythiadir=[directory] option.
+be set using the `--pythiadir=[directory]` option.
 
 The main class EvtGen initialises the Pythia interface by doing the following:
-
+```c++
   // Set the Pythia external generator
   EvtExternalGenFactory* externalGenerators = EvtExternalGenFactory::getInstance();
   std::string xmlDir("./xmldoc");
@@ -26,9 +27,9 @@ The main class EvtGen initialises the Pythia interface by doing the following:
   // We are using Pythia 6 physics codes in the decay.dec file(s).
   bool convertPhysCode(true);
   externalGenerators->definePythiaGenerator(xmlDir, convertPhysCode);
-
+```
 The xmlDir string is the location of the XML data files used by Pythia 8. If the 
-PYTHIA8DATA environment variable is set, then Pythia 8 should automatically pick up 
+`PYTHIA8DATA` environment variable is set, then Pythia 8 should automatically pick up 
 the right data files. Otherwise, the value of xmlDir must point to a valid directory
 containing the Pythia 8 XML data file ParticleData.xml.
 
@@ -43,16 +44,16 @@ In addition, Pythia 6 decay modes using "q g q'bar" (physics model integer 33)
 combinations should be replaced with just "q q'bar" definitions (physics mode 32), 
 since Pythia 8 will generate gluons automatically. In fact the old "q g q'bar" 
 definitions will not work, owing to colour connection issues with how partons are 
-generated in Pythia 8. The present DECAY.DEC file has these modifications done 
+generated in Pythia 8. The present `DECAY.DEC` file has these modifications done 
 (only needed for 6 modes).
 
 Also, there are some decays with non-standard Pythia 6 physics integers that do not
 specify any daughters, e.g:
-
+```
 Decay anti-Xi_c0
 1.000          PYTHIA       84;
 Enddecay
-
+```
 For these cases, EvtPythiaEngine will detect that no daughters are defined and will 
 just keep Pythia 8 defaults. Otherwise, errors are generated when such decays are used.
 
@@ -77,7 +78,7 @@ It is now possible to use alias particle definitions for Pythia decays, and
 these aliases in turn can use Pythia decays or other decay models. Each alias should 
 then decay according to any definitions specified in the decay.dec file. 
 For example:
-
+```
 Alias Mytau- tau-
 Alias Mytau+ tau+
 ChargeConj Mytau+ Mytau-
@@ -94,4 +95,4 @@ CDecay Mytau+
 Decay Mypi0
 1.0       gamma gamma PYTHIA 0;
 Enddecay
-
+```

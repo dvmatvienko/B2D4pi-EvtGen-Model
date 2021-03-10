@@ -1,11 +1,12 @@
+# Tauola README
 The TAUOLA external event generator can be used to decay tau particles. 
 The syntax for decay.dec files is
-
+```
 Decay tau-
 <BF>   TAUOLA   <modeInt>;
 Enddecay
-
-where <BF> is the relative branching fraction (0 to 1) and modeInt is the 
+```
+where `<BF>` is the relative branching fraction (0 to 1) and `modeInt` is the 
 integer value specifying what TAUOLA decay is to be generated. 
 Note that the daughter particle types of the mode are not specified within 
 the "Decay" command - the mode integer will generate the correct daughters for you.
@@ -42,25 +43,25 @@ Allowed TAUOLA decay mode integers are (from the TAUOLA documentation):
 
 For example, to generate tau- -> 3pi0 pi- nu_tau (40%) and 
 tau- -> mu- anti-nu_mu nu_tau (60%), use
-
+```
 Decay Mytau-
 0.4  TAUOLA 9;
 0.6  TAUOLA 2;
 Enddecay
 CDecay Mytau+
-
+```
 To ensure decay mode consistency, any tau particle decay definition (normal or alised)
 using TAUOLA should use it for all sub-modes, i.e do not mix TAUOLA and other
 decay models, such as phase space (PHSP), within the same "Decay" definition.
 
 An example which is NOT allowed is:
-
+```
 Decay Mytau+
 0.4  TAUOLA 9;
 0.5  TAUOLA 2;
 0.1  e+ nu_e anti-nu_tau PHSP;  # Decay model is not TAUOLA.
 Enddecay
-
+```
 If this is detected, the program will stop and ask you to correct the decay definition(s). 
 The reason for this limitation is due to the fact that TAUOLA decays any tau particles 
 by considering the kinematics of its parent particle and the rest of the daughters, one of 
@@ -74,7 +75,7 @@ lost, leading to unphysical results.
 If a particle decay contains at least two tau particles, and one of these uses TAUOLA
 decay modes, then all other tau particles should use the same TAUOLA decay definitions to
 ensure consistency:
-
+```
 Alias MyB0 B0
 Alias Myanti-B0 anti-B0
 ChargeConj Myanti-B0 MyB0
@@ -93,7 +94,7 @@ Decay Mytau+
 0.6 TAUOLA 2;
 Enddecay
 CDecay Mytau-
-
+```
 You should not define two or more (via aliases) tau decays with different TAUOLA 
 sub-mode branching fractions. Also tau- and tau+ particles must have the same decay 
 modes/branching fractions. These limitions are due to the fact that the core code 
@@ -110,7 +111,7 @@ mode definitions correctly to ensure consistency in decay tree results/informati
 2) Define the allowed decay modes for the tau- and tau+ particle, using only TAUOLA modes.
    It is possible to keep the decay.dec generic (non-TAUOLA) decay modes for tau- and tau+, and 
    create aliased tau ("signal") particles such as Mytau- and Mytau+ to only use TAUOLA modes:
-
+```
 Alias Mytau- tau-
 Alias Mytau+ tau+
 ChargeConj Mytau+ Mytau-
@@ -120,7 +121,7 @@ Decay Mytau-
 0.6  TAUOLA 2;
 Enddecay
 CDecay Mytau+
-
+```
 3) Make sure the TAUOLA modes for tau+ match those for tau- (easily done by using "CDecay").
 4) Do not create other (alised) tau particles using TAUOLA modes. These settings will be ignored.
 

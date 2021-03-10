@@ -89,14 +89,19 @@ configure_file(DECAY_2010.DEC ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2010.DEC COPYONL
 configure_file(DECAY_2010.XML ${CMAKE_CURRENT_BINARY_DIR}/DECAY_2010.XML COPYONLY)
 
 # Build the executables in the test and validation directories
-option(EVTGEN_BUILD_DOC         "Enable/disable building of documentation in 'doc' directory"      OFF)
-option(EVTGEN_BUILD_TESTS       "Enable/disable building of executables in 'test' directory"       OFF)
-option(EVTGEN_BUILD_VALIDATIONS "Enable/disable building of executables in 'validation' directory" OFF)
-message(STATUS "EvtGen: Building of documentation in 'doc' directory      EVTGEN_BUILD_DOC         ${EVTGEN_BUILD_DOC}")
-message(STATUS "EvtGen: Building of executables in 'test' directory       EVTGEN_BUILD_TESTS       ${EVTGEN_BUILD_TESTS}")
-message(STATUS "EvtGen: Building of executables in 'validation' directory EVTGEN_BUILD_VALIDATIONS ${EVTGEN_BUILD_VALIDATIONS}")
+option(EVTGEN_BUILD_DOC         "Enable/disable building of userguide documentation in 'doc' directory"   OFF)
+option(EVTGEN_BUILD_DOXYGEN     "Enable/disable building of Doxygen documentation in 'doxygen' directory" OFF)
+option(EVTGEN_BUILD_TESTS       "Enable/disable building of executables in 'test' directory"              OFF)
+option(EVTGEN_BUILD_VALIDATIONS "Enable/disable building of executables in 'validation' directory"        OFF)
+message(STATUS "EvtGen: Building of userguide documentation in 'doc' directory   EVTGEN_BUILD_DOC         ${EVTGEN_BUILD_DOC}")
+message(STATUS "EvtGen: Building of Doxygen documentation in 'doxygen' directory EVTGEN_BUILD_DOXYGEN     ${EVTGEN_BUILD_DOXYGEN}")
+message(STATUS "EvtGen: Building of executables in 'test' directory              EVTGEN_BUILD_TESTS       ${EVTGEN_BUILD_TESTS}")
+message(STATUS "EvtGen: Building of executables in 'validation' directory        EVTGEN_BUILD_VALIDATIONS ${EVTGEN_BUILD_VALIDATIONS}")
 if(EVTGEN_BUILD_DOC)
     add_subdirectory(doc)
+endif()
+if(EVTGEN_BUILD_DOXYGEN)
+    add_subdirectory(doxygen)
 endif()
 if(EVTGEN_BUILD_TESTS)
     add_subdirectory(test)
@@ -112,18 +117,24 @@ install(DIRECTORY EvtGenExternal DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY EvtGenModels   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install the particle properties and decay tables
-install(FILES DECAY.DEC DECAY.XML evt.pdl DECAY_2010.XML DECAY_2010.DEC DECAY_2009.XML DECAY_2009.DEC  DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen)
+install(FILES DECAY.DEC DECAY.XML evt.pdl DECAY_2010.XML DECAY_2010.DEC DECAY_2009.XML DECAY_2009.DEC DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME})
+
+# Install the COPYING and AUTHORS files
+install(FILES AUTHORS COPYING DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME})
+
+# Install the README and History files
+install(FILES README.md Pythia8_README.md Tauola_README.md History.md DESTINATION ${CMAKE_INSTALL_DOCDIR}/${CMAKE_PROJET_NAME})
 
 # Generate CMake config files, which can be used by other projects
 include(CMakePackageConfigHelpers)
 
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR})
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
-set(DATA_INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/EvtGen)
+set(DATA_INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME})
 
 configure_package_config_file(cmake/Templates/EvtGenConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME}/cmake
     PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR DATA_INSTALL_DIR
     )
 
@@ -133,11 +144,11 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfigVersion
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/EvtGenConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME}/cmake
     )
 
 install(
     EXPORT "EvtGenTargets"
     NAMESPACE "EvtGen::"
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/EvtGen/cmake
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJET_NAME}/cmake
     )
