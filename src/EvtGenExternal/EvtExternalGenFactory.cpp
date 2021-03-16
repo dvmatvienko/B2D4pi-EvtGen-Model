@@ -65,13 +65,12 @@ EvtExternalGenFactory* EvtExternalGenFactory::getInstance()
     return theFactory;
 }
 
+// Only define the generator if we have the external ifdef variable set
+#ifdef EVTGEN_PYTHIA
 void EvtExternalGenFactory::definePythiaGenerator( std::string xmlDir,
                                                    bool convertPhysCodes,
                                                    bool useEvtGenRandom )
 {
-    // Only define the generator if we have the external ifdef variable set
-#ifdef EVTGEN_PYTHIA
-
     int genId = EvtExternalGenFactory::PythiaGenId;
 
     EvtGenReport( EVTGEN_INFO, "EvtGen" )
@@ -93,15 +92,17 @@ void EvtExternalGenFactory::definePythiaGenerator( std::string xmlDir,
     EvtAbsExternalGen* pythiaGenerator =
         new EvtPythiaEngine( xmlDir, convertPhysCodes, useEvtGenRandom );
     _extGenMap[genId] = pythiaGenerator;
-
-#endif
 }
+#else
+void EvtExternalGenFactory::definePythiaGenerator( std::string, bool, bool )
+{
+}
+#endif
 
+#ifdef EVTGEN_PHOTOS
 void EvtExternalGenFactory::definePhotosGenerator( std::string photonType,
                                                    bool useEvtGenRandom )
 {
-#ifdef EVTGEN_PHOTOS
-
     int genId = EvtExternalGenFactory::PhotosGenId;
 
     EvtGenReport( EVTGEN_INFO, "EvtGen" )
@@ -110,23 +111,28 @@ void EvtExternalGenFactory::definePhotosGenerator( std::string photonType,
     EvtAbsExternalGen* photosGenerator = new EvtPhotosEngine( photonType,
                                                               useEvtGenRandom );
     _extGenMap[genId] = photosGenerator;
-
-#endif
 }
+#else
+void EvtExternalGenFactory::definePhotosGenerator( std::string, bool )
+{
+}
+#endif
 
+#ifdef EVTGEN_TAUOLA
 void EvtExternalGenFactory::defineTauolaGenerator( bool useEvtGenRandom )
 {
-#ifdef EVTGEN_TAUOLA
-
     int genId = EvtExternalGenFactory::TauolaGenId;
 
     EvtGenReport( EVTGEN_INFO, "EvtGen" ) << "Defining EvtTauolaEngine." << endl;
 
     EvtAbsExternalGen* tauolaGenerator = new EvtTauolaEngine( useEvtGenRandom );
     _extGenMap[genId] = tauolaGenerator;
-
-#endif
 }
+#else
+void EvtExternalGenFactory::defineTauolaGenerator( bool )
+{
+}
+#endif
 
 EvtAbsExternalGen* EvtExternalGenFactory::getGenerator( int genId )
 {

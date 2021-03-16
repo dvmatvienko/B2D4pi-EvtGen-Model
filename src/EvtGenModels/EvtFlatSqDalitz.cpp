@@ -28,11 +28,8 @@
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-#include <fstream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
 #include <string>
-using std::fstream;
 
 EvtFlatSqDalitz::~EvtFlatSqDalitz()
 {

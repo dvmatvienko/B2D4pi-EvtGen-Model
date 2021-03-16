@@ -21,14 +21,15 @@
 #include "EvtGenBase/EvtGenKine.hh"
 
 #include "EvtGenBase/EvtConst.hh"
+#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtParticle.hh"
 
+#include <cmath>
 #include <iostream>
-#include <math.h>
+
 using std::endl;
 
 double EvtPawt( double a, double b, double c )
