@@ -47,7 +47,36 @@ EvtDecayBase* EvtPi0Dalitz::clone()
 
 void EvtPi0Dalitz::initProbMax()
 {
-    setProbMax( 3.5 );
+    // Search for maximum probability. In order to avoid setting up all
+    // particles with spinors and four-momenta, we use result after all
+    // contractions, which is:
+    // 1/((m_R^2-q^2)^2+m_R^2 Gamma_R^2) 1/(2q^2) (M^2-q^2)^2 beta_l
+    // (1+cos(theta)^2) where we set cos(theta)=1
+    auto daughter1 = getDaug( 0 );
+    auto daughter2 = getDaug( 1 );
+    double q2Min = EvtPDL::getMass( daughter1 ) + EvtPDL::getMass( daughter2 );
+    q2Min *= q2Min;
+    double q2Max = EvtPDL::getMass( getParentId() );
+    q2Max *= q2Max;
+    const int steps = 20000;
+    const double step = ( q2Max - q2Min ) / steps;
+    double maxProb = 0;
+    for ( int ii = 0; ii < steps; ++ii ) {
+        double q2 = q2Min + ii * step;
+        const double mSqDiff = m_m0Sq - q2;
+        const double q2Sq = q2 * q2;
+        double prob = ( q2Max - q2 ) * ( q2Max - q2 ) * ( q2 - q2Min ) /
+                      ( q2Sq );
+        prob *= ( 1.0 / ( mSqDiff * mSqDiff + m_m0SqG0Sq ) );
+        // When generating events, we do not start from phase-space, but
+        // add some pole to it, weight of which is taken into account
+        // elsewhere
+        prob /= 1.0 + m_poleSize / ( q2Sq );
+        if ( prob > maxProb ) {
+            maxProb = prob;
+        }
+    }
+    setProbMax( maxProb * 1.05  );
 }
 
 void EvtPi0Dalitz::init()
@@ -61,14 +90,19 @@ void EvtPi0Dalitz::init()
     checkSpinDaughter( 0, EvtSpinType::DIRAC );
     checkSpinDaughter( 1, EvtSpinType::DIRAC );
     checkSpinDaughter( 2, EvtSpinType::PHOTON );
+
+    // Rescale pole size to improve efficiency.  Not sure about exact
+    // factor, but this seem to be best simple rescaling for
+    // eta-->e+e-gamma.
+    const double parentMass = EvtPDL::getMass( getParentId() );
+    m_poleSize *= parentMass * parentMass / ( 0.135 * 0.135 );
 }
 
 void EvtPi0Dalitz::decay( EvtParticle* p )
 {
     EvtParticle *ep, *em, *gamma;
     setWeight( p->initializePhaseSpace( getNDaug(), getDaugs(), false,
-                                        0.00000002, 0, 1 ) );
-
+                                        m_poleSize, 0, 1 ) );
     ep = p->getDaug( 0 );
     em = p->getDaug( 1 );
     gamma = p->getDaug( 2 );
@@ -97,8 +131,8 @@ void EvtPi0Dalitz::decay( EvtParticle* p )
                     ( ep->getP4() * em->getP4() - ep->getP4().mass2() ) );
 
     double prob = ( real( cont( v, w ) ) ) / ( m2 * m2 );
-    prob *= ( 1.0 / ( ( 0.768 * 0.768 - m2 ) * ( 0.768 * 0.768 - m2 ) +
-                      0.768 * 0.768 * 0.151 * 0.151 ) );
+    const double m2Diff = m_m0Sq - m2;
+    prob *= ( 1.0 / ( m2Diff * m2Diff + m_m0SqG0Sq ) );
 
     //  EvtGenReport(EVTGEN_INFO,"EvtGen") << "prob is "<<prob<<endl;
     setProb( prob );

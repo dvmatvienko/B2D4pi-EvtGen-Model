@@ -34,6 +34,14 @@ class EvtPi0Dalitz : public EvtDecayProb {
     void initProbMax() override;
 
     void decay( EvtParticle* p ) override;
+
+  private:
+    double m_poleSize{ 0.00000002 };
+
+    // Following are rho mass and width, but in order to keep consistency
+    // with what was done before do not use data from particle table.
+    const double m_m0Sq{ 0.768 * 0.768 };
+    const double m_m0SqG0Sq{ m_m0Sq * 0.151 * 0.151 };
 };
 
 #endif

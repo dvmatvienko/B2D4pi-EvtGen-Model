@@ -60,7 +60,6 @@
 #include "EvtGenModels/EvtDDalitz.hh"
 #include "EvtGenModels/EvtDMix.hh"
 #include "EvtGenModels/EvtDToKpienu.hh"
-#include "EvtGenModels/EvtEta2MuMuGamma.hh"
 #include "EvtGenModels/EvtEtaDalitz.hh"
 #include "EvtGenModels/EvtFlatQ2.hh"
 #include "EvtGenModels/EvtFlatSqDalitz.hh"
@@ -286,7 +285,6 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
     modelist.registerModel( new EvtDMix );
     modelist.registerModel( new EvtD0mixDalitz );
     modelist.registerModel( new EvtD0gammaDalitz );
-    modelist.registerModel( new EvtEta2MuMuGamma );
 
     modelist.registerModel( new EvtbTosllAli );
     modelist.registerModel( new EvtBaryonPCR );
