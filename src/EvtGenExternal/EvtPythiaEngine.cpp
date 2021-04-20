@@ -38,6 +38,12 @@
 #include <iostream>
 #include <sstream>
 
+#if PYTHIA_VERSION_INTEGER < 8304
+typedef Pythia8::ParticleDataEntry* ParticleDataEntryPtr;
+#else
+typedef Pythia8::ParticleDataEntryPtr ParticleDataEntryPtr;
+#endif
+
 using std::endl;
 
 EvtPythiaEngine::EvtPythiaEngine( std::string xmlDir, bool convertPhysCodes,
@@ -430,9 +436,9 @@ void EvtPythiaEngine::updateParticleLists()
         // or assignment will give it a different memory address and it will no longer refer to
         // the original particleData information from the generator pointer.
 
-        Pythia8::ParticleDataEntry* entry_generic =
+        ParticleDataEntryPtr entry_generic =
             _genericPythiaGen->particleData.particleDataEntryPtr( PDGCode );
-        Pythia8::ParticleDataEntry* entry_alias =
+        ParticleDataEntryPtr entry_alias =
             _aliasPythiaGen->particleData.particleDataEntryPtr( PDGCode );
 
         // Check that the PDG code is not zero/null and exclude other
