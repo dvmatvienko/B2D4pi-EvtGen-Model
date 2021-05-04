@@ -30,7 +30,7 @@ endif()
 
 # Set the warning/optimise/debug flags for each build type
 if( ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
-    message(STATUS "EvtGen: Customising warning/optimise/debug flags for each build type")
+    message(STATUS "EvtGen: Customising compiler flags for each build type")
 
     #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsigned-char -Wall -Wextra -Wshadow -Woverloaded-virtual")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsigned-char -Wall -Wextra")
@@ -47,7 +47,7 @@ if( ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES 
         set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
     endif()
 else()
-    message(STATUS "EvtGen: No customisation of warning/optimise/debug flags implemented for compiler: ${CMAKE_CXX_COMPILER_ID}")
+    message(STATUS "EvtGen: No customisation of compiler flags implemented for compiler: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
 # Make sure our project's include directories always come first
