@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2021 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -35,6 +35,7 @@
 #include "EvtGenModels/EvtBToKpipiCP.hh"
 #include "EvtGenModels/EvtBToPlnuBK.hh"
 #include "EvtGenModels/EvtBToVlnuBall.hh"
+#include "EvtGenModels/EvtBToXElNu.hh"
 #include "EvtGenModels/EvtBaryonPCR.hh"
 #include "EvtGenModels/EvtBcBsNPi.hh"
 #include "EvtGenModels/EvtBcBsStarNPi.hh"
@@ -61,8 +62,10 @@
 #include "EvtGenModels/EvtDMix.hh"
 #include "EvtGenModels/EvtDToKpienu.hh"
 #include "EvtGenModels/EvtEtaDalitz.hh"
+#include "EvtGenModels/EvtEtaLLPiPi.hh"
 #include "EvtGenModels/EvtFlatQ2.hh"
 #include "EvtGenModels/EvtFlatSqDalitz.hh"
+#include "EvtGenModels/EvtFourBodyPhsp.hh"
 #include "EvtGenModels/EvtGenericDalitz.hh"
 #include "EvtGenModels/EvtGoityRoberts.hh"
 #include "EvtGenModels/EvtHQET.hh"
@@ -90,8 +93,8 @@
 #include "EvtGenModels/EvtPartWave.hh"
 #include "EvtGenModels/EvtPhiDalitz.hh"
 #include "EvtGenModels/EvtPhsp.hh"
-#include "EvtGenModels/EvtPhspFlatLifetime.hh"
 #include "EvtGenModels/EvtPhspDecaytimeCut.hh"
+#include "EvtGenModels/EvtPhspFlatLifetime.hh"
 #include "EvtGenModels/EvtPi0Dalitz.hh"
 #include "EvtGenModels/EvtPropSLPole.hh"
 #include "EvtGenModels/EvtPsi2JpsiPiPi.hh"
@@ -130,6 +133,7 @@
 #include "EvtGenModels/EvtTauScalarnu.hh"
 #include "EvtGenModels/EvtTauVectornu.hh"
 #include "EvtGenModels/EvtTaulnunu.hh"
+#include "EvtGenModels/EvtThreeBodyPhsp.hh"
 #include "EvtGenModels/EvtVPHOtoVISRHi.hh"
 #include "EvtGenModels/EvtVSPPwave.hh"
 #include "EvtGenModels/EvtVSS.hh"
@@ -158,9 +162,6 @@
 #include "EvtGenModels/Evtbs2llGammaMNT.hh"
 #include "EvtGenModels/EvtbsToLLLL.hh"
 #include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
-#include "EvtGenModels/EvtThreeBodyPhsp.hh"
-#include "EvtGenModels/EvtFourBodyPhsp.hh"
-#include "EvtGenModels/EvtEtaLLPiPi.hh"
 
 #include <assert.h>
 #include <ctype.h>
@@ -343,4 +344,6 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
     modelist.registerModel( new EvtThreeBodyPhsp );
     modelist.registerModel( new EvtFourBodyPhsp );
     modelist.registerModel( new EvtEtaLLPiPi );
+
+    modelist.registerModel( new EvtBToXElNu );
 }

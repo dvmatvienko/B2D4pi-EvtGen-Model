@@ -8,6 +8,9 @@ https://phab.hepforge.org/Tabc
 
 https://phab.hepforge.org/Dxyz
 
+8th Sep 2021 Markus Prim, Lu Cao, Chaoyi Lyu and Michel De Cian (Michal Kreps)
+* D73: Add new model for semileptonic B decays with BCL and BGL form-factors
+
 8th June 2021 Michal Kreps
 * T110, D71: Fix B+ --> eta' l nu BF which was order of magnitude too high.  Balance the decrease by increasing B+ --> D0 l nu, which is after change still bit smaller than PDG 2021.
 
