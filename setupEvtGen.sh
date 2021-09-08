@@ -116,7 +116,7 @@ then
 else
     curl -O http://hepmc.web.cern.ch/hepmc/releases/$HEPMC3TAR
 fi
-curl -O http://home.thep.lu.se/~torbjorn/pythia8/$PYTHIATAR
+curl -O https://pythia.org/download/pythia${PYTHIAVER:0:2}/$PYTHIATAR
 curl -O http://photospp.web.cern.ch/photospp/resources/$PHOTOSDIR/$PHOTOSTAR
 curl -O http://tauolapp.web.cern.ch/tauolapp/resources/$TAUOLADIR/$TAUOLATAR
 

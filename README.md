@@ -26,7 +26,7 @@ Optionally, it is possible to use other external generators, such as Pythia8
 (for Pythia decays in the DECAY.DEC file, for example), Photos (for
 radiative corrections) and Tauola (for tau decays):
 
-Pythia8  http://home.thep.lu.se/~torbjorn/Pythia.html
+Pythia8  https://pythia.org/
 
 Photos   http://photospp.web.cern.ch/photospp/
 
