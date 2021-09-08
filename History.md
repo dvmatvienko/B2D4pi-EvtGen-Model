@@ -8,11 +8,35 @@ https://phab.hepforge.org/Tabc
 
 https://phab.hepforge.org/Dxyz
 
+8th Sep 2021 Michal Kreps
+* Update location of web page for Pythia8 download in setup script.
+
 8th Sep 2021 Markus Prim, Lu Cao, Chaoyi Lyu and Michel De Cian (Michal Kreps)
 * D73: Add new model for semileptonic B decays with BCL and BGL form-factors
 
 8th June 2021 Michal Kreps
 * T110, D71: Fix B+ --> eta' l nu BF which was order of magnitude too high.  Balance the decrease by increasing B+ --> D0 l nu, which is after change still bit smaller than PDG 2021.
+
+8th Jun 2021 Michal Kreps
+* D71: Fix B+ --> eta' l nu BF.
+
+20th Apr 2021 Tom Lathem
+* D68: Fix compilation with Pythia 8.304
+
+17th Mar 2021 Michal Kreps
+* D62: Improve PI0DALITZ model to dynamically work out maximum probability to make it usuable also for eta --> llgamma decays. Model ETA2MUMUGAMMA is pure one-to-one copy of the PI0DALITZ and as such it is removed.
+
+15th Jan 2021 Michal Kreps
+* D47: Model to generate 4-body phase-space decays in restricted part of the m12-m34 space
+
+12th Jan 2021 Michal Kreps
+* D48: Fix bug in calculation of the daughter momentum in decay model EvtBsMuMuKK
+
+7th Jan 2021 Michal Kreps
+* D43: Allow to pass particle properties table in form of stringstream to constructor of EvtGen for use case where these are created on fly.
+
+10th Dec 2020 Michal Kreps
+* D36: EvtFlatSqDalitz model to be more efficient and to avoid cut-off around the edges
 
 21st Aug 2020 John Back
 * T109: Add EvtEtaLLPiPi model for eta' -> l l pi pi decays (l = e or mu),
