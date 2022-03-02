@@ -8,6 +8,11 @@ https://phab.hepforge.org/Tabc
 
 https://phab.hepforge.org/Dxyz
 
+2nd Mar 2022 John Back
+* D78: Add Bc -> J/psi K+ pi- pi+ pi- pi+, Bc -> J/psi K+ K- pi+ pi- pi+ &
+       Bc -> J/psi 4pi+ 3pi- decay modes to the BC_VHAD model, courtesy of
+       Aleksei Luchinsky, Anna Danilina, Dmitrii Pereima & Vanya Belyaev (LHCb)
+       
 ===
 ## R02-01-01
 

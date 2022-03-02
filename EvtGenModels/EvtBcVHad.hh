@@ -52,18 +52,21 @@ class EvtBcVHad : public EvtDecayAmp {
     //   2 - PM
     int whichfit;
 
-    // idVector --- final vector particle code
+    // final vector particle code
     int idVector;
 
     // out_code: code of the hadronic final state
     //   1 - pi+
     //   2 - pi+ pi0
-    //   3 -  pi+ pi+ pi-
+    //   3 - pi+ pi+ pi-
     //   4 - 4pi
     //   5 - pi+ pi+ pi- pi- pi+
     //   6 - K+ K- pi+
     //   7 - K+ pi+ pi-
     //   8 - K_S0 K+
+    //   9 - K+ K- pi+ pi+ pi-
+    //  10 - pi+ pi+ pi+ pi+ pi- pi- pi- (7 charged pi)
+    //  11 - K+ pi+ pi+ pi- pi-
     int out_code;
 
     std::unique_ptr<EvtBCVFF2> ffmodel;
