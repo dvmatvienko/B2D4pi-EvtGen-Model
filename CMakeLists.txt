@@ -76,6 +76,15 @@ message(STATUS "EvtGen: Optional linking with Photos++ EVTGEN_PHOTOS ${EVTGEN_PH
 message(STATUS "EvtGen: Optional linking with Tauola++ EVTGEN_TAUOLA ${EVTGEN_TAUOLA}")
 include(ExternalDependencies)
 
+# Setup clang-tidy checks
+option(EVTGEN_RUN_CLANG_TIDY "Enable/disable running clang-tidy static analysis checks during build" OFF)
+option(EVTGEN_CLANG_TIDY_FIX "Enable/disable automatic fixes in clang-tidy checks"                   OFF)
+set(EVTGEN_CLANG_TIDY_CHECKS "modernize-use-nullptr" CACHE STRING "Specify which clang-tidy checks to run (comma separated)")
+message(STATUS "EvtGen: Optional running of clang-tidy checks     EVTGEN_RUN_CLANG_TIDY    ${EVTGEN_RUN_CLANG_TIDY}")
+message(STATUS "EvtGen: Optional auto-fixes by clang-tidy checks  EVTGEN_CLANG_TIDY_FIX    ${EVTGEN_CLANG_TIDY_FIX}")
+message(STATUS "EvtGen: Optional list of clang-tidy checks to run EVTGEN_CLANG_TIDY_CHECKS ${EVTGEN_CLANG_TIDY_CHECKS}")
+include(EvtGenSetupClangTidyChecks)
+
 # Now build the library
 add_subdirectory(src)
 
