@@ -31,10 +31,6 @@
 #include <cmath>
 #include <string>
 
-EvtFlatSqDalitz::~EvtFlatSqDalitz()
-{
-}
-
 std::string EvtFlatSqDalitz::getName()
 {
     return "FLATSQDALITZ";

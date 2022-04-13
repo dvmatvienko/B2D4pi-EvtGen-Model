@@ -21,17 +21,15 @@
 #ifndef EVTFLATSQDALITZ_HH
 #define EVTFLATSQDALITZ_HH
 
-#include "EvtGenBase/EvtDecayProb.hh"
+#include "EvtGenBase/EvtDecayIncoherent.hh"
 
 class EvtParticle;
 
 // Description: B->3 body flat in square dalitz vairiables
 // the square dalitz is the plane m12 theta12
 
-class EvtFlatSqDalitz : public EvtDecayProb {
+class EvtFlatSqDalitz : public EvtDecayIncoherent {
   public:
-    EvtFlatSqDalitz() {}
-    ~EvtFlatSqDalitz();
 
     std::string getName() override;
     EvtDecayBase* clone() override;
