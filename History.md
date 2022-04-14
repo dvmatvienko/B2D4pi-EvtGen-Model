@@ -8,6 +8,13 @@ https://phab.hepforge.org/Tabc
 
 https://phab.hepforge.org/Dxyz
 
+14 Apr 2022 John Back
+* D82: EvtDecayProb: initialise data members and remove empty destructor
+
+13 Apr 2022 Michal Kreps
+* D81: Derive EvtFlatSqDalitz from EvtDecayIncoherent since we directly provide
+       final kinematics
+
 2nd Mar 2022 John Back
 * D78: Add Bc -> J/psi K+ pi- pi+ pi- pi+, Bc -> J/psi K+ K- pi+ pi- pi+ &
        Bc -> J/psi 4pi+ 3pi- decay modes to the BC_VHAD model, courtesy of
@@ -23,7 +30,9 @@ https://phab.hepforge.org/Dxyz
 * D73: Add new model for semileptonic B decays with BCL and BGL form-factors
 
 8th June 2021 Michal Kreps
-* T110, D71: Fix B+ --> eta' l nu BF which was order of magnitude too high.  Balance the decrease by increasing B+ --> D0 l nu, which is after change still bit smaller than PDG 2021.
+* T110, D71: Fix B+ --> eta' l nu BF which was order of magnitude too high.
+  Balance the decrease by increasing B+ --> D0 l nu, which is after change
+  still bit smaller than PDG 2021.
 
 8th Jun 2021 Michal Kreps
 * D71: Fix B+ --> eta' l nu BF.
@@ -32,7 +41,9 @@ https://phab.hepforge.org/Dxyz
 * D68: Fix compilation with Pythia 8.304
 
 17th Mar 2021 Michal Kreps
-* D62: Improve PI0DALITZ model to dynamically work out maximum probability to make it usuable also for eta --> llgamma decays. Model ETA2MUMUGAMMA is pure one-to-one copy of the PI0DALITZ and as such it is removed.
+* D62: Improve PI0DALITZ model to dynamically work out maximum probability to
+  make it usuable also for eta --> llgamma decays.
+  Remove ETA2MUMUGAMMA since it is a pure one-to-one copy of PI0DALITZ.
 
 15th Jan 2021 Michal Kreps
 * D47: Model to generate 4-body phase-space decays in restricted part of the m12-m34 space
@@ -41,7 +52,8 @@ https://phab.hepforge.org/Dxyz
 * D48: Fix bug in calculation of the daughter momentum in decay model EvtBsMuMuKK
 
 7th Jan 2021 Michal Kreps
-* D43: Allow to pass particle properties table in form of stringstream to constructor of EvtGen for use case where these are created on fly.
+* D43: Allow to pass particle properties table in form of stringstream to constructor
+  of EvtGen for use case where these are created on fly.
 
 10th Dec 2020 Michal Kreps
 * D36: EvtFlatSqDalitz model to be more efficient and to avoid cut-off around the edges
