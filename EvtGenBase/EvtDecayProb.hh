@@ -33,11 +33,9 @@ class EvtDecayProb : public EvtDecayBase {
     double getProb() { return _prob; }
     inline void setWeight( double weight ) { _weight = weight; }
 
-    virtual ~EvtDecayProb() {}
-
   private:
-    double _prob;
-    double _weight;
+    double _prob {1.0};
+    double _weight {1.0};
 };
 
 #endif
