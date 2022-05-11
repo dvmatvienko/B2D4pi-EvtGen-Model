@@ -8,6 +8,12 @@ https://phab.hepforge.org/Tabc
 
 https://phab.hepforge.org/Dxyz
 
+11 May 2022 Tom Latham
+* D80: Add CMake options for enabling clang-tidy static analysis checks during build
+
+10 May 2022 Michal Kreps
+* D83: Fix double counting of charmonia with K0 decays for B0.
+
 14 Apr 2022 John Back
 * D82: EvtDecayProb: initialise data members and remove empty destructor
 

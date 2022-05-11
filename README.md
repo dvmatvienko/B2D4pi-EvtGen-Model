@@ -218,7 +218,7 @@ The major points comparing this version with the 2009 release are the following:
 
 
 4. It is possible to use decay files in xml format. Use the python script
-   convertDecayFile.py for converting decay files to the new format.
+   scripts/convertDecayFile.py for converting decay files to the new format.
    The src/EvtGen.cpp constructor has an additional boolean argument useXml that
    needs to be set to true if xml decay files are to be used (default is useXml=false).
    For example, DECAY_2010.XML is the xml version of DECAY_2010.DEC.

@@ -1016,8 +1016,7 @@ Decay anti-B0
 #       adding J/psi rho and omega - for lack of better thing will use the Kstar helicity amplitudes.
 #       Psi2sKs  30 ->31
 #       chic1 Kstar: 12 ->6
-0.000435500 J/psi   K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000435500 J/psi   K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000891000 J/psi   anti-K0                                 SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.001330000 J/psi   anti-K*0                                SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; #[Reconstructed PDG2011]
@@ -1034,8 +1033,7 @@ Decay anti-B0
 0.0005     J/psi  anti-K_2*0              PHSP;
 0.000094000 J/psi   phi     anti-K0                         PHSP; #[Reconstructed PDG2011]
 #
-0.000310000 psi(2S) K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000310000 psi(2S) K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000620000 psi(2S) anti-K0                                 SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000610000 psi(2S) anti-K*0                                SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; #[Reconstructed PDG2011]
@@ -1048,8 +1046,7 @@ Decay anti-B0
 0.0004     psi(2S)  anti-K_10              PHSP;
 
 #
-0.000445000 eta_c   K_S0                                    PHSP; #[Reconstructed PDG2011]
-0.000445000 eta_c   K_L0                                    PHSP; #[Reconstructed PDG2011]
+0.000900000 eta_c   anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000610000 anti-K*0 eta_c                                  SVS; #[Reconstructed PDG2011]
@@ -1070,8 +1067,7 @@ Decay anti-B0
 0.00005    eta_c(2S)   anti-K0   pi0  pi0     PHSP;
 0.00005    eta_c(2S)   K-  pi+  pi0     PHSP;
 #
-0.000070000 chi_c0  K_S0                                    PHSP; #[Reconstructed PDG2011]
-0.000070000 chi_c0  K_L0                                    PHSP; #[Reconstructed PDG2011]
+0.000190000 chi_c0  anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.00030     anti-K*0 chi_c0              SVS;
@@ -1081,8 +1077,7 @@ Decay anti-B0
 0.0001     chi_c0  anti-K0   pi0  pi0     PHSP;
 0.0001     chi_c0  K-  pi+  pi0     PHSP;
 #
-0.000195000 chi_c1  K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000195000 chi_c1  K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000395000 chi_c1  anti-K0                                 SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000222000 chi_c1  anti-K*0                                SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; #[Reconstructed PDG2011]
@@ -1319,10 +1314,10 @@ Decay anti-B0
 # PR LHCb Add p pbar mode
 0.0000001      p+    anti-p-                PHSP;
 #
-0.250525685 anti-u d c anti-d PYTHIA 23;
-0.042705898 anti-u d c anti-d PYTHIA 65;
+0.252848685 anti-u d c anti-d PYTHIA 23;
+0.043008898 anti-u d c anti-d PYTHIA 65;
 0.019975978 anti-u s c anti-d PYTHIA 63;
-0.017122253 anti-u c d anti-d PYTHIA 23;
+0.017322253 anti-u c d anti-d PYTHIA 23;
 0.000856098 anti-u c s anti-d PYTHIA 23;
 #lange - try to crank up the psi production....
 0.070391402 anti-c s c anti-d PYTHIA 43;
@@ -1350,8 +1345,6 @@ Decay anti-B0
 0.000006000 anti-D0 K-      pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000036000 D*0     anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.002700000 anti-D*0 pi-     pi-     pi+     pi+            PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000890000 eta_c   anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000871000 J/psi   anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000310000 J/psi   omega   anti-K0                         PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000009500 J/psi   eta                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000019000 J/psi   pi-     pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -1360,10 +1353,7 @@ Decay anti-B0
 0.000800000 J/psi   K*-     pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000660000 J/psi   anti-K*0 pi-     pi+                    PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000170000 anti-K0 anti-D0 D0      pi0                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000620000 psi(2S) anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000140000 chi_c0  anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000011200 chi_c1  pi0                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000390000 chi_c1  anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000158000 chi_c1  K+      pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000011000 eta     anti-K_0*0                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000009600 eta     anti-K_2*0                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -2237,8 +2227,7 @@ Decay B0
 0.000050  a_1+  a_1-             PHSP;
 #
 #       B -> cc= s
-0.000435500 J/psi   K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000435500 J/psi   K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000891000 J/psi   K0                                      SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.001330000 J/psi   K*0                                     SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; #[Reconstructed PDG2011]
@@ -2255,8 +2244,7 @@ Decay B0
 0.0005     J/psi  K_2*0              PHSP;
 0.000094000 J/psi   phi     K0                              PHSP; #[Reconstructed PDG2011]
 #
-0.000310000 psi(2S) K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000310000 psi(2S) K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000620000 psi(2S) K0                                      SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000610000 psi(2S) K*0                                     SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; #[Reconstructed PDG2011]
@@ -2268,8 +2256,7 @@ Decay B0
 0.0001     psi(2S)  K+  pi-  pi0     PHSP;
 0.0004     psi(2S)  K_10              PHSP;
 #
-0.000445000 eta_c   K_S0                                    PHSP; #[Reconstructed PDG2011]
-0.000445000 eta_c   K_L0                                    PHSP; #[Reconstructed PDG2011]
+0.000900000 eta_c   K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000610000 K*0     eta_c                                   SVS; #[Reconstructed PDG2011]
@@ -2279,8 +2266,6 @@ Decay B0
 0.0001    eta_c  K0  pi0  pi0     PHSP;
 0.0001    eta_c  K+  pi-  pi0     PHSP;
 #
-0.00024    eta_c(2S) K_S0               PHSP;
-0.00024    eta_c(2S) K_L0               PHSP;
 #
 #
 0.00066   K*0T eta_c(2S)               SVS;
@@ -2290,8 +2275,7 @@ Decay B0
 0.00005    eta_c(2S)   K0  pi0  pi0     PHSP;
 0.00005    eta_c(2S)   K+  pi-  pi0     PHSP;
 #
-0.000070000 chi_c0  K_S0                                    PHSP; #[Reconstructed PDG2011]
-0.000070000 chi_c0  K_L0                                    PHSP; #[Reconstructed PDG2011]
+0.000190000 chi_c0  K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.0003     K*0 chi_c0              SVS;
@@ -2301,8 +2285,7 @@ Decay B0
 0.0001     chi_c0  K0  pi0  pi0     PHSP;
 0.0001     chi_c0  K+  pi-  pi0     PHSP;
 #
-0.000195000 chi_c1  K_S0                                    SVS; #[Reconstructed PDG2011]
-0.000195000 chi_c1  K_L0                                    SVS; #[Reconstructed PDG2011]
+0.000395000 chi_c1  K0                                      SVS;  #[New mode added] #[Reconstructed PDG2011]
 #
 #
 0.000222000 chi_c1  K*0                                     SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; #[Reconstructed PDG2011]
@@ -2540,10 +2523,10 @@ Decay B0
 0.005738595 anti-cs_1 ud_1 PYTHIA 63;
 #
 #
-0.251926466 u anti-d anti-c d PYTHIA 23;
-0.042944682 u anti-d anti-c d PYTHIA 43;
-0.020084989 u anti-s anti-c d PYTHIA 43;
-0.017215691 u anti-c anti-d d PYTHIA 23;
+0.253929466 u anti-d anti-c d PYTHIA 23;
+0.043947682 u anti-d anti-c d PYTHIA 43;
+0.020284989 u anti-s anti-c d PYTHIA 43;
+0.017315691 u anti-c anti-d d PYTHIA 23;
 0.000860770 u anti-c anti-s d PYTHIA 23;
 #lange - try to crank up the psi production....
 0.070775534 c anti-s anti-c d PYTHIA 43;
@@ -2567,8 +2550,6 @@ Decay B0
 0.000006000 D0      K+      pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000036000 anti-D*0 K0                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.002700000 D*0     pi+     pi+     pi-     pi-             PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000890000 eta_c   K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000871000 J/psi   K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000310000 J/psi   omega   K0                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000009500 J/psi   eta                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000019000 J/psi   pi+     pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -2577,10 +2558,7 @@ Decay B0
 0.000800000 J/psi   K*+     pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000660000 J/psi   K*0     pi+     pi-                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000170000 K0      D0      anti-D0 pi0                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000620000 psi(2S) K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000140000 chi_c0  K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000011200 chi_c1  pi0                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000390000 chi_c1  K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000158000 chi_c1  K-      pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000011000 eta     K_0*0                                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000009600 eta     K_2*0                                   PHSP;  #[New mode added] #[Reconstructed PDG2011]

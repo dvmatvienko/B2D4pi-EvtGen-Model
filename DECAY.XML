@@ -1039,9 +1039,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--       adding J/psi rho and omega - for lack of better thing will use the Kstar helicity amplitudes. -->
 <!--       Psi2sKs  30 ->31 -->
 <!--       chic1 Kstar: 12 ->6 -->
-		<channel br="0.000435500" daughters="J/psi K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000435500" daughters="J/psi K_L0" model="SVS"/>
+		<channel br="0.000891000" daughters="J/psi anti-K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.001330000" daughters="J/psi anti-K*0" model="SVV_HELAMP" params="PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus"/>
 <!--[Reconstructed PDG2011] -->
@@ -1062,9 +1060,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0005" daughters="J/psi anti-K_2*0" model="PHSP"/>
 		<channel br="0.000094000" daughters="J/psi phi anti-K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
-		<channel br="0.000310000" daughters="psi(2S) K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000310000" daughters="psi(2S) K_L0" model="SVS"/>
+		<channel br="0.000620000" daughters="psi(2S) anti-K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000610000" daughters="psi(2S) anti-K*0" model="SVV_HELAMP" params="PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus"/>
 <!--[Reconstructed PDG2011] -->
@@ -1074,9 +1070,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0001" daughters="psi(2S) anti-K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.0001" daughters="psi(2S) K- pi+ pi0" model="PHSP"/>
 		<channel br="0.0004" daughters="psi(2S) anti-K_10" model="PHSP"/>
-		<channel br="0.000445000" daughters="eta_c K_S0" model="PHSP"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000445000" daughters="eta_c K_L0" model="PHSP"/>
+		<channel br="0.000900000" daughters="eta_c anti-K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000610000" daughters="anti-K*0 eta_c" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
@@ -1093,9 +1087,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.00008" daughters="eta_c(2S) anti-K0 pi+ pi-" model="PHSP"/>
 		<channel br="0.00005" daughters="eta_c(2S) anti-K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.00005" daughters="eta_c(2S) K- pi+ pi0" model="PHSP"/>
-		<channel br="0.000070000" daughters="chi_c0 K_S0" model="PHSP"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000070000" daughters="chi_c0 K_L0" model="PHSP"/>
+		<channel br="0.000190000" daughters="chi_c0 anti-K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.00030" daughters="anti-K*0 chi_c0" model="SVS"/>
 		<channel br="0.0002" daughters="chi_c0 K- pi+" model="PHSP"/>
@@ -1103,9 +1095,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0002" daughters="chi_c0 anti-K0 pi+ pi-" model="PHSP"/>
 		<channel br="0.0001" daughters="chi_c0 anti-K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.0001" daughters="chi_c0 K- pi+ pi0" model="PHSP"/>
-		<channel br="0.000195000" daughters="chi_c1 K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000195000" daughters="chi_c1 K_L0" model="SVS"/>
+		<channel br="0.000395000" daughters="chi_c1 anti-K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000222000" daughters="chi_c1 anti-K*0" model="SVV_HELAMP" params="PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus"/>
 <!--[Reconstructed PDG2011] -->
@@ -1331,10 +1321,10 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.005707449" daughters="cs_1 anti-ud_1" model="PYTHIA" params="63"/>
 <!-- PR LHCb Add p pbar mode -->
 		<channel br="0.0000001" daughters="p+ anti-p-" model="PHSP"/>
-		<channel br="0.250525685" daughters="anti-u d c anti-d" model="PYTHIA" params="23"/>
-		<channel br="0.042705898" daughters="anti-u d c anti-d" model="PYTHIA" params="65"/>
+		<channel br="0.252848685" daughters="anti-u d c anti-d" model="PYTHIA" params="23"/>
+		<channel br="0.043008898" daughters="anti-u d c anti-d" model="PYTHIA" params="65"/>
 		<channel br="0.019975978" daughters="anti-u s c anti-d" model="PYTHIA" params="63"/>
-		<channel br="0.017122253" daughters="anti-u c d anti-d" model="PYTHIA" params="23"/>
+		<channel br="0.017322253" daughters="anti-u c d anti-d" model="PYTHIA" params="23"/>
 		<channel br="0.000856098" daughters="anti-u c s anti-d" model="PYTHIA" params="23"/>
 <!--lange - try to crank up the psi production.... -->
 		<channel br="0.070391402" daughters="anti-c s c anti-d" model="PYTHIA" params="43"/>
@@ -1374,10 +1364,6 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.002700000" daughters="anti-D*0 pi- pi- pi+ pi+" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000890000" daughters="eta_c anti-K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000871000" daughters="J/psi anti-K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000310000" daughters="J/psi omega anti-K0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000009500" daughters="J/psi eta" model="PHSP"/>
@@ -1394,13 +1380,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000170000" daughters="anti-K0 anti-D0 D0 pi0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000620000" daughters="psi(2S) anti-K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000140000" daughters="chi_c0 anti-K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000011200" daughters="chi_c1 pi0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000390000" daughters="chi_c1 anti-K0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000158000" daughters="chi_c1 K+ pi-" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
@@ -2326,9 +2306,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.000050" daughters="a_10 a_10" model="PHSP"/>
 		<channel br="0.000050" daughters="a_1+ a_1-" model="PHSP"/>
 <!--       B -> cc= s -->
-		<channel br="0.000435500" daughters="J/psi K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000435500" daughters="J/psi K_L0" model="SVS"/>
+		<channel br="0.000891000" daughters="J/psi K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.001330000" daughters="J/psi K*0" model="SVV_HELAMP" params="PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus"/>
 <!--[Reconstructed PDG2011] -->
@@ -2349,9 +2327,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0005" daughters="J/psi K_2*0" model="PHSP"/>
 		<channel br="0.000094000" daughters="J/psi phi K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
-		<channel br="0.000310000" daughters="psi(2S) K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000310000" daughters="psi(2S) K_L0" model="SVS"/>
+		<channel br="0.000620000" daughters="psi(2S) K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000610000" daughters="psi(2S) K*0" model="SVV_HELAMP" params="PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus"/>
 <!--[Reconstructed PDG2011] -->
@@ -2361,9 +2337,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0001" daughters="psi(2S) K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.0001" daughters="psi(2S) K+ pi- pi0" model="PHSP"/>
 		<channel br="0.0004" daughters="psi(2S) K_10" model="PHSP"/>
-		<channel br="0.000445000" daughters="eta_c K_S0" model="PHSP"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000445000" daughters="eta_c K_L0" model="PHSP"/>
+		<channel br="0.000900000" daughters="eta_c K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000610000" daughters="K*0 eta_c" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
@@ -2372,17 +2346,13 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0002" daughters="eta_c K0 pi- pi+" model="PHSP"/>
 		<channel br="0.0001" daughters="eta_c K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.0001" daughters="eta_c K+ pi- pi0" model="PHSP"/>
-		<channel br="0.00024" daughters="eta_c(2S) K_S0" model="PHSP"/>
-		<channel br="0.00024" daughters="eta_c(2S) K_L0" model="PHSP"/>
 		<channel br="0.00066" daughters="K*0T eta_c(2S)" model="SVS"/>
 		<channel br="0.00008" daughters="eta_c(2S) K+ pi-" model="PHSP"/>
 		<channel br="0.00005" daughters="eta_c(2S) K0 pi0" model="PHSP"/>
 		<channel br="0.00008" daughters="eta_c(2S) K0 pi- pi+" model="PHSP"/>
 		<channel br="0.00005" daughters="eta_c(2S) K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.00005" daughters="eta_c(2S) K+ pi- pi0" model="PHSP"/>
-		<channel br="0.000070000" daughters="chi_c0 K_S0" model="PHSP"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000070000" daughters="chi_c0 K_L0" model="PHSP"/>
+		<channel br="0.000190000" daughters="chi_c0 K0" model="PHSP"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.0003" daughters="K*0 chi_c0" model="SVS"/>
 		<channel br="0.0002" daughters="chi_c0 K+ pi-" model="PHSP"/>
@@ -2390,9 +2360,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 		<channel br="0.0002" daughters="chi_c0 K0 pi- pi+" model="PHSP"/>
 		<channel br="0.0001" daughters="chi_c0 K0 pi0 pi0" model="PHSP"/>
 		<channel br="0.0001" daughters="chi_c0 K+ pi- pi0" model="PHSP"/>
-		<channel br="0.000195000" daughters="chi_c1 K_S0" model="SVS"/>
-<!--[Reconstructed PDG2011] -->
-		<channel br="0.000195000" daughters="chi_c1 K_L0" model="SVS"/>
+		<channel br="0.000395000" daughters="chi_c1 K0" model="SVS"/>
 <!--[Reconstructed PDG2011] -->
 		<channel br="0.000222000" daughters="chi_c1 K*0" model="SVV_HELAMP" params="PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus"/>
 <!--[Reconstructed PDG2011] -->
@@ -2622,10 +2590,10 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--0.01800 anti-cs_1 ud_1 PYTHIA 63; -->
 		<channel br="0.002869298" daughters="anti-cs_0 ud_0" model="PYTHIA" params="63"/>
 		<channel br="0.005738595" daughters="anti-cs_1 ud_1" model="PYTHIA" params="63"/>
-		<channel br="0.251926466" daughters="u anti-d anti-c d" model="PYTHIA" params="23"/>
-		<channel br="0.042944682" daughters="u anti-d anti-c d" model="PYTHIA" params="43"/>
-		<channel br="0.020084989" daughters="u anti-s anti-c d" model="PYTHIA" params="43"/>
-		<channel br="0.017215691" daughters="u anti-c anti-d d" model="PYTHIA" params="23"/>
+		<channel br="0.253929466" daughters="u anti-d anti-c d" model="PYTHIA" params="23"/>
+		<channel br="0.043947682" daughters="u anti-d anti-c d" model="PYTHIA" params="43"/>
+		<channel br="0.020284989" daughters="u anti-s anti-c d" model="PYTHIA" params="43"/>
+		<channel br="0.017315691" daughters="u anti-c anti-d d" model="PYTHIA" params="23"/>
 		<channel br="0.000860770" daughters="u anti-c anti-s d" model="PYTHIA" params="23"/>
 <!--lange - try to crank up the psi production.... -->
 		<channel br="0.070775534" daughters="c anti-s anti-c d" model="PYTHIA" params="43"/>
@@ -2657,10 +2625,6 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.002700000" daughters="D*0 pi+ pi+ pi- pi-" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000890000" daughters="eta_c K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000871000" daughters="J/psi K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000310000" daughters="J/psi omega K0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000009500" daughters="J/psi eta" model="PHSP"/>
@@ -2677,13 +2641,7 @@ along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000170000" daughters="K0 D0 anti-D0 pi0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000620000" daughters="psi(2S) K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000140000" daughters="chi_c0 K0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000011200" daughters="chi_c1 pi0" model="PHSP"/>
-<!--[New mode added] #[Reconstructed PDG2011] -->
-		<channel br="0.000390000" daughters="chi_c1 K0" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->
 		<channel br="0.000158000" daughters="chi_c1 K- pi+" model="PHSP"/>
 <!--[New mode added] #[Reconstructed PDG2011] -->

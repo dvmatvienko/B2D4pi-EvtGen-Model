@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 ########################################################################
-# Copyright 1998-2020 CERN for the benefit of the EvtGen authors       #
+# Copyright 1998-2022 CERN for the benefit of the EvtGen authors       #
 #                                                                      #
 # This file is part of EvtGen.                                         #
 #                                                                      #
@@ -239,7 +239,7 @@ def main(inFile, outFile, extraFiles):
             if words[x][-1] == ';':
               daughtersList.append(words[x][:-1])
               if len(words) > x+1:
-                print words[x+1:]
+                print(words[x+1:])
                 line = " ".join(words[x+1:])
               else:
                 getMore = True
@@ -624,7 +624,7 @@ def main(inFile, outFile, extraFiles):
         s3 = words[1].find("=")
         if s1 == -1 or s2 == -1 or s3 == -1:
           countBad += 1
-          print "bad line: "+words[0]+" "+words[1]+" copied as comment, please fix manually!\n"
+          print("bad line: "+words[0]+" "+words[1]+" copied as comment, please fix manually!\n")
           fh2.write("\t<!--TODO "+words[0]+" "+words[1]+" -->\n")
         else:
           countPythia6 += 1
@@ -674,27 +674,27 @@ def main(inFile, outFile, extraFiles):
         break
       else:
         countBad += 1
-        print "bad line: "+line+"copied as comment, please fix manually!\n"
+        print("bad line: "+line+"copied as comment, please fix manually!\n")
         fh2.write("<!--TODO "+line[:-1]+"-->\n")
         getMore = True
   if comments:
-    print str(countComment)+" commented lines copied without modification"
+    print(str(countComment)+" commented lines copied without modification")
   else:
-    print str(countComment)+" commented lines ignored"
-  print str(count)+" other lines converted including:"
-  print str(countDec)+" decays"
-  print str(countParticle)+" modified particles"
-  print str(countAlias)+" aliases"
-  print str(countModelAlias)+" model aliases"
-  print str(countDef)+" definitions"
-  print str(countConj)+" conjugates"
-  print str(countConjDecay)+" conjugate decays"
-  print str(countLineShapePW)+" line shape PWs"
-  print str(countPhotos)+" PHOTOS lines"
-  print str(countCopyDec)+" copied decays"
-  print str(countRemoveDec)+" removed decays"
-  print str(countPythia6)+" pythia commands"
-  print str(countBad)+" bad lines!"
+    print(str(countComment)+" commented lines ignored")
+  print(str(count)+" other lines converted including:")
+  print(str(countDec)+" decays")
+  print(str(countParticle)+" modified particles")
+  print(str(countAlias)+" aliases")
+  print(str(countModelAlias)+" model aliases")
+  print(str(countDef)+" definitions")
+  print(str(countConj)+" conjugates")
+  print(str(countConjDecay)+" conjugate decays")
+  print(str(countLineShapePW)+" line shape PWs")
+  print(str(countPhotos)+" PHOTOS lines")
+  print(str(countCopyDec)+" copied decays")
+  print(str(countRemoveDec)+" removed decays")
+  print(str(countPythia6)+" pythia commands")
+  print(str(countBad)+" bad lines!")
 
   fh1.close()
   fh2.close()
