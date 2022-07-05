@@ -419,7 +419,7 @@ EvtIdSet::EvtIdSet( const EvtIdSet& set1, const EvtIdSet& set2 )
     this->append( set2 );
 }
 
-int EvtIdSet::contains( const EvtId id )
+int EvtIdSet::contains( const EvtId id ) const
 {
     int i;
     for ( i = 0; i < _numInList; i++ ) {
@@ -430,7 +430,7 @@ int EvtIdSet::contains( const EvtId id )
     return 0;
 }
 
-int EvtIdSet::contains( const std::string nm )
+int EvtIdSet::contains( const std::string nm ) const
 {
     int i;
     for ( i = 0; i < _numInList; i++ ) {

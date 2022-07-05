@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -39,14 +39,14 @@
 
 void EvtRareLbToLllFFlQCD::init()
 {
-    EvtId LbID = EvtPDL::getId( std::string( "Lambda_b0" ) );
-    EvtId LID = EvtPDL::getId( std::string( "Lambda0" ) );
-    EvtId BID = EvtPDL::getId( std::string( "B+" ) );
-    EvtId KID = EvtPDL::getId( std::string( "K-" ) );
-    double m1 = EvtPDL::getMass( LbID );
-    double m2 = EvtPDL::getMass( LID );
-    double mB = EvtPDL::getMass( BID );
-    double mK = EvtPDL::getMass( KID );
+    const EvtId LbID = EvtPDL::getId( std::string( "Lambda_b0" ) );
+    const EvtId LID = EvtPDL::getId( std::string( "Lambda0" ) );
+    const EvtId BID = EvtPDL::getId( std::string( "B+" ) );
+    const EvtId KID = EvtPDL::getId( std::string( "K-" ) );
+    const double m1 = EvtPDL::getMass( LbID );
+    const double m2 = EvtPDL::getMass( LID );
+    const double mB = EvtPDL::getMass( BID );
+    const double mK = EvtPDL::getMass( KID );
     t0 = ( m1 - m2 ) * ( m1 - m2 );
     tplus = ( mB + mK ) * ( mB + mK );
 
@@ -97,25 +97,26 @@ void EvtRareLbToLllFFlQCD::init()
 
 //=============================================================================
 
-void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent, EvtParticle* lambda,
-                                  EvtRareLbToLllFFBase::FormFactors& FF )
+void EvtRareLbToLllFFlQCD::getFF( const EvtParticle& parent,
+                                  const EvtParticle& lambda,
+                                  EvtRareLbToLllFFBase::FormFactors& FF ) const
 {
     // Find the FF information for this particle, start by setting all to zero
     FF.areZero();
 
-    double m1 = parent->getP4().mass();
-    double m2 = lambda->getP4().mass();
+    const double m1 = parent.getP4().mass();
+    const double m2 = lambda.getP4().mass();
     //  double m21=m2/m1;
     EvtVector4R p4parent;
-    p4parent.set( parent->mass(), 0, 0, 0 );
-    double q2 = ( p4parent - lambda->getP4() ).mass2();
+    p4parent.set( parent.mass(), 0, 0, 0 );
+    const double q2 = ( p4parent - lambda.getP4() ).mass2();
 
-    double massSum = m1 + m2;
-    double massDiff = m1 - m2;
-    double massSumSq = massSum * massSum;
-    double massDiffSq = massDiff * massDiff;
-    double q2Sum = q2 - massSumSq;
-    double q2Diff = q2 - massDiffSq;
+    const double massSum = m1 + m2;
+    const double massDiff = m1 - m2;
+    const double massSumSq = massSum * massSum;
+    const double massDiffSq = massDiff * massDiff;
+    const double q2Sum = q2 - massSumSq;
+    const double q2Diff = q2 - massDiffSq;
 
     double f[3];
     double g[3];
@@ -182,17 +183,19 @@ void EvtRareLbToLllFFlQCD::getFF( EvtParticle* parent, EvtParticle* lambda,
     return;
 }
 
-double EvtRareLbToLllFFlQCD::formFactorParametrization( double q2, double a0,
-                                                        double a1, double pole )
+double EvtRareLbToLllFFlQCD::formFactorParametrization( const double q2,
+                                                        const double a0,
+                                                        const double a1,
+                                                        const double pole ) const
 {
-    double z = zvar( q2 );
+    const double z = zvar( q2 );
     return 1. / ( 1. - q2 / ( pole * pole ) ) * ( a0 + a1 * z );
 }
 
-double EvtRareLbToLllFFlQCD::zvar( double q2 )
+double EvtRareLbToLllFFlQCD::zvar( const double q2 ) const
 {
-    double a = std::sqrt( tplus - q2 );
-    double b = std::sqrt( tplus - t0 );
+    const double a = std::sqrt( tplus - q2 );
+    const double b = std::sqrt( tplus - t0 );
 
     return ( a - b ) / ( a + b );
 }

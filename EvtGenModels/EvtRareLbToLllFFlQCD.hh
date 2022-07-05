@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -46,13 +46,13 @@ class EvtRareLbToLllFFlQCD : public EvtRareLbToLllFFBase {
 
     void init() override;
 
-    void getFF( EvtParticle* parent, EvtParticle* lambda,
-                EvtRareLbToLllFFBase::FormFactors& FF ) override;
+    void getFF( const EvtParticle& parent, const EvtParticle& lambda,
+                EvtRareLbToLllFFBase::FormFactors& FF ) const override;
 
   private:
-    double formFactorParametrization( double q2, double a0, double a1,
-                                      double pole );
-    double zvar( double q2 );
+    double formFactorParametrization( const double q2, const double a0,
+                                      const double a1, const double pole ) const;
+    double zvar( const double q2 ) const;
 
     double fconsts[3][3];
     double gconsts[3][3];

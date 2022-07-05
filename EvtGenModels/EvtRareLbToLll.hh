@@ -47,18 +47,20 @@ class EvtRareLbToLll : public EvtDecayAmp {
     void decay( EvtParticle* parent ) override;
 
   protected:
-    void calcAmp( EvtAmp& amp, EvtParticle* parent );
+    void calcAmp( EvtAmp& amp, const EvtParticle& parent );
 
-    void HadronicAmp( EvtParticle* parent, EvtParticle* lambda, EvtVector4C* T,
-                      const int i, const int j );
+    void HadronicAmp( const EvtParticle& parent, const EvtParticle& lambda,
+                      EvtVector4C* T, const int i, const int j );
 
-    void HadronicAmpRS( EvtParticle* parent, EvtParticle* lambda,
+    void HadronicAmpRS( const EvtParticle& parent, const EvtParticle& lambda,
                         EvtVector4C* T, const int i, const int j );
 
-    bool isParticle( EvtParticle* parent ) const;
+    bool isParticle( const EvtParticle& parent ) const;
 
   private:
     double m_maxProbability;
+    double m_poleSize{ 0.00005 };
+    bool m_electronMode{ false };
 
     std::unique_ptr<EvtRareLbToLllFFBase> ffmodel_;
     std::unique_ptr<EvtRareLbToLllWC> wcmodel_;

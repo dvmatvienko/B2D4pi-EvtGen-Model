@@ -9,6 +9,12 @@ https://phab.hepforge.org/Tabc
 https://phab.hepforge.org/Dxyz
 
 ===
+## R02-02-0X
+
+9 June 2022 Michal Kreps
+* D84: Improve efficiency of RareLbToLll decay model for final states with e+e- pair.
+
+===
 ## R02-02-00
 
 12 May 2022 Michal Kreps

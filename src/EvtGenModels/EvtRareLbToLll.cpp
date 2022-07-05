@@ -69,6 +69,14 @@ void EvtRareLbToLll::init()
     checkSpinDaughter( 1, EvtSpinType::DIRAC );
     checkSpinDaughter( 2, EvtSpinType::DIRAC );
 
+    // Work out whether we have electron mode
+    const EvtIdSet leptons{ "e-", "e+" };
+    if ( leptons.contains( getDaug( 1 ) ) ) {
+      m_electronMode = true;
+      EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+          << " EvtRareLbToLll has dielectron final state" << std::endl;
+    }
+
     std::string model = getArgStr( 0 );
     if ( model == "Gutsche" ) {
         ffmodel_ = std::make_unique<EvtRareLbToLllFFGutsche>();
@@ -117,45 +125,44 @@ void EvtRareLbToLll::initProbMax()
         EvtSpinDensity rho;
         rho.setDiag( parent.getSpinStates() );
 
-        double M0 = EvtPDL::getMass( getParentId() );
-        double mL = EvtPDL::getMass( getDaug( 0 ) );
-        double m1 = EvtPDL::getMass( getDaug( 1 ) );
-        double m2 = EvtPDL::getMass( getDaug( 2 ) );
+        const double M0 = EvtPDL::getMass( getParentId() );
+        const double mL = EvtPDL::getMass( getDaug( 0 ) );
+        const double m1 = EvtPDL::getMass( getDaug( 1 ) );
+        const double m2 = EvtPDL::getMass( getDaug( 2 ) );
 
-        double q2, pstar, elambda, theta;
-        double q2min = ( m1 + m2 ) * ( m1 + m2 );
-        double q2max = ( M0 - mL ) * ( M0 - mL );
+        const double q2min = ( m1 + m2 ) * ( m1 + m2 );
+        const double q2max = ( M0 - mL ) * ( M0 - mL );
 
         EvtVector4R p4lambda, p4lep1, p4lep2, boost;
 
         EvtGenReport( EVTGEN_INFO, "EvtGen" )
             << " EvtRareLbToLll is probing whole phase space ..." << std::endl;
 
-        int i, j;
         double prob = 0;
-        for ( i = 0; i <= 100; i++ ) {
-            q2 = q2min + i * ( q2max - q2min ) / 100.;
-            elambda = ( M0 * M0 + mL * mL - q2 ) / 2 / M0;
-            if ( i == 0 )
-                pstar = 0;
-            else
+        const int nsteps = 5000;
+        for ( int i = 0; i <= nsteps; i++ ) {
+            const double q2 = q2min + i * ( q2max - q2min ) / nsteps;
+            const double elambda = ( M0 * M0 + mL * mL - q2 ) / 2 / M0;
+            double pstar{0};
+            if ( i != 0 ) {
                 pstar = sqrt( q2 - ( m1 + m2 ) * ( m1 + m2 ) ) *
                         sqrt( q2 - ( m1 - m2 ) * ( m1 - m2 ) ) / 2 / sqrt( q2 );
+            }
             boost.set( M0 - elambda, 0, 0, +sqrt( elambda * elambda - mL * mL ) );
-            if ( i != 100 ) {
+            if ( i != nsteps ) {
                 p4lambda.set( elambda, 0, 0,
                               -sqrt( elambda * elambda - mL * mL ) );
             } else {
                 p4lambda.set( mL, 0, 0, 0 );
             }
-            for ( j = 0; j <= 45; j++ ) {
-                theta = j * EvtConst::pi / 45;
+            for ( int j = 0; j <= 45; j++ ) {
+                const double theta = j * EvtConst::pi / 45;
                 p4lep1.set( sqrt( pstar * pstar + m1 * m1 ), 0,
                             +pstar * sin( theta ), +pstar * cos( theta ) );
                 p4lep2.set( sqrt( pstar * pstar + m2 * m2 ), 0,
                             -pstar * sin( theta ), -pstar * cos( theta ) );
-                //std::cout << "p1: " << p4lep1 << " p2: " << p4lep2 << " pstar: " << pstar << std::endl;
-                if ( i != 100 )    // At maximal q2 we are already in correct frame as Lambda and W/Zvirtual are at rest
+
+                if ( i != nsteps)    // At maximal q2 we are already in correct frame as Lambda and W/Zvirtual are at rest
                 {
                     p4lep1 = boostTo( p4lep1, boost );
                     p4lep2 = boostTo( p4lep2, boost );
@@ -163,24 +170,25 @@ void EvtRareLbToLll::initProbMax()
                 lambda->init( getDaug( 0 ), p4lambda );
                 lep1->init( getDaug( 1 ), p4lep1 );
                 lep2->init( getDaug( 2 ), p4lep2 );
-                calcAmp( amp, &parent );
+                calcAmp( amp, parent );
                 prob = rho.normalizedProb( amp.getSpinDensity() );
-                //std::cout << "q2:  " << q2 << " \t theta:  " << theta << " \t prob:  " << prob << std::endl;
-                //std::cout << "p1: " << p4lep1 << " p2: " << p4lep2 << " q2-q2min: " << q2-(m1+m2)*(m1+m2) << std::endl;
+                // In case of electron mode add pole
+                if ( m_electronMode ) {
+                    prob /= 1.0 + m_poleSize / ( q2*q2 );
+                }
+ 
                 if ( prob > m_maxProbability ) {
                     EvtGenReport( EVTGEN_INFO, "EvtGen" )
                         << "  - probability " << prob << " found at q2 = " << q2
-                        << " (" << 100 * ( q2 - q2min ) / ( q2max - q2min )
+                        << " (" << nsteps * ( q2 - q2min ) / ( q2max - q2min )
                         << " %) and theta = " << theta * 180 / EvtConst::pi
                         << std::endl;
                     m_maxProbability = prob;
                 }
             }
-            //::abort();
         }
 
-        //m_poleSize = 0.04*q2min;
-        m_maxProbability *= 1.2;
+        m_maxProbability *= 1.05;
     }
 
     setProbMax( m_maxProbability );
@@ -191,44 +199,49 @@ void EvtRareLbToLll::initProbMax()
 
 void EvtRareLbToLll::decay( EvtParticle* parent )
 {
-    parent->initializePhaseSpace( getNDaug(), getDaugs() );
-
-    calcAmp( _amp2, parent );
+    // Phase space initialization depends on what leptons are
+    if ( m_electronMode ) {
+        setWeight( parent->initializePhaseSpace( getNDaug(), getDaugs(), false,
+                                                 m_poleSize, 1, 2 ) );
+    } else {
+        parent->initializePhaseSpace( getNDaug(), getDaugs() );
+    }
+    calcAmp( _amp2, *parent );
 }
 
-bool EvtRareLbToLll::isParticle( EvtParticle* parent ) const
+bool EvtRareLbToLll::isParticle( const EvtParticle& parent ) const
 {
-    static EvtIdSet partlist( "Lambda_b0" );
+    const EvtIdSet partlist{ "Lambda_b0" };
 
-    return partlist.contains( parent->getId() );
+    return partlist.contains( parent.getId() );
 }
 
-void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
+void EvtRareLbToLll::calcAmp( EvtAmp& amp, const EvtParticle& parent )
 {
     //parent->setDiagonalSpinDensity();
 
-    EvtParticle* lambda = parent->getDaug( 0 );
+    const EvtParticle* lambda = parent.getDaug( 0 );
 
-    static EvtIdSet leptons( "e-", "mu-", "tau-" );
+    const EvtIdSet leptons{ "e-", "mu-", "tau-" };
 
     const bool isparticle = isParticle( parent );
 
-    EvtParticle* lp = 0;
-    EvtParticle* lm = 0;
+    const EvtParticle* lp = 0;
+    const EvtParticle* lm = 0;
 
-    if ( leptons.contains( parent->getDaug( 1 )->getId() ) ) {
-        lp = parent->getDaug( 1 );
-        lm = parent->getDaug( 2 );
+    if ( leptons.contains( parent.getDaug( 1 )->getId() ) ) {
+        lp = parent.getDaug( 1 );
+        lm = parent.getDaug( 2 );
     } else {
-        lp = parent->getDaug( 2 );
-        lm = parent->getDaug( 1 );
+        lp = parent.getDaug( 2 );
+        lm = parent.getDaug( 1 );
     }
 
     EvtVector4R P;
-    P.set( parent->mass(), 0.0, 0.0, 0.0 );
+    P.set( parent.mass(), 0.0, 0.0, 0.0 );
 
     EvtVector4R q = lp->getP4() + lm->getP4();
-    double qsq = q.mass2();
+    const double qsq = q.mass2();
 
     // Leptonic currents
     EvtVector4C LV[2][2];    // \bar{\ell} \gamma^{\mu} \ell
@@ -252,7 +265,7 @@ void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
 
     EvtRareLbToLllFF::FormFactors FF;
     //F, G, FT and GT
-    ffmodel_->getFF( parent, lambda, FF );
+    ffmodel_->getFF( parent, *lambda, FF );
 
     EvtComplex C7eff = wcmodel_->GetC7Eff( qsq );
     EvtComplex C9eff = wcmodel_->GetC9Eff( qsq );
@@ -264,12 +277,12 @@ void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
     EvtComplex EC[4];
 
     // check to see if particle is same or opposite parity to Lb
-    const int parity = ffmodel_->isNatural( lambda ) ? 1 : -1;
+    const int parity = ffmodel_->isNatural( *lambda ) ? 1 : -1;
 
     // Lambda spin type
     const EvtSpinType::spintype spin = EvtPDL::getSpinType( lambda->getId() );
 
-    static const double mb = 5.209;
+    const double mb = 5.209;
 
     // Eq. 48 + 49
     for ( unsigned int i = 0; i < 4; ++i ) {
@@ -300,7 +313,7 @@ void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
         // Hadronic currents
         for ( int i = 0; i < 2; ++i ) {
             for ( int j = 0; j < 2; ++j ) {
-                HadronicAmp( parent, lambda, T, i, j );
+                HadronicAmp( parent, *lambda, T, i, j );
 
                 H1[i][j] = ( cv * AC[0] * T[0] + ca * BC[0] * T[1] +
                              cs * AC[1] * T[2] + cp * BC[1] * T[3] +
@@ -341,6 +354,7 @@ void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
         // Build hadronic amplitude
         for ( int i = 0; i < 2; ++i ) {
             for ( int j = 0; j < 4; ++j ) {
+                HadronicAmpRS( parent, *lambda, T, i, j );
                 H1[i][j] = ( cv * AC[0] * T[0] + ca * BC[0] * T[1] +
                              cs * AC[1] * T[2] + cp * BC[1] * T[3] +
                              cs * AC[2] * T[4] + cp * BC[2] * T[5] +
@@ -383,19 +397,20 @@ void EvtRareLbToLll::calcAmp( EvtAmp& amp, EvtParticle* parent )
 
 // spin 1/2 daughters
 
-void EvtRareLbToLll::HadronicAmp( EvtParticle* parent, EvtParticle* lambda,
-                                  EvtVector4C* T, const int i, const int j )
+void EvtRareLbToLll::HadronicAmp( const EvtParticle& parent,
+                                  const EvtParticle& lambda, EvtVector4C* T,
+                                  const int i, const int j )
 {
-    const EvtDiracSpinor Sfinal = lambda->spParent( j );
-    const EvtDiracSpinor Sinit = parent->sp( i );
+    const EvtDiracSpinor Sfinal = lambda.spParent( j );
+    const EvtDiracSpinor Sinit = parent.sp( i );
 
-    const EvtVector4R L = lambda->getP4();
+    const EvtVector4R L = lambda.getP4();
 
     EvtVector4R P;
-    P.set( parent->mass(), 0.0, 0.0, 0.0 );
+    P.set( parent.mass(), 0.0, 0.0, 0.0 );
 
-    const double Pm = parent->mass();
-    const double Lm = lambda->mass();
+    const double Pm = parent.mass();
+    const double Lm = lambda.mass();
 
     // \bar{u} \gamma^{\mu} u
     T[0] = EvtLeptonVCurrent( Sfinal, Sinit );
@@ -424,16 +439,17 @@ void EvtRareLbToLll::HadronicAmp( EvtParticle* parent, EvtParticle* lambda,
 
 // spin 3/2 daughters
 
-void EvtRareLbToLll::HadronicAmpRS( EvtParticle* parent, EvtParticle* lambda,
-                                    EvtVector4C* T, const int i, const int j )
+void EvtRareLbToLll::HadronicAmpRS( const EvtParticle& parent,
+                                    const EvtParticle& lambda, EvtVector4C* T,
+                                    const int i, const int j )
 {
-    const EvtRaritaSchwinger Sfinal = lambda->spRSParent( j );
-    const EvtDiracSpinor Sinit = parent->sp( i );
+    const EvtRaritaSchwinger Sfinal = lambda.spRSParent( j );
+    const EvtDiracSpinor Sinit = parent.sp( i );
 
     EvtVector4R P;
-    P.set( parent->mass(), 0.0, 0.0, 0.0 );
+    P.set( parent.mass(), 0.0, 0.0, 0.0 );
 
-    const EvtVector4R L = lambda->getP4();
+    const EvtVector4R L = lambda.getP4();
 
     EvtTensor4C ID;
     ID.setdiag( 1.0, 1.0, 1.0, 1.0 );
@@ -445,8 +461,8 @@ void EvtRareLbToLll::HadronicAmpRS( EvtParticle* parent, EvtParticle* lambda,
     }
 
     const double Pmsq = P.mass2();
-    const double Pm = parent->mass();
-    const double PmLm = Pm * lambda->mass();
+    const double Pm = parent.mass();
+    const double PmLm = Pm * lambda.mass();
 
     EvtVector4C V1, V2;
 

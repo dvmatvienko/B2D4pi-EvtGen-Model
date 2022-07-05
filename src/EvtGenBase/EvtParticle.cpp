@@ -88,11 +88,6 @@ void EvtParticle::setChannel( int i )
     _channel = i;
 }
 
-EvtParticle* EvtParticle::getDaug( int i )
-{
-    return _daug[i];
-}
-
 EvtParticle* EvtParticle::getParent() const
 {
     return _parent;

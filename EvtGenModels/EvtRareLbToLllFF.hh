@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -93,22 +93,23 @@ class EvtRareLbToLllFF : public EvtRareLbToLllFFBase {
 
     void init() override;
 
-    void getFF( EvtParticle* parent, EvtParticle* lambda,
-                EvtRareLbToLllFFBase::FormFactors& FF ) override;
+    void getFF( const EvtParticle& parent, const EvtParticle& lambda,
+                EvtRareLbToLllFFBase::FormFactors& FF ) const override;
 
   private:
-    double func( const double p, EvtRareLbToLllFF::FormFactorDependence& dep );
+    double func( const double p,
+                 const EvtRareLbToLllFF::FormFactorDependence& dep ) const;
 
     std::array<std::unique_ptr<EvtRareLbToLllFF::FormFactorSet>, 2> FF_;
     std::map<int, EvtRareLbToLllFF::FormFactorSet*> FFMap_;
 
-    void DiracFF( EvtParticle* parent, EvtParticle* lambda,
-                  EvtRareLbToLllFF::FormFactorSet& FFset,
-                  EvtRareLbToLllFF::FormFactors& FF );
+    void DiracFF( const EvtParticle& parent, const EvtParticle& lambda,
+                  const EvtRareLbToLllFF::FormFactorSet& FFset,
+                  EvtRareLbToLllFF::FormFactors& FF ) const;
 
-    void RaritaSchwingerFF( EvtParticle* parent, EvtParticle* lambda,
-                            EvtRareLbToLllFF::FormFactorSet& FFset,
-                            EvtRareLbToLllFF::FormFactors& FF );
+    void RaritaSchwingerFF( const EvtParticle& parent, const EvtParticle& lambda,
+                            const EvtRareLbToLllFF::FormFactorSet& FFset,
+                            EvtRareLbToLllFF::FormFactors& FF ) const;
 };
 
 #endif    // EVTRARELBTOLLLFF_HH

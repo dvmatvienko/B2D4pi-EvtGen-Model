@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -54,17 +54,17 @@ class EvtRareLbToLllFFBase {
 
     virtual void init() = 0;
 
-    virtual void getFF( EvtParticle* parent, EvtParticle* lambda,
-                        EvtRareLbToLllFFBase::FormFactors& FF ) = 0;
+    virtual void getFF( const EvtParticle& parent, const EvtParticle& lambda,
+                        EvtRareLbToLllFFBase::FormFactors& FF ) const = 0;
 
-    bool isNatural( EvtParticle* lambda );
+    bool isNatural( const EvtParticle& lambda ) const;
 
     EvtRareLbToLllFFBase();
     virtual ~EvtRareLbToLllFFBase(){};
 
   protected:
-    double calculateVdotV( EvtParticle* parent, EvtParticle* lambda ) const;
-    double calculateVdotV( EvtParticle*, EvtParticle*, double qsq ) const;
+    double calculateVdotV( const EvtParticle& parent, const EvtParticle& lambda ) const;
+    double calculateVdotV( const EvtParticle&, const EvtParticle&, double qsq ) const;
 
     EvtIdSet natural_;
 };

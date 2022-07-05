@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -163,8 +163,8 @@ void EvtRareLbToLllFF::init()
 
 //=============================================================================
 
-double EvtRareLbToLllFF::func( const double p,
-                               EvtRareLbToLllFF::FormFactorDependence& dep )
+double EvtRareLbToLllFF::func(
+    const double p, const EvtRareLbToLllFF::FormFactorDependence& dep ) const
 {
     static const double mq = 0.2848;
     static const double mtilde = 1.122;
@@ -176,15 +176,16 @@ double EvtRareLbToLllFF::func( const double p,
            exp( -( 3. * mq * mq * psq ) / ( 2. * mtilde * mtilde * asq ) );
 }
 
-void EvtRareLbToLllFF::DiracFF( EvtParticle* parent, EvtParticle* lambda,
-                                EvtRareLbToLllFF::FormFactorSet& dep,
-                                EvtRareLbToLllFF::FormFactors& FF )
+void EvtRareLbToLllFF::DiracFF( const EvtParticle& parent,
+                                const EvtParticle& lambda,
+                                const EvtRareLbToLllFF::FormFactorSet& dep,
+                                EvtRareLbToLllFF::FormFactors& FF ) const
 {
-    const double M = lambda->mass();
-    const double MB = parent->mass();
+    const double M = lambda.mass();
+    const double MB = parent.mass();
 
     const double vdotv = calculateVdotV( parent, lambda );
-    const double p = lambda->getP4().d3mag();
+    const double p = lambda.getP4().d3mag();
 
     FF.F_[0] = func( p, dep.F1 );
     FF.F_[1] = func( p, dep.F2 );
@@ -222,16 +223,16 @@ void EvtRareLbToLllFF::DiracFF( EvtParticle* parent, EvtParticle* lambda,
     }
 }
 
-void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
-                                          EvtParticle* lambda,
-                                          EvtRareLbToLllFF::FormFactorSet& FFset,
-                                          EvtRareLbToLllFF::FormFactors& FF )
+void EvtRareLbToLllFF::RaritaSchwingerFF(
+    const EvtParticle& parent, const EvtParticle& lambda,
+    const EvtRareLbToLllFF::FormFactorSet& FFset,
+    EvtRareLbToLllFF::FormFactors& FF ) const
 {
-    const double M = lambda->mass();
-    const double MB = parent->mass();
+    const double M = lambda.mass();
+    const double MB = parent.mass();
 
     const double vdotv = calculateVdotV( parent, lambda );
-    const double p = lambda->getP4().d3mag();
+    const double p = lambda.getP4().d3mag();
 
     FF.F_[0] = func( p, FFset.F1 );
     FF.F_[1] = func( p, FFset.F2 );
@@ -277,24 +278,24 @@ void EvtRareLbToLllFF::RaritaSchwingerFF( EvtParticle* parent,
     }
 }
 
-void EvtRareLbToLllFF::getFF( EvtParticle* parent, EvtParticle* lambda,
-                              EvtRareLbToLllFF::FormFactors& FF )
+void EvtRareLbToLllFF::getFF( const EvtParticle& parent, const EvtParticle& lambda,
+                              EvtRareLbToLllFF::FormFactors& FF ) const
 {
     // Find the FF information for this particle, start by setting all to zero
     FF.areZero();
 
     // Are the FF's for the particle known?
-    auto it = FFMap_.find( lambda->getId().getId() );
+    auto it = FFMap_.find( lambda.getId().getId() );
 
     if ( it == FFMap_.end() ) {
         EvtGenReport( EVTGEN_ERROR, "EvtGen" )
-            << " EvtRareLbToLll does not contain FF for " << lambda->getId()
+            << " EvtRareLbToLll does not contain FF for " << lambda.getId()
             << std::endl;
         return;
     }
 
     // Split by spin 1/2, spin 3/2
-    const int spin = EvtPDL::getSpinType( lambda->getId() );
+    const int spin = EvtPDL::getSpinType( lambda.getId() );
 
     if ( EvtSpinType::DIRAC == spin ) {
         DiracFF( parent, lambda, *( it->second ), FF );

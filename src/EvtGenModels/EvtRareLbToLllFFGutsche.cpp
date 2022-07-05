@@ -1,6 +1,6 @@
 
 /***********************************************************************
-* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+* Copyright 1998-2022 CERN for the benefit of the EvtGen authors       *
 *                                                                      *
 * This file is part of EvtGen.                                         *
 *                                                                      *
@@ -33,9 +33,6 @@
 //=============================================================================
 // Standard constructor, initializes variables
 //=============================================================================
-
-EvtIdSet EvtRareLbToLllFFGutsche::fParents( "Lambda_b0", "anti-Lambda_b0" );
-EvtIdSet EvtRareLbToLllFFGutsche::fDaughters( "Lambda0", "anti-Lambda0" );
 
 void EvtRareLbToLllFFGutsche::init()
 {
@@ -86,8 +83,9 @@ void EvtRareLbToLllFFGutsche::init()
 
 //=============================================================================
 
-void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent, EvtParticle* lambda,
-                                     EvtRareLbToLllFFBase::FormFactors& FF )
+void EvtRareLbToLllFFGutsche::getFF( const EvtParticle& parent,
+                                     const EvtParticle& lambda,
+                                     EvtRareLbToLllFFBase::FormFactors& FF ) const
 {
     // Find the FF information for this particle, start by setting all to zero
     FF.areZero();
@@ -101,13 +99,13 @@ void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent, EvtParticle* lambda,
   }
 */
 
-    double m1 = parent->getP4().mass();
-    double m2 = lambda->getP4().mass();
+    const double m1 = parent.getP4().mass();
+    const double m2 = lambda.getP4().mass();
     EvtVector4R p4parent;
-    p4parent.set( parent->mass(), 0, 0, 0 );
-    double q2 = ( p4parent - lambda->getP4() ).mass2();
-    double m21 = m2 / m1;
-    double shat = q2 / m1 / m1;
+    p4parent.set( parent.mass(), 0, 0, 0 );
+    const double q2 = ( p4parent - lambda.getP4() ).mass2();
+    const double m21 = m2 / m1;
+    const double shat = q2 / m1 / m1;
 
     double fV[3];
     double fA[3];
@@ -146,8 +144,10 @@ void EvtRareLbToLllFFGutsche::getFF( EvtParticle* parent, EvtParticle* lambda,
     return;
 }
 
-double EvtRareLbToLllFFGutsche::formFactorParametrization( double s, double f0,
-                                                           double a, double b )
+double EvtRareLbToLllFFGutsche::formFactorParametrization( const double s,
+                                                           const double f0,
+                                                           const double a,
+                                                           const double b ) const
 {
     return f0 / ( 1 - a * s + b * s * s );
 }

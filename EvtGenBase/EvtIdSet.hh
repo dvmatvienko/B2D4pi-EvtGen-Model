@@ -131,8 +131,8 @@ class EvtIdSet {
     EvtIdSet( const EvtIdSet& set1 );
     EvtIdSet( const EvtIdSet& set1, const EvtIdSet& set2 );
 
-    int contains( const EvtId id );
-    int contains( const std::string id );
+    int contains( const EvtId id ) const;
+    int contains( const std::string id ) const;
 
     void append( const EvtIdSet set1 );
     int sizeOfSet() const;

@@ -171,7 +171,8 @@ class EvtParticle {
     /**
   * Get pointer the the i:th daugther.
   */
-    EvtParticle* getDaug( int i );
+    const EvtParticle* getDaug( const int i ) const { return _daug[i]; }
+    EvtParticle* getDaug( const int i ) { return _daug[i]; }
 
     /**
   * Iterates over the particles in a decay chain.
