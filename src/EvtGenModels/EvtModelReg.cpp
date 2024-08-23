@@ -152,6 +152,7 @@
 #include "EvtGenModels/EvtVubHybrid.hh"
 #include "EvtGenModels/EvtVubNLO.hh"
 #include "EvtGenModels/EvtXPsiGamma.hh"
+#include "EvtGenModels/EvtXJpsiRhoToPiPi_S.hh"
 #include "EvtGenModels/EvtY3SToY1SpipiMoxhay.hh"
 #include "EvtGenModels/EvtYmSToYnSpipiCLEO.hh"
 #include "EvtGenModels/EvtbTosllAli.hh"
@@ -309,6 +310,7 @@ EvtModelReg::EvtModelReg( const std::list<EvtDecayBase*>* extraModels )
     modelist.registerModel( new EvtSVP );
     modelist.registerModel( new EvtTVP );
     modelist.registerModel( new EvtXPsiGamma );
+    modelist.registerModel( new EvtXJpsiRhoToPiPi_S );
 
     modelist.registerModel( new EvtbsToLLLL );
     modelist.registerModel( new EvtbsToLLLLHyperCP );
