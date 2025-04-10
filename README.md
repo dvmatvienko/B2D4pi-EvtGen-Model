@@ -1,7 +1,15 @@
 # EvtGen README
 
 ## Introduction
-NEED TO WRITE SOMETHING
+This is event generator (EvtGen) which is extensively used in generation of high-energy physics (HEP) processes.
+It is an important first step in the Monte Carlo simulation of HEP processes. 
+
+To achieve the generation of processes as realistic as possible, the complex signal models are needed to be hard-coded. 
+Many various models are composed in `EvtGenModels`.  
+
+## My contribution
+New model `EvtBToD4pi` is included in the project. It is a complex model taking into account 
+various resonant structures in $4 \pi$ system of the process $B^0 \to D^- \pi^+ \pi^+ \pi^- \pi^0$. 
 
 ## Building the code
 To simplify the procedure you can use the setupEvtGen.sh script, which
