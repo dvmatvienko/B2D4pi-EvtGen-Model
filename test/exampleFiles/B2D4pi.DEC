@@ -1,0 +1,14 @@
+Decay anti-B0
+1.00000 D+ pi0 pi- pi+ pi- BTOD4PI 0.18 2.56 0.0 0.0 0.0 0.0 0.0 0.0 0.25 0.0 4.0e05;
+Enddecay
+
+Decay D+
+1.00000 K- pi+ pi+                       D_DALITZ;
+Enddecay
+
+Decay pi0
+1.00000 gamma gamma                      PHSP;
+Enddecay
+
+End
+
