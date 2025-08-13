@@ -20,7 +20,7 @@ Parameter 5,6 : $a_1(1260) \pi$ coupling and phase
 
 Parameter 7,8: $\rho\rho$ coupling and phase
 
-Parameter 9,10: $\rho f_0(980) coupling and phase
+Parameter 9,10: $\rho f_0(980)$ coupling and phase
 
 Parameter 11 (optional): Majority value in the acceptance-rejection method which is used in EvtGen
 
@@ -28,7 +28,9 @@ The model is tested in the test sub-directory.
 The decay file `exampleFiles/B2D4pi.DEC` contains the decay example 
 demonstrating a complex amplitude with $\omega \pi$ and $a_1(1260)\pi$ terms 
 interfering with zero relative phase. 
+
 Parameters 1,2 are fixed on values measured by [Belle Collaboration](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.92.012013)
+
 Parameter 5 is fixed on value extracted from different $e^+e^-$ and $\tau \to 4\pi$ measurements. 
 
 Running the script `./do_B2D4pi` will generate decays from B2D4pi.DEC file.
